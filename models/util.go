@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
@@ -48,9 +47,13 @@ func StringToBool(value string) bool {
 }
 
 func A(data map[string]string, key, value string) {
-	fmt.Println(key)
+
 	if value != "" {
 		data[key] = value
+	}
+
+	if value == "{}" {
+		data[key] = ""
 	}
 }
 
