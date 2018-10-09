@@ -1,5 +1,6 @@
 package models
 
+
 import (
 	"fmt"
 	"strconv"
@@ -11,20 +12,17 @@ const FvtenantClassName = "fvTenant"
 
 type Tenant struct {
 	BaseAttributes
-	TenantAttributes
+    TenantAttributes 
 }
-
+  
 type TenantAttributes struct {
-	Annotation string `json:",omitempty"`
-	NameAlias  string `json:",omitempty"`
+    NameAlias       string `json:",omitempty"`
+    
 }
-
-func FvTenant(tenantName string) string {
-	return fmt.Sprintf("tn-%s", tenantName)
-}
+   
 
 func NewTenant(fvTenantRn, parentDn, description string, fvTenantattr TenantAttributes) *Tenant {
-	dn := fmt.Sprintf("%s/%s", parentDn, fvTenantRn)
+	dn := fmt.Sprintf("%s/%s", parentDn, fvTenantRn)  
 	return &Tenant{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -33,8 +31,9 @@ func NewTenant(fvTenantRn, parentDn, description string, fvTenantattr TenantAttr
 			ClassName:         FvtenantClassName,
 			Rn:                fvTenantRn,
 		},
-
+        
 		TenantAttributes: fvTenantattr,
+         
 	}
 }
 
@@ -44,8 +43,9 @@ func (fvTenant *Tenant) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-	A(fvTenantMap, "annotation", fvTenant.Annotation)
-	A(fvTenantMap, "nameAlias", fvTenant.NameAlias)
+    A(fvTenantMap, "nameAlias",fvTenant.NameAlias)
+    
+	
 
 	return fvTenantMap, err
 }
@@ -61,11 +61,12 @@ func TenantFromContainerList(cont *container.Container, index int) *Tenant {
 			ClassName:         FvtenantClassName,
 			Rn:                G(TenantCont, "rn"),
 		},
-
+        
 		TenantAttributes{
-			Annotation: G(TenantCont, "annotation"),
-			NameAlias:  G(TenantCont, "nameAlias"),
-		},
+        NameAlias : G(TenantCont, "nameAlias"),
+        		
+        },
+        
 	}
 }
 
