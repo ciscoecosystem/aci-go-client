@@ -4,6 +4,8 @@ import (
 	"fmt"
 
 	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/container"
+
 )
 
 
@@ -58,4 +60,41 @@ func (sm *ServiceManager) ListTenant() ([]*models.Tenant, error) {
 	list := models.TenantListFromContainer(cont)
 
 	return list, err
+}
+
+func (sm *ServiceManager) CreateRelationTovzFilter(tenant , tDn string) error {
+	parentDn := fmt.Sprintf("uni/tn-%s", tenant )
+	dn := fmt.Sprintf("%s/rstnDenyRule-[%s]", parentDn, tDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s",
+				"tDn": "%s"				
+			}
+		}
+	}`, "fvRsTnDenyRule", dn,tDn ))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
+
+func (sm *ServiceManager) DeleteRelationTovzFilter(tenant , tDn string) error{
+	parentDn := fmt.Sprintf("uni/tn-%s", tenant )
+	dn := fmt.Sprintf("%s/rstnDenyRule-[%s]", parentDn, tDn)
+	return sm.DeleteByDn(dn , "fvRsTnDenyRule")
 }
