@@ -4,6 +4,8 @@ import (
 	"fmt"
 
 	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/container"
+
 )
 
 
@@ -59,3 +61,39 @@ func (sm *ServiceManager) ListApplicationProfile(tenant string ) ([]*models.Appl
 
 	return list, err
 }
+
+func (sm *ServiceManager) CreateRelationTomonEPGPol( parentDn, tnMonEPGPolName string) error {
+	dn := fmt.Sprintf("%s/rsApMonPol", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s",
+				"tnMonEPGPolName": "%s"				
+			}
+		}
+	}`, "fvRsApMonPol", dn,tnMonEPGPolName ))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
+
+func (sm *ServiceManager) DeleteRelationTomonEPGPol(parentDn, tnMonEPGPolName string) error{
+	dn := fmt.Sprintf("%s/rsApMonPol", parentDn)
+	return sm.DeleteByDn(dn , "fvRsApMonPol")
+}
+

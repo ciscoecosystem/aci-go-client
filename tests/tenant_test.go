@@ -165,7 +165,7 @@ func TestCreateRelationToVzFilter(t *testing.T) {
 	}
 	tenantCon := models.TenantFromContainer(cont)
 	fmt.Println(tenantCon.DistinguishedName)
-	err = c.CreateRelationTovzFilter("terraform-test-tenant", "uni/tn-terraform-test-tenant/flt-test-rel112")
+	err = c.CreateRelationTovzFilter("uni/tn-terraform-test-tenant", "uni/tn-terraform-test-tenant/flt-test-rel112")
 	if err != nil {
 		t.Error(err)
 	}
@@ -181,7 +181,7 @@ func TestDeleteRelationToVzFilter(t *testing.T) {
 	}
 	tenantCon := models.TenantFromContainer(cont)
 	fmt.Println(tenantCon.DistinguishedName)
-	err = c.DeleteRelationTovzFilter("terraform-test-tenant", "uni/tn-terraform-test-tenant/flt-test-rel112")
+	err = c.DeleteRelationTovzFilter("uni/tn-terraform-test-tenant", "uni/tn-terraform-test-tenant/flt-test-rel112")
 	if err != nil {
 		t.Error(err)
 	}
