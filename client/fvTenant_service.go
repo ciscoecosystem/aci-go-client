@@ -62,16 +62,15 @@ func (sm *ServiceManager) ListTenant() ([]*models.Tenant, error) {
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationTovzFilter( parentDn, tDn string) error {
+func (sm *ServiceManager) CreateRelationfvRsTnDenyRule( parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rstnDenyRule-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s",
-				"tDn": "%s"				
+				"dn": "%s"				
 			}
 		}
-	}`, "fvRsTnDenyRule", dn,tDn ))
+	}`, "fvRsTnDenyRule", dn))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -92,7 +91,9 @@ func (sm *ServiceManager) CreateRelationTovzFilter( parentDn, tDn string) error 
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationTovzFilter(parentDn, tDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsTnDenyRule(parentDn , tDn string) error{
 	dn := fmt.Sprintf("%s/rstnDenyRule-[%s]", parentDn, tDn)
 	return sm.DeleteByDn(dn , "fvRsTnDenyRule")
 }
+
+

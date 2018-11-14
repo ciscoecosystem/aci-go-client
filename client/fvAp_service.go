@@ -62,16 +62,16 @@ func (sm *ServiceManager) ListApplicationProfile(tenant string ) ([]*models.Appl
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationTomonEPGPol( parentDn, tnMonEPGPolName string) error {
+func (sm *ServiceManager) CreateRelationfvRsApMonPol( parentDn, tnMonEPGPolName string) error {
 	dn := fmt.Sprintf("%s/rsApMonPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s",
-				"tnMonEPGPolName": "%s"				
+				"dn": "%s","tnMonEPGPolName": "%s"
+								
 			}
 		}
-	}`, "fvRsApMonPol", dn,tnMonEPGPolName ))
+	}`, "fvRsApMonPol", dn,tnMonEPGPolName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -92,7 +92,7 @@ func (sm *ServiceManager) CreateRelationTomonEPGPol( parentDn, tnMonEPGPolName s
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationTomonEPGPol(parentDn, tnMonEPGPolName string) error{
+func (sm *ServiceManager) DeleteRelationfvRsApMonPol(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsApMonPol", parentDn)
 	return sm.DeleteByDn(dn , "fvRsApMonPol")
 }
