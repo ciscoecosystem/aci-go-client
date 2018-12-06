@@ -164,7 +164,35 @@ func (sm *ServiceManager) DeleteRelationfvRsABDPolMonPol(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsABDPolMonPol", parentDn)
 	return sm.DeleteByDn(dn , "fvRsABDPolMonPol")
 }
+func (sm *ServiceManager) CreateRelationfvRsBDToNdP( parentDn, tnNdIfPolName string) error {
+	dn := fmt.Sprintf("%s/rsBDToNdP", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s","tnNdIfPolName": "%s"
+								
+			}
+		}
+	}`, "fvRsBDToNdP", dn,tnNdIfPolName))
 
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
 func (sm *ServiceManager) CreateRelationfvRsBdFloodTo( parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsbdFloodTo-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -232,7 +260,35 @@ func (sm *ServiceManager) DeleteRelationfvRsBDToFhs(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsBDToFhs", parentDn)
 	return sm.DeleteByDn(dn , "fvRsBDToFhs")
 }
+func (sm *ServiceManager) CreateRelationfvRsCtx( parentDn, tnFvCtxName string) error {
+	dn := fmt.Sprintf("%s/rsctx", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s","tnFvCtxName": "%s"
+								
+			}
+		}
+	}`, "fvRsCtx", dn,tnFvCtxName))
 
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
 func (sm *ServiceManager) CreateRelationfvRsBDToNetflowMonitorPol( parentDn, tnNetflowMonitorPolName,fltType string) error {
 	dn := fmt.Sprintf("%s/rsBDToNetflowMonitorPol-[%s]-%s", parentDn, tnNetflowMonitorPolName,fltType)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -266,8 +322,64 @@ func (sm *ServiceManager) DeleteRelationfvRsBDToNetflowMonitorPol(parentDn , tnN
 	dn := fmt.Sprintf("%s/rsBDToNetflowMonitorPol-[%s]-%s", parentDn, tnNetflowMonitorPolName,fltType)
 	return sm.DeleteByDn(dn , "fvRsBDToNetflowMonitorPol")
 }
+func (sm *ServiceManager) CreateRelationfvRsIgmpsn( parentDn, tnIgmpSnoopPolName string) error {
+	dn := fmt.Sprintf("%s/rsigmpsn", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s","tnIgmpSnoopPolName": "%s"
+								
+			}
+		}
+	}`, "fvRsIgmpsn", dn,tnIgmpSnoopPolName))
 
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
 
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
+func (sm *ServiceManager) CreateRelationfvRsBdToEpRet( parentDn, tnFvEpRetPolName string) error {
+	dn := fmt.Sprintf("%s/rsbdToEpRet", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s","tnFvEpRetPolName": "%s"
+								
+			}
+		}
+	}`, "fvRsBdToEpRet", dn,tnFvEpRetPolName))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
 func (sm *ServiceManager) CreateRelationfvRsBDToOut( parentDn, tnL3extOutName string) error {
 	dn := fmt.Sprintf("%s/rsBDToOut-%s", parentDn, tnL3extOutName)
 	containerJSON := []byte(fmt.Sprintf(`{

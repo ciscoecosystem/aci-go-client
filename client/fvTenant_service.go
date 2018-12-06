@@ -95,5 +95,33 @@ func (sm *ServiceManager) DeleteRelationfvRsTnDenyRule(parentDn , tDn string) er
 	dn := fmt.Sprintf("%s/rstnDenyRule-[%s]", parentDn, tDn)
 	return sm.DeleteByDn(dn , "fvRsTnDenyRule")
 }
+func (sm *ServiceManager) CreateRelationfvRsTenantMonPol( parentDn, tnMonEPGPolName string) error {
+	dn := fmt.Sprintf("%s/rsTenantMonPol", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s","tnMonEPGPolName": "%s"
+								
+			}
+		}
+	}`, "fvRsTenantMonPol", dn,tnMonEPGPolName))
 
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
 

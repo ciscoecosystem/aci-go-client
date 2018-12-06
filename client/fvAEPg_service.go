@@ -62,8 +62,64 @@ func (sm *ServiceManager) ListApplicationEPG(application_profile string ,tenant 
 	return list, err
 }
 
+func (sm *ServiceManager) CreateRelationfvRsBd( parentDn, tnFvBDName string) error {
+	dn := fmt.Sprintf("%s/rsbd", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s","tnFvBDName": "%s"
+								
+			}
+		}
+	}`, "fvRsBd", dn,tnFvBDName))
 
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
 
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
+func (sm *ServiceManager) CreateRelationfvRsCustQosPol( parentDn, tnQosCustomPolName string) error {
+	dn := fmt.Sprintf("%s/rscustQosPol", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s","tnQosCustomPolName": "%s"
+								
+			}
+		}
+	}`, "fvRsCustQosPol", dn,tnQosCustomPolName))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
 func (sm *ServiceManager) CreateRelationfvRsDomAtt( parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsdomAtt-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -163,7 +219,34 @@ func (sm *ServiceManager) DeleteRelationfvRsProv(parentDn , tnVzBrCPName string)
 	dn := fmt.Sprintf("%s/rsprov-%s", parentDn, tnVzBrCPName)
 	return sm.DeleteByDn(dn , "fvRsProv")
 }
+func (sm *ServiceManager) CreateRelationfvRsGraphDef( parentDn, tDn string) error {
+	dn := fmt.Sprintf("%s/rsgraphDef-[%s]", parentDn, tDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s"				
+			}
+		}
+	}`, "fvRsGraphDef", dn))
 
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
 func (sm *ServiceManager) CreateRelationfvRsConsIf( parentDn, tnVzCPIfName string) error {
 	dn := fmt.Sprintf("%s/rsconsIf-%s", parentDn, tnVzCPIfName)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -330,7 +413,34 @@ func (sm *ServiceManager) DeleteRelationfvRsCons(parentDn , tnVzBrCPName string)
 	dn := fmt.Sprintf("%s/rscons-%s", parentDn, tnVzBrCPName)
 	return sm.DeleteByDn(dn , "fvRsCons")
 }
+func (sm *ServiceManager) CreateRelationfvRsProvDef( parentDn, tDn string) error {
+	dn := fmt.Sprintf("%s/rsprovDef-[%s]", parentDn, tDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s"				
+			}
+		}
+	}`, "fvRsProvDef", dn))
 
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
 func (sm *ServiceManager) CreateRelationfvRsTrustCtrl( parentDn, tnFhsTrustCtrlPolName string) error {
 	dn := fmt.Sprintf("%s/rstrustCtrl", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
