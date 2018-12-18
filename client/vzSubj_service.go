@@ -62,7 +62,7 @@ func (sm *ServiceManager) ListContractSubject(contract string ,tenant string ) (
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationvzRsSubjGraphAtt( parentDn, tnVnsAbsGraphName string) error {
+func (sm *ServiceManager) CreateRelationvzRsSubjGraphAttFromContractSubject( parentDn, tnVnsAbsGraphName string) error {
 	dn := fmt.Sprintf("%s/rsSubjGraphAtt", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -92,11 +92,11 @@ func (sm *ServiceManager) CreateRelationvzRsSubjGraphAtt( parentDn, tnVnsAbsGrap
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationvzRsSubjGraphAtt(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationvzRsSubjGraphAttFromContractSubject(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsSubjGraphAtt", parentDn)
 	return sm.DeleteByDn(dn , "vzRsSubjGraphAtt")
 }
-func (sm *ServiceManager) CreateRelationvzRsSubjFiltAtt( parentDn, tnVzFilterName string) error {
+func (sm *ServiceManager) CreateRelationvzRsSubjFiltAttFromContractSubject( parentDn, tnVzFilterName string) error {
 	dn := fmt.Sprintf("%s/rssubjFiltAtt-%s", parentDn, tnVzFilterName)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -125,7 +125,7 @@ func (sm *ServiceManager) CreateRelationvzRsSubjFiltAtt( parentDn, tnVzFilterNam
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationvzRsSubjFiltAtt(parentDn , tnVzFilterName string) error{
+func (sm *ServiceManager) DeleteRelationvzRsSubjFiltAttFromContractSubject(parentDn , tnVzFilterName string) error{
 	dn := fmt.Sprintf("%s/rssubjFiltAtt-%s", parentDn, tnVzFilterName)
 	return sm.DeleteByDn(dn , "vzRsSubjFiltAtt")
 }

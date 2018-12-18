@@ -62,7 +62,7 @@ func (sm *ServiceManager) ListTenant() ([]*models.Tenant, error) {
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationfvRsTnDenyRule( parentDn, tDn string) error {
+func (sm *ServiceManager) CreateRelationfvRsTnDenyRuleFromTenant( parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rstnDenyRule-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -91,11 +91,11 @@ func (sm *ServiceManager) CreateRelationfvRsTnDenyRule( parentDn, tDn string) er
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsTnDenyRule(parentDn , tDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsTnDenyRuleFromTenant(parentDn , tDn string) error{
 	dn := fmt.Sprintf("%s/rstnDenyRule-[%s]", parentDn, tDn)
 	return sm.DeleteByDn(dn , "fvRsTnDenyRule")
 }
-func (sm *ServiceManager) CreateRelationfvRsTenantMonPol( parentDn, tnMonEPGPolName string) error {
+func (sm *ServiceManager) CreateRelationfvRsTenantMonPolFromTenant( parentDn, tnMonEPGPolName string) error {
 	dn := fmt.Sprintf("%s/rsTenantMonPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {

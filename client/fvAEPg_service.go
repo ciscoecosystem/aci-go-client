@@ -62,7 +62,7 @@ func (sm *ServiceManager) ListApplicationEPG(application_profile string ,tenant 
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationfvRsBd( parentDn, tnFvBDName string) error {
+func (sm *ServiceManager) CreateRelationfvRsBdFromApplicationEPG( parentDn, tnFvBDName string) error {
 	dn := fmt.Sprintf("%s/rsbd", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -91,7 +91,7 @@ func (sm *ServiceManager) CreateRelationfvRsBd( parentDn, tnFvBDName string) err
 
 	return nil
 }
-func (sm *ServiceManager) CreateRelationfvRsCustQosPol( parentDn, tnQosCustomPolName string) error {
+func (sm *ServiceManager) CreateRelationfvRsCustQosPolFromApplicationEPG( parentDn, tnQosCustomPolName string) error {
 	dn := fmt.Sprintf("%s/rscustQosPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -120,7 +120,7 @@ func (sm *ServiceManager) CreateRelationfvRsCustQosPol( parentDn, tnQosCustomPol
 
 	return nil
 }
-func (sm *ServiceManager) CreateRelationfvRsDomAtt( parentDn, tDn string) error {
+func (sm *ServiceManager) CreateRelationfvRsDomAttFromApplicationEPG( parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsdomAtt-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -149,11 +149,11 @@ func (sm *ServiceManager) CreateRelationfvRsDomAtt( parentDn, tDn string) error 
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsDomAtt(parentDn , tDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsDomAttFromApplicationEPG(parentDn , tDn string) error{
 	dn := fmt.Sprintf("%s/rsdomAtt-[%s]", parentDn, tDn)
 	return sm.DeleteByDn(dn , "fvRsDomAtt")
 }
-func (sm *ServiceManager) CreateRelationfvRsFcPathAtt( parentDn, tDn string) error {
+func (sm *ServiceManager) CreateRelationfvRsFcPathAttFromApplicationEPG( parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsfcPathAtt-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -182,11 +182,11 @@ func (sm *ServiceManager) CreateRelationfvRsFcPathAtt( parentDn, tDn string) err
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsFcPathAtt(parentDn , tDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsFcPathAttFromApplicationEPG(parentDn , tDn string) error{
 	dn := fmt.Sprintf("%s/rsfcPathAtt-[%s]", parentDn, tDn)
 	return sm.DeleteByDn(dn , "fvRsFcPathAtt")
 }
-func (sm *ServiceManager) CreateRelationfvRsProv( parentDn, tnVzBrCPName string) error {
+func (sm *ServiceManager) CreateRelationfvRsProvFromApplicationEPG( parentDn, tnVzBrCPName string) error {
 	dn := fmt.Sprintf("%s/rsprov-%s", parentDn, tnVzBrCPName)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -215,11 +215,11 @@ func (sm *ServiceManager) CreateRelationfvRsProv( parentDn, tnVzBrCPName string)
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsProv(parentDn , tnVzBrCPName string) error{
+func (sm *ServiceManager) DeleteRelationfvRsProvFromApplicationEPG(parentDn , tnVzBrCPName string) error{
 	dn := fmt.Sprintf("%s/rsprov-%s", parentDn, tnVzBrCPName)
 	return sm.DeleteByDn(dn , "fvRsProv")
 }
-func (sm *ServiceManager) CreateRelationfvRsGraphDef( parentDn, tDn string) error {
+func (sm *ServiceManager) CreateRelationfvRsGraphDefFromApplicationEPG( parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsgraphDef-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -247,7 +247,7 @@ func (sm *ServiceManager) CreateRelationfvRsGraphDef( parentDn, tDn string) erro
 
 	return nil
 }
-func (sm *ServiceManager) CreateRelationfvRsConsIf( parentDn, tnVzCPIfName string) error {
+func (sm *ServiceManager) CreateRelationfvRsConsIfFromApplicationEPG( parentDn, tnVzCPIfName string) error {
 	dn := fmt.Sprintf("%s/rsconsIf-%s", parentDn, tnVzCPIfName)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -276,11 +276,11 @@ func (sm *ServiceManager) CreateRelationfvRsConsIf( parentDn, tnVzCPIfName strin
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsConsIf(parentDn , tnVzCPIfName string) error{
+func (sm *ServiceManager) DeleteRelationfvRsConsIfFromApplicationEPG(parentDn , tnVzCPIfName string) error{
 	dn := fmt.Sprintf("%s/rsconsIf-%s", parentDn, tnVzCPIfName)
 	return sm.DeleteByDn(dn , "fvRsConsIf")
 }
-func (sm *ServiceManager) CreateRelationfvRsSecInherited( parentDn, tDn string) error {
+func (sm *ServiceManager) CreateRelationfvRsSecInheritedFromApplicationEPG( parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rssecInherited-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -309,11 +309,11 @@ func (sm *ServiceManager) CreateRelationfvRsSecInherited( parentDn, tDn string) 
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsSecInherited(parentDn , tDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsSecInheritedFromApplicationEPG(parentDn , tDn string) error{
 	dn := fmt.Sprintf("%s/rssecInherited-[%s]", parentDn, tDn)
 	return sm.DeleteByDn(dn , "fvRsSecInherited")
 }
-func (sm *ServiceManager) CreateRelationfvRsNodeAtt( parentDn, tDn string) error {
+func (sm *ServiceManager) CreateRelationfvRsNodeAttFromApplicationEPG( parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsnodeAtt-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -342,11 +342,11 @@ func (sm *ServiceManager) CreateRelationfvRsNodeAtt( parentDn, tDn string) error
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsNodeAtt(parentDn , tDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsNodeAttFromApplicationEPG(parentDn , tDn string) error{
 	dn := fmt.Sprintf("%s/rsnodeAtt-[%s]", parentDn, tDn)
 	return sm.DeleteByDn(dn , "fvRsNodeAtt")
 }
-func (sm *ServiceManager) CreateRelationfvRsDppPol( parentDn, tnQosDppPolName string) error {
+func (sm *ServiceManager) CreateRelationfvRsDppPolFromApplicationEPG( parentDn, tnQosDppPolName string) error {
 	dn := fmt.Sprintf("%s/rsdppPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -376,11 +376,11 @@ func (sm *ServiceManager) CreateRelationfvRsDppPol( parentDn, tnQosDppPolName st
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsDppPol(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsDppPolFromApplicationEPG(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsdppPol", parentDn)
 	return sm.DeleteByDn(dn , "fvRsDppPol")
 }
-func (sm *ServiceManager) CreateRelationfvRsCons( parentDn, tnVzBrCPName string) error {
+func (sm *ServiceManager) CreateRelationfvRsConsFromApplicationEPG( parentDn, tnVzBrCPName string) error {
 	dn := fmt.Sprintf("%s/rscons-%s", parentDn, tnVzBrCPName)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -409,11 +409,11 @@ func (sm *ServiceManager) CreateRelationfvRsCons( parentDn, tnVzBrCPName string)
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsCons(parentDn , tnVzBrCPName string) error{
+func (sm *ServiceManager) DeleteRelationfvRsConsFromApplicationEPG(parentDn , tnVzBrCPName string) error{
 	dn := fmt.Sprintf("%s/rscons-%s", parentDn, tnVzBrCPName)
 	return sm.DeleteByDn(dn , "fvRsCons")
 }
-func (sm *ServiceManager) CreateRelationfvRsProvDef( parentDn, tDn string) error {
+func (sm *ServiceManager) CreateRelationfvRsProvDefFromApplicationEPG( parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsprovDef-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -441,7 +441,7 @@ func (sm *ServiceManager) CreateRelationfvRsProvDef( parentDn, tDn string) error
 
 	return nil
 }
-func (sm *ServiceManager) CreateRelationfvRsTrustCtrl( parentDn, tnFhsTrustCtrlPolName string) error {
+func (sm *ServiceManager) CreateRelationfvRsTrustCtrlFromApplicationEPG( parentDn, tnFhsTrustCtrlPolName string) error {
 	dn := fmt.Sprintf("%s/rstrustCtrl", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -471,11 +471,11 @@ func (sm *ServiceManager) CreateRelationfvRsTrustCtrl( parentDn, tnFhsTrustCtrlP
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsTrustCtrl(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsTrustCtrlFromApplicationEPG(parentDn string) error{
 	dn := fmt.Sprintf("%s/rstrustCtrl", parentDn)
 	return sm.DeleteByDn(dn , "fvRsTrustCtrl")
 }
-func (sm *ServiceManager) CreateRelationfvRsPathAtt( parentDn, tDn string) error {
+func (sm *ServiceManager) CreateRelationfvRsPathAttFromApplicationEPG( parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rspathAtt-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -504,11 +504,11 @@ func (sm *ServiceManager) CreateRelationfvRsPathAtt( parentDn, tDn string) error
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsPathAtt(parentDn , tDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsPathAttFromApplicationEPG(parentDn , tDn string) error{
 	dn := fmt.Sprintf("%s/rspathAtt-[%s]", parentDn, tDn)
 	return sm.DeleteByDn(dn , "fvRsPathAtt")
 }
-func (sm *ServiceManager) CreateRelationfvRsProtBy( parentDn, tnVzTabooName string) error {
+func (sm *ServiceManager) CreateRelationfvRsProtByFromApplicationEPG( parentDn, tnVzTabooName string) error {
 	dn := fmt.Sprintf("%s/rsprotBy-%s", parentDn, tnVzTabooName)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -537,11 +537,11 @@ func (sm *ServiceManager) CreateRelationfvRsProtBy( parentDn, tnVzTabooName stri
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsProtBy(parentDn , tnVzTabooName string) error{
+func (sm *ServiceManager) DeleteRelationfvRsProtByFromApplicationEPG(parentDn , tnVzTabooName string) error{
 	dn := fmt.Sprintf("%s/rsprotBy-%s", parentDn, tnVzTabooName)
 	return sm.DeleteByDn(dn , "fvRsProtBy")
 }
-func (sm *ServiceManager) CreateRelationfvRsAEPgMonPol( parentDn, tnMonEPGPolName string) error {
+func (sm *ServiceManager) CreateRelationfvRsAEPgMonPolFromApplicationEPG( parentDn, tnMonEPGPolName string) error {
 	dn := fmt.Sprintf("%s/rsAEPgMonPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -571,11 +571,11 @@ func (sm *ServiceManager) CreateRelationfvRsAEPgMonPol( parentDn, tnMonEPGPolNam
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsAEPgMonPol(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsAEPgMonPolFromApplicationEPG(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsAEPgMonPol", parentDn)
 	return sm.DeleteByDn(dn , "fvRsAEPgMonPol")
 }
-func (sm *ServiceManager) CreateRelationfvRsIntraEpg( parentDn, tnVzBrCPName string) error {
+func (sm *ServiceManager) CreateRelationfvRsIntraEpgFromApplicationEPG( parentDn, tnVzBrCPName string) error {
 	dn := fmt.Sprintf("%s/rsintraEpg-%s", parentDn, tnVzBrCPName)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -604,7 +604,7 @@ func (sm *ServiceManager) CreateRelationfvRsIntraEpg( parentDn, tnVzBrCPName str
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsIntraEpg(parentDn , tnVzBrCPName string) error{
+func (sm *ServiceManager) DeleteRelationfvRsIntraEpgFromApplicationEPG(parentDn , tnVzBrCPName string) error{
 	dn := fmt.Sprintf("%s/rsintraEpg-%s", parentDn, tnVzBrCPName)
 	return sm.DeleteByDn(dn , "fvRsIntraEpg")
 }

@@ -62,7 +62,7 @@ func (sm *ServiceManager) ListContract(tenant string ) ([]*models.Contract, erro
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationvzRsGraphAtt( parentDn, tnVnsAbsGraphName string) error {
+func (sm *ServiceManager) CreateRelationvzRsGraphAttFromContract( parentDn, tnVnsAbsGraphName string) error {
 	dn := fmt.Sprintf("%s/rsGraphAtt", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -92,7 +92,7 @@ func (sm *ServiceManager) CreateRelationvzRsGraphAtt( parentDn, tnVnsAbsGraphNam
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationvzRsGraphAtt(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationvzRsGraphAttFromContract(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsGraphAtt", parentDn)
 	return sm.DeleteByDn(dn , "vzRsGraphAtt")
 }

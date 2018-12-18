@@ -62,7 +62,7 @@ func (sm *ServiceManager) ListFilter(tenant string ) ([]*models.Filter, error) {
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationvzRsFiltGraphAtt( parentDn, tnVnsInTermName string) error {
+func (sm *ServiceManager) CreateRelationvzRsFiltGraphAttFromFilter( parentDn, tnVnsInTermName string) error {
 	dn := fmt.Sprintf("%s/rsFiltGraphAtt", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -91,7 +91,7 @@ func (sm *ServiceManager) CreateRelationvzRsFiltGraphAtt( parentDn, tnVnsInTermN
 
 	return nil
 }
-func (sm *ServiceManager) CreateRelationvzRsFwdRFltPAtt( parentDn, tnVzAFilterableUnitName string) error {
+func (sm *ServiceManager) CreateRelationvzRsFwdRFltPAttFromFilter( parentDn, tnVzAFilterableUnitName string) error {
 	dn := fmt.Sprintf("%s/rsFwdRFltPAtt", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -120,7 +120,7 @@ func (sm *ServiceManager) CreateRelationvzRsFwdRFltPAtt( parentDn, tnVzAFilterab
 
 	return nil
 }
-func (sm *ServiceManager) CreateRelationvzRsRevRFltPAtt( parentDn, tnVzAFilterableUnitName string) error {
+func (sm *ServiceManager) CreateRelationvzRsRevRFltPAttFromFilter( parentDn, tnVzAFilterableUnitName string) error {
 	dn := fmt.Sprintf("%s/rsRevRFltPAtt", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {

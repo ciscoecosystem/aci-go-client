@@ -62,7 +62,7 @@ func (sm *ServiceManager) ListBridgeDomain(tenant string ) ([]*models.BridgeDoma
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationfvRsBDToProfile( parentDn, tnRtctrlProfileName string) error {
+func (sm *ServiceManager) CreateRelationfvRsBDToProfileFromBridgeDomain( parentDn, tnRtctrlProfileName string) error {
 	dn := fmt.Sprintf("%s/rsBDToProfile", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -92,11 +92,11 @@ func (sm *ServiceManager) CreateRelationfvRsBDToProfile( parentDn, tnRtctrlProfi
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsBDToProfile(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsBDToProfileFromBridgeDomain(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsBDToProfile", parentDn)
 	return sm.DeleteByDn(dn , "fvRsBDToProfile")
 }
-func (sm *ServiceManager) CreateRelationfvRsBDToRelayP( parentDn, tnDhcpRelayPName string) error {
+func (sm *ServiceManager) CreateRelationfvRsBDToRelayPFromBridgeDomain( parentDn, tnDhcpRelayPName string) error {
 	dn := fmt.Sprintf("%s/rsBDToRelayP", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -126,11 +126,11 @@ func (sm *ServiceManager) CreateRelationfvRsBDToRelayP( parentDn, tnDhcpRelayPNa
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsBDToRelayP(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsBDToRelayPFromBridgeDomain(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsBDToRelayP", parentDn)
 	return sm.DeleteByDn(dn , "fvRsBDToRelayP")
 }
-func (sm *ServiceManager) CreateRelationfvRsABDPolMonPol( parentDn, tnMonEPGPolName string) error {
+func (sm *ServiceManager) CreateRelationfvRsABDPolMonPolFromBridgeDomain( parentDn, tnMonEPGPolName string) error {
 	dn := fmt.Sprintf("%s/rsABDPolMonPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -160,11 +160,11 @@ func (sm *ServiceManager) CreateRelationfvRsABDPolMonPol( parentDn, tnMonEPGPolN
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsABDPolMonPol(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsABDPolMonPolFromBridgeDomain(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsABDPolMonPol", parentDn)
 	return sm.DeleteByDn(dn , "fvRsABDPolMonPol")
 }
-func (sm *ServiceManager) CreateRelationfvRsBDToNdP( parentDn, tnNdIfPolName string) error {
+func (sm *ServiceManager) CreateRelationfvRsBDToNdPFromBridgeDomain( parentDn, tnNdIfPolName string) error {
 	dn := fmt.Sprintf("%s/rsBDToNdP", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -193,7 +193,7 @@ func (sm *ServiceManager) CreateRelationfvRsBDToNdP( parentDn, tnNdIfPolName str
 
 	return nil
 }
-func (sm *ServiceManager) CreateRelationfvRsBdFloodTo( parentDn, tDn string) error {
+func (sm *ServiceManager) CreateRelationfvRsBdFloodToFromBridgeDomain( parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsbdFloodTo-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -222,11 +222,11 @@ func (sm *ServiceManager) CreateRelationfvRsBdFloodTo( parentDn, tDn string) err
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsBdFloodTo(parentDn , tDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsBdFloodToFromBridgeDomain(parentDn , tDn string) error{
 	dn := fmt.Sprintf("%s/rsbdFloodTo-[%s]", parentDn, tDn)
 	return sm.DeleteByDn(dn , "fvRsBdFloodTo")
 }
-func (sm *ServiceManager) CreateRelationfvRsBDToFhs( parentDn, tnFhsBDPolName string) error {
+func (sm *ServiceManager) CreateRelationfvRsBDToFhsFromBridgeDomain( parentDn, tnFhsBDPolName string) error {
 	dn := fmt.Sprintf("%s/rsBDToFhs", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -256,11 +256,11 @@ func (sm *ServiceManager) CreateRelationfvRsBDToFhs( parentDn, tnFhsBDPolName st
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsBDToFhs(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsBDToFhsFromBridgeDomain(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsBDToFhs", parentDn)
 	return sm.DeleteByDn(dn , "fvRsBDToFhs")
 }
-func (sm *ServiceManager) CreateRelationfvRsCtx( parentDn, tnFvCtxName string) error {
+func (sm *ServiceManager) CreateRelationfvRsCtxFromBridgeDomain( parentDn, tnFvCtxName string) error {
 	dn := fmt.Sprintf("%s/rsctx", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -289,7 +289,7 @@ func (sm *ServiceManager) CreateRelationfvRsCtx( parentDn, tnFvCtxName string) e
 
 	return nil
 }
-func (sm *ServiceManager) CreateRelationfvRsBDToNetflowMonitorPol( parentDn, tnNetflowMonitorPolName,fltType string) error {
+func (sm *ServiceManager) CreateRelationfvRsBDToNetflowMonitorPolFromBridgeDomain( parentDn, tnNetflowMonitorPolName,fltType string) error {
 	dn := fmt.Sprintf("%s/rsBDToNetflowMonitorPol-[%s]-%s", parentDn, tnNetflowMonitorPolName,fltType)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -318,11 +318,11 @@ func (sm *ServiceManager) CreateRelationfvRsBDToNetflowMonitorPol( parentDn, tnN
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsBDToNetflowMonitorPol(parentDn , tnNetflowMonitorPolName,fltType string) error{
+func (sm *ServiceManager) DeleteRelationfvRsBDToNetflowMonitorPolFromBridgeDomain(parentDn , tnNetflowMonitorPolName,fltType string) error{
 	dn := fmt.Sprintf("%s/rsBDToNetflowMonitorPol-[%s]-%s", parentDn, tnNetflowMonitorPolName,fltType)
 	return sm.DeleteByDn(dn , "fvRsBDToNetflowMonitorPol")
 }
-func (sm *ServiceManager) CreateRelationfvRsIgmpsn( parentDn, tnIgmpSnoopPolName string) error {
+func (sm *ServiceManager) CreateRelationfvRsIgmpsnFromBridgeDomain( parentDn, tnIgmpSnoopPolName string) error {
 	dn := fmt.Sprintf("%s/rsigmpsn", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -351,7 +351,7 @@ func (sm *ServiceManager) CreateRelationfvRsIgmpsn( parentDn, tnIgmpSnoopPolName
 
 	return nil
 }
-func (sm *ServiceManager) CreateRelationfvRsBdToEpRet( parentDn, tnFvEpRetPolName string) error {
+func (sm *ServiceManager) CreateRelationfvRsBdToEpRetFromBridgeDomain( parentDn, tnFvEpRetPolName string) error {
 	dn := fmt.Sprintf("%s/rsbdToEpRet", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -380,7 +380,7 @@ func (sm *ServiceManager) CreateRelationfvRsBdToEpRet( parentDn, tnFvEpRetPolNam
 
 	return nil
 }
-func (sm *ServiceManager) CreateRelationfvRsBDToOut( parentDn, tnL3extOutName string) error {
+func (sm *ServiceManager) CreateRelationfvRsBDToOutFromBridgeDomain( parentDn, tnL3extOutName string) error {
 	dn := fmt.Sprintf("%s/rsBDToOut-%s", parentDn, tnL3extOutName)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -409,7 +409,7 @@ func (sm *ServiceManager) CreateRelationfvRsBDToOut( parentDn, tnL3extOutName st
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsBDToOut(parentDn , tnL3extOutName string) error{
+func (sm *ServiceManager) DeleteRelationfvRsBDToOutFromBridgeDomain(parentDn , tnL3extOutName string) error{
 	dn := fmt.Sprintf("%s/rsBDToOut-%s", parentDn, tnL3extOutName)
 	return sm.DeleteByDn(dn , "fvRsBDToOut")
 }

@@ -62,7 +62,7 @@ func (sm *ServiceManager) ListSubnet(bridge_domain string ,tenant string ) ([]*m
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationfvRsBDSubnetToProfile( parentDn, tnRtctrlProfileName string) error {
+func (sm *ServiceManager) CreateRelationfvRsBDSubnetToProfileFromSubnet( parentDn, tnRtctrlProfileName string) error {
 	dn := fmt.Sprintf("%s/rsBDSubnetToProfile", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -92,11 +92,11 @@ func (sm *ServiceManager) CreateRelationfvRsBDSubnetToProfile( parentDn, tnRtctr
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsBDSubnetToProfile(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsBDSubnetToProfileFromSubnet(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsBDSubnetToProfile", parentDn)
 	return sm.DeleteByDn(dn , "fvRsBDSubnetToProfile")
 }
-func (sm *ServiceManager) CreateRelationfvRsBDSubnetToOut( parentDn, tnL3extOutName string) error {
+func (sm *ServiceManager) CreateRelationfvRsBDSubnetToOutFromSubnet( parentDn, tnL3extOutName string) error {
 	dn := fmt.Sprintf("%s/rsBDSubnetToOut-%s", parentDn, tnL3extOutName)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -125,11 +125,11 @@ func (sm *ServiceManager) CreateRelationfvRsBDSubnetToOut( parentDn, tnL3extOutN
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsBDSubnetToOut(parentDn , tnL3extOutName string) error{
+func (sm *ServiceManager) DeleteRelationfvRsBDSubnetToOutFromSubnet(parentDn , tnL3extOutName string) error{
 	dn := fmt.Sprintf("%s/rsBDSubnetToOut-%s", parentDn, tnL3extOutName)
 	return sm.DeleteByDn(dn , "fvRsBDSubnetToOut")
 }
-func (sm *ServiceManager) CreateRelationfvRsNdPfxPol( parentDn, tnNdPfxPolName string) error {
+func (sm *ServiceManager) CreateRelationfvRsNdPfxPolFromSubnet( parentDn, tnNdPfxPolName string) error {
 	dn := fmt.Sprintf("%s/rsNdPfxPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -159,7 +159,7 @@ func (sm *ServiceManager) CreateRelationfvRsNdPfxPol( parentDn, tnNdPfxPolName s
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsNdPfxPol(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsNdPfxPolFromSubnet(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsNdPfxPol", parentDn)
 	return sm.DeleteByDn(dn , "fvRsNdPfxPol")
 }
