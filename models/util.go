@@ -25,7 +25,7 @@ func StripQuotes(word string) string {
 	return word
 }
 
-func stripSquareBrackets(word string) string {
+func StripSquareBrackets(word string) string {
 	if strings.HasPrefix(word, "[") && strings.HasSuffix(word, "]") {
 		return strings.TrimSuffix(strings.TrimPrefix(word, "["), "]")
 	}

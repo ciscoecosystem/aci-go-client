@@ -55,6 +55,18 @@ func TestTenantCreation(t *testing.T) {
 	}
 }
 
+func TestGetDN(t *testing.T) {
+	c := GetTestClient()
+	path := "api/node/mo/uni/tn-tenant_for_bd/out-testext.json"
+	className := "l3extOut"
+	cont, err := c.GetViaURL(path)
+	dn := cont.Search("imdata", className, "attributes", "dn").String()
+	fmt.Print("container", cont)
+	fmt.Print(dn)
+	t.Error(err)
+
+}
+
 func TestDuplicateTenant(t *testing.T) {
 	c := GetTestClient()
 	tenant1, err := createTenant(c, "terraform-test-tenant", "A test tenant created with aci-client-sdk.")
@@ -150,38 +162,6 @@ func TestTenantDelete(t *testing.T) {
 		t.Error("the tenant was not remove")
 	}
 	err = deleteTenant(c, tenant)
-	if err != nil {
-		t.Error(err)
-	}
-
-}
-
-func TestCreateRelationToVzFilter(t *testing.T) {
-	c := GetTestClient()
-	_, _ = createTenant(c, "terraform-test-tenant", "A test tenant created with aci-client-sdk.")
-	cont, err := c.Get("uni/tn-terraform-test-tenant")
-	if err != nil {
-		t.Error(err)
-	}
-	tenantCon := models.TenantFromContainer(cont)
-	fmt.Println(tenantCon.DistinguishedName)
-	err = c.CreateRelationTovzFilter("uni/tn-terraform-test-tenant", "uni/tn-terraform-test-tenant/flt-test-rel112")
-	if err != nil {
-		t.Error(err)
-	}
-
-}
-
-func TestDeleteRelationToVzFilter(t *testing.T) {
-	c := GetTestClient()
-	_, _ = createTenant(c, "terraform-test-tenant", "A test tenant created with aci-client-sdk.")
-	cont, err := c.Get("uni/tn-terraform-test-tenant")
-	if err != nil {
-		t.Error(err)
-	}
-	tenantCon := models.TenantFromContainer(cont)
-	fmt.Println(tenantCon.DistinguishedName)
-	err = c.DeleteRelationTovzFilter("uni/tn-terraform-test-tenant", "uni/tn-terraform-test-tenant/flt-test-rel112")
 	if err != nil {
 		t.Error(err)
 	}
