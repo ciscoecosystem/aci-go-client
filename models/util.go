@@ -12,7 +12,8 @@ func toStringMap(intf interface{}) map[string]string {
 	temp := intf.(map[string]interface{})
 
 	for key, value := range temp {
-		result[key] = value.(string)
+		A(result, key, value.(string))
+
 	}
 
 	return result

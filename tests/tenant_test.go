@@ -55,6 +55,12 @@ func TestTenantCreation(t *testing.T) {
 	}
 }
 
+func TestDomCreate(t *testing.T) {
+	c := GetTestClient()
+	dom := models.NewVMMDomain(fmt.Sprintf("dom-%s", "test"), "uni/vmmp-VMware", "", models.VMMDomainAttributes{})
+	err := c.Save(dom)
+	t.Error(err)
+}
 func TestGetDN(t *testing.T) {
 	c := GetTestClient()
 	path := "api/node/mo/uni/tn-tenant_for_bd/out-testext.json"
