@@ -62,40 +62,6 @@ func (sm *ServiceManager) ListSubnet(bridge_domain string ,tenant string ) ([]*m
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationfvRsBDSubnetToProfileFromSubnet( parentDn, tnRtctrlProfileName string) error {
-	dn := fmt.Sprintf("%s/rsBDSubnetToProfile", parentDn)
-	containerJSON := []byte(fmt.Sprintf(`{
-		"%s": {
-			"attributes": {
-				"dn": "%s","tnRtctrlProfileName": "%s"
-								
-			}
-		}
-	}`, "fvRsBDSubnetToProfile", dn,tnRtctrlProfileName))
-
-	jsonPayload, err := container.ParseJSON(containerJSON)
-	if err != nil {
-		return err
-	}
-
-	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
-	if err != nil {
-		return err
-	}
-
-	cont, _, err := sm.client.Do(req)
-	if err != nil {
-		return err
-	}
-	fmt.Printf("%+v", cont)
-
-	return nil
-}
-
-func (sm *ServiceManager) DeleteRelationfvRsBDSubnetToProfileFromSubnet(parentDn string) error{
-	dn := fmt.Sprintf("%s/rsBDSubnetToProfile", parentDn)
-	return sm.DeleteByDn(dn , "fvRsBDSubnetToProfile")
-}
 func (sm *ServiceManager) CreateRelationfvRsBDSubnetToOutFromSubnet( parentDn, tnL3extOutName string) error {
 	dn := fmt.Sprintf("%s/rsBDSubnetToOut-%s", parentDn, tnL3extOutName)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -162,5 +128,39 @@ func (sm *ServiceManager) CreateRelationfvRsNdPfxPolFromSubnet( parentDn, tnNdPf
 func (sm *ServiceManager) DeleteRelationfvRsNdPfxPolFromSubnet(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsNdPfxPol", parentDn)
 	return sm.DeleteByDn(dn , "fvRsNdPfxPol")
+}
+func (sm *ServiceManager) CreateRelationfvRsBDSubnetToProfileFromSubnet( parentDn, tnRtctrlProfileName string) error {
+	dn := fmt.Sprintf("%s/rsBDSubnetToProfile", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s","tnRtctrlProfileName": "%s"
+								
+			}
+		}
+	}`, "fvRsBDSubnetToProfile", dn,tnRtctrlProfileName))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
+
+func (sm *ServiceManager) DeleteRelationfvRsBDSubnetToProfileFromSubnet(parentDn string) error{
+	dn := fmt.Sprintf("%s/rsBDSubnetToProfile", parentDn)
+	return sm.DeleteByDn(dn , "fvRsBDSubnetToProfile")
 }
 

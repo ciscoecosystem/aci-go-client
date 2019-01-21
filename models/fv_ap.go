@@ -16,6 +16,7 @@ type ApplicationProfile struct {
 }
   
 type ApplicationProfileAttributes struct {
+    Annotation       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
     Prio       string `json:",omitempty"`
     
@@ -44,6 +45,7 @@ func (fvAp *ApplicationProfile) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
+    A(fvApMap, "annotation",fvAp.Annotation)
     A(fvApMap, "nameAlias",fvAp.NameAlias)
     A(fvApMap, "prio",fvAp.Prio)
     
@@ -65,6 +67,7 @@ func ApplicationProfileFromContainerList(cont *container.Container, index int) *
 		},
         
 		ApplicationProfileAttributes{
+        Annotation : G(ApplicationProfileCont, "annotation"),
         NameAlias : G(ApplicationProfileCont, "nameAlias"),
         Prio : G(ApplicationProfileCont, "prio"),
         		

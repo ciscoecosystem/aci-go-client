@@ -16,6 +16,7 @@ type FilterEntry struct {
 }
   
 type FilterEntryAttributes struct {
+    Annotation       string `json:",omitempty"`
     ApplyToFrag       string `json:",omitempty"`
     ArpOpc       string `json:",omitempty"`
     DFromPort       string `json:",omitempty"`
@@ -56,6 +57,7 @@ func (vzEntry *FilterEntry) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
+    A(vzEntryMap, "annotation",vzEntry.Annotation)
     A(vzEntryMap, "applyToFrag",vzEntry.ApplyToFrag)
     A(vzEntryMap, "arpOpc",vzEntry.ArpOpc)
     A(vzEntryMap, "dFromPort",vzEntry.DFromPort)
@@ -89,6 +91,7 @@ func FilterEntryFromContainerList(cont *container.Container, index int) *FilterE
 		},
         
 		FilterEntryAttributes{
+        Annotation : G(FilterEntryCont, "annotation"),
         ApplyToFrag : G(FilterEntryCont, "applyToFrag"),
         ArpOpc : G(FilterEntryCont, "arpOpc"),
         DFromPort : G(FilterEntryCont, "dFromPort"),
