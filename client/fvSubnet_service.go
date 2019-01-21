@@ -16,7 +16,7 @@ import (
 
 
 
-func (sm *ServiceManager) CreateSubnet(ip string ,bridge_domain string ,tenant string  ,description string, fvSubnetattr models.SubnetAttributes) (*models.Subnet, error) {	
+func (sm *ServiceManager) CreateSubnet(ip string ,bridge_domain string ,tenant string , description string, fvSubnetattr models.SubnetAttributes) (*models.Subnet, error) {	
 	rn := fmt.Sprintf("subnet-[%s]",ip)
 	parentDn := fmt.Sprintf("uni/tn-%s/BD-%s", tenant ,bridge_domain )
 	fvSubnet := models.NewSubnet(rn, parentDn, description, fvSubnetattr)

@@ -16,7 +16,7 @@ import (
 
 
 
-func (sm *ServiceManager) CreateTenant(name string  ,description string, fvTenantattr models.TenantAttributes) (*models.Tenant, error) {	
+func (sm *ServiceManager) CreateTenant(name string , description string, fvTenantattr models.TenantAttributes) (*models.Tenant, error) {	
 	rn := fmt.Sprintf("tn-%s",name)
 	parentDn := fmt.Sprintf("uni")
 	fvTenant := models.NewTenant(rn, parentDn, description, fvTenantattr)

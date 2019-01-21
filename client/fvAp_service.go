@@ -16,34 +16,34 @@ import (
 
 
 
-func (sm *ServiceManager) CreateApplicationProfile(name string ,tenant string  ,description string, fvApattr models.ApplicationProfileAttributes) (*models.ApplicationProfile, error) {	
+func (sm *ServiceManager) CreateApplicationprofile(name string ,tenant string , description string, fvApattr models.ApplicationprofileAttributes) (*models.Applicationprofile, error) {	
 	rn := fmt.Sprintf("ap-%s",name)
 	parentDn := fmt.Sprintf("uni/tn-%s", tenant )
-	fvAp := models.NewApplicationProfile(rn, parentDn, description, fvApattr)
+	fvAp := models.NewApplicationprofile(rn, parentDn, description, fvApattr)
 	err := sm.Save(fvAp)
 	return fvAp, err
 }
 
-func (sm *ServiceManager) ReadApplicationProfile(name string ,tenant string ) (*models.ApplicationProfile, error) {
+func (sm *ServiceManager) ReadApplicationprofile(name string ,tenant string ) (*models.Applicationprofile, error) {
 	dn := fmt.Sprintf("uni/tn-%s/ap-%s", tenant ,name )    
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
 	}
 
-	fvAp := models.ApplicationProfileFromContainer(cont)
+	fvAp := models.ApplicationprofileFromContainer(cont)
 	return fvAp, nil
 }
 
-func (sm *ServiceManager) DeleteApplicationProfile(name string ,tenant string ) error {
+func (sm *ServiceManager) DeleteApplicationprofile(name string ,tenant string ) error {
 	dn := fmt.Sprintf("uni/tn-%s/ap-%s", tenant ,name )
 	return sm.DeleteByDn(dn, models.FvapClassName)
 }
 
-func (sm *ServiceManager) UpdateApplicationProfile(name string ,tenant string  ,description string, fvApattr models.ApplicationProfileAttributes) (*models.ApplicationProfile, error) {
+func (sm *ServiceManager) UpdateApplicationprofile(name string ,tenant string  ,description string, fvApattr models.ApplicationprofileAttributes) (*models.Applicationprofile, error) {
 	rn := fmt.Sprintf("ap-%s",name)
 	parentDn := fmt.Sprintf("uni/tn-%s", tenant )
-	fvAp := models.NewApplicationProfile(rn, parentDn, description, fvApattr)
+	fvAp := models.NewApplicationprofile(rn, parentDn, description, fvApattr)
 
     fvAp.Status = "modified"
 	err := sm.Save(fvAp)
@@ -51,18 +51,18 @@ func (sm *ServiceManager) UpdateApplicationProfile(name string ,tenant string  ,
 
 }
 
-func (sm *ServiceManager) ListApplicationProfile(tenant string ) ([]*models.ApplicationProfile, error) {
+func (sm *ServiceManager) ListApplicationprofile(tenant string ) ([]*models.Applicationprofile, error) {
 
 	baseurlStr := "/api/node/class"	
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/fvAp.json", baseurlStr , tenant )
     
     cont, err := sm.GetViaURL(dnUrl)
-	list := models.ApplicationProfileListFromContainer(cont)
+	list := models.ApplicationprofileListFromContainer(cont)
 
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationfvRsApMonPolFromApplicationProfile( parentDn, tnMonEPGPolName string) error {
+func (sm *ServiceManager) CreateRelationfvRsApMonPolFromApplicationprofile( parentDn, tnMonEPGPolName string) error {
 	dn := fmt.Sprintf("%s/rsApMonPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -92,7 +92,7 @@ func (sm *ServiceManager) CreateRelationfvRsApMonPolFromApplicationProfile( pare
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsApMonPolFromApplicationProfile(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationfvRsApMonPolFromApplicationprofile(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsApMonPol", parentDn)
 	return sm.DeleteByDn(dn , "fvRsApMonPol")
 }

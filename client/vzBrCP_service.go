@@ -16,7 +16,7 @@ import (
 
 
 
-func (sm *ServiceManager) CreateContract(name string ,tenant string  ,description string, vzBrCPattr models.ContractAttributes) (*models.Contract, error) {	
+func (sm *ServiceManager) CreateContract(name string ,tenant string , description string, vzBrCPattr models.ContractAttributes) (*models.Contract, error) {	
 	rn := fmt.Sprintf("brc-%s",name)
 	parentDn := fmt.Sprintf("uni/tn-%s", tenant )
 	vzBrCP := models.NewContract(rn, parentDn, description, vzBrCPattr)

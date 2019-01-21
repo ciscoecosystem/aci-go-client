@@ -10,12 +10,12 @@ import (
 
 const VzentryClassName = "vzEntry"
 
-type FilterEntry struct {
+type Filterentry struct {
 	BaseAttributes
-    FilterEntryAttributes 
+    FilterentryAttributes 
 }
   
-type FilterEntryAttributes struct {
+type FilterentryAttributes struct {
     Annotation       string `json:",omitempty"`
     ApplyToFrag       string `json:",omitempty"`
     ArpOpc       string `json:",omitempty"`
@@ -35,9 +35,9 @@ type FilterEntryAttributes struct {
 }
    
 
-func NewFilterEntry(vzEntryRn, parentDn, description string, vzEntryattr FilterEntryAttributes) *FilterEntry {
+func NewFilterentry(vzEntryRn, parentDn, description string, vzEntryattr FilterentryAttributes) *Filterentry {
 	dn := fmt.Sprintf("%s/%s", parentDn, vzEntryRn)  
-	return &FilterEntry{
+	return &Filterentry{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -46,12 +46,12 @@ func NewFilterEntry(vzEntryRn, parentDn, description string, vzEntryattr FilterE
 			Rn:                vzEntryRn,
 		},
         
-		FilterEntryAttributes: vzEntryattr,
+		FilterentryAttributes: vzEntryattr,
          
 	}
 }
 
-func (vzEntry *FilterEntry) ToMap() (map[string]string, error) {
+func (vzEntry *Filterentry) ToMap() (map[string]string, error) {
 	vzEntryMap, err := vzEntry.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -78,53 +78,53 @@ func (vzEntry *FilterEntry) ToMap() (map[string]string, error) {
 	return vzEntryMap, err
 }
 
-func FilterEntryFromContainerList(cont *container.Container, index int) *FilterEntry {
+func FilterentryFromContainerList(cont *container.Container, index int) *Filterentry {
 
-	FilterEntryCont := cont.S("imdata").Index(index).S(VzentryClassName, "attributes")
-	return &FilterEntry{
+	FilterentryCont := cont.S("imdata").Index(index).S(VzentryClassName, "attributes")
+	return &Filterentry{
 		BaseAttributes{
-			DistinguishedName: G(FilterEntryCont, "dn"),
-			Description:       G(FilterEntryCont, "descr"),
-			Status:            G(FilterEntryCont, "status"),
+			DistinguishedName: G(FilterentryCont, "dn"),
+			Description:       G(FilterentryCont, "descr"),
+			Status:            G(FilterentryCont, "status"),
 			ClassName:         VzentryClassName,
-			Rn:                G(FilterEntryCont, "rn"),
+			Rn:                G(FilterentryCont, "rn"),
 		},
         
-		FilterEntryAttributes{
-        Annotation : G(FilterEntryCont, "annotation"),
-        ApplyToFrag : G(FilterEntryCont, "applyToFrag"),
-        ArpOpc : G(FilterEntryCont, "arpOpc"),
-        DFromPort : G(FilterEntryCont, "dFromPort"),
-        DToPort : G(FilterEntryCont, "dToPort"),
-        EtherT : G(FilterEntryCont, "etherT"),
-        Icmpv4T : G(FilterEntryCont, "icmpv4T"),
-        Icmpv6T : G(FilterEntryCont, "icmpv6T"),
-        MatchDscp : G(FilterEntryCont, "matchDscp"),
-        NameAlias : G(FilterEntryCont, "nameAlias"),
-        Prot : G(FilterEntryCont, "prot"),
-        SFromPort : G(FilterEntryCont, "sFromPort"),
-        SToPort : G(FilterEntryCont, "sToPort"),
-        Stateful : G(FilterEntryCont, "stateful"),
-        TcpRules : G(FilterEntryCont, "tcpRules"),
+		FilterentryAttributes{
+        Annotation : G(FilterentryCont, "annotation"),
+        ApplyToFrag : G(FilterentryCont, "applyToFrag"),
+        ArpOpc : G(FilterentryCont, "arpOpc"),
+        DFromPort : G(FilterentryCont, "dFromPort"),
+        DToPort : G(FilterentryCont, "dToPort"),
+        EtherT : G(FilterentryCont, "etherT"),
+        Icmpv4T : G(FilterentryCont, "icmpv4T"),
+        Icmpv6T : G(FilterentryCont, "icmpv6T"),
+        MatchDscp : G(FilterentryCont, "matchDscp"),
+        NameAlias : G(FilterentryCont, "nameAlias"),
+        Prot : G(FilterentryCont, "prot"),
+        SFromPort : G(FilterentryCont, "sFromPort"),
+        SToPort : G(FilterentryCont, "sToPort"),
+        Stateful : G(FilterentryCont, "stateful"),
+        TcpRules : G(FilterentryCont, "tcpRules"),
         		
         },
         
 	}
 }
 
-func FilterEntryFromContainer(cont *container.Container) *FilterEntry {
+func FilterentryFromContainer(cont *container.Container) *Filterentry {
 
-	return FilterEntryFromContainerList(cont, 0)
+	return FilterentryFromContainerList(cont, 0)
 }
 
-func FilterEntryListFromContainer(cont *container.Container) []*FilterEntry {
+func FilterentryListFromContainer(cont *container.Container) []*Filterentry {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*FilterEntry, length)
+	arr := make([]*Filterentry, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = FilterEntryFromContainerList(cont, i)
+		arr[i] = FilterentryFromContainerList(cont, i)
 	}
 
 	return arr

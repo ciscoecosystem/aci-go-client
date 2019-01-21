@@ -10,12 +10,12 @@ import (
 
 const VzsubjClassName = "vzSubj"
 
-type ContractSubject struct {
+type Contractsubject struct {
 	BaseAttributes
-    ContractSubjectAttributes 
+    ContractsubjectAttributes 
 }
   
-type ContractSubjectAttributes struct {
+type ContractsubjectAttributes struct {
     Annotation       string `json:",omitempty"`
     ConsMatchT       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
@@ -27,9 +27,9 @@ type ContractSubjectAttributes struct {
 }
    
 
-func NewContractSubject(vzSubjRn, parentDn, description string, vzSubjattr ContractSubjectAttributes) *ContractSubject {
+func NewContractsubject(vzSubjRn, parentDn, description string, vzSubjattr ContractsubjectAttributes) *Contractsubject {
 	dn := fmt.Sprintf("%s/%s", parentDn, vzSubjRn)  
-	return &ContractSubject{
+	return &Contractsubject{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -38,12 +38,12 @@ func NewContractSubject(vzSubjRn, parentDn, description string, vzSubjattr Contr
 			Rn:                vzSubjRn,
 		},
         
-		ContractSubjectAttributes: vzSubjattr,
+		ContractsubjectAttributes: vzSubjattr,
          
 	}
 }
 
-func (vzSubj *ContractSubject) ToMap() (map[string]string, error) {
+func (vzSubj *Contractsubject) ToMap() (map[string]string, error) {
 	vzSubjMap, err := vzSubj.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -62,45 +62,45 @@ func (vzSubj *ContractSubject) ToMap() (map[string]string, error) {
 	return vzSubjMap, err
 }
 
-func ContractSubjectFromContainerList(cont *container.Container, index int) *ContractSubject {
+func ContractsubjectFromContainerList(cont *container.Container, index int) *Contractsubject {
 
-	ContractSubjectCont := cont.S("imdata").Index(index).S(VzsubjClassName, "attributes")
-	return &ContractSubject{
+	ContractsubjectCont := cont.S("imdata").Index(index).S(VzsubjClassName, "attributes")
+	return &Contractsubject{
 		BaseAttributes{
-			DistinguishedName: G(ContractSubjectCont, "dn"),
-			Description:       G(ContractSubjectCont, "descr"),
-			Status:            G(ContractSubjectCont, "status"),
+			DistinguishedName: G(ContractsubjectCont, "dn"),
+			Description:       G(ContractsubjectCont, "descr"),
+			Status:            G(ContractsubjectCont, "status"),
 			ClassName:         VzsubjClassName,
-			Rn:                G(ContractSubjectCont, "rn"),
+			Rn:                G(ContractsubjectCont, "rn"),
 		},
         
-		ContractSubjectAttributes{
-        Annotation : G(ContractSubjectCont, "annotation"),
-        ConsMatchT : G(ContractSubjectCont, "consMatchT"),
-        NameAlias : G(ContractSubjectCont, "nameAlias"),
-        Prio : G(ContractSubjectCont, "prio"),
-        ProvMatchT : G(ContractSubjectCont, "provMatchT"),
-        RevFltPorts : G(ContractSubjectCont, "revFltPorts"),
-        TargetDscp : G(ContractSubjectCont, "targetDscp"),
+		ContractsubjectAttributes{
+        Annotation : G(ContractsubjectCont, "annotation"),
+        ConsMatchT : G(ContractsubjectCont, "consMatchT"),
+        NameAlias : G(ContractsubjectCont, "nameAlias"),
+        Prio : G(ContractsubjectCont, "prio"),
+        ProvMatchT : G(ContractsubjectCont, "provMatchT"),
+        RevFltPorts : G(ContractsubjectCont, "revFltPorts"),
+        TargetDscp : G(ContractsubjectCont, "targetDscp"),
         		
         },
         
 	}
 }
 
-func ContractSubjectFromContainer(cont *container.Container) *ContractSubject {
+func ContractsubjectFromContainer(cont *container.Container) *Contractsubject {
 
-	return ContractSubjectFromContainerList(cont, 0)
+	return ContractsubjectFromContainerList(cont, 0)
 }
 
-func ContractSubjectListFromContainer(cont *container.Container) []*ContractSubject {
+func ContractsubjectListFromContainer(cont *container.Container) []*Contractsubject {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*ContractSubject, length)
+	arr := make([]*Contractsubject, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = ContractSubjectFromContainerList(cont, i)
+		arr[i] = ContractsubjectFromContainerList(cont, i)
 	}
 
 	return arr
