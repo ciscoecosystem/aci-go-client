@@ -10,12 +10,12 @@ import (
 
 const CloudawsproviderClassName = "cloudAwsProvider"
 
-type Cloudawsprovider struct {
+type CloudAWSProvider struct {
 	BaseAttributes
-    CloudawsproviderAttributes 
+    CloudAWSProviderAttributes 
 }
   
-type CloudawsproviderAttributes struct {
+type CloudAWSProviderAttributes struct {
     AccessKeyId       string `json:",omitempty"`
     AccountId       string `json:",omitempty"`
     Annotation       string `json:",omitempty"`
@@ -31,9 +31,9 @@ type CloudawsproviderAttributes struct {
 }
    
 
-func NewCloudawsprovider(cloudAwsProviderRn, parentDn, description string, cloudAwsProviderattr CloudawsproviderAttributes) *Cloudawsprovider {
+func NewCloudAWSProvider(cloudAwsProviderRn, parentDn, description string, cloudAwsProviderattr CloudAWSProviderAttributes) *CloudAWSProvider {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudAwsProviderRn)  
-	return &Cloudawsprovider{
+	return &CloudAWSProvider{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -42,12 +42,12 @@ func NewCloudawsprovider(cloudAwsProviderRn, parentDn, description string, cloud
 			Rn:                cloudAwsProviderRn,
 		},
         
-		CloudawsproviderAttributes: cloudAwsProviderattr,
+		CloudAWSProviderAttributes: cloudAwsProviderattr,
          
 	}
 }
 
-func (cloudAwsProvider *Cloudawsprovider) ToMap() (map[string]string, error) {
+func (cloudAwsProvider *CloudAWSProvider) ToMap() (map[string]string, error) {
 	cloudAwsProviderMap, err := cloudAwsProvider.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -70,49 +70,49 @@ func (cloudAwsProvider *Cloudawsprovider) ToMap() (map[string]string, error) {
 	return cloudAwsProviderMap, err
 }
 
-func CloudawsproviderFromContainerList(cont *container.Container, index int) *Cloudawsprovider {
+func CloudAWSProviderFromContainerList(cont *container.Container, index int) *CloudAWSProvider {
 
-	CloudawsproviderCont := cont.S("imdata").Index(index).S(CloudawsproviderClassName, "attributes")
-	return &Cloudawsprovider{
+	CloudAWSProviderCont := cont.S("imdata").Index(index).S(CloudawsproviderClassName, "attributes")
+	return &CloudAWSProvider{
 		BaseAttributes{
-			DistinguishedName: G(CloudawsproviderCont, "dn"),
-			Description:       G(CloudawsproviderCont, "descr"),
-			Status:            G(CloudawsproviderCont, "status"),
+			DistinguishedName: G(CloudAWSProviderCont, "dn"),
+			Description:       G(CloudAWSProviderCont, "descr"),
+			Status:            G(CloudAWSProviderCont, "status"),
 			ClassName:         CloudawsproviderClassName,
-			Rn:                G(CloudawsproviderCont, "rn"),
+			Rn:                G(CloudAWSProviderCont, "rn"),
 		},
         
-		CloudawsproviderAttributes{
-        AccessKeyId : G(CloudawsproviderCont, "accessKeyId"),
-        AccountId : G(CloudawsproviderCont, "accountId"),
-        Annotation : G(CloudawsproviderCont, "annotation"),
-        Email : G(CloudawsproviderCont, "email"),
-        HttpProxy : G(CloudawsproviderCont, "httpProxy"),
-        IsAccountInOrg : G(CloudawsproviderCont, "isAccountInOrg"),
-        IsTrusted : G(CloudawsproviderCont, "isTrusted"),
-        NameAlias : G(CloudawsproviderCont, "nameAlias"),
-        ProviderId : G(CloudawsproviderCont, "providerId"),
-        Region : G(CloudawsproviderCont, "region"),
-        SecretAccessKey : G(CloudawsproviderCont, "secretAccessKey"),
+		CloudAWSProviderAttributes{
+        AccessKeyId : G(CloudAWSProviderCont, "accessKeyId"),
+        AccountId : G(CloudAWSProviderCont, "accountId"),
+        Annotation : G(CloudAWSProviderCont, "annotation"),
+        Email : G(CloudAWSProviderCont, "email"),
+        HttpProxy : G(CloudAWSProviderCont, "httpProxy"),
+        IsAccountInOrg : G(CloudAWSProviderCont, "isAccountInOrg"),
+        IsTrusted : G(CloudAWSProviderCont, "isTrusted"),
+        NameAlias : G(CloudAWSProviderCont, "nameAlias"),
+        ProviderId : G(CloudAWSProviderCont, "providerId"),
+        Region : G(CloudAWSProviderCont, "region"),
+        SecretAccessKey : G(CloudAWSProviderCont, "secretAccessKey"),
         		
         },
         
 	}
 }
 
-func CloudawsproviderFromContainer(cont *container.Container) *Cloudawsprovider {
+func CloudAWSProviderFromContainer(cont *container.Container) *CloudAWSProvider {
 
-	return CloudawsproviderFromContainerList(cont, 0)
+	return CloudAWSProviderFromContainerList(cont, 0)
 }
 
-func CloudawsproviderListFromContainer(cont *container.Container) []*Cloudawsprovider {
+func CloudAWSProviderListFromContainer(cont *container.Container) []*CloudAWSProvider {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Cloudawsprovider, length)
+	arr := make([]*CloudAWSProvider, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = CloudawsproviderFromContainerList(cont, i)
+		arr[i] = CloudAWSProviderFromContainerList(cont, i)
 	}
 
 	return arr

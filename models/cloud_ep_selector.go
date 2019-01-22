@@ -10,12 +10,12 @@ import (
 
 const CloudepselectorClassName = "cloudEPSelector"
 
-type Cloudendpointselector struct {
+type CloudEndpointSelector struct {
 	BaseAttributes
-    CloudendpointselectorAttributes 
+    CloudEndpointSelectorAttributes 
 }
   
-type CloudendpointselectorAttributes struct {
+type CloudEndpointSelectorAttributes struct {
     Annotation       string `json:",omitempty"`
     MatchExpression       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
@@ -23,9 +23,9 @@ type CloudendpointselectorAttributes struct {
 }
    
 
-func NewCloudendpointselector(cloudEPSelectorRn, parentDn, description string, cloudEPSelectorattr CloudendpointselectorAttributes) *Cloudendpointselector {
+func NewCloudEndpointSelector(cloudEPSelectorRn, parentDn, description string, cloudEPSelectorattr CloudEndpointSelectorAttributes) *CloudEndpointSelector {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudEPSelectorRn)  
-	return &Cloudendpointselector{
+	return &CloudEndpointSelector{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -34,12 +34,12 @@ func NewCloudendpointselector(cloudEPSelectorRn, parentDn, description string, c
 			Rn:                cloudEPSelectorRn,
 		},
         
-		CloudendpointselectorAttributes: cloudEPSelectorattr,
+		CloudEndpointSelectorAttributes: cloudEPSelectorattr,
          
 	}
 }
 
-func (cloudEPSelector *Cloudendpointselector) ToMap() (map[string]string, error) {
+func (cloudEPSelector *CloudEndpointSelector) ToMap() (map[string]string, error) {
 	cloudEPSelectorMap, err := cloudEPSelector.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -54,41 +54,41 @@ func (cloudEPSelector *Cloudendpointselector) ToMap() (map[string]string, error)
 	return cloudEPSelectorMap, err
 }
 
-func CloudendpointselectorFromContainerList(cont *container.Container, index int) *Cloudendpointselector {
+func CloudEndpointSelectorFromContainerList(cont *container.Container, index int) *CloudEndpointSelector {
 
-	CloudendpointselectorCont := cont.S("imdata").Index(index).S(CloudepselectorClassName, "attributes")
-	return &Cloudendpointselector{
+	CloudEndpointSelectorCont := cont.S("imdata").Index(index).S(CloudepselectorClassName, "attributes")
+	return &CloudEndpointSelector{
 		BaseAttributes{
-			DistinguishedName: G(CloudendpointselectorCont, "dn"),
-			Description:       G(CloudendpointselectorCont, "descr"),
-			Status:            G(CloudendpointselectorCont, "status"),
+			DistinguishedName: G(CloudEndpointSelectorCont, "dn"),
+			Description:       G(CloudEndpointSelectorCont, "descr"),
+			Status:            G(CloudEndpointSelectorCont, "status"),
 			ClassName:         CloudepselectorClassName,
-			Rn:                G(CloudendpointselectorCont, "rn"),
+			Rn:                G(CloudEndpointSelectorCont, "rn"),
 		},
         
-		CloudendpointselectorAttributes{
-        Annotation : G(CloudendpointselectorCont, "annotation"),
-        MatchExpression : G(CloudendpointselectorCont, "matchExpression"),
-        NameAlias : G(CloudendpointselectorCont, "nameAlias"),
+		CloudEndpointSelectorAttributes{
+        Annotation : G(CloudEndpointSelectorCont, "annotation"),
+        MatchExpression : G(CloudEndpointSelectorCont, "matchExpression"),
+        NameAlias : G(CloudEndpointSelectorCont, "nameAlias"),
         		
         },
         
 	}
 }
 
-func CloudendpointselectorFromContainer(cont *container.Container) *Cloudendpointselector {
+func CloudEndpointSelectorFromContainer(cont *container.Container) *CloudEndpointSelector {
 
-	return CloudendpointselectorFromContainerList(cont, 0)
+	return CloudEndpointSelectorFromContainerList(cont, 0)
 }
 
-func CloudendpointselectorListFromContainer(cont *container.Container) []*Cloudendpointselector {
+func CloudEndpointSelectorListFromContainer(cont *container.Container) []*CloudEndpointSelector {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Cloudendpointselector, length)
+	arr := make([]*CloudEndpointSelector, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = CloudendpointselectorFromContainerList(cont, i)
+		arr[i] = CloudEndpointSelectorFromContainerList(cont, i)
 	}
 
 	return arr

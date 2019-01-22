@@ -10,12 +10,12 @@ import (
 
 const CloudepgClassName = "cloudEPg"
 
-type Cloudepg struct {
+type CloudEPg struct {
 	BaseAttributes
-    CloudepgAttributes 
+    CloudEPgAttributes 
 }
   
-type CloudepgAttributes struct {
+type CloudEPgAttributes struct {
     Annotation       string `json:",omitempty"`
     ExceptionTag       string `json:",omitempty"`
     FloodOnEncap       string `json:",omitempty"`
@@ -27,9 +27,9 @@ type CloudepgAttributes struct {
 }
    
 
-func NewCloudepg(cloudEPgRn, parentDn, description string, cloudEPgattr CloudepgAttributes) *Cloudepg {
+func NewCloudEPg(cloudEPgRn, parentDn, description string, cloudEPgattr CloudEPgAttributes) *CloudEPg {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudEPgRn)  
-	return &Cloudepg{
+	return &CloudEPg{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -38,12 +38,12 @@ func NewCloudepg(cloudEPgRn, parentDn, description string, cloudEPgattr Cloudepg
 			Rn:                cloudEPgRn,
 		},
         
-		CloudepgAttributes: cloudEPgattr,
+		CloudEPgAttributes: cloudEPgattr,
          
 	}
 }
 
-func (cloudEPg *Cloudepg) ToMap() (map[string]string, error) {
+func (cloudEPg *CloudEPg) ToMap() (map[string]string, error) {
 	cloudEPgMap, err := cloudEPg.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -62,45 +62,45 @@ func (cloudEPg *Cloudepg) ToMap() (map[string]string, error) {
 	return cloudEPgMap, err
 }
 
-func CloudepgFromContainerList(cont *container.Container, index int) *Cloudepg {
+func CloudEPgFromContainerList(cont *container.Container, index int) *CloudEPg {
 
-	CloudepgCont := cont.S("imdata").Index(index).S(CloudepgClassName, "attributes")
-	return &Cloudepg{
+	CloudEPgCont := cont.S("imdata").Index(index).S(CloudepgClassName, "attributes")
+	return &CloudEPg{
 		BaseAttributes{
-			DistinguishedName: G(CloudepgCont, "dn"),
-			Description:       G(CloudepgCont, "descr"),
-			Status:            G(CloudepgCont, "status"),
+			DistinguishedName: G(CloudEPgCont, "dn"),
+			Description:       G(CloudEPgCont, "descr"),
+			Status:            G(CloudEPgCont, "status"),
 			ClassName:         CloudepgClassName,
-			Rn:                G(CloudepgCont, "rn"),
+			Rn:                G(CloudEPgCont, "rn"),
 		},
         
-		CloudepgAttributes{
-        Annotation : G(CloudepgCont, "annotation"),
-        ExceptionTag : G(CloudepgCont, "exceptionTag"),
-        FloodOnEncap : G(CloudepgCont, "floodOnEncap"),
-        MatchT : G(CloudepgCont, "matchT"),
-        NameAlias : G(CloudepgCont, "nameAlias"),
-        PrefGrMemb : G(CloudepgCont, "prefGrMemb"),
-        Prio : G(CloudepgCont, "prio"),
+		CloudEPgAttributes{
+        Annotation : G(CloudEPgCont, "annotation"),
+        ExceptionTag : G(CloudEPgCont, "exceptionTag"),
+        FloodOnEncap : G(CloudEPgCont, "floodOnEncap"),
+        MatchT : G(CloudEPgCont, "matchT"),
+        NameAlias : G(CloudEPgCont, "nameAlias"),
+        PrefGrMemb : G(CloudEPgCont, "prefGrMemb"),
+        Prio : G(CloudEPgCont, "prio"),
         		
         },
         
 	}
 }
 
-func CloudepgFromContainer(cont *container.Container) *Cloudepg {
+func CloudEPgFromContainer(cont *container.Container) *CloudEPg {
 
-	return CloudepgFromContainerList(cont, 0)
+	return CloudEPgFromContainerList(cont, 0)
 }
 
-func CloudepgListFromContainer(cont *container.Container) []*Cloudepg {
+func CloudEPgListFromContainer(cont *container.Container) []*CloudEPg {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Cloudepg, length)
+	arr := make([]*CloudEPg, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = CloudepgFromContainerList(cont, i)
+		arr[i] = CloudEPgFromContainerList(cont, i)
 	}
 
 	return arr

@@ -10,12 +10,12 @@ import (
 
 const CloudctxprofileClassName = "cloudCtxProfile"
 
-type Cloudcontextprofile struct {
+type CloudContextProfile struct {
 	BaseAttributes
-    CloudcontextprofileAttributes 
+    CloudContextProfileAttributes 
 }
   
-type CloudcontextprofileAttributes struct {
+type CloudContextProfileAttributes struct {
     Annotation       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
     Type       string `json:",omitempty"`
@@ -23,9 +23,9 @@ type CloudcontextprofileAttributes struct {
 }
    
 
-func NewCloudcontextprofile(cloudCtxProfileRn, parentDn, description string, cloudCtxProfileattr CloudcontextprofileAttributes) *Cloudcontextprofile {
+func NewCloudContextProfile(cloudCtxProfileRn, parentDn, description string, cloudCtxProfileattr CloudContextProfileAttributes) *CloudContextProfile {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudCtxProfileRn)  
-	return &Cloudcontextprofile{
+	return &CloudContextProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -34,12 +34,12 @@ func NewCloudcontextprofile(cloudCtxProfileRn, parentDn, description string, clo
 			Rn:                cloudCtxProfileRn,
 		},
         
-		CloudcontextprofileAttributes: cloudCtxProfileattr,
+		CloudContextProfileAttributes: cloudCtxProfileattr,
          
 	}
 }
 
-func (cloudCtxProfile *Cloudcontextprofile) ToMap() (map[string]string, error) {
+func (cloudCtxProfile *CloudContextProfile) ToMap() (map[string]string, error) {
 	cloudCtxProfileMap, err := cloudCtxProfile.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -54,41 +54,41 @@ func (cloudCtxProfile *Cloudcontextprofile) ToMap() (map[string]string, error) {
 	return cloudCtxProfileMap, err
 }
 
-func CloudcontextprofileFromContainerList(cont *container.Container, index int) *Cloudcontextprofile {
+func CloudContextProfileFromContainerList(cont *container.Container, index int) *CloudContextProfile {
 
-	CloudcontextprofileCont := cont.S("imdata").Index(index).S(CloudctxprofileClassName, "attributes")
-	return &Cloudcontextprofile{
+	CloudContextProfileCont := cont.S("imdata").Index(index).S(CloudctxprofileClassName, "attributes")
+	return &CloudContextProfile{
 		BaseAttributes{
-			DistinguishedName: G(CloudcontextprofileCont, "dn"),
-			Description:       G(CloudcontextprofileCont, "descr"),
-			Status:            G(CloudcontextprofileCont, "status"),
+			DistinguishedName: G(CloudContextProfileCont, "dn"),
+			Description:       G(CloudContextProfileCont, "descr"),
+			Status:            G(CloudContextProfileCont, "status"),
 			ClassName:         CloudctxprofileClassName,
-			Rn:                G(CloudcontextprofileCont, "rn"),
+			Rn:                G(CloudContextProfileCont, "rn"),
 		},
         
-		CloudcontextprofileAttributes{
-        Annotation : G(CloudcontextprofileCont, "annotation"),
-        NameAlias : G(CloudcontextprofileCont, "nameAlias"),
-        Type : G(CloudcontextprofileCont, "type"),
+		CloudContextProfileAttributes{
+        Annotation : G(CloudContextProfileCont, "annotation"),
+        NameAlias : G(CloudContextProfileCont, "nameAlias"),
+        Type : G(CloudContextProfileCont, "type"),
         		
         },
         
 	}
 }
 
-func CloudcontextprofileFromContainer(cont *container.Container) *Cloudcontextprofile {
+func CloudContextProfileFromContainer(cont *container.Container) *CloudContextProfile {
 
-	return CloudcontextprofileFromContainerList(cont, 0)
+	return CloudContextProfileFromContainerList(cont, 0)
 }
 
-func CloudcontextprofileListFromContainer(cont *container.Container) []*Cloudcontextprofile {
+func CloudContextProfileListFromContainer(cont *container.Container) []*CloudContextProfile {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Cloudcontextprofile, length)
+	arr := make([]*CloudContextProfile, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = CloudcontextprofileFromContainerList(cont, i)
+		arr[i] = CloudContextProfileFromContainerList(cont, i)
 	}
 
 	return arr

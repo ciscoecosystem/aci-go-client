@@ -10,12 +10,12 @@ import (
 
 const CloudextepgClassName = "cloudExtEPg"
 
-type Cloudexternalepg struct {
+type CloudExternalEPg struct {
 	BaseAttributes
-    CloudexternalepgAttributes 
+    CloudExternalEPgAttributes 
 }
   
-type CloudexternalepgAttributes struct {
+type CloudExternalEPgAttributes struct {
     Annotation       string `json:",omitempty"`
     ExceptionTag       string `json:",omitempty"`
     FloodOnEncap       string `json:",omitempty"`
@@ -28,9 +28,9 @@ type CloudexternalepgAttributes struct {
 }
    
 
-func NewCloudexternalepg(cloudExtEPgRn, parentDn, description string, cloudExtEPgattr CloudexternalepgAttributes) *Cloudexternalepg {
+func NewCloudExternalEPg(cloudExtEPgRn, parentDn, description string, cloudExtEPgattr CloudExternalEPgAttributes) *CloudExternalEPg {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudExtEPgRn)  
-	return &Cloudexternalepg{
+	return &CloudExternalEPg{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -39,12 +39,12 @@ func NewCloudexternalepg(cloudExtEPgRn, parentDn, description string, cloudExtEP
 			Rn:                cloudExtEPgRn,
 		},
         
-		CloudexternalepgAttributes: cloudExtEPgattr,
+		CloudExternalEPgAttributes: cloudExtEPgattr,
          
 	}
 }
 
-func (cloudExtEPg *Cloudexternalepg) ToMap() (map[string]string, error) {
+func (cloudExtEPg *CloudExternalEPg) ToMap() (map[string]string, error) {
 	cloudExtEPgMap, err := cloudExtEPg.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -64,46 +64,46 @@ func (cloudExtEPg *Cloudexternalepg) ToMap() (map[string]string, error) {
 	return cloudExtEPgMap, err
 }
 
-func CloudexternalepgFromContainerList(cont *container.Container, index int) *Cloudexternalepg {
+func CloudExternalEPgFromContainerList(cont *container.Container, index int) *CloudExternalEPg {
 
-	CloudexternalepgCont := cont.S("imdata").Index(index).S(CloudextepgClassName, "attributes")
-	return &Cloudexternalepg{
+	CloudExternalEPgCont := cont.S("imdata").Index(index).S(CloudextepgClassName, "attributes")
+	return &CloudExternalEPg{
 		BaseAttributes{
-			DistinguishedName: G(CloudexternalepgCont, "dn"),
-			Description:       G(CloudexternalepgCont, "descr"),
-			Status:            G(CloudexternalepgCont, "status"),
+			DistinguishedName: G(CloudExternalEPgCont, "dn"),
+			Description:       G(CloudExternalEPgCont, "descr"),
+			Status:            G(CloudExternalEPgCont, "status"),
 			ClassName:         CloudextepgClassName,
-			Rn:                G(CloudexternalepgCont, "rn"),
+			Rn:                G(CloudExternalEPgCont, "rn"),
 		},
         
-		CloudexternalepgAttributes{
-        Annotation : G(CloudexternalepgCont, "annotation"),
-        ExceptionTag : G(CloudexternalepgCont, "exceptionTag"),
-        FloodOnEncap : G(CloudexternalepgCont, "floodOnEncap"),
-        MatchT : G(CloudexternalepgCont, "matchT"),
-        NameAlias : G(CloudexternalepgCont, "nameAlias"),
-        PrefGrMemb : G(CloudexternalepgCont, "prefGrMemb"),
-        Prio : G(CloudexternalepgCont, "prio"),
-        RouteReachability : G(CloudexternalepgCont, "routeReachability"),
+		CloudExternalEPgAttributes{
+        Annotation : G(CloudExternalEPgCont, "annotation"),
+        ExceptionTag : G(CloudExternalEPgCont, "exceptionTag"),
+        FloodOnEncap : G(CloudExternalEPgCont, "floodOnEncap"),
+        MatchT : G(CloudExternalEPgCont, "matchT"),
+        NameAlias : G(CloudExternalEPgCont, "nameAlias"),
+        PrefGrMemb : G(CloudExternalEPgCont, "prefGrMemb"),
+        Prio : G(CloudExternalEPgCont, "prio"),
+        RouteReachability : G(CloudExternalEPgCont, "routeReachability"),
         		
         },
         
 	}
 }
 
-func CloudexternalepgFromContainer(cont *container.Container) *Cloudexternalepg {
+func CloudExternalEPgFromContainer(cont *container.Container) *CloudExternalEPg {
 
-	return CloudexternalepgFromContainerList(cont, 0)
+	return CloudExternalEPgFromContainerList(cont, 0)
 }
 
-func CloudexternalepgListFromContainer(cont *container.Container) []*Cloudexternalepg {
+func CloudExternalEPgListFromContainer(cont *container.Container) []*CloudExternalEPg {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Cloudexternalepg, length)
+	arr := make([]*CloudExternalEPg, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = CloudexternalepgFromContainerList(cont, i)
+		arr[i] = CloudExternalEPgFromContainerList(cont, i)
 	}
 
 	return arr

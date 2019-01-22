@@ -16,34 +16,34 @@ import (
 
 
 
-func (sm *ServiceManager) CreateCloudcontextprofile(name string ,tenant string , description string, cloudCtxProfileattr models.CloudcontextprofileAttributes) (*models.Cloudcontextprofile, error) {	
+func (sm *ServiceManager) CreateCloudContextProfile(name string ,tenant string , description string, cloudCtxProfileattr models.CloudContextProfileAttributes) (*models.CloudContextProfile, error) {	
 	rn := fmt.Sprintf("ctxprofile-%s",name)
 	parentDn := fmt.Sprintf("uni/tn-%s", tenant )
-	cloudCtxProfile := models.NewCloudcontextprofile(rn, parentDn, description, cloudCtxProfileattr)
+	cloudCtxProfile := models.NewCloudContextProfile(rn, parentDn, description, cloudCtxProfileattr)
 	err := sm.Save(cloudCtxProfile)
 	return cloudCtxProfile, err
 }
 
-func (sm *ServiceManager) ReadCloudcontextprofile(name string ,tenant string ) (*models.Cloudcontextprofile, error) {
+func (sm *ServiceManager) ReadCloudContextProfile(name string ,tenant string ) (*models.CloudContextProfile, error) {
 	dn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s", tenant ,name )    
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
 	}
 
-	cloudCtxProfile := models.CloudcontextprofileFromContainer(cont)
+	cloudCtxProfile := models.CloudContextProfileFromContainer(cont)
 	return cloudCtxProfile, nil
 }
 
-func (sm *ServiceManager) DeleteCloudcontextprofile(name string ,tenant string ) error {
+func (sm *ServiceManager) DeleteCloudContextProfile(name string ,tenant string ) error {
 	dn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s", tenant ,name )
 	return sm.DeleteByDn(dn, models.CloudctxprofileClassName)
 }
 
-func (sm *ServiceManager) UpdateCloudcontextprofile(name string ,tenant string  ,description string, cloudCtxProfileattr models.CloudcontextprofileAttributes) (*models.Cloudcontextprofile, error) {
+func (sm *ServiceManager) UpdateCloudContextProfile(name string ,tenant string  ,description string, cloudCtxProfileattr models.CloudContextProfileAttributes) (*models.CloudContextProfile, error) {
 	rn := fmt.Sprintf("ctxprofile-%s",name)
 	parentDn := fmt.Sprintf("uni/tn-%s", tenant )
-	cloudCtxProfile := models.NewCloudcontextprofile(rn, parentDn, description, cloudCtxProfileattr)
+	cloudCtxProfile := models.NewCloudContextProfile(rn, parentDn, description, cloudCtxProfileattr)
 
     cloudCtxProfile.Status = "modified"
 	err := sm.Save(cloudCtxProfile)
@@ -51,18 +51,18 @@ func (sm *ServiceManager) UpdateCloudcontextprofile(name string ,tenant string  
 
 }
 
-func (sm *ServiceManager) ListCloudcontextprofile(tenant string ) ([]*models.Cloudcontextprofile, error) {
+func (sm *ServiceManager) ListCloudContextProfile(tenant string ) ([]*models.CloudContextProfile, error) {
 
 	baseurlStr := "/api/node/class"	
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/cloudCtxProfile.json", baseurlStr , tenant )
     
     cont, err := sm.GetViaURL(dnUrl)
-	list := models.CloudcontextprofileListFromContainer(cont)
+	list := models.CloudContextProfileListFromContainer(cont)
 
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationcloudRsCtxToFlowLogFromCloudcontextprofile( parentDn, tnCloudAwsFlowLogPolName string) error {
+func (sm *ServiceManager) CreateRelationcloudRsCtxToFlowLogFromCloudContextProfile( parentDn, tnCloudAwsFlowLogPolName string) error {
 	dn := fmt.Sprintf("%s/rsctxToFlowLog", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -92,11 +92,11 @@ func (sm *ServiceManager) CreateRelationcloudRsCtxToFlowLogFromCloudcontextprofi
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationcloudRsCtxToFlowLogFromCloudcontextprofile(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationcloudRsCtxToFlowLogFromCloudContextProfile(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsctxToFlowLog", parentDn)
 	return sm.DeleteByDn(dn , "cloudRsCtxToFlowLog")
 }
-func (sm *ServiceManager) CreateRelationcloudRsToCtxFromCloudcontextprofile( parentDn, tnFvCtxName string) error {
+func (sm *ServiceManager) CreateRelationcloudRsToCtxFromCloudContextProfile( parentDn, tnFvCtxName string) error {
 	dn := fmt.Sprintf("%s/rstoCtx", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -125,7 +125,7 @@ func (sm *ServiceManager) CreateRelationcloudRsToCtxFromCloudcontextprofile( par
 
 	return nil
 }
-func (sm *ServiceManager) CreateRelationcloudRsCtxProfileToRegionFromCloudcontextprofile( parentDn, tnCloudRegionName string) error {
+func (sm *ServiceManager) CreateRelationcloudRsCtxProfileToRegionFromCloudContextProfile( parentDn, tnCloudRegionName string) error {
 	dn := fmt.Sprintf("%s/rsctxProfileToRegion", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -155,7 +155,7 @@ func (sm *ServiceManager) CreateRelationcloudRsCtxProfileToRegionFromCloudcontex
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationcloudRsCtxProfileToRegionFromCloudcontextprofile(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationcloudRsCtxProfileToRegionFromCloudContextProfile(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsctxProfileToRegion", parentDn)
 	return sm.DeleteByDn(dn , "cloudRsCtxProfileToRegion")
 }

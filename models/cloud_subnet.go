@@ -10,12 +10,12 @@ import (
 
 const CloudsubnetClassName = "cloudSubnet"
 
-type Cloudsubnet struct {
+type CloudSubnet struct {
 	BaseAttributes
-    CloudsubnetAttributes 
+    CloudSubnetAttributes 
 }
   
-type CloudsubnetAttributes struct {
+type CloudSubnetAttributes struct {
     Annotation       string `json:",omitempty"`
     Ip       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
@@ -25,9 +25,9 @@ type CloudsubnetAttributes struct {
 }
    
 
-func NewCloudsubnet(cloudSubnetRn, parentDn, description string, cloudSubnetattr CloudsubnetAttributes) *Cloudsubnet {
+func NewCloudSubnet(cloudSubnetRn, parentDn, description string, cloudSubnetattr CloudSubnetAttributes) *CloudSubnet {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudSubnetRn)  
-	return &Cloudsubnet{
+	return &CloudSubnet{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -36,12 +36,12 @@ func NewCloudsubnet(cloudSubnetRn, parentDn, description string, cloudSubnetattr
 			Rn:                cloudSubnetRn,
 		},
         
-		CloudsubnetAttributes: cloudSubnetattr,
+		CloudSubnetAttributes: cloudSubnetattr,
          
 	}
 }
 
-func (cloudSubnet *Cloudsubnet) ToMap() (map[string]string, error) {
+func (cloudSubnet *CloudSubnet) ToMap() (map[string]string, error) {
 	cloudSubnetMap, err := cloudSubnet.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -58,43 +58,43 @@ func (cloudSubnet *Cloudsubnet) ToMap() (map[string]string, error) {
 	return cloudSubnetMap, err
 }
 
-func CloudsubnetFromContainerList(cont *container.Container, index int) *Cloudsubnet {
+func CloudSubnetFromContainerList(cont *container.Container, index int) *CloudSubnet {
 
-	CloudsubnetCont := cont.S("imdata").Index(index).S(CloudsubnetClassName, "attributes")
-	return &Cloudsubnet{
+	CloudSubnetCont := cont.S("imdata").Index(index).S(CloudsubnetClassName, "attributes")
+	return &CloudSubnet{
 		BaseAttributes{
-			DistinguishedName: G(CloudsubnetCont, "dn"),
-			Description:       G(CloudsubnetCont, "descr"),
-			Status:            G(CloudsubnetCont, "status"),
+			DistinguishedName: G(CloudSubnetCont, "dn"),
+			Description:       G(CloudSubnetCont, "descr"),
+			Status:            G(CloudSubnetCont, "status"),
 			ClassName:         CloudsubnetClassName,
-			Rn:                G(CloudsubnetCont, "rn"),
+			Rn:                G(CloudSubnetCont, "rn"),
 		},
         
-		CloudsubnetAttributes{
-        Annotation : G(CloudsubnetCont, "annotation"),
-        Ip : G(CloudsubnetCont, "ip"),
-        NameAlias : G(CloudsubnetCont, "nameAlias"),
-        Scope : G(CloudsubnetCont, "scope"),
-        Usage : G(CloudsubnetCont, "usage"),
+		CloudSubnetAttributes{
+        Annotation : G(CloudSubnetCont, "annotation"),
+        Ip : G(CloudSubnetCont, "ip"),
+        NameAlias : G(CloudSubnetCont, "nameAlias"),
+        Scope : G(CloudSubnetCont, "scope"),
+        Usage : G(CloudSubnetCont, "usage"),
         		
         },
         
 	}
 }
 
-func CloudsubnetFromContainer(cont *container.Container) *Cloudsubnet {
+func CloudSubnetFromContainer(cont *container.Container) *CloudSubnet {
 
-	return CloudsubnetFromContainerList(cont, 0)
+	return CloudSubnetFromContainerList(cont, 0)
 }
 
-func CloudsubnetListFromContainer(cont *container.Container) []*Cloudsubnet {
+func CloudSubnetListFromContainer(cont *container.Container) []*CloudSubnet {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Cloudsubnet, length)
+	arr := make([]*CloudSubnet, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = CloudsubnetFromContainerList(cont, i)
+		arr[i] = CloudSubnetFromContainerList(cont, i)
 	}
 
 	return arr

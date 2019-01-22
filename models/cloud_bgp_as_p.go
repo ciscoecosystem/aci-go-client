@@ -10,12 +10,12 @@ import (
 
 const CloudbgpaspClassName = "cloudBgpAsP"
 
-type Autonomoussystemprofile struct {
+type AutonomousSystemProfile struct {
 	BaseAttributes
-    AutonomoussystemprofileAttributes 
+    AutonomousSystemProfileAttributes 
 }
   
-type AutonomoussystemprofileAttributes struct {
+type AutonomousSystemProfileAttributes struct {
     Annotation       string `json:",omitempty"`
     Asn       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
@@ -23,9 +23,9 @@ type AutonomoussystemprofileAttributes struct {
 }
    
 
-func NewAutonomoussystemprofile(cloudBgpAsPRn, parentDn, description string, cloudBgpAsPattr AutonomoussystemprofileAttributes) *Autonomoussystemprofile {
+func NewAutonomousSystemProfile(cloudBgpAsPRn, parentDn, description string, cloudBgpAsPattr AutonomousSystemProfileAttributes) *AutonomousSystemProfile {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudBgpAsPRn)  
-	return &Autonomoussystemprofile{
+	return &AutonomousSystemProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -34,12 +34,12 @@ func NewAutonomoussystemprofile(cloudBgpAsPRn, parentDn, description string, clo
 			Rn:                cloudBgpAsPRn,
 		},
         
-		AutonomoussystemprofileAttributes: cloudBgpAsPattr,
+		AutonomousSystemProfileAttributes: cloudBgpAsPattr,
          
 	}
 }
 
-func (cloudBgpAsP *Autonomoussystemprofile) ToMap() (map[string]string, error) {
+func (cloudBgpAsP *AutonomousSystemProfile) ToMap() (map[string]string, error) {
 	cloudBgpAsPMap, err := cloudBgpAsP.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -54,41 +54,41 @@ func (cloudBgpAsP *Autonomoussystemprofile) ToMap() (map[string]string, error) {
 	return cloudBgpAsPMap, err
 }
 
-func AutonomoussystemprofileFromContainerList(cont *container.Container, index int) *Autonomoussystemprofile {
+func AutonomousSystemProfileFromContainerList(cont *container.Container, index int) *AutonomousSystemProfile {
 
-	AutonomoussystemprofileCont := cont.S("imdata").Index(index).S(CloudbgpaspClassName, "attributes")
-	return &Autonomoussystemprofile{
+	AutonomousSystemProfileCont := cont.S("imdata").Index(index).S(CloudbgpaspClassName, "attributes")
+	return &AutonomousSystemProfile{
 		BaseAttributes{
-			DistinguishedName: G(AutonomoussystemprofileCont, "dn"),
-			Description:       G(AutonomoussystemprofileCont, "descr"),
-			Status:            G(AutonomoussystemprofileCont, "status"),
+			DistinguishedName: G(AutonomousSystemProfileCont, "dn"),
+			Description:       G(AutonomousSystemProfileCont, "descr"),
+			Status:            G(AutonomousSystemProfileCont, "status"),
 			ClassName:         CloudbgpaspClassName,
-			Rn:                G(AutonomoussystemprofileCont, "rn"),
+			Rn:                G(AutonomousSystemProfileCont, "rn"),
 		},
         
-		AutonomoussystemprofileAttributes{
-        Annotation : G(AutonomoussystemprofileCont, "annotation"),
-        Asn : G(AutonomoussystemprofileCont, "asn"),
-        NameAlias : G(AutonomoussystemprofileCont, "nameAlias"),
+		AutonomousSystemProfileAttributes{
+        Annotation : G(AutonomousSystemProfileCont, "annotation"),
+        Asn : G(AutonomousSystemProfileCont, "asn"),
+        NameAlias : G(AutonomousSystemProfileCont, "nameAlias"),
         		
         },
         
 	}
 }
 
-func AutonomoussystemprofileFromContainer(cont *container.Container) *Autonomoussystemprofile {
+func AutonomousSystemProfileFromContainer(cont *container.Container) *AutonomousSystemProfile {
 
-	return AutonomoussystemprofileFromContainerList(cont, 0)
+	return AutonomousSystemProfileFromContainerList(cont, 0)
 }
 
-func AutonomoussystemprofileListFromContainer(cont *container.Container) []*Autonomoussystemprofile {
+func AutonomousSystemProfileListFromContainer(cont *container.Container) []*AutonomousSystemProfile {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Autonomoussystemprofile, length)
+	arr := make([]*AutonomousSystemProfile, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = AutonomoussystemprofileFromContainerList(cont, i)
+		arr[i] = AutonomousSystemProfileFromContainerList(cont, i)
 	}
 
 	return arr

@@ -10,12 +10,12 @@ import (
 
 const FvaepgClassName = "fvAEPg"
 
-type Applicationepg struct {
+type ApplicationEPG struct {
 	BaseAttributes
-    ApplicationepgAttributes 
+    ApplicationEPGAttributes 
 }
   
-type ApplicationepgAttributes struct {
+type ApplicationEPGAttributes struct {
     Annotation       string `json:",omitempty"`
     ExceptionTag       string `json:",omitempty"`
     FloodOnEncap       string `json:",omitempty"`
@@ -32,9 +32,9 @@ type ApplicationepgAttributes struct {
 }
    
 
-func NewApplicationepg(fvAEPgRn, parentDn, description string, fvAEPgattr ApplicationepgAttributes) *Applicationepg {
+func NewApplicationEPG(fvAEPgRn, parentDn, description string, fvAEPgattr ApplicationEPGAttributes) *ApplicationEPG {
 	dn := fmt.Sprintf("%s/%s", parentDn, fvAEPgRn)  
-	return &Applicationepg{
+	return &ApplicationEPG{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -43,12 +43,12 @@ func NewApplicationepg(fvAEPgRn, parentDn, description string, fvAEPgattr Applic
 			Rn:                fvAEPgRn,
 		},
         
-		ApplicationepgAttributes: fvAEPgattr,
+		ApplicationEPGAttributes: fvAEPgattr,
          
 	}
 }
 
-func (fvAEPg *Applicationepg) ToMap() (map[string]string, error) {
+func (fvAEPg *ApplicationEPG) ToMap() (map[string]string, error) {
 	fvAEPgMap, err := fvAEPg.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -72,50 +72,50 @@ func (fvAEPg *Applicationepg) ToMap() (map[string]string, error) {
 	return fvAEPgMap, err
 }
 
-func ApplicationepgFromContainerList(cont *container.Container, index int) *Applicationepg {
+func ApplicationEPGFromContainerList(cont *container.Container, index int) *ApplicationEPG {
 
-	ApplicationepgCont := cont.S("imdata").Index(index).S(FvaepgClassName, "attributes")
-	return &Applicationepg{
+	ApplicationEPGCont := cont.S("imdata").Index(index).S(FvaepgClassName, "attributes")
+	return &ApplicationEPG{
 		BaseAttributes{
-			DistinguishedName: G(ApplicationepgCont, "dn"),
-			Description:       G(ApplicationepgCont, "descr"),
-			Status:            G(ApplicationepgCont, "status"),
+			DistinguishedName: G(ApplicationEPGCont, "dn"),
+			Description:       G(ApplicationEPGCont, "descr"),
+			Status:            G(ApplicationEPGCont, "status"),
 			ClassName:         FvaepgClassName,
-			Rn:                G(ApplicationepgCont, "rn"),
+			Rn:                G(ApplicationEPGCont, "rn"),
 		},
         
-		ApplicationepgAttributes{
-        Annotation : G(ApplicationepgCont, "annotation"),
-        ExceptionTag : G(ApplicationepgCont, "exceptionTag"),
-        FloodOnEncap : G(ApplicationepgCont, "floodOnEncap"),
-        FwdCtrl : G(ApplicationepgCont, "fwdCtrl"),
-        HasMcastSource : G(ApplicationepgCont, "hasMcastSource"),
-        IsAttrBasedEPg : G(ApplicationepgCont, "isAttrBasedEPg"),
-        MatchT : G(ApplicationepgCont, "matchT"),
-        NameAlias : G(ApplicationepgCont, "nameAlias"),
-        PcEnfPref : G(ApplicationepgCont, "pcEnfPref"),
-        PrefGrMemb : G(ApplicationepgCont, "prefGrMemb"),
-        Prio : G(ApplicationepgCont, "prio"),
-        Shutdown : G(ApplicationepgCont, "shutdown"),
+		ApplicationEPGAttributes{
+        Annotation : G(ApplicationEPGCont, "annotation"),
+        ExceptionTag : G(ApplicationEPGCont, "exceptionTag"),
+        FloodOnEncap : G(ApplicationEPGCont, "floodOnEncap"),
+        FwdCtrl : G(ApplicationEPGCont, "fwdCtrl"),
+        HasMcastSource : G(ApplicationEPGCont, "hasMcastSource"),
+        IsAttrBasedEPg : G(ApplicationEPGCont, "isAttrBasedEPg"),
+        MatchT : G(ApplicationEPGCont, "matchT"),
+        NameAlias : G(ApplicationEPGCont, "nameAlias"),
+        PcEnfPref : G(ApplicationEPGCont, "pcEnfPref"),
+        PrefGrMemb : G(ApplicationEPGCont, "prefGrMemb"),
+        Prio : G(ApplicationEPGCont, "prio"),
+        Shutdown : G(ApplicationEPGCont, "shutdown"),
         		
         },
         
 	}
 }
 
-func ApplicationepgFromContainer(cont *container.Container) *Applicationepg {
+func ApplicationEPGFromContainer(cont *container.Container) *ApplicationEPG {
 
-	return ApplicationepgFromContainerList(cont, 0)
+	return ApplicationEPGFromContainerList(cont, 0)
 }
 
-func ApplicationepgListFromContainer(cont *container.Container) []*Applicationepg {
+func ApplicationEPGListFromContainer(cont *container.Container) []*ApplicationEPG {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Applicationepg, length)
+	arr := make([]*ApplicationEPG, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = ApplicationepgFromContainerList(cont, i)
+		arr[i] = ApplicationEPGFromContainerList(cont, i)
 	}
 
 	return arr

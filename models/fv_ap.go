@@ -10,12 +10,12 @@ import (
 
 const FvapClassName = "fvAp"
 
-type Applicationprofile struct {
+type ApplicationProfile struct {
 	BaseAttributes
-    ApplicationprofileAttributes 
+    ApplicationProfileAttributes 
 }
   
-type ApplicationprofileAttributes struct {
+type ApplicationProfileAttributes struct {
     Annotation       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
     Prio       string `json:",omitempty"`
@@ -23,9 +23,9 @@ type ApplicationprofileAttributes struct {
 }
    
 
-func NewApplicationprofile(fvApRn, parentDn, description string, fvApattr ApplicationprofileAttributes) *Applicationprofile {
+func NewApplicationProfile(fvApRn, parentDn, description string, fvApattr ApplicationProfileAttributes) *ApplicationProfile {
 	dn := fmt.Sprintf("%s/%s", parentDn, fvApRn)  
-	return &Applicationprofile{
+	return &ApplicationProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -34,12 +34,12 @@ func NewApplicationprofile(fvApRn, parentDn, description string, fvApattr Applic
 			Rn:                fvApRn,
 		},
         
-		ApplicationprofileAttributes: fvApattr,
+		ApplicationProfileAttributes: fvApattr,
          
 	}
 }
 
-func (fvAp *Applicationprofile) ToMap() (map[string]string, error) {
+func (fvAp *ApplicationProfile) ToMap() (map[string]string, error) {
 	fvApMap, err := fvAp.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -54,41 +54,41 @@ func (fvAp *Applicationprofile) ToMap() (map[string]string, error) {
 	return fvApMap, err
 }
 
-func ApplicationprofileFromContainerList(cont *container.Container, index int) *Applicationprofile {
+func ApplicationProfileFromContainerList(cont *container.Container, index int) *ApplicationProfile {
 
-	ApplicationprofileCont := cont.S("imdata").Index(index).S(FvapClassName, "attributes")
-	return &Applicationprofile{
+	ApplicationProfileCont := cont.S("imdata").Index(index).S(FvapClassName, "attributes")
+	return &ApplicationProfile{
 		BaseAttributes{
-			DistinguishedName: G(ApplicationprofileCont, "dn"),
-			Description:       G(ApplicationprofileCont, "descr"),
-			Status:            G(ApplicationprofileCont, "status"),
+			DistinguishedName: G(ApplicationProfileCont, "dn"),
+			Description:       G(ApplicationProfileCont, "descr"),
+			Status:            G(ApplicationProfileCont, "status"),
 			ClassName:         FvapClassName,
-			Rn:                G(ApplicationprofileCont, "rn"),
+			Rn:                G(ApplicationProfileCont, "rn"),
 		},
         
-		ApplicationprofileAttributes{
-        Annotation : G(ApplicationprofileCont, "annotation"),
-        NameAlias : G(ApplicationprofileCont, "nameAlias"),
-        Prio : G(ApplicationprofileCont, "prio"),
+		ApplicationProfileAttributes{
+        Annotation : G(ApplicationProfileCont, "annotation"),
+        NameAlias : G(ApplicationProfileCont, "nameAlias"),
+        Prio : G(ApplicationProfileCont, "prio"),
         		
         },
         
 	}
 }
 
-func ApplicationprofileFromContainer(cont *container.Container) *Applicationprofile {
+func ApplicationProfileFromContainer(cont *container.Container) *ApplicationProfile {
 
-	return ApplicationprofileFromContainerList(cont, 0)
+	return ApplicationProfileFromContainerList(cont, 0)
 }
 
-func ApplicationprofileListFromContainer(cont *container.Container) []*Applicationprofile {
+func ApplicationProfileListFromContainer(cont *container.Container) []*ApplicationProfile {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Applicationprofile, length)
+	arr := make([]*ApplicationProfile, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = ApplicationprofileFromContainerList(cont, i)
+		arr[i] = ApplicationProfileFromContainerList(cont, i)
 	}
 
 	return arr

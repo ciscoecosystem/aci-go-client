@@ -15,34 +15,34 @@ import (
 
 
 
-func (sm *ServiceManager) CreateCloudendpointselector(name string ,cloud_epg string ,cloud_application_container string ,tenant string , description string, cloudEPSelectorattr models.CloudendpointselectorAttributes) (*models.Cloudendpointselector, error) {	
+func (sm *ServiceManager) CreateCloudEndpointSelector(name string ,cloud_epg string ,cloud_application_container string ,tenant string , description string, cloudEPSelectorattr models.CloudEndpointSelectorAttributes) (*models.CloudEndpointSelector, error) {	
 	rn := fmt.Sprintf("epselector-%s",name)
 	parentDn := fmt.Sprintf("uni/tn-%s/cloudapp-%s/cloudepg-%s", tenant ,cloud_application_container ,cloud_epg )
-	cloudEPSelector := models.NewCloudendpointselector(rn, parentDn, description, cloudEPSelectorattr)
+	cloudEPSelector := models.NewCloudEndpointSelector(rn, parentDn, description, cloudEPSelectorattr)
 	err := sm.Save(cloudEPSelector)
 	return cloudEPSelector, err
 }
 
-func (sm *ServiceManager) ReadCloudendpointselector(name string ,cloud_epg string ,cloud_application_container string ,tenant string ) (*models.Cloudendpointselector, error) {
+func (sm *ServiceManager) ReadCloudEndpointSelector(name string ,cloud_epg string ,cloud_application_container string ,tenant string ) (*models.CloudEndpointSelector, error) {
 	dn := fmt.Sprintf("uni/tn-%s/cloudapp-%s/cloudepg-%s/epselector-%s", tenant ,cloud_application_container ,cloud_epg ,name )    
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
 	}
 
-	cloudEPSelector := models.CloudendpointselectorFromContainer(cont)
+	cloudEPSelector := models.CloudEndpointSelectorFromContainer(cont)
 	return cloudEPSelector, nil
 }
 
-func (sm *ServiceManager) DeleteCloudendpointselector(name string ,cloud_epg string ,cloud_application_container string ,tenant string ) error {
+func (sm *ServiceManager) DeleteCloudEndpointSelector(name string ,cloud_epg string ,cloud_application_container string ,tenant string ) error {
 	dn := fmt.Sprintf("uni/tn-%s/cloudapp-%s/cloudepg-%s/epselector-%s", tenant ,cloud_application_container ,cloud_epg ,name )
 	return sm.DeleteByDn(dn, models.CloudepselectorClassName)
 }
 
-func (sm *ServiceManager) UpdateCloudendpointselector(name string ,cloud_epg string ,cloud_application_container string ,tenant string  ,description string, cloudEPSelectorattr models.CloudendpointselectorAttributes) (*models.Cloudendpointselector, error) {
+func (sm *ServiceManager) UpdateCloudEndpointSelector(name string ,cloud_epg string ,cloud_application_container string ,tenant string  ,description string, cloudEPSelectorattr models.CloudEndpointSelectorAttributes) (*models.CloudEndpointSelector, error) {
 	rn := fmt.Sprintf("epselector-%s",name)
 	parentDn := fmt.Sprintf("uni/tn-%s/cloudapp-%s/cloudepg-%s", tenant ,cloud_application_container ,cloud_epg )
-	cloudEPSelector := models.NewCloudendpointselector(rn, parentDn, description, cloudEPSelectorattr)
+	cloudEPSelector := models.NewCloudEndpointSelector(rn, parentDn, description, cloudEPSelectorattr)
 
     cloudEPSelector.Status = "modified"
 	err := sm.Save(cloudEPSelector)
@@ -50,13 +50,13 @@ func (sm *ServiceManager) UpdateCloudendpointselector(name string ,cloud_epg str
 
 }
 
-func (sm *ServiceManager) ListCloudendpointselector(cloud_epg string ,cloud_application_container string ,tenant string ) ([]*models.Cloudendpointselector, error) {
+func (sm *ServiceManager) ListCloudEndpointSelector(cloud_epg string ,cloud_application_container string ,tenant string ) ([]*models.CloudEndpointSelector, error) {
 
 	baseurlStr := "/api/node/class"	
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/cloudapp-%s/cloudepg-%s/cloudEPSelector.json", baseurlStr , tenant ,cloud_application_container ,cloud_epg )
     
     cont, err := sm.GetViaURL(dnUrl)
-	list := models.CloudendpointselectorListFromContainer(cont)
+	list := models.CloudEndpointSelectorListFromContainer(cont)
 
 	return list, err
 }

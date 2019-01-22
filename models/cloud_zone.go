@@ -10,21 +10,21 @@ import (
 
 const CloudzoneClassName = "cloudZone"
 
-type Cloudavailabilityzone struct {
+type CloudAvailabilityZone struct {
 	BaseAttributes
-    CloudavailabilityzoneAttributes 
+    CloudAvailabilityZoneAttributes 
 }
   
-type CloudavailabilityzoneAttributes struct {
+type CloudAvailabilityZoneAttributes struct {
     Annotation       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
     
 }
    
 
-func NewCloudavailabilityzone(cloudZoneRn, parentDn, description string, cloudZoneattr CloudavailabilityzoneAttributes) *Cloudavailabilityzone {
+func NewCloudAvailabilityZone(cloudZoneRn, parentDn, description string, cloudZoneattr CloudAvailabilityZoneAttributes) *CloudAvailabilityZone {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudZoneRn)  
-	return &Cloudavailabilityzone{
+	return &CloudAvailabilityZone{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -33,12 +33,12 @@ func NewCloudavailabilityzone(cloudZoneRn, parentDn, description string, cloudZo
 			Rn:                cloudZoneRn,
 		},
         
-		CloudavailabilityzoneAttributes: cloudZoneattr,
+		CloudAvailabilityZoneAttributes: cloudZoneattr,
          
 	}
 }
 
-func (cloudZone *Cloudavailabilityzone) ToMap() (map[string]string, error) {
+func (cloudZone *CloudAvailabilityZone) ToMap() (map[string]string, error) {
 	cloudZoneMap, err := cloudZone.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -52,40 +52,40 @@ func (cloudZone *Cloudavailabilityzone) ToMap() (map[string]string, error) {
 	return cloudZoneMap, err
 }
 
-func CloudavailabilityzoneFromContainerList(cont *container.Container, index int) *Cloudavailabilityzone {
+func CloudAvailabilityZoneFromContainerList(cont *container.Container, index int) *CloudAvailabilityZone {
 
-	CloudavailabilityzoneCont := cont.S("imdata").Index(index).S(CloudzoneClassName, "attributes")
-	return &Cloudavailabilityzone{
+	CloudAvailabilityZoneCont := cont.S("imdata").Index(index).S(CloudzoneClassName, "attributes")
+	return &CloudAvailabilityZone{
 		BaseAttributes{
-			DistinguishedName: G(CloudavailabilityzoneCont, "dn"),
-			Description:       G(CloudavailabilityzoneCont, "descr"),
-			Status:            G(CloudavailabilityzoneCont, "status"),
+			DistinguishedName: G(CloudAvailabilityZoneCont, "dn"),
+			Description:       G(CloudAvailabilityZoneCont, "descr"),
+			Status:            G(CloudAvailabilityZoneCont, "status"),
 			ClassName:         CloudzoneClassName,
-			Rn:                G(CloudavailabilityzoneCont, "rn"),
+			Rn:                G(CloudAvailabilityZoneCont, "rn"),
 		},
         
-		CloudavailabilityzoneAttributes{
-        Annotation : G(CloudavailabilityzoneCont, "annotation"),
-        NameAlias : G(CloudavailabilityzoneCont, "nameAlias"),
+		CloudAvailabilityZoneAttributes{
+        Annotation : G(CloudAvailabilityZoneCont, "annotation"),
+        NameAlias : G(CloudAvailabilityZoneCont, "nameAlias"),
         		
         },
         
 	}
 }
 
-func CloudavailabilityzoneFromContainer(cont *container.Container) *Cloudavailabilityzone {
+func CloudAvailabilityZoneFromContainer(cont *container.Container) *CloudAvailabilityZone {
 
-	return CloudavailabilityzoneFromContainerList(cont, 0)
+	return CloudAvailabilityZoneFromContainerList(cont, 0)
 }
 
-func CloudavailabilityzoneListFromContainer(cont *container.Container) []*Cloudavailabilityzone {
+func CloudAvailabilityZoneListFromContainer(cont *container.Container) []*CloudAvailabilityZone {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Cloudavailabilityzone, length)
+	arr := make([]*CloudAvailabilityZone, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = CloudavailabilityzoneFromContainerList(cont, i)
+		arr[i] = CloudAvailabilityZoneFromContainerList(cont, i)
 	}
 
 	return arr

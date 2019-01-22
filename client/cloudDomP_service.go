@@ -15,34 +15,34 @@ import (
 
 
 
-func (sm *ServiceManager) CreateClouddomainprofile(description string, cloudDomPattr models.ClouddomainprofileAttributes) (*models.Clouddomainprofile, error) {	
+func (sm *ServiceManager) CreateCloudDomainProfile(description string, cloudDomPattr models.CloudDomainProfileAttributes) (*models.CloudDomainProfile, error) {	
 	rn := fmt.Sprintf("clouddomp")
 	parentDn := fmt.Sprintf("uni")
-	cloudDomP := models.NewClouddomainprofile(rn, parentDn, description, cloudDomPattr)
+	cloudDomP := models.NewCloudDomainProfile(rn, parentDn, description, cloudDomPattr)
 	err := sm.Save(cloudDomP)
 	return cloudDomP, err
 }
 
-func (sm *ServiceManager) ReadClouddomainprofile() (*models.Clouddomainprofile, error) {
+func (sm *ServiceManager) ReadCloudDomainProfile() (*models.CloudDomainProfile, error) {
 	dn := fmt.Sprintf("uni/clouddomp")    
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
 	}
 
-	cloudDomP := models.ClouddomainprofileFromContainer(cont)
+	cloudDomP := models.CloudDomainProfileFromContainer(cont)
 	return cloudDomP, nil
 }
 
-func (sm *ServiceManager) DeleteClouddomainprofile() error {
+func (sm *ServiceManager) DeleteCloudDomainProfile() error {
 	dn := fmt.Sprintf("uni/clouddomp")
 	return sm.DeleteByDn(dn, models.ClouddompClassName)
 }
 
-func (sm *ServiceManager) UpdateClouddomainprofile(description string, cloudDomPattr models.ClouddomainprofileAttributes) (*models.Clouddomainprofile, error) {
+func (sm *ServiceManager) UpdateCloudDomainProfile(description string, cloudDomPattr models.CloudDomainProfileAttributes) (*models.CloudDomainProfile, error) {
 	rn := fmt.Sprintf("clouddomp")
 	parentDn := fmt.Sprintf("uni")
-	cloudDomP := models.NewClouddomainprofile(rn, parentDn, description, cloudDomPattr)
+	cloudDomP := models.NewCloudDomainProfile(rn, parentDn, description, cloudDomPattr)
 
     cloudDomP.Status = "modified"
 	err := sm.Save(cloudDomP)
@@ -50,13 +50,13 @@ func (sm *ServiceManager) UpdateClouddomainprofile(description string, cloudDomP
 
 }
 
-func (sm *ServiceManager) ListClouddomainprofile() ([]*models.Clouddomainprofile, error) {
+func (sm *ServiceManager) ListCloudDomainProfile() ([]*models.CloudDomainProfile, error) {
 
 	baseurlStr := "/api/node/class"	
 	dnUrl := fmt.Sprintf("%s/uni/cloudDomP.json", baseurlStr )
     
     cont, err := sm.GetViaURL(dnUrl)
-	list := models.ClouddomainprofileListFromContainer(cont)
+	list := models.CloudDomainProfileListFromContainer(cont)
 
 	return list, err
 }

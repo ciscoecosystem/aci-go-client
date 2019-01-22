@@ -10,12 +10,12 @@ import (
 
 const ClouddompClassName = "cloudDomP"
 
-type Clouddomainprofile struct {
+type CloudDomainProfile struct {
 	BaseAttributes
-    ClouddomainprofileAttributes 
+    CloudDomainProfileAttributes 
 }
   
-type ClouddomainprofileAttributes struct {
+type CloudDomainProfileAttributes struct {
     Annotation       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
     SiteId       string `json:",omitempty"`
@@ -23,9 +23,9 @@ type ClouddomainprofileAttributes struct {
 }
    
 
-func NewClouddomainprofile(cloudDomPRn, parentDn, description string, cloudDomPattr ClouddomainprofileAttributes) *Clouddomainprofile {
+func NewCloudDomainProfile(cloudDomPRn, parentDn, description string, cloudDomPattr CloudDomainProfileAttributes) *CloudDomainProfile {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudDomPRn)  
-	return &Clouddomainprofile{
+	return &CloudDomainProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -34,12 +34,12 @@ func NewClouddomainprofile(cloudDomPRn, parentDn, description string, cloudDomPa
 			Rn:                cloudDomPRn,
 		},
         
-		ClouddomainprofileAttributes: cloudDomPattr,
+		CloudDomainProfileAttributes: cloudDomPattr,
          
 	}
 }
 
-func (cloudDomP *Clouddomainprofile) ToMap() (map[string]string, error) {
+func (cloudDomP *CloudDomainProfile) ToMap() (map[string]string, error) {
 	cloudDomPMap, err := cloudDomP.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -54,41 +54,41 @@ func (cloudDomP *Clouddomainprofile) ToMap() (map[string]string, error) {
 	return cloudDomPMap, err
 }
 
-func ClouddomainprofileFromContainerList(cont *container.Container, index int) *Clouddomainprofile {
+func CloudDomainProfileFromContainerList(cont *container.Container, index int) *CloudDomainProfile {
 
-	ClouddomainprofileCont := cont.S("imdata").Index(index).S(ClouddompClassName, "attributes")
-	return &Clouddomainprofile{
+	CloudDomainProfileCont := cont.S("imdata").Index(index).S(ClouddompClassName, "attributes")
+	return &CloudDomainProfile{
 		BaseAttributes{
-			DistinguishedName: G(ClouddomainprofileCont, "dn"),
-			Description:       G(ClouddomainprofileCont, "descr"),
-			Status:            G(ClouddomainprofileCont, "status"),
+			DistinguishedName: G(CloudDomainProfileCont, "dn"),
+			Description:       G(CloudDomainProfileCont, "descr"),
+			Status:            G(CloudDomainProfileCont, "status"),
 			ClassName:         ClouddompClassName,
-			Rn:                G(ClouddomainprofileCont, "rn"),
+			Rn:                G(CloudDomainProfileCont, "rn"),
 		},
         
-		ClouddomainprofileAttributes{
-        Annotation : G(ClouddomainprofileCont, "annotation"),
-        NameAlias : G(ClouddomainprofileCont, "nameAlias"),
-        SiteId : G(ClouddomainprofileCont, "siteId"),
+		CloudDomainProfileAttributes{
+        Annotation : G(CloudDomainProfileCont, "annotation"),
+        NameAlias : G(CloudDomainProfileCont, "nameAlias"),
+        SiteId : G(CloudDomainProfileCont, "siteId"),
         		
         },
         
 	}
 }
 
-func ClouddomainprofileFromContainer(cont *container.Container) *Clouddomainprofile {
+func CloudDomainProfileFromContainer(cont *container.Container) *CloudDomainProfile {
 
-	return ClouddomainprofileFromContainerList(cont, 0)
+	return CloudDomainProfileFromContainerList(cont, 0)
 }
 
-func ClouddomainprofileListFromContainer(cont *container.Container) []*Clouddomainprofile {
+func CloudDomainProfileListFromContainer(cont *container.Container) []*CloudDomainProfile {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Clouddomainprofile, length)
+	arr := make([]*CloudDomainProfile, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = ClouddomainprofileFromContainerList(cont, i)
+		arr[i] = CloudDomainProfileFromContainerList(cont, i)
 	}
 
 	return arr

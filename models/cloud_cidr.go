@@ -10,12 +10,12 @@ import (
 
 const CloudcidrClassName = "cloudCidr"
 
-type Cloudcidrpool struct {
+type CloudCIDRPool struct {
 	BaseAttributes
-    CloudcidrpoolAttributes 
+    CloudCIDRPoolAttributes 
 }
   
-type CloudcidrpoolAttributes struct {
+type CloudCIDRPoolAttributes struct {
     Addr       string `json:",omitempty"`
     Annotation       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
@@ -24,9 +24,9 @@ type CloudcidrpoolAttributes struct {
 }
    
 
-func NewCloudcidrpool(cloudCidrRn, parentDn, description string, cloudCidrattr CloudcidrpoolAttributes) *Cloudcidrpool {
+func NewCloudCIDRPool(cloudCidrRn, parentDn, description string, cloudCidrattr CloudCIDRPoolAttributes) *CloudCIDRPool {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudCidrRn)  
-	return &Cloudcidrpool{
+	return &CloudCIDRPool{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -35,12 +35,12 @@ func NewCloudcidrpool(cloudCidrRn, parentDn, description string, cloudCidrattr C
 			Rn:                cloudCidrRn,
 		},
         
-		CloudcidrpoolAttributes: cloudCidrattr,
+		CloudCIDRPoolAttributes: cloudCidrattr,
          
 	}
 }
 
-func (cloudCidr *Cloudcidrpool) ToMap() (map[string]string, error) {
+func (cloudCidr *CloudCIDRPool) ToMap() (map[string]string, error) {
 	cloudCidrMap, err := cloudCidr.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -56,42 +56,42 @@ func (cloudCidr *Cloudcidrpool) ToMap() (map[string]string, error) {
 	return cloudCidrMap, err
 }
 
-func CloudcidrpoolFromContainerList(cont *container.Container, index int) *Cloudcidrpool {
+func CloudCIDRPoolFromContainerList(cont *container.Container, index int) *CloudCIDRPool {
 
-	CloudcidrpoolCont := cont.S("imdata").Index(index).S(CloudcidrClassName, "attributes")
-	return &Cloudcidrpool{
+	CloudCIDRPoolCont := cont.S("imdata").Index(index).S(CloudcidrClassName, "attributes")
+	return &CloudCIDRPool{
 		BaseAttributes{
-			DistinguishedName: G(CloudcidrpoolCont, "dn"),
-			Description:       G(CloudcidrpoolCont, "descr"),
-			Status:            G(CloudcidrpoolCont, "status"),
+			DistinguishedName: G(CloudCIDRPoolCont, "dn"),
+			Description:       G(CloudCIDRPoolCont, "descr"),
+			Status:            G(CloudCIDRPoolCont, "status"),
 			ClassName:         CloudcidrClassName,
-			Rn:                G(CloudcidrpoolCont, "rn"),
+			Rn:                G(CloudCIDRPoolCont, "rn"),
 		},
         
-		CloudcidrpoolAttributes{
-        Addr : G(CloudcidrpoolCont, "addr"),
-        Annotation : G(CloudcidrpoolCont, "annotation"),
-        NameAlias : G(CloudcidrpoolCont, "nameAlias"),
-        Primary : G(CloudcidrpoolCont, "primary"),
+		CloudCIDRPoolAttributes{
+        Addr : G(CloudCIDRPoolCont, "addr"),
+        Annotation : G(CloudCIDRPoolCont, "annotation"),
+        NameAlias : G(CloudCIDRPoolCont, "nameAlias"),
+        Primary : G(CloudCIDRPoolCont, "primary"),
         		
         },
         
 	}
 }
 
-func CloudcidrpoolFromContainer(cont *container.Container) *Cloudcidrpool {
+func CloudCIDRPoolFromContainer(cont *container.Container) *CloudCIDRPool {
 
-	return CloudcidrpoolFromContainerList(cont, 0)
+	return CloudCIDRPoolFromContainerList(cont, 0)
 }
 
-func CloudcidrpoolListFromContainer(cont *container.Container) []*Cloudcidrpool {
+func CloudCIDRPoolListFromContainer(cont *container.Container) []*CloudCIDRPool {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Cloudcidrpool, length)
+	arr := make([]*CloudCIDRPool, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = CloudcidrpoolFromContainerList(cont, i)
+		arr[i] = CloudCIDRPoolFromContainerList(cont, i)
 	}
 
 	return arr

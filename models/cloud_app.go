@@ -10,21 +10,21 @@ import (
 
 const CloudappClassName = "cloudApp"
 
-type Cloudapplicationcontainer struct {
+type CloudApplicationcontainer struct {
 	BaseAttributes
-    CloudapplicationcontainerAttributes 
+    CloudApplicationcontainerAttributes 
 }
   
-type CloudapplicationcontainerAttributes struct {
+type CloudApplicationcontainerAttributes struct {
     Annotation       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
     
 }
    
 
-func NewCloudapplicationcontainer(cloudAppRn, parentDn, description string, cloudAppattr CloudapplicationcontainerAttributes) *Cloudapplicationcontainer {
+func NewCloudApplicationcontainer(cloudAppRn, parentDn, description string, cloudAppattr CloudApplicationcontainerAttributes) *CloudApplicationcontainer {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudAppRn)  
-	return &Cloudapplicationcontainer{
+	return &CloudApplicationcontainer{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -33,12 +33,12 @@ func NewCloudapplicationcontainer(cloudAppRn, parentDn, description string, clou
 			Rn:                cloudAppRn,
 		},
         
-		CloudapplicationcontainerAttributes: cloudAppattr,
+		CloudApplicationcontainerAttributes: cloudAppattr,
          
 	}
 }
 
-func (cloudApp *Cloudapplicationcontainer) ToMap() (map[string]string, error) {
+func (cloudApp *CloudApplicationcontainer) ToMap() (map[string]string, error) {
 	cloudAppMap, err := cloudApp.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -52,40 +52,40 @@ func (cloudApp *Cloudapplicationcontainer) ToMap() (map[string]string, error) {
 	return cloudAppMap, err
 }
 
-func CloudapplicationcontainerFromContainerList(cont *container.Container, index int) *Cloudapplicationcontainer {
+func CloudApplicationcontainerFromContainerList(cont *container.Container, index int) *CloudApplicationcontainer {
 
-	CloudapplicationcontainerCont := cont.S("imdata").Index(index).S(CloudappClassName, "attributes")
-	return &Cloudapplicationcontainer{
+	CloudApplicationcontainerCont := cont.S("imdata").Index(index).S(CloudappClassName, "attributes")
+	return &CloudApplicationcontainer{
 		BaseAttributes{
-			DistinguishedName: G(CloudapplicationcontainerCont, "dn"),
-			Description:       G(CloudapplicationcontainerCont, "descr"),
-			Status:            G(CloudapplicationcontainerCont, "status"),
+			DistinguishedName: G(CloudApplicationcontainerCont, "dn"),
+			Description:       G(CloudApplicationcontainerCont, "descr"),
+			Status:            G(CloudApplicationcontainerCont, "status"),
 			ClassName:         CloudappClassName,
-			Rn:                G(CloudapplicationcontainerCont, "rn"),
+			Rn:                G(CloudApplicationcontainerCont, "rn"),
 		},
         
-		CloudapplicationcontainerAttributes{
-        Annotation : G(CloudapplicationcontainerCont, "annotation"),
-        NameAlias : G(CloudapplicationcontainerCont, "nameAlias"),
+		CloudApplicationcontainerAttributes{
+        Annotation : G(CloudApplicationcontainerCont, "annotation"),
+        NameAlias : G(CloudApplicationcontainerCont, "nameAlias"),
         		
         },
         
 	}
 }
 
-func CloudapplicationcontainerFromContainer(cont *container.Container) *Cloudapplicationcontainer {
+func CloudApplicationcontainerFromContainer(cont *container.Container) *CloudApplicationcontainer {
 
-	return CloudapplicationcontainerFromContainerList(cont, 0)
+	return CloudApplicationcontainerFromContainerList(cont, 0)
 }
 
-func CloudapplicationcontainerListFromContainer(cont *container.Container) []*Cloudapplicationcontainer {
+func CloudApplicationcontainerListFromContainer(cont *container.Container) []*CloudApplicationcontainer {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Cloudapplicationcontainer, length)
+	arr := make([]*CloudApplicationcontainer, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = CloudapplicationcontainerFromContainerList(cont, i)
+		arr[i] = CloudApplicationcontainerFromContainerList(cont, i)
 	}
 
 	return arr

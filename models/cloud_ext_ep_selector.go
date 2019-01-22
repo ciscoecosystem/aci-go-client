@@ -10,12 +10,12 @@ import (
 
 const CloudextepselectorClassName = "cloudExtEPSelector"
 
-type Cloudendpointselectorforexternalepgs struct {
+type CloudEndpointSelectorforExternalEPgs struct {
 	BaseAttributes
-    CloudendpointselectorforexternalepgsAttributes 
+    CloudEndpointSelectorforExternalEPgsAttributes 
 }
   
-type CloudendpointselectorforexternalepgsAttributes struct {
+type CloudEndpointSelectorforExternalEPgsAttributes struct {
     Annotation       string `json:",omitempty"`
     IsShared       string `json:",omitempty"`
     MatchExpression       string `json:",omitempty"`
@@ -25,9 +25,9 @@ type CloudendpointselectorforexternalepgsAttributes struct {
 }
    
 
-func NewCloudendpointselectorforexternalepgs(cloudExtEPSelectorRn, parentDn, description string, cloudExtEPSelectorattr CloudendpointselectorforexternalepgsAttributes) *Cloudendpointselectorforexternalepgs {
+func NewCloudEndpointSelectorforExternalEPgs(cloudExtEPSelectorRn, parentDn, description string, cloudExtEPSelectorattr CloudEndpointSelectorforExternalEPgsAttributes) *CloudEndpointSelectorforExternalEPgs {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudExtEPSelectorRn)  
-	return &Cloudendpointselectorforexternalepgs{
+	return &CloudEndpointSelectorforExternalEPgs{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -36,12 +36,12 @@ func NewCloudendpointselectorforexternalepgs(cloudExtEPSelectorRn, parentDn, des
 			Rn:                cloudExtEPSelectorRn,
 		},
         
-		CloudendpointselectorforexternalepgsAttributes: cloudExtEPSelectorattr,
+		CloudEndpointSelectorforExternalEPgsAttributes: cloudExtEPSelectorattr,
          
 	}
 }
 
-func (cloudExtEPSelector *Cloudendpointselectorforexternalepgs) ToMap() (map[string]string, error) {
+func (cloudExtEPSelector *CloudEndpointSelectorforExternalEPgs) ToMap() (map[string]string, error) {
 	cloudExtEPSelectorMap, err := cloudExtEPSelector.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -58,43 +58,43 @@ func (cloudExtEPSelector *Cloudendpointselectorforexternalepgs) ToMap() (map[str
 	return cloudExtEPSelectorMap, err
 }
 
-func CloudendpointselectorforexternalepgsFromContainerList(cont *container.Container, index int) *Cloudendpointselectorforexternalepgs {
+func CloudEndpointSelectorforExternalEPgsFromContainerList(cont *container.Container, index int) *CloudEndpointSelectorforExternalEPgs {
 
-	CloudendpointselectorforexternalepgsCont := cont.S("imdata").Index(index).S(CloudextepselectorClassName, "attributes")
-	return &Cloudendpointselectorforexternalepgs{
+	CloudEndpointSelectorforExternalEPgsCont := cont.S("imdata").Index(index).S(CloudextepselectorClassName, "attributes")
+	return &CloudEndpointSelectorforExternalEPgs{
 		BaseAttributes{
-			DistinguishedName: G(CloudendpointselectorforexternalepgsCont, "dn"),
-			Description:       G(CloudendpointselectorforexternalepgsCont, "descr"),
-			Status:            G(CloudendpointselectorforexternalepgsCont, "status"),
+			DistinguishedName: G(CloudEndpointSelectorforExternalEPgsCont, "dn"),
+			Description:       G(CloudEndpointSelectorforExternalEPgsCont, "descr"),
+			Status:            G(CloudEndpointSelectorforExternalEPgsCont, "status"),
 			ClassName:         CloudextepselectorClassName,
-			Rn:                G(CloudendpointselectorforexternalepgsCont, "rn"),
+			Rn:                G(CloudEndpointSelectorforExternalEPgsCont, "rn"),
 		},
         
-		CloudendpointselectorforexternalepgsAttributes{
-        Annotation : G(CloudendpointselectorforexternalepgsCont, "annotation"),
-        IsShared : G(CloudendpointselectorforexternalepgsCont, "isShared"),
-        MatchExpression : G(CloudendpointselectorforexternalepgsCont, "matchExpression"),
-        NameAlias : G(CloudendpointselectorforexternalepgsCont, "nameAlias"),
-        Subnet : G(CloudendpointselectorforexternalepgsCont, "subnet"),
+		CloudEndpointSelectorforExternalEPgsAttributes{
+        Annotation : G(CloudEndpointSelectorforExternalEPgsCont, "annotation"),
+        IsShared : G(CloudEndpointSelectorforExternalEPgsCont, "isShared"),
+        MatchExpression : G(CloudEndpointSelectorforExternalEPgsCont, "matchExpression"),
+        NameAlias : G(CloudEndpointSelectorforExternalEPgsCont, "nameAlias"),
+        Subnet : G(CloudEndpointSelectorforExternalEPgsCont, "subnet"),
         		
         },
         
 	}
 }
 
-func CloudendpointselectorforexternalepgsFromContainer(cont *container.Container) *Cloudendpointselectorforexternalepgs {
+func CloudEndpointSelectorforExternalEPgsFromContainer(cont *container.Container) *CloudEndpointSelectorforExternalEPgs {
 
-	return CloudendpointselectorforexternalepgsFromContainerList(cont, 0)
+	return CloudEndpointSelectorforExternalEPgsFromContainerList(cont, 0)
 }
 
-func CloudendpointselectorforexternalepgsListFromContainer(cont *container.Container) []*Cloudendpointselectorforexternalepgs {
+func CloudEndpointSelectorforExternalEPgsListFromContainer(cont *container.Container) []*CloudEndpointSelectorforExternalEPgs {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Cloudendpointselectorforexternalepgs, length)
+	arr := make([]*CloudEndpointSelectorforExternalEPgs, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = CloudendpointselectorforexternalepgsFromContainerList(cont, i)
+		arr[i] = CloudEndpointSelectorforExternalEPgsFromContainerList(cont, i)
 	}
 
 	return arr

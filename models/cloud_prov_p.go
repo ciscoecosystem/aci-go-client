@@ -10,21 +10,21 @@ import (
 
 const CloudprovpClassName = "cloudProvP"
 
-type Cloudproviderprofile struct {
+type CloudProviderProfile struct {
 	BaseAttributes
-    CloudproviderprofileAttributes 
+    CloudProviderProfileAttributes 
 }
   
-type CloudproviderprofileAttributes struct {
+type CloudProviderProfileAttributes struct {
     Annotation       string `json:",omitempty"`
     Vendor       string `json:",omitempty"`
     
 }
    
 
-func NewCloudproviderprofile(cloudProvPRn, parentDn, description string, cloudProvPattr CloudproviderprofileAttributes) *Cloudproviderprofile {
+func NewCloudProviderProfile(cloudProvPRn, parentDn, description string, cloudProvPattr CloudProviderProfileAttributes) *CloudProviderProfile {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudProvPRn)  
-	return &Cloudproviderprofile{
+	return &CloudProviderProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -33,12 +33,12 @@ func NewCloudproviderprofile(cloudProvPRn, parentDn, description string, cloudPr
 			Rn:                cloudProvPRn,
 		},
         
-		CloudproviderprofileAttributes: cloudProvPattr,
+		CloudProviderProfileAttributes: cloudProvPattr,
          
 	}
 }
 
-func (cloudProvP *Cloudproviderprofile) ToMap() (map[string]string, error) {
+func (cloudProvP *CloudProviderProfile) ToMap() (map[string]string, error) {
 	cloudProvPMap, err := cloudProvP.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -52,40 +52,40 @@ func (cloudProvP *Cloudproviderprofile) ToMap() (map[string]string, error) {
 	return cloudProvPMap, err
 }
 
-func CloudproviderprofileFromContainerList(cont *container.Container, index int) *Cloudproviderprofile {
+func CloudProviderProfileFromContainerList(cont *container.Container, index int) *CloudProviderProfile {
 
-	CloudproviderprofileCont := cont.S("imdata").Index(index).S(CloudprovpClassName, "attributes")
-	return &Cloudproviderprofile{
+	CloudProviderProfileCont := cont.S("imdata").Index(index).S(CloudprovpClassName, "attributes")
+	return &CloudProviderProfile{
 		BaseAttributes{
-			DistinguishedName: G(CloudproviderprofileCont, "dn"),
-			Description:       G(CloudproviderprofileCont, "descr"),
-			Status:            G(CloudproviderprofileCont, "status"),
+			DistinguishedName: G(CloudProviderProfileCont, "dn"),
+			Description:       G(CloudProviderProfileCont, "descr"),
+			Status:            G(CloudProviderProfileCont, "status"),
 			ClassName:         CloudprovpClassName,
-			Rn:                G(CloudproviderprofileCont, "rn"),
+			Rn:                G(CloudProviderProfileCont, "rn"),
 		},
         
-		CloudproviderprofileAttributes{
-        Annotation : G(CloudproviderprofileCont, "annotation"),
-        Vendor : G(CloudproviderprofileCont, "vendor"),
+		CloudProviderProfileAttributes{
+        Annotation : G(CloudProviderProfileCont, "annotation"),
+        Vendor : G(CloudProviderProfileCont, "vendor"),
         		
         },
         
 	}
 }
 
-func CloudproviderprofileFromContainer(cont *container.Container) *Cloudproviderprofile {
+func CloudProviderProfileFromContainer(cont *container.Container) *CloudProviderProfile {
 
-	return CloudproviderprofileFromContainerList(cont, 0)
+	return CloudProviderProfileFromContainerList(cont, 0)
 }
 
-func CloudproviderprofileListFromContainer(cont *container.Container) []*Cloudproviderprofile {
+func CloudProviderProfileListFromContainer(cont *container.Container) []*CloudProviderProfile {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Cloudproviderprofile, length)
+	arr := make([]*CloudProviderProfile, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = CloudproviderprofileFromContainerList(cont, i)
+		arr[i] = CloudProviderProfileFromContainerList(cont, i)
 	}
 
 	return arr

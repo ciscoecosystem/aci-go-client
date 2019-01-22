@@ -10,12 +10,12 @@ import (
 
 const CloudregionClassName = "cloudRegion"
 
-type Cloudprovidersregion struct {
+type CloudProvidersRegion struct {
 	BaseAttributes
-    CloudprovidersregionAttributes 
+    CloudProvidersRegionAttributes 
 }
   
-type CloudprovidersregionAttributes struct {
+type CloudProvidersRegionAttributes struct {
     AdminSt       string `json:",omitempty"`
     Annotation       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
@@ -23,9 +23,9 @@ type CloudprovidersregionAttributes struct {
 }
    
 
-func NewCloudprovidersregion(cloudRegionRn, parentDn, description string, cloudRegionattr CloudprovidersregionAttributes) *Cloudprovidersregion {
+func NewCloudProvidersRegion(cloudRegionRn, parentDn, description string, cloudRegionattr CloudProvidersRegionAttributes) *CloudProvidersRegion {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudRegionRn)  
-	return &Cloudprovidersregion{
+	return &CloudProvidersRegion{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -34,12 +34,12 @@ func NewCloudprovidersregion(cloudRegionRn, parentDn, description string, cloudR
 			Rn:                cloudRegionRn,
 		},
         
-		CloudprovidersregionAttributes: cloudRegionattr,
+		CloudProvidersRegionAttributes: cloudRegionattr,
          
 	}
 }
 
-func (cloudRegion *Cloudprovidersregion) ToMap() (map[string]string, error) {
+func (cloudRegion *CloudProvidersRegion) ToMap() (map[string]string, error) {
 	cloudRegionMap, err := cloudRegion.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -54,41 +54,41 @@ func (cloudRegion *Cloudprovidersregion) ToMap() (map[string]string, error) {
 	return cloudRegionMap, err
 }
 
-func CloudprovidersregionFromContainerList(cont *container.Container, index int) *Cloudprovidersregion {
+func CloudProvidersRegionFromContainerList(cont *container.Container, index int) *CloudProvidersRegion {
 
-	CloudprovidersregionCont := cont.S("imdata").Index(index).S(CloudregionClassName, "attributes")
-	return &Cloudprovidersregion{
+	CloudProvidersRegionCont := cont.S("imdata").Index(index).S(CloudregionClassName, "attributes")
+	return &CloudProvidersRegion{
 		BaseAttributes{
-			DistinguishedName: G(CloudprovidersregionCont, "dn"),
-			Description:       G(CloudprovidersregionCont, "descr"),
-			Status:            G(CloudprovidersregionCont, "status"),
+			DistinguishedName: G(CloudProvidersRegionCont, "dn"),
+			Description:       G(CloudProvidersRegionCont, "descr"),
+			Status:            G(CloudProvidersRegionCont, "status"),
 			ClassName:         CloudregionClassName,
-			Rn:                G(CloudprovidersregionCont, "rn"),
+			Rn:                G(CloudProvidersRegionCont, "rn"),
 		},
         
-		CloudprovidersregionAttributes{
-        AdminSt : G(CloudprovidersregionCont, "adminSt"),
-        Annotation : G(CloudprovidersregionCont, "annotation"),
-        NameAlias : G(CloudprovidersregionCont, "nameAlias"),
+		CloudProvidersRegionAttributes{
+        AdminSt : G(CloudProvidersRegionCont, "adminSt"),
+        Annotation : G(CloudProvidersRegionCont, "annotation"),
+        NameAlias : G(CloudProvidersRegionCont, "nameAlias"),
         		
         },
         
 	}
 }
 
-func CloudprovidersregionFromContainer(cont *container.Container) *Cloudprovidersregion {
+func CloudProvidersRegionFromContainer(cont *container.Container) *CloudProvidersRegion {
 
-	return CloudprovidersregionFromContainerList(cont, 0)
+	return CloudProvidersRegionFromContainerList(cont, 0)
 }
 
-func CloudprovidersregionListFromContainer(cont *container.Container) []*Cloudprovidersregion {
+func CloudProvidersRegionListFromContainer(cont *container.Container) []*CloudProvidersRegion {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Cloudprovidersregion, length)
+	arr := make([]*CloudProvidersRegion, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = CloudprovidersregionFromContainerList(cont, i)
+		arr[i] = CloudProvidersRegionFromContainerList(cont, i)
 	}
 
 	return arr

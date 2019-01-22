@@ -10,12 +10,12 @@ import (
 
 const FvbdClassName = "fvBD"
 
-type Bridgedomain struct {
+type BridgeDomain struct {
 	BaseAttributes
-    BridgedomainAttributes 
+    BridgeDomainAttributes 
 }
   
-type BridgedomainAttributes struct {
+type BridgeDomainAttributes struct {
     OptimizeWanBandwidth       string `json:",omitempty"`
     Annotation       string `json:",omitempty"`
     ArpFlood       string `json:",omitempty"`
@@ -42,9 +42,9 @@ type BridgedomainAttributes struct {
 }
    
 
-func NewBridgedomain(fvBDRn, parentDn, description string, fvBDattr BridgedomainAttributes) *Bridgedomain {
+func NewBridgeDomain(fvBDRn, parentDn, description string, fvBDattr BridgeDomainAttributes) *BridgeDomain {
 	dn := fmt.Sprintf("%s/%s", parentDn, fvBDRn)  
-	return &Bridgedomain{
+	return &BridgeDomain{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -53,12 +53,12 @@ func NewBridgedomain(fvBDRn, parentDn, description string, fvBDattr Bridgedomain
 			Rn:                fvBDRn,
 		},
         
-		BridgedomainAttributes: fvBDattr,
+		BridgeDomainAttributes: fvBDattr,
          
 	}
 }
 
-func (fvBD *Bridgedomain) ToMap() (map[string]string, error) {
+func (fvBD *BridgeDomain) ToMap() (map[string]string, error) {
 	fvBDMap, err := fvBD.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -92,60 +92,60 @@ func (fvBD *Bridgedomain) ToMap() (map[string]string, error) {
 	return fvBDMap, err
 }
 
-func BridgedomainFromContainerList(cont *container.Container, index int) *Bridgedomain {
+func BridgeDomainFromContainerList(cont *container.Container, index int) *BridgeDomain {
 
-	BridgedomainCont := cont.S("imdata").Index(index).S(FvbdClassName, "attributes")
-	return &Bridgedomain{
+	BridgeDomainCont := cont.S("imdata").Index(index).S(FvbdClassName, "attributes")
+	return &BridgeDomain{
 		BaseAttributes{
-			DistinguishedName: G(BridgedomainCont, "dn"),
-			Description:       G(BridgedomainCont, "descr"),
-			Status:            G(BridgedomainCont, "status"),
+			DistinguishedName: G(BridgeDomainCont, "dn"),
+			Description:       G(BridgeDomainCont, "descr"),
+			Status:            G(BridgeDomainCont, "status"),
 			ClassName:         FvbdClassName,
-			Rn:                G(BridgedomainCont, "rn"),
+			Rn:                G(BridgeDomainCont, "rn"),
 		},
         
-		BridgedomainAttributes{
-        OptimizeWanBandwidth : G(BridgedomainCont, "OptimizeWanBandwidth"),
-        Annotation : G(BridgedomainCont, "annotation"),
-        ArpFlood : G(BridgedomainCont, "arpFlood"),
-        EpClear : G(BridgedomainCont, "epClear"),
-        EpMoveDetectMode : G(BridgedomainCont, "epMoveDetectMode"),
-        HostBasedRouting : G(BridgedomainCont, "hostBasedRouting"),
-        IntersiteBumTrafficAllow : G(BridgedomainCont, "intersiteBumTrafficAllow"),
-        IntersiteL2Stretch : G(BridgedomainCont, "intersiteL2Stretch"),
-        IpLearning : G(BridgedomainCont, "ipLearning"),
-        Ipv6McastAllow : G(BridgedomainCont, "ipv6McastAllow"),
-        LimitIpLearnToSubnets : G(BridgedomainCont, "limitIpLearnToSubnets"),
-        LlAddr : G(BridgedomainCont, "llAddr"),
-        Mac : G(BridgedomainCont, "mac"),
-        McastAllow : G(BridgedomainCont, "mcastAllow"),
-        MultiDstPktAct : G(BridgedomainCont, "multiDstPktAct"),
-        NameAlias : G(BridgedomainCont, "nameAlias"),
-        Type : G(BridgedomainCont, "type"),
-        UnicastRoute : G(BridgedomainCont, "unicastRoute"),
-        UnkMacUcastAct : G(BridgedomainCont, "unkMacUcastAct"),
-        UnkMcastAct : G(BridgedomainCont, "unkMcastAct"),
-        V6unkMcastAct : G(BridgedomainCont, "v6unkMcastAct"),
-        Vmac : G(BridgedomainCont, "vmac"),
+		BridgeDomainAttributes{
+        OptimizeWanBandwidth : G(BridgeDomainCont, "OptimizeWanBandwidth"),
+        Annotation : G(BridgeDomainCont, "annotation"),
+        ArpFlood : G(BridgeDomainCont, "arpFlood"),
+        EpClear : G(BridgeDomainCont, "epClear"),
+        EpMoveDetectMode : G(BridgeDomainCont, "epMoveDetectMode"),
+        HostBasedRouting : G(BridgeDomainCont, "hostBasedRouting"),
+        IntersiteBumTrafficAllow : G(BridgeDomainCont, "intersiteBumTrafficAllow"),
+        IntersiteL2Stretch : G(BridgeDomainCont, "intersiteL2Stretch"),
+        IpLearning : G(BridgeDomainCont, "ipLearning"),
+        Ipv6McastAllow : G(BridgeDomainCont, "ipv6McastAllow"),
+        LimitIpLearnToSubnets : G(BridgeDomainCont, "limitIpLearnToSubnets"),
+        LlAddr : G(BridgeDomainCont, "llAddr"),
+        Mac : G(BridgeDomainCont, "mac"),
+        McastAllow : G(BridgeDomainCont, "mcastAllow"),
+        MultiDstPktAct : G(BridgeDomainCont, "multiDstPktAct"),
+        NameAlias : G(BridgeDomainCont, "nameAlias"),
+        Type : G(BridgeDomainCont, "type"),
+        UnicastRoute : G(BridgeDomainCont, "unicastRoute"),
+        UnkMacUcastAct : G(BridgeDomainCont, "unkMacUcastAct"),
+        UnkMcastAct : G(BridgeDomainCont, "unkMcastAct"),
+        V6unkMcastAct : G(BridgeDomainCont, "v6unkMcastAct"),
+        Vmac : G(BridgeDomainCont, "vmac"),
         		
         },
         
 	}
 }
 
-func BridgedomainFromContainer(cont *container.Container) *Bridgedomain {
+func BridgeDomainFromContainer(cont *container.Container) *BridgeDomain {
 
-	return BridgedomainFromContainerList(cont, 0)
+	return BridgeDomainFromContainerList(cont, 0)
 }
 
-func BridgedomainListFromContainer(cont *container.Container) []*Bridgedomain {
+func BridgeDomainListFromContainer(cont *container.Container) []*BridgeDomain {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Bridgedomain, length)
+	arr := make([]*BridgeDomain, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = BridgedomainFromContainerList(cont, i)
+		arr[i] = BridgeDomainFromContainerList(cont, i)
 	}
 
 	return arr

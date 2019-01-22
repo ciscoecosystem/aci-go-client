@@ -16,34 +16,34 @@ import (
 
 
 
-func (sm *ServiceManager) CreateContractsubject(name string ,contract string ,tenant string , description string, vzSubjattr models.ContractsubjectAttributes) (*models.Contractsubject, error) {	
+func (sm *ServiceManager) CreateContractSubject(name string ,contract string ,tenant string , description string, vzSubjattr models.ContractSubjectAttributes) (*models.ContractSubject, error) {	
 	rn := fmt.Sprintf("subj-%s",name)
 	parentDn := fmt.Sprintf("uni/tn-%s/brc-%s", tenant ,contract )
-	vzSubj := models.NewContractsubject(rn, parentDn, description, vzSubjattr)
+	vzSubj := models.NewContractSubject(rn, parentDn, description, vzSubjattr)
 	err := sm.Save(vzSubj)
 	return vzSubj, err
 }
 
-func (sm *ServiceManager) ReadContractsubject(name string ,contract string ,tenant string ) (*models.Contractsubject, error) {
+func (sm *ServiceManager) ReadContractSubject(name string ,contract string ,tenant string ) (*models.ContractSubject, error) {
 	dn := fmt.Sprintf("uni/tn-%s/brc-%s/subj-%s", tenant ,contract ,name )    
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
 	}
 
-	vzSubj := models.ContractsubjectFromContainer(cont)
+	vzSubj := models.ContractSubjectFromContainer(cont)
 	return vzSubj, nil
 }
 
-func (sm *ServiceManager) DeleteContractsubject(name string ,contract string ,tenant string ) error {
+func (sm *ServiceManager) DeleteContractSubject(name string ,contract string ,tenant string ) error {
 	dn := fmt.Sprintf("uni/tn-%s/brc-%s/subj-%s", tenant ,contract ,name )
 	return sm.DeleteByDn(dn, models.VzsubjClassName)
 }
 
-func (sm *ServiceManager) UpdateContractsubject(name string ,contract string ,tenant string  ,description string, vzSubjattr models.ContractsubjectAttributes) (*models.Contractsubject, error) {
+func (sm *ServiceManager) UpdateContractSubject(name string ,contract string ,tenant string  ,description string, vzSubjattr models.ContractSubjectAttributes) (*models.ContractSubject, error) {
 	rn := fmt.Sprintf("subj-%s",name)
 	parentDn := fmt.Sprintf("uni/tn-%s/brc-%s", tenant ,contract )
-	vzSubj := models.NewContractsubject(rn, parentDn, description, vzSubjattr)
+	vzSubj := models.NewContractSubject(rn, parentDn, description, vzSubjattr)
 
     vzSubj.Status = "modified"
 	err := sm.Save(vzSubj)
@@ -51,18 +51,18 @@ func (sm *ServiceManager) UpdateContractsubject(name string ,contract string ,te
 
 }
 
-func (sm *ServiceManager) ListContractsubject(contract string ,tenant string ) ([]*models.Contractsubject, error) {
+func (sm *ServiceManager) ListContractSubject(contract string ,tenant string ) ([]*models.ContractSubject, error) {
 
 	baseurlStr := "/api/node/class"	
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/brc-%s/vzSubj.json", baseurlStr , tenant ,contract )
     
     cont, err := sm.GetViaURL(dnUrl)
-	list := models.ContractsubjectListFromContainer(cont)
+	list := models.ContractSubjectListFromContainer(cont)
 
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationvzRsSubjGraphAttFromContractsubject( parentDn, tnVnsAbsGraphName string) error {
+func (sm *ServiceManager) CreateRelationvzRsSubjGraphAttFromContractSubject( parentDn, tnVnsAbsGraphName string) error {
 	dn := fmt.Sprintf("%s/rsSubjGraphAtt", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -92,11 +92,11 @@ func (sm *ServiceManager) CreateRelationvzRsSubjGraphAttFromContractsubject( par
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationvzRsSubjGraphAttFromContractsubject(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationvzRsSubjGraphAttFromContractSubject(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsSubjGraphAtt", parentDn)
 	return sm.DeleteByDn(dn , "vzRsSubjGraphAtt")
 }
-func (sm *ServiceManager) CreateRelationvzRsSdwanPolFromContractsubject( parentDn, tnExtdevSDWanSlaPolName string) error {
+func (sm *ServiceManager) CreateRelationvzRsSdwanPolFromContractSubject( parentDn, tnExtdevSDWanSlaPolName string) error {
 	dn := fmt.Sprintf("%s/rsSdwanPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -126,11 +126,11 @@ func (sm *ServiceManager) CreateRelationvzRsSdwanPolFromContractsubject( parentD
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationvzRsSdwanPolFromContractsubject(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationvzRsSdwanPolFromContractSubject(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsSdwanPol", parentDn)
 	return sm.DeleteByDn(dn , "vzRsSdwanPol")
 }
-func (sm *ServiceManager) CreateRelationvzRsSubjFiltAttFromContractsubject( parentDn, tnVzFilterName string) error {
+func (sm *ServiceManager) CreateRelationvzRsSubjFiltAttFromContractSubject( parentDn, tnVzFilterName string) error {
 	dn := fmt.Sprintf("%s/rssubjFiltAtt-%s", parentDn, tnVzFilterName)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -159,7 +159,7 @@ func (sm *ServiceManager) CreateRelationvzRsSubjFiltAttFromContractsubject( pare
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationvzRsSubjFiltAttFromContractsubject(parentDn , tnVzFilterName string) error{
+func (sm *ServiceManager) DeleteRelationvzRsSubjFiltAttFromContractSubject(parentDn , tnVzFilterName string) error{
 	dn := fmt.Sprintf("%s/rssubjFiltAtt-%s", parentDn, tnVzFilterName)
 	return sm.DeleteByDn(dn , "vzRsSubjFiltAtt")
 }
