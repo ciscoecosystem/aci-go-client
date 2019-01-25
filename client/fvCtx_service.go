@@ -16,7 +16,7 @@ import (
 
 
 
-func (sm *ServiceManager) CreateVRF(name string ,tenant string  ,description string, fvCtxattr models.VRFAttributes) (*models.VRF, error) {	
+func (sm *ServiceManager) CreateVRF(name string ,tenant string , description string, fvCtxattr models.VRFAttributes) (*models.VRF, error) {	
 	rn := fmt.Sprintf("ctx-%s",name)
 	parentDn := fmt.Sprintf("uni/tn-%s", tenant )
 	fvCtx := models.NewVRF(rn, parentDn, description, fvCtxattr)
@@ -148,64 +148,6 @@ func (sm *ServiceManager) CreateRelationfvRsCtxMcastToFromVRF( parentDn, tDn str
 
 	return nil
 }
-func (sm *ServiceManager) CreateRelationfvRsBgpCtxPolFromVRF( parentDn, tnBgpCtxPolName string) error {
-	dn := fmt.Sprintf("%s/rsbgpCtxPol", parentDn)
-	containerJSON := []byte(fmt.Sprintf(`{
-		"%s": {
-			"attributes": {
-				"dn": "%s","tnBgpCtxPolName": "%s"
-								
-			}
-		}
-	}`, "fvRsBgpCtxPol", dn,tnBgpCtxPolName))
-
-	jsonPayload, err := container.ParseJSON(containerJSON)
-	if err != nil {
-		return err
-	}
-
-	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
-	if err != nil {
-		return err
-	}
-
-	cont, _, err := sm.client.Do(req)
-	if err != nil {
-		return err
-	}
-	fmt.Printf("%+v", cont)
-
-	return nil
-}
-func (sm *ServiceManager) CreateRelationfvRsCtxToExtRouteTagPolFromVRF( parentDn, tnL3extRouteTagPolName string) error {
-	dn := fmt.Sprintf("%s/rsctxToExtRouteTagPol", parentDn)
-	containerJSON := []byte(fmt.Sprintf(`{
-		"%s": {
-			"attributes": {
-				"dn": "%s","tnL3extRouteTagPolName": "%s"
-								
-			}
-		}
-	}`, "fvRsCtxToExtRouteTagPol", dn,tnL3extRouteTagPolName))
-
-	jsonPayload, err := container.ParseJSON(containerJSON)
-	if err != nil {
-		return err
-	}
-
-	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
-	if err != nil {
-		return err
-	}
-
-	cont, _, err := sm.client.Do(req)
-	if err != nil {
-		return err
-	}
-	fmt.Printf("%+v", cont)
-
-	return nil
-}
 func (sm *ServiceManager) CreateRelationfvRsCtxToEigrpCtxAfPolFromVRF( parentDn, tnEigrpCtxAfPolName,af string) error {
 	dn := fmt.Sprintf("%s/rsctxToEigrpCtxAfPol-[%s]-%s", parentDn, tnEigrpCtxAfPolName,af)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -301,6 +243,35 @@ func (sm *ServiceManager) CreateRelationfvRsCtxToEpRetFromVRF( parentDn, tnFvEpR
 
 	return nil
 }
+func (sm *ServiceManager) CreateRelationfvRsBgpCtxPolFromVRF( parentDn, tnBgpCtxPolName string) error {
+	dn := fmt.Sprintf("%s/rsbgpCtxPol", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s","tnBgpCtxPolName": "%s"
+								
+			}
+		}
+	}`, "fvRsBgpCtxPol", dn,tnBgpCtxPolName))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
 func (sm *ServiceManager) CreateRelationfvRsCtxMonPolFromVRF( parentDn, tnMonEPGPolName string) error {
 	dn := fmt.Sprintf("%s/rsCtxMonPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -334,6 +305,35 @@ func (sm *ServiceManager) CreateRelationfvRsCtxMonPolFromVRF( parentDn, tnMonEPG
 func (sm *ServiceManager) DeleteRelationfvRsCtxMonPolFromVRF(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsCtxMonPol", parentDn)
 	return sm.DeleteByDn(dn , "fvRsCtxMonPol")
+}
+func (sm *ServiceManager) CreateRelationfvRsCtxToExtRouteTagPolFromVRF( parentDn, tnL3extRouteTagPolName string) error {
+	dn := fmt.Sprintf("%s/rsctxToExtRouteTagPol", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s","tnL3extRouteTagPolName": "%s"
+								
+			}
+		}
+	}`, "fvRsCtxToExtRouteTagPol", dn,tnL3extRouteTagPolName))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
 }
 func (sm *ServiceManager) CreateRelationfvRsCtxToBgpCtxAfPolFromVRF( parentDn, tnBgpCtxAfPolName,af string) error {
 	dn := fmt.Sprintf("%s/rsctxToBgpCtxAfPol-[%s]-%s", parentDn, tnBgpCtxAfPolName,af)

@@ -16,7 +16,7 @@ import (
 
 
 
-func (sm *ServiceManager) CreateVMMDomain(name string ,provider_profile_vendor string  ,description string, vmmDomPattr models.VMMDomainAttributes) (*models.VMMDomain, error) {	
+func (sm *ServiceManager) CreateVMMDomain(name string ,provider_profile_vendor string , description string, vmmDomPattr models.VMMDomainAttributes) (*models.VMMDomain, error) {	
 	rn := fmt.Sprintf("dom-%s",name)
 	parentDn := fmt.Sprintf("uni/vmmp-%s", provider_profile_vendor )
 	vmmDomP := models.NewVMMDomain(rn, parentDn, description, vmmDomPattr)
@@ -62,6 +62,40 @@ func (sm *ServiceManager) ListVMMDomain(provider_profile_vendor string ) ([]*mod
 	return list, err
 }
 
+func (sm *ServiceManager) CreateRelationvmmRsPrefEnhancedLagPolFromVMMDomain( parentDn, tnLacpEnhancedLagPolName string) error {
+	dn := fmt.Sprintf("%s/rsprefEnhancedLagPol", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s","tnLacpEnhancedLagPolName": "%s"
+								
+			}
+		}
+	}`, "vmmRsPrefEnhancedLagPol", dn,tnLacpEnhancedLagPolName))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
+
+func (sm *ServiceManager) DeleteRelationvmmRsPrefEnhancedLagPolFromVMMDomain(parentDn string) error{
+	dn := fmt.Sprintf("%s/rsprefEnhancedLagPol", parentDn)
+	return sm.DeleteByDn(dn , "vmmRsPrefEnhancedLagPol")
+}
 func (sm *ServiceManager) CreateRelationinfraRsVlanNsFromVMMDomain( parentDn, tnFvnsVlanInstPName string) error {
 	dn := fmt.Sprintf("%s/rsvlanNs", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -280,35 +314,6 @@ func (sm *ServiceManager) CreateRelationvmmRsDefaultLldpIfPolFromVMMDomain( pare
 
 	return nil
 }
-func (sm *ServiceManager) CreateRelationvmmRsDefaultL2InstPolFromVMMDomain( parentDn, tnL2InstPolName string) error {
-	dn := fmt.Sprintf("%s/rsdefaultL2InstPol", parentDn)
-	containerJSON := []byte(fmt.Sprintf(`{
-		"%s": {
-			"attributes": {
-				"dn": "%s","tnL2InstPolName": "%s"
-								
-			}
-		}
-	}`, "vmmRsDefaultL2InstPol", dn,tnL2InstPolName))
-
-	jsonPayload, err := container.ParseJSON(containerJSON)
-	if err != nil {
-		return err
-	}
-
-	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
-	if err != nil {
-		return err
-	}
-
-	cont, _, err := sm.client.Do(req)
-	if err != nil {
-		return err
-	}
-	fmt.Printf("%+v", cont)
-
-	return nil
-}
 func (sm *ServiceManager) CreateRelationvmmRsDefaultStpIfPolFromVMMDomain( parentDn, tnStpIfPolName string) error {
 	dn := fmt.Sprintf("%s/rsdefaultStpIfPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -377,6 +382,35 @@ func (sm *ServiceManager) CreateRelationvmmRsDefaultFwPolFromVMMDomain( parentDn
 			}
 		}
 	}`, "vmmRsDefaultFwPol", dn,tnNwsFwPolName))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
+func (sm *ServiceManager) CreateRelationvmmRsDefaultL2InstPolFromVMMDomain( parentDn, tnL2InstPolName string) error {
+	dn := fmt.Sprintf("%s/rsdefaultL2InstPol", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s","tnL2InstPolName": "%s"
+								
+			}
+		}
+	}`, "vmmRsDefaultL2InstPol", dn,tnL2InstPolName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
