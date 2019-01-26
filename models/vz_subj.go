@@ -16,6 +16,7 @@ type ContractSubject struct {
 }
   
 type ContractSubjectAttributes struct {
+    Annotation       string `json:",omitempty"`
     ConsMatchT       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
     Prio       string `json:",omitempty"`
@@ -48,6 +49,7 @@ func (vzSubj *ContractSubject) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
+    A(vzSubjMap, "annotation",vzSubj.Annotation)
     A(vzSubjMap, "consMatchT",vzSubj.ConsMatchT)
     A(vzSubjMap, "nameAlias",vzSubj.NameAlias)
     A(vzSubjMap, "prio",vzSubj.Prio)
@@ -73,6 +75,7 @@ func ContractSubjectFromContainerList(cont *container.Container, index int) *Con
 		},
         
 		ContractSubjectAttributes{
+        Annotation : G(ContractSubjectCont, "annotation"),
         ConsMatchT : G(ContractSubjectCont, "consMatchT"),
         NameAlias : G(ContractSubjectCont, "nameAlias"),
         Prio : G(ContractSubjectCont, "prio"),

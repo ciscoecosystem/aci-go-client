@@ -16,7 +16,7 @@ import (
 
 
 
-func (sm *ServiceManager) CreateBridgeDomain(name string ,tenant string  ,description string, fvBDattr models.BridgeDomainAttributes) (*models.BridgeDomain, error) {	
+func (sm *ServiceManager) CreateBridgeDomain(name string ,tenant string , description string, fvBDattr models.BridgeDomainAttributes) (*models.BridgeDomain, error) {	
 	rn := fmt.Sprintf("BD-%s",name)
 	parentDn := fmt.Sprintf("uni/tn-%s", tenant )
 	fvBD := models.NewBridgeDomain(rn, parentDn, description, fvBDattr)
@@ -96,16 +96,16 @@ func (sm *ServiceManager) DeleteRelationfvRsBDToProfileFromBridgeDomain(parentDn
 	dn := fmt.Sprintf("%s/rsBDToProfile", parentDn)
 	return sm.DeleteByDn(dn , "fvRsBDToProfile")
 }
-func (sm *ServiceManager) CreateRelationfvRsBDToRelayPFromBridgeDomain( parentDn, tnDhcpRelayPName string) error {
-	dn := fmt.Sprintf("%s/rsBDToRelayP", parentDn)
+func (sm *ServiceManager) CreateRelationfvRsMldsnFromBridgeDomain( parentDn, tnMldSnoopPolName string) error {
+	dn := fmt.Sprintf("%s/rsmldsn", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tnDhcpRelayPName": "%s"
+				"dn": "%s","tnMldSnoopPolName": "%s"
 								
 			}
 		}
-	}`, "fvRsBDToRelayP", dn,tnDhcpRelayPName))
+	}`, "fvRsMldsn", dn,tnMldSnoopPolName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -124,11 +124,6 @@ func (sm *ServiceManager) CreateRelationfvRsBDToRelayPFromBridgeDomain( parentDn
 	fmt.Printf("%+v", cont)
 
 	return nil
-}
-
-func (sm *ServiceManager) DeleteRelationfvRsBDToRelayPFromBridgeDomain(parentDn string) error{
-	dn := fmt.Sprintf("%s/rsBDToRelayP", parentDn)
-	return sm.DeleteByDn(dn , "fvRsBDToRelayP")
 }
 func (sm *ServiceManager) CreateRelationfvRsABDPolMonPolFromBridgeDomain( parentDn, tnMonEPGPolName string) error {
 	dn := fmt.Sprintf("%s/rsABDPolMonPol", parentDn)
@@ -259,6 +254,40 @@ func (sm *ServiceManager) CreateRelationfvRsBDToFhsFromBridgeDomain( parentDn, t
 func (sm *ServiceManager) DeleteRelationfvRsBDToFhsFromBridgeDomain(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsBDToFhs", parentDn)
 	return sm.DeleteByDn(dn , "fvRsBDToFhs")
+}
+func (sm *ServiceManager) CreateRelationfvRsBDToRelayPFromBridgeDomain( parentDn, tnDhcpRelayPName string) error {
+	dn := fmt.Sprintf("%s/rsBDToRelayP", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s","tnDhcpRelayPName": "%s"
+								
+			}
+		}
+	}`, "fvRsBDToRelayP", dn,tnDhcpRelayPName))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+
+	return nil
+}
+
+func (sm *ServiceManager) DeleteRelationfvRsBDToRelayPFromBridgeDomain(parentDn string) error{
+	dn := fmt.Sprintf("%s/rsBDToRelayP", parentDn)
+	return sm.DeleteByDn(dn , "fvRsBDToRelayP")
 }
 func (sm *ServiceManager) CreateRelationfvRsCtxFromBridgeDomain( parentDn, tnFvCtxName string) error {
 	dn := fmt.Sprintf("%s/rsctx", parentDn)

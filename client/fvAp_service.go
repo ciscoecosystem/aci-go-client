@@ -16,7 +16,7 @@ import (
 
 
 
-func (sm *ServiceManager) CreateApplicationProfile(name string ,tenant string  ,description string, fvApattr models.ApplicationProfileAttributes) (*models.ApplicationProfile, error) {	
+func (sm *ServiceManager) CreateApplicationProfile(name string ,tenant string , description string, fvApattr models.ApplicationProfileAttributes) (*models.ApplicationProfile, error) {	
 	rn := fmt.Sprintf("ap-%s",name)
 	parentDn := fmt.Sprintf("uni/tn-%s", tenant )
 	fvAp := models.NewApplicationProfile(rn, parentDn, description, fvApattr)

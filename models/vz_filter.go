@@ -16,6 +16,7 @@ type Filter struct {
 }
   
 type FilterAttributes struct {
+    Annotation       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
     
 }
@@ -43,6 +44,7 @@ func (vzFilter *Filter) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
+    A(vzFilterMap, "annotation",vzFilter.Annotation)
     A(vzFilterMap, "nameAlias",vzFilter.NameAlias)
     
 	
@@ -63,6 +65,7 @@ func FilterFromContainerList(cont *container.Container, index int) *Filter {
 		},
         
 		FilterAttributes{
+        Annotation : G(FilterCont, "annotation"),
         NameAlias : G(FilterCont, "nameAlias"),
         		
         },

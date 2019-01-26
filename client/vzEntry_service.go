@@ -15,7 +15,7 @@ import (
 
 
 
-func (sm *ServiceManager) CreateFilterEntry(name string ,filter string ,tenant string  ,description string, vzEntryattr models.FilterEntryAttributes) (*models.FilterEntry, error) {	
+func (sm *ServiceManager) CreateFilterEntry(name string ,filter string ,tenant string , description string, vzEntryattr models.FilterEntryAttributes) (*models.FilterEntry, error) {	
 	rn := fmt.Sprintf("e-%s",name)
 	parentDn := fmt.Sprintf("uni/tn-%s/flt-%s", tenant ,filter )
 	vzEntry := models.NewFilterEntry(rn, parentDn, description, vzEntryattr)

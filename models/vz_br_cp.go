@@ -16,6 +16,7 @@ type Contract struct {
 }
   
 type ContractAttributes struct {
+    Annotation       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
     Prio       string `json:",omitempty"`
     Scope       string `json:",omitempty"`
@@ -46,6 +47,7 @@ func (vzBrCP *Contract) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
+    A(vzBrCPMap, "annotation",vzBrCP.Annotation)
     A(vzBrCPMap, "nameAlias",vzBrCP.NameAlias)
     A(vzBrCPMap, "prio",vzBrCP.Prio)
     A(vzBrCPMap, "scope",vzBrCP.Scope)
@@ -69,6 +71,7 @@ func ContractFromContainerList(cont *container.Container, index int) *Contract {
 		},
         
 		ContractAttributes{
+        Annotation : G(ContractCont, "annotation"),
         NameAlias : G(ContractCont, "nameAlias"),
         Prio : G(ContractCont, "prio"),
         Scope : G(ContractCont, "scope"),

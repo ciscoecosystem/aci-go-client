@@ -16,6 +16,7 @@ type Tenant struct {
 }
   
 type TenantAttributes struct {
+    Annotation       string `json:",omitempty"`
     NameAlias       string `json:",omitempty"`
     
 }
@@ -43,6 +44,7 @@ func (fvTenant *Tenant) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
+    A(fvTenantMap, "annotation",fvTenant.Annotation)
     A(fvTenantMap, "nameAlias",fvTenant.NameAlias)
     
 	
@@ -63,6 +65,7 @@ func TenantFromContainerList(cont *container.Container, index int) *Tenant {
 		},
         
 		TenantAttributes{
+        Annotation : G(TenantCont, "annotation"),
         NameAlias : G(TenantCont, "nameAlias"),
         		
         },
