@@ -38,6 +38,7 @@ type Client struct {
 	privatekey string
 	adminCert  string
 	insecure   bool
+	proxyUrl   string
 	*ServiceManager
 }
 
@@ -76,7 +77,14 @@ func AdminCert(adminCert string) Option {
 	}
 }
 
+func ProxyUrl(pUrl string) Option {
+	return func(client *Client) {
+		client.proxyUrl = pUrl
+	}
+}
+
 func initClient(clientUrl, username string, options ...Option) *Client {
+	var transport *http.Transport
 	bUrl, err := url.Parse(clientUrl)
 	if err != nil {
 		// cannot move forward if url is undefined
@@ -94,7 +102,13 @@ func initClient(clientUrl, username string, options ...Option) *Client {
 	}
 
 	if client.insecure {
-		client.useInsecureHTTPClient()
+		transport = client.useInsecureHTTPClient()
+	}
+	if client.proxyUrl != "" {
+		transport = client.configProxy(transport)
+	}
+	client.httpClient = &http.Client{
+		Transport: transport,
 	}
 	client.ServiceManager = NewServiceManager(client.MOURL, client)
 	return client
@@ -107,8 +121,17 @@ func GetClient(clientUrl, username string, options ...Option) *Client {
 	}
 	return clientImpl
 }
+func (c *Client) configProxy(transport *http.Transport) *http.Transport {
+	pUrl, err := url.Parse(c.proxyUrl)
+	if err != nil {
+		log.Fatal(err)
+	}
+	transport.Proxy = http.ProxyURL(pUrl)
+	return transport
 
-func (c *Client) useInsecureHTTPClient() {
+}
+func (c *Client) useInsecureHTTPClient() *http.Transport {
+	// proxyUrl, _ := url.Parse("http://10.0.1.167:3128")
 	transport := &http.Transport{
 		TLSClientConfig: &tls.Config{
 			CipherSuites: []uint16{
@@ -122,9 +145,7 @@ func (c *Client) useInsecureHTTPClient() {
 		},
 	}
 
-	c.httpClient = &http.Client{
-		Transport: transport,
-	}
+	return transport
 
 }
 
