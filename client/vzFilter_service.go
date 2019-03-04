@@ -6,6 +6,11 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 	"github.com/ciscoecosystem/aci-go-client/container"
 
+
+
+	
+
+
 )
 
 
@@ -91,6 +96,27 @@ func (sm *ServiceManager) CreateRelationvzRsFiltGraphAttFromFilter( parentDn, tn
 
 	return nil
 }
+
+func (sm *ServiceManager) ReadRelationvzRsFiltGraphAttFromFilter( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vzRsFiltGraphAtt")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vzRsFiltGraphAtt")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnVnsInTermName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationvzRsFwdRFltPAttFromFilter( parentDn, tnVzAFilterableUnitName string) error {
 	dn := fmt.Sprintf("%s/rsFwdRFltPAtt", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -120,6 +146,27 @@ func (sm *ServiceManager) CreateRelationvzRsFwdRFltPAttFromFilter( parentDn, tnV
 
 	return nil
 }
+
+func (sm *ServiceManager) ReadRelationvzRsFwdRFltPAttFromFilter( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vzRsFwdRFltPAtt")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vzRsFwdRFltPAtt")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnVzAFilterableUnitName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationvzRsRevRFltPAttFromFilter( parentDn, tnVzAFilterableUnitName string) error {
 	dn := fmt.Sprintf("%s/rsRevRFltPAtt", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -148,5 +195,26 @@ func (sm *ServiceManager) CreateRelationvzRsRevRFltPAttFromFilter( parentDn, tnV
 	fmt.Printf("%+v", cont)
 
 	return nil
+}
+
+func (sm *ServiceManager) ReadRelationvzRsRevRFltPAttFromFilter( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vzRsRevRFltPAtt")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vzRsRevRFltPAtt")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnVzAFilterableUnitName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 

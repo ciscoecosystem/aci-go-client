@@ -5,6 +5,13 @@ import (
 
 	"github.com/ciscoecosystem/aci-go-client/models"
 	"github.com/ciscoecosystem/aci-go-client/container"
+	"github.com/hashicorp/terraform/helper/schema"
+	
+
+
+
+	
+
 
 )
 
@@ -95,6 +102,29 @@ func (sm *ServiceManager) DeleteRelationfvRsTnDenyRuleFromTenant(parentDn , tDn 
 	dn := fmt.Sprintf("%s/rstnDenyRule-[%s]", parentDn, tDn)
 	return sm.DeleteByDn(dn , "fvRsTnDenyRule")
 }
+
+func (sm *ServiceManager) ReadRelationfvRsTnDenyRuleFromTenant( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsTnDenyRule")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsTnDenyRule")
+	
+	st := &schema.Set{
+		F: schema.HashString,
+	}
+	for _, contItem := range contList{
+		dat := models.G(contItem, "tDn")
+		st.Add(dat)
+	}
+	return st, err
+			
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationfvRsTenantMonPolFromTenant( parentDn, tnMonEPGPolName string) error {
 	dn := fmt.Sprintf("%s/rsTenantMonPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -123,5 +153,26 @@ func (sm *ServiceManager) CreateRelationfvRsTenantMonPolFromTenant( parentDn, tn
 	fmt.Printf("%+v", cont)
 
 	return nil
+}
+
+func (sm *ServiceManager) ReadRelationfvRsTenantMonPolFromTenant( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsTenantMonPol")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsTenantMonPol")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnMonEPGPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 

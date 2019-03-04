@@ -6,6 +6,11 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 	"github.com/ciscoecosystem/aci-go-client/container"
 
+
+
+	
+
+
 )
 
 
@@ -96,6 +101,27 @@ func (sm *ServiceManager) DeleteRelationvmmRsPrefEnhancedLagPolFromVMMDomain(par
 	dn := fmt.Sprintf("%s/rsprefEnhancedLagPol", parentDn)
 	return sm.DeleteByDn(dn , "vmmRsPrefEnhancedLagPol")
 }
+
+func (sm *ServiceManager) ReadRelationvmmRsPrefEnhancedLagPolFromVMMDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsPrefEnhancedLagPol")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vmmRsPrefEnhancedLagPol")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnLacpEnhancedLagPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationinfraRsVlanNsFromVMMDomain( parentDn, tnFvnsVlanInstPName string) error {
 	dn := fmt.Sprintf("%s/rsvlanNs", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -129,6 +155,27 @@ func (sm *ServiceManager) CreateRelationinfraRsVlanNsFromVMMDomain( parentDn, tn
 func (sm *ServiceManager) DeleteRelationinfraRsVlanNsFromVMMDomain(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsvlanNs", parentDn)
 	return sm.DeleteByDn(dn , "infraRsVlanNs")
+}
+
+func (sm *ServiceManager) ReadRelationinfraRsVlanNsFromVMMDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsVlanNs")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"infraRsVlanNs")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnFvnsVlanInstPName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 func (sm *ServiceManager) CreateRelationvmmRsDomMcastAddrNsFromVMMDomain( parentDn, tnFvnsMcastAddrInstPName string) error {
 	dn := fmt.Sprintf("%s/rsdomMcastAddrNs", parentDn)
@@ -164,6 +211,27 @@ func (sm *ServiceManager) DeleteRelationvmmRsDomMcastAddrNsFromVMMDomain(parentD
 	dn := fmt.Sprintf("%s/rsdomMcastAddrNs", parentDn)
 	return sm.DeleteByDn(dn , "vmmRsDomMcastAddrNs")
 }
+
+func (sm *ServiceManager) ReadRelationvmmRsDomMcastAddrNsFromVMMDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsDomMcastAddrNs")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vmmRsDomMcastAddrNs")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnFvnsMcastAddrInstPName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationvmmRsDefaultCdpIfPolFromVMMDomain( parentDn, tnCdpIfPolName string) error {
 	dn := fmt.Sprintf("%s/rsdefaultCdpIfPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -192,6 +260,27 @@ func (sm *ServiceManager) CreateRelationvmmRsDefaultCdpIfPolFromVMMDomain( paren
 	fmt.Printf("%+v", cont)
 
 	return nil
+}
+
+func (sm *ServiceManager) ReadRelationvmmRsDefaultCdpIfPolFromVMMDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultCdpIfPol")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vmmRsDefaultCdpIfPol")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnCdpIfPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 func (sm *ServiceManager) CreateRelationvmmRsDefaultLacpLagPolFromVMMDomain( parentDn, tnLacpLagPolName string) error {
 	dn := fmt.Sprintf("%s/rsdefaultLacpLagPol", parentDn)
@@ -222,6 +311,27 @@ func (sm *ServiceManager) CreateRelationvmmRsDefaultLacpLagPolFromVMMDomain( par
 
 	return nil
 }
+
+func (sm *ServiceManager) ReadRelationvmmRsDefaultLacpLagPolFromVMMDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultLacpLagPol")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vmmRsDefaultLacpLagPol")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnLacpLagPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationinfraRsVlanNsDefFromVMMDomain( parentDn, tnFvnsAInstPName string) error {
 	dn := fmt.Sprintf("%s/rsvlanNsDef", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -250,6 +360,27 @@ func (sm *ServiceManager) CreateRelationinfraRsVlanNsDefFromVMMDomain( parentDn,
 	fmt.Printf("%+v", cont)
 
 	return nil
+}
+
+func (sm *ServiceManager) ReadRelationinfraRsVlanNsDefFromVMMDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsVlanNsDef")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"infraRsVlanNsDef")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnFvnsAInstPName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 func (sm *ServiceManager) CreateRelationinfraRsVipAddrNsFromVMMDomain( parentDn, tnFvnsAddrInstName string) error {
 	dn := fmt.Sprintf("%s/rsvipAddrNs", parentDn)
@@ -285,6 +416,27 @@ func (sm *ServiceManager) DeleteRelationinfraRsVipAddrNsFromVMMDomain(parentDn s
 	dn := fmt.Sprintf("%s/rsvipAddrNs", parentDn)
 	return sm.DeleteByDn(dn , "infraRsVipAddrNs")
 }
+
+func (sm *ServiceManager) ReadRelationinfraRsVipAddrNsFromVMMDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsVipAddrNs")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"infraRsVipAddrNs")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnFvnsAddrInstName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationvmmRsDefaultLldpIfPolFromVMMDomain( parentDn, tnLldpIfPolName string) error {
 	dn := fmt.Sprintf("%s/rsdefaultLldpIfPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -313,6 +465,27 @@ func (sm *ServiceManager) CreateRelationvmmRsDefaultLldpIfPolFromVMMDomain( pare
 	fmt.Printf("%+v", cont)
 
 	return nil
+}
+
+func (sm *ServiceManager) ReadRelationvmmRsDefaultLldpIfPolFromVMMDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultLldpIfPol")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vmmRsDefaultLldpIfPol")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnLldpIfPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 func (sm *ServiceManager) CreateRelationvmmRsDefaultStpIfPolFromVMMDomain( parentDn, tnStpIfPolName string) error {
 	dn := fmt.Sprintf("%s/rsdefaultStpIfPol", parentDn)
@@ -343,6 +516,27 @@ func (sm *ServiceManager) CreateRelationvmmRsDefaultStpIfPolFromVMMDomain( paren
 
 	return nil
 }
+
+func (sm *ServiceManager) ReadRelationvmmRsDefaultStpIfPolFromVMMDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultStpIfPol")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vmmRsDefaultStpIfPol")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnStpIfPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationinfraRsDomVxlanNsDefFromVMMDomain( parentDn, tnFvnsAInstPName string) error {
 	dn := fmt.Sprintf("%s/rsdomVxlanNsDef", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -371,6 +565,27 @@ func (sm *ServiceManager) CreateRelationinfraRsDomVxlanNsDefFromVMMDomain( paren
 	fmt.Printf("%+v", cont)
 
 	return nil
+}
+
+func (sm *ServiceManager) ReadRelationinfraRsDomVxlanNsDefFromVMMDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsDomVxlanNsDef")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"infraRsDomVxlanNsDef")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnFvnsAInstPName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 func (sm *ServiceManager) CreateRelationvmmRsDefaultFwPolFromVMMDomain( parentDn, tnNwsFwPolName string) error {
 	dn := fmt.Sprintf("%s/rsdefaultFwPol", parentDn)
@@ -401,6 +616,27 @@ func (sm *ServiceManager) CreateRelationvmmRsDefaultFwPolFromVMMDomain( parentDn
 
 	return nil
 }
+
+func (sm *ServiceManager) ReadRelationvmmRsDefaultFwPolFromVMMDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultFwPol")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vmmRsDefaultFwPol")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnNwsFwPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationvmmRsDefaultL2InstPolFromVMMDomain( parentDn, tnL2InstPolName string) error {
 	dn := fmt.Sprintf("%s/rsdefaultL2InstPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -429,5 +665,26 @@ func (sm *ServiceManager) CreateRelationvmmRsDefaultL2InstPolFromVMMDomain( pare
 	fmt.Printf("%+v", cont)
 
 	return nil
+}
+
+func (sm *ServiceManager) ReadRelationvmmRsDefaultL2InstPolFromVMMDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultL2InstPol")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vmmRsDefaultL2InstPol")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnL2InstPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 

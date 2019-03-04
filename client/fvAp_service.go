@@ -6,6 +6,11 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 	"github.com/ciscoecosystem/aci-go-client/container"
 
+
+
+	
+
+
 )
 
 
@@ -95,5 +100,26 @@ func (sm *ServiceManager) CreateRelationfvRsApMonPolFromApplicationProfile( pare
 func (sm *ServiceManager) DeleteRelationfvRsApMonPolFromApplicationProfile(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsApMonPol", parentDn)
 	return sm.DeleteByDn(dn , "fvRsApMonPol")
+}
+
+func (sm *ServiceManager) ReadRelationfvRsApMonPolFromApplicationProfile( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsApMonPol")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsApMonPol")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnMonEPGPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 

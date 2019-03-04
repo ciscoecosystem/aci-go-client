@@ -5,6 +5,13 @@ import (
 
 	"github.com/ciscoecosystem/aci-go-client/models"
 	"github.com/ciscoecosystem/aci-go-client/container"
+	"github.com/hashicorp/terraform/helper/schema"
+	
+
+
+
+	
+
 
 )
 
@@ -95,6 +102,33 @@ func (sm *ServiceManager) DeleteRelationl3extRsDampeningPolFromL3Outside(parentD
 	dn := fmt.Sprintf("%s/rsdampeningPol-[%s]-%s", parentDn, tnRtctrlProfileName,af)
 	return sm.DeleteByDn(dn , "l3extRsDampeningPol")
 }
+
+func (sm *ServiceManager) ReadRelationl3extRsDampeningPolFromL3Outside( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"l3extRsDampeningPol")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"l3extRsDampeningPol")
+	
+			
+	st := make([]map[string]string, 0)
+
+	for _, contItem := range contList{
+		paramMap := make(map[string]string)
+		paramMap["tnRtctrlProfileName"] = models.G(contItem, "tnRtctrlProfileName")
+		paramMap["af"] = models.G(contItem, "af")
+		
+		st = append(st, paramMap)
+
+	}
+
+	return st, err
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationl3extRsEctxFromL3Outside( parentDn, tnFvCtxName string) error {
 	dn := fmt.Sprintf("%s/rsectx", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -124,6 +158,27 @@ func (sm *ServiceManager) CreateRelationl3extRsEctxFromL3Outside( parentDn, tnFv
 
 	return nil
 }
+
+func (sm *ServiceManager) ReadRelationl3extRsEctxFromL3Outside( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"l3extRsEctx")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"l3extRsEctx")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnFvCtxName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationl3extRsOutToBDPublicSubnetHolderFromL3Outside( parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsoutToBDPublicSubnetHolder-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -151,6 +206,29 @@ func (sm *ServiceManager) CreateRelationl3extRsOutToBDPublicSubnetHolderFromL3Ou
 	fmt.Printf("%+v", cont)
 
 	return nil
+}
+
+func (sm *ServiceManager) ReadRelationl3extRsOutToBDPublicSubnetHolderFromL3Outside( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"l3extRsOutToBDPublicSubnetHolder")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"l3extRsOutToBDPublicSubnetHolder")
+	
+	st := &schema.Set{
+		F: schema.HashString,
+	}
+	for _, contItem := range contList{
+		dat := models.G(contItem, "tDn")
+		st.Add(dat)
+	}
+	return st, err
+			
+
+
+
+
+
 }
 func (sm *ServiceManager) CreateRelationl3extRsInterleakPolFromL3Outside( parentDn, tnRtctrlProfileName string) error {
 	dn := fmt.Sprintf("%s/rsinterleakPol", parentDn)
@@ -186,6 +264,27 @@ func (sm *ServiceManager) DeleteRelationl3extRsInterleakPolFromL3Outside(parentD
 	dn := fmt.Sprintf("%s/rsinterleakPol", parentDn)
 	return sm.DeleteByDn(dn , "l3extRsInterleakPol")
 }
+
+func (sm *ServiceManager) ReadRelationl3extRsInterleakPolFromL3Outside( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"l3extRsInterleakPol")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"l3extRsInterleakPol")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnRtctrlProfileName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationl3extRsL3DomAttFromL3Outside( parentDn, tnExtnwDomPName string) error {
 	dn := fmt.Sprintf("%s/rsl3DomAtt", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -219,5 +318,26 @@ func (sm *ServiceManager) CreateRelationl3extRsL3DomAttFromL3Outside( parentDn, 
 func (sm *ServiceManager) DeleteRelationl3extRsL3DomAttFromL3Outside(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsl3DomAtt", parentDn)
 	return sm.DeleteByDn(dn , "l3extRsL3DomAtt")
+}
+
+func (sm *ServiceManager) ReadRelationl3extRsL3DomAttFromL3Outside( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"l3extRsL3DomAtt")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"l3extRsL3DomAtt")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnExtnwDomPName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 

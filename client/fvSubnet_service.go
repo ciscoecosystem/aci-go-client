@@ -5,6 +5,13 @@ import (
 
 	"github.com/ciscoecosystem/aci-go-client/models"
 	"github.com/ciscoecosystem/aci-go-client/container"
+	"github.com/hashicorp/terraform/helper/schema"
+	
+
+
+
+	
+
 
 )
 
@@ -95,6 +102,29 @@ func (sm *ServiceManager) DeleteRelationfvRsBDSubnetToOutFromSubnet(parentDn , t
 	dn := fmt.Sprintf("%s/rsBDSubnetToOut-%s", parentDn, tnL3extOutName)
 	return sm.DeleteByDn(dn , "fvRsBDSubnetToOut")
 }
+
+func (sm *ServiceManager) ReadRelationfvRsBDSubnetToOutFromSubnet( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDSubnetToOut")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsBDSubnetToOut")
+	
+	st := &schema.Set{
+		F: schema.HashString,
+	}
+	for _, contItem := range contList{
+		dat := models.G(contItem, "tnL3extOutName")
+		st.Add(dat)
+	}
+	return st, err
+			
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationfvRsNdPfxPolFromSubnet( parentDn, tnNdPfxPolName string) error {
 	dn := fmt.Sprintf("%s/rsNdPfxPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -129,6 +159,27 @@ func (sm *ServiceManager) DeleteRelationfvRsNdPfxPolFromSubnet(parentDn string) 
 	dn := fmt.Sprintf("%s/rsNdPfxPol", parentDn)
 	return sm.DeleteByDn(dn , "fvRsNdPfxPol")
 }
+
+func (sm *ServiceManager) ReadRelationfvRsNdPfxPolFromSubnet( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsNdPfxPol")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsNdPfxPol")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnNdPfxPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationfvRsBDSubnetToProfileFromSubnet( parentDn, tnRtctrlProfileName string) error {
 	dn := fmt.Sprintf("%s/rsBDSubnetToProfile", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -162,5 +213,26 @@ func (sm *ServiceManager) CreateRelationfvRsBDSubnetToProfileFromSubnet( parentD
 func (sm *ServiceManager) DeleteRelationfvRsBDSubnetToProfileFromSubnet(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsBDSubnetToProfile", parentDn)
 	return sm.DeleteByDn(dn , "fvRsBDSubnetToProfile")
+}
+
+func (sm *ServiceManager) ReadRelationfvRsBDSubnetToProfileFromSubnet( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDSubnetToProfile")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsBDSubnetToProfile")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnRtctrlProfileName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 

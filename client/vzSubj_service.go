@@ -5,6 +5,13 @@ import (
 
 	"github.com/ciscoecosystem/aci-go-client/models"
 	"github.com/ciscoecosystem/aci-go-client/container"
+	"github.com/hashicorp/terraform/helper/schema"
+	
+
+
+
+	
+
 
 )
 
@@ -96,6 +103,27 @@ func (sm *ServiceManager) DeleteRelationvzRsSubjGraphAttFromContractSubject(pare
 	dn := fmt.Sprintf("%s/rsSubjGraphAtt", parentDn)
 	return sm.DeleteByDn(dn , "vzRsSubjGraphAtt")
 }
+
+func (sm *ServiceManager) ReadRelationvzRsSubjGraphAttFromContractSubject( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vzRsSubjGraphAtt")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vzRsSubjGraphAtt")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnVnsAbsGraphName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationvzRsSdwanPolFromContractSubject( parentDn, tnExtdevSDWanSlaPolName string) error {
 	dn := fmt.Sprintf("%s/rsSdwanPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -130,6 +158,27 @@ func (sm *ServiceManager) DeleteRelationvzRsSdwanPolFromContractSubject(parentDn
 	dn := fmt.Sprintf("%s/rsSdwanPol", parentDn)
 	return sm.DeleteByDn(dn , "vzRsSdwanPol")
 }
+
+func (sm *ServiceManager) ReadRelationvzRsSdwanPolFromContractSubject( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vzRsSdwanPol")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vzRsSdwanPol")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnExtdevSDWanSlaPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationvzRsSubjFiltAttFromContractSubject( parentDn, tnVzFilterName string) error {
 	dn := fmt.Sprintf("%s/rssubjFiltAtt-%s", parentDn, tnVzFilterName)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -162,5 +211,28 @@ func (sm *ServiceManager) CreateRelationvzRsSubjFiltAttFromContractSubject( pare
 func (sm *ServiceManager) DeleteRelationvzRsSubjFiltAttFromContractSubject(parentDn , tnVzFilterName string) error{
 	dn := fmt.Sprintf("%s/rssubjFiltAtt-%s", parentDn, tnVzFilterName)
 	return sm.DeleteByDn(dn , "vzRsSubjFiltAtt")
+}
+
+func (sm *ServiceManager) ReadRelationvzRsSubjFiltAttFromContractSubject( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vzRsSubjFiltAtt")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vzRsSubjFiltAtt")
+	
+	st := &schema.Set{
+		F: schema.HashString,
+	}
+	for _, contItem := range contList{
+		dat := models.G(contItem, "tnVzFilterName")
+		st.Add(dat)
+	}
+	return st, err
+			
+
+
+
+
+
 }
 

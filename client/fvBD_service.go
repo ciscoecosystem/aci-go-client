@@ -5,6 +5,13 @@ import (
 
 	"github.com/ciscoecosystem/aci-go-client/models"
 	"github.com/ciscoecosystem/aci-go-client/container"
+	"github.com/hashicorp/terraform/helper/schema"
+	
+
+
+
+	
+
 
 )
 
@@ -96,6 +103,27 @@ func (sm *ServiceManager) DeleteRelationfvRsBDToProfileFromBridgeDomain(parentDn
 	dn := fmt.Sprintf("%s/rsBDToProfile", parentDn)
 	return sm.DeleteByDn(dn , "fvRsBDToProfile")
 }
+
+func (sm *ServiceManager) ReadRelationfvRsBDToProfileFromBridgeDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDToProfile")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsBDToProfile")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnRtctrlProfileName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationfvRsMldsnFromBridgeDomain( parentDn, tnMldSnoopPolName string) error {
 	dn := fmt.Sprintf("%s/rsmldsn", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -124,6 +152,27 @@ func (sm *ServiceManager) CreateRelationfvRsMldsnFromBridgeDomain( parentDn, tnM
 	fmt.Printf("%+v", cont)
 
 	return nil
+}
+
+func (sm *ServiceManager) ReadRelationfvRsMldsnFromBridgeDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsMldsn")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsMldsn")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnMldSnoopPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 func (sm *ServiceManager) CreateRelationfvRsABDPolMonPolFromBridgeDomain( parentDn, tnMonEPGPolName string) error {
 	dn := fmt.Sprintf("%s/rsABDPolMonPol", parentDn)
@@ -159,6 +208,27 @@ func (sm *ServiceManager) DeleteRelationfvRsABDPolMonPolFromBridgeDomain(parentD
 	dn := fmt.Sprintf("%s/rsABDPolMonPol", parentDn)
 	return sm.DeleteByDn(dn , "fvRsABDPolMonPol")
 }
+
+func (sm *ServiceManager) ReadRelationfvRsABDPolMonPolFromBridgeDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsABDPolMonPol")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsABDPolMonPol")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnMonEPGPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationfvRsBDToNdPFromBridgeDomain( parentDn, tnNdIfPolName string) error {
 	dn := fmt.Sprintf("%s/rsBDToNdP", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -187,6 +257,27 @@ func (sm *ServiceManager) CreateRelationfvRsBDToNdPFromBridgeDomain( parentDn, t
 	fmt.Printf("%+v", cont)
 
 	return nil
+}
+
+func (sm *ServiceManager) ReadRelationfvRsBDToNdPFromBridgeDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDToNdP")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsBDToNdP")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnNdIfPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 func (sm *ServiceManager) CreateRelationfvRsBdFloodToFromBridgeDomain( parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsbdFloodTo-[%s]", parentDn, tDn)
@@ -220,6 +311,29 @@ func (sm *ServiceManager) CreateRelationfvRsBdFloodToFromBridgeDomain( parentDn,
 func (sm *ServiceManager) DeleteRelationfvRsBdFloodToFromBridgeDomain(parentDn , tDn string) error{
 	dn := fmt.Sprintf("%s/rsbdFloodTo-[%s]", parentDn, tDn)
 	return sm.DeleteByDn(dn , "fvRsBdFloodTo")
+}
+
+func (sm *ServiceManager) ReadRelationfvRsBdFloodToFromBridgeDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBdFloodTo")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsBdFloodTo")
+	
+	st := &schema.Set{
+		F: schema.HashString,
+	}
+	for _, contItem := range contList{
+		dat := models.G(contItem, "tDn")
+		st.Add(dat)
+	}
+	return st, err
+			
+
+
+
+
+
 }
 func (sm *ServiceManager) CreateRelationfvRsBDToFhsFromBridgeDomain( parentDn, tnFhsBDPolName string) error {
 	dn := fmt.Sprintf("%s/rsBDToFhs", parentDn)
@@ -255,6 +369,27 @@ func (sm *ServiceManager) DeleteRelationfvRsBDToFhsFromBridgeDomain(parentDn str
 	dn := fmt.Sprintf("%s/rsBDToFhs", parentDn)
 	return sm.DeleteByDn(dn , "fvRsBDToFhs")
 }
+
+func (sm *ServiceManager) ReadRelationfvRsBDToFhsFromBridgeDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDToFhs")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsBDToFhs")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnFhsBDPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationfvRsBDToRelayPFromBridgeDomain( parentDn, tnDhcpRelayPName string) error {
 	dn := fmt.Sprintf("%s/rsBDToRelayP", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -289,6 +424,27 @@ func (sm *ServiceManager) DeleteRelationfvRsBDToRelayPFromBridgeDomain(parentDn 
 	dn := fmt.Sprintf("%s/rsBDToRelayP", parentDn)
 	return sm.DeleteByDn(dn , "fvRsBDToRelayP")
 }
+
+func (sm *ServiceManager) ReadRelationfvRsBDToRelayPFromBridgeDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDToRelayP")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsBDToRelayP")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnDhcpRelayPName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationfvRsCtxFromBridgeDomain( parentDn, tnFvCtxName string) error {
 	dn := fmt.Sprintf("%s/rsctx", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -317,6 +473,27 @@ func (sm *ServiceManager) CreateRelationfvRsCtxFromBridgeDomain( parentDn, tnFvC
 	fmt.Printf("%+v", cont)
 
 	return nil
+}
+
+func (sm *ServiceManager) ReadRelationfvRsCtxFromBridgeDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsCtx")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsCtx")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnFvCtxName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 func (sm *ServiceManager) CreateRelationfvRsBDToNetflowMonitorPolFromBridgeDomain( parentDn, tnNetflowMonitorPolName,fltType string) error {
 	dn := fmt.Sprintf("%s/rsBDToNetflowMonitorPol-[%s]-%s", parentDn, tnNetflowMonitorPolName,fltType)
@@ -351,6 +528,33 @@ func (sm *ServiceManager) DeleteRelationfvRsBDToNetflowMonitorPolFromBridgeDomai
 	dn := fmt.Sprintf("%s/rsBDToNetflowMonitorPol-[%s]-%s", parentDn, tnNetflowMonitorPolName,fltType)
 	return sm.DeleteByDn(dn , "fvRsBDToNetflowMonitorPol")
 }
+
+func (sm *ServiceManager) ReadRelationfvRsBDToNetflowMonitorPolFromBridgeDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDToNetflowMonitorPol")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsBDToNetflowMonitorPol")
+	
+			
+	st := make([]map[string]string, 0)
+
+	for _, contItem := range contList{
+		paramMap := make(map[string]string)
+		paramMap["tnNetflowMonitorPolName"] = models.G(contItem, "tnNetflowMonitorPolName")
+		paramMap["fltType"] = models.G(contItem, "fltType")
+		
+		st = append(st, paramMap)
+
+	}
+
+	return st, err
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationfvRsIgmpsnFromBridgeDomain( parentDn, tnIgmpSnoopPolName string) error {
 	dn := fmt.Sprintf("%s/rsigmpsn", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -380,6 +584,27 @@ func (sm *ServiceManager) CreateRelationfvRsIgmpsnFromBridgeDomain( parentDn, tn
 
 	return nil
 }
+
+func (sm *ServiceManager) ReadRelationfvRsIgmpsnFromBridgeDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsIgmpsn")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsIgmpsn")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnIgmpSnoopPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationfvRsBdToEpRetFromBridgeDomain( parentDn, tnFvEpRetPolName string) error {
 	dn := fmt.Sprintf("%s/rsbdToEpRet", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -408,6 +633,27 @@ func (sm *ServiceManager) CreateRelationfvRsBdToEpRetFromBridgeDomain( parentDn,
 	fmt.Printf("%+v", cont)
 
 	return nil
+}
+
+func (sm *ServiceManager) ReadRelationfvRsBdToEpRetFromBridgeDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBdToEpRet")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsBdToEpRet")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnFvEpRetPolName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 func (sm *ServiceManager) CreateRelationfvRsBDToOutFromBridgeDomain( parentDn, tnL3extOutName string) error {
 	dn := fmt.Sprintf("%s/rsBDToOut-%s", parentDn, tnL3extOutName)
@@ -441,5 +687,28 @@ func (sm *ServiceManager) CreateRelationfvRsBDToOutFromBridgeDomain( parentDn, t
 func (sm *ServiceManager) DeleteRelationfvRsBDToOutFromBridgeDomain(parentDn , tnL3extOutName string) error{
 	dn := fmt.Sprintf("%s/rsBDToOut-%s", parentDn, tnL3extOutName)
 	return sm.DeleteByDn(dn , "fvRsBDToOut")
+}
+
+func (sm *ServiceManager) ReadRelationfvRsBDToOutFromBridgeDomain( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDToOut")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"fvRsBDToOut")
+	
+	st := &schema.Set{
+		F: schema.HashString,
+	}
+	for _, contItem := range contList{
+		dat := models.G(contItem, "tnL3extOutName")
+		st.Add(dat)
+	}
+	return st, err
+			
+
+
+
+
+
 }
 

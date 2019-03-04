@@ -1,6 +1,7 @@
 package models
 
 import (
+	"strconv"
 	"strings"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
@@ -68,5 +69,16 @@ func GetMOName(dn string) string {
 	nameArr := strings.Split(hashedName, "-")
 	name := strings.Join(nameArr[1:], "-")
 	return name
+
+}
+
+func ListFromContainer(cont *container.Container, klass string) []*container.Container {
+	length, _ := strconv.Atoi(G(cont, "totalCount"))
+	arr := make([]*container.Container, length)
+	for i := 0; i < length; i++ {
+
+		arr[i] = cont.S("imdata").Index(i).S(klass, "attributes")
+	}
+	return arr
 
 }

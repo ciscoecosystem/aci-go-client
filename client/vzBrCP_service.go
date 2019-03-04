@@ -6,6 +6,11 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 	"github.com/ciscoecosystem/aci-go-client/container"
 
+
+
+	
+
+
 )
 
 
@@ -95,5 +100,26 @@ func (sm *ServiceManager) CreateRelationvzRsGraphAttFromContract( parentDn, tnVn
 func (sm *ServiceManager) DeleteRelationvzRsGraphAttFromContract(parentDn string) error{
 	dn := fmt.Sprintf("%s/rsGraphAtt", parentDn)
 	return sm.DeleteByDn(dn , "vzRsGraphAtt")
+}
+
+func (sm *ServiceManager) ReadRelationvzRsGraphAttFromContract( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vzRsGraphAtt")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vzRsGraphAtt")
+	
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tnVnsAbsGraphName")
+		return dat, err
+	} else {
+		return nil,err
+	}
+		
+
+
+
+
+
 }
 

@@ -3,9 +3,11 @@ package tests
 import (
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/ciscoecosystem/aci-go-client/client"
 	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/hashicorp/terraform/helper/schema"
 )
 
 // func GetTestClient() *client.Client {
@@ -44,12 +46,22 @@ func deleteTenant(c *client.Client, tenant *models.Tenant) error {
 func TestTenantCreation(t *testing.T) {
 	c := GetTestClient()
 	tenant, err := createTenant(c, "terraform-test-tenant", "A test tenant created with aci-client-sdk.")
+	tenant2, err := createTenant(c, "terraform-test-tenantwe", "A test tenant created with aci-client-sdk.")
+	tenant3, err := createTenant(c, "terraform-test-tenantwert", "A test tenant created with aci-client-sdk.")
 
 	if err != nil {
 		t.Error(err)
 	}
 
 	err = deleteTenant(c, tenant)
+	if err != nil {
+		t.Error(err)
+	}
+	err = deleteTenant(c, tenant2)
+	if err != nil {
+		t.Error(err)
+	}
+	err = deleteTenant(c, tenant3)
 	if err != nil {
 		t.Error(err)
 	}
@@ -170,6 +182,29 @@ func TestTenantDelete(t *testing.T) {
 	err = deleteTenant(c, tenant)
 	if err != nil {
 		t.Error(err)
+	}
+
+}
+
+func TestReadRel(t *testing.T) {
+	c := GetTestClient()
+	tenant, err := createTenant(c, "terraform-test-tenant", "A test tenant created with aci-client-sdk.")
+	time.Sleep(1000 * time.Millisecond)
+	c.CreateRelationfvRsTnDenyRuleFromTenant(tenant.DistinguishedName, "uni/tn-terraform-test-tenant/flt-test-rel")
+	rel, err := c.ReadRelationfvRsTnDenyRuleFromTenant(tenant.DistinguishedName)
+	if err != nil {
+		fmt.Println("******Error *********")
+
+		t.Error(err)
+	}
+	err = deleteTenant(c, tenant)
+	if err != nil {
+
+		t.Error(err)
+	}
+	if rel != nil {
+		fmt.Println(rel.(*schema.Set))
+
 	}
 
 }
