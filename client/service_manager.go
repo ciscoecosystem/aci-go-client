@@ -91,6 +91,10 @@ func CheckForErrors(cont *container.Container, method string) error {
 			if models.StripQuotes(imdata.Path("error.attributes.code").String()) == "103" {
 				return nil
 			} else {
+				if models.StripQuotes(imdata.Path("error.attributes.text").String()) == "" && models.StripQuotes(imdata.Path("error.attributes.code").String()) == "403" {
+					return errors.New("Unable to authenticate. Please check your credentials")
+				}
+
 				return errors.New(models.StripQuotes(imdata.Path("error.attributes.text").String()))
 			}
 		}

@@ -10,15 +10,15 @@ import (
 	"github.com/hashicorp/terraform/helper/schema"
 )
 
-// func GetTestClient() *client.Client {
-// 	return client.GetClient("https://192.168.10.102", "admin", client.Insecure(true), client.PrivateKey("C:\\Users\\Crest\\Desktop\\certtest\\admin.key"), client.AdminCert("test.crt"))
-
-// }
-
 func GetTestClient() *client.Client {
-	return client.GetClient("https://192.168.10.102", "admin", client.Insecure(true), client.Password("cisco123"))
+	return client.GetClient("https://192.168.10.102", "nirav", client.Insecure(true), client.PrivateKey("/Users/crest/go/src/github.com/ciscoecosystem/certdir/admin.key"), client.AdminCert("test.crt"))
 
 }
+
+// func GetTestClient() *client.Client {
+// 	return client.GetClient("https://192.168.10.102", "admin", client.Insecure(true), client.Password("cisco123"))
+
+// }
 
 // func TestTenantPrepareModel(t *testing.T) {
 // 	c := GetTestClient()
