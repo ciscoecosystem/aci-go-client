@@ -3,29 +3,67 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
 	"github.com/ciscoecosystem/aci-go-client/container"
-
+	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-
-
-
-
-
-
-
-
-func (sm *ServiceManager) CreateCloudContextProfile(name string ,tenant string , description string, cloudCtxProfileattr models.CloudContextProfileAttributes) (*models.CloudContextProfile, error) {	
-	rn := fmt.Sprintf("ctxprofile-%s",name)
-	parentDn := fmt.Sprintf("uni/tn-%s", tenant )
+func (sm *ServiceManager) CreateCloudContextProfile(name string, tenant string, description string, cloudCtxProfileattr models.CloudContextProfileAttributes, primaryCidr string, region string) (*models.CloudContextProfile, error) {
+	rn := fmt.Sprintf("ctxprofile-%s", name)
+	parentDn := tenant
 	cloudCtxProfile := models.NewCloudContextProfile(rn, parentDn, description, cloudCtxProfileattr)
-	err := sm.Save(cloudCtxProfile)
+	jsonPayload, _, err := sm.PrepareModel(cloudCtxProfile)
+
+	cidrJSON := []byte(fmt.Sprintf(`
+	{
+		"cloudCidr": {
+			"attributes": {
+				"addr": "%s",
+				"primary": "yes",
+				"status": "created,modified"
+			}
+		}
+	}
+	`, primaryCidr))
+
+	regionAttach := []byte(fmt.Sprintf(`
+	{
+		"cloudRsCtxProfileToRegion": {
+			"attributes": {
+				"status": "created,modified",
+				"tDn": "uni/clouddomp/provp-aws/region-%s"
+			}
+		}
+	}
+	`, region))
+
+	cidrCon, err := container.ParseJSON(cidrJSON)
+	regionCon, err := container.ParseJSON(regionAttach)
+	if err != nil {
+		fmt.Println("error occured in parsing")
+		fmt.Println(err)
+	}
+	jsonPayload.Array(cloudCtxProfile.ClassName, "children")
+	jsonPayload.ArrayAppend(cidrCon.Data(), cloudCtxProfile.ClassName, "children")
+	jsonPayload.ArrayAppend(regionCon.Data(), cloudCtxProfile.ClassName, "children")
+	fmt.Println(jsonPayload)
+	jsonPayload.Set(name, cloudCtxProfile.ClassName, "attributes", "name")
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("/api/node/mo/%s/%s.json", parentDn, rn), jsonPayload, true)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println("*******payload*******", jsonPayload.String())
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Printf("%+v", cont)
+
+	//err := sm.Save(cloudCtxProfile)
 	return cloudCtxProfile, err
 }
 
-func (sm *ServiceManager) ReadCloudContextProfile(name string ,tenant string ) (*models.CloudContextProfile, error) {
-	dn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s", tenant ,name )    
+func (sm *ServiceManager) ReadCloudContextProfile(name string, tenant string) (*models.CloudContextProfile, error) {
+	dn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s", tenant, name)
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
@@ -35,34 +73,76 @@ func (sm *ServiceManager) ReadCloudContextProfile(name string ,tenant string ) (
 	return cloudCtxProfile, nil
 }
 
-func (sm *ServiceManager) DeleteCloudContextProfile(name string ,tenant string ) error {
-	dn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s", tenant ,name )
+func (sm *ServiceManager) DeleteCloudContextProfile(name string, tenant string) error {
+	dn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s", tenant, name)
 	return sm.DeleteByDn(dn, models.CloudctxprofileClassName)
 }
 
-func (sm *ServiceManager) UpdateCloudContextProfile(name string ,tenant string  ,description string, cloudCtxProfileattr models.CloudContextProfileAttributes) (*models.CloudContextProfile, error) {
-	rn := fmt.Sprintf("ctxprofile-%s",name)
-	parentDn := fmt.Sprintf("uni/tn-%s", tenant )
+func (sm *ServiceManager) UpdateCloudContextProfile(name string, tenant string, description string, cloudCtxProfileattr models.CloudContextProfileAttributes, primaryCidr string, region string) (*models.CloudContextProfile, error) {
+	rn := fmt.Sprintf("ctxprofile-%s", name)
+	parentDn := tenant
 	cloudCtxProfile := models.NewCloudContextProfile(rn, parentDn, description, cloudCtxProfileattr)
+	cloudCtxProfile.Status = "modified"
+	jsonPayload, _, err := sm.PrepareModel(cloudCtxProfile)
 
-    cloudCtxProfile.Status = "modified"
-	err := sm.Save(cloudCtxProfile)
+	cidrJSON := []byte(fmt.Sprintf(`
+	{
+		"cloudCidr": {
+			"attributes": {
+				"addr": "%s",
+				"primary": "yes",
+				"status": "modified"
+			}
+		}
+	}
+	`, primaryCidr))
+
+	regionAttach := []byte(fmt.Sprintf(`
+	{
+		"cloudRsCtxProfileToRegion": {
+			"attributes": {
+				"status": "modified",
+				"tDn": "uni/clouddomp/provp-aws/region-%s"
+			}
+		}
+	}
+	`, region))
+
+	cidrCon, err := container.ParseJSON(cidrJSON)
+	regionCon, err := container.ParseJSON(regionAttach)
+
+	jsonPayload.Array(cloudCtxProfile.ClassName, "children")
+	jsonPayload.ArrayAppend(cidrCon.Data(), cloudCtxProfile.ClassName, "children")
+	jsonPayload.ArrayAppend(regionCon.Data(), cloudCtxProfile.ClassName, "children")
+	fmt.Println(jsonPayload)
+	jsonPayload.Set(name, cloudCtxProfile.ClassName, "attributes", "name")
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("/api/node/mo/%s/%s.json", parentDn, rn), jsonPayload, true)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println("*******payload*******", jsonPayload.String())
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Printf("%+v", cont)
+
 	return cloudCtxProfile, err
 
 }
 
-func (sm *ServiceManager) ListCloudContextProfile(tenant string ) ([]*models.CloudContextProfile, error) {
+func (sm *ServiceManager) ListCloudContextProfile(tenant string) ([]*models.CloudContextProfile, error) {
 
-	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/tn-%s/cloudCtxProfile.json", baseurlStr , tenant )
-    
-    cont, err := sm.GetViaURL(dnUrl)
+	baseurlStr := "/api/node/class"
+	dnUrl := fmt.Sprintf("%s/uni/tn-%s/cloudCtxProfile.json", baseurlStr, tenant)
+
+	cont, err := sm.GetViaURL(dnUrl)
 	list := models.CloudContextProfileListFromContainer(cont)
 
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationcloudRsCtxToFlowLogFromCloudContextProfile( parentDn, tnCloudAwsFlowLogPolName string) error {
+func (sm *ServiceManager) CreateRelationcloudRsCtxToFlowLogFromCloudContextProfile(parentDn, tnCloudAwsFlowLogPolName string) error {
 	dn := fmt.Sprintf("%s/rsctxToFlowLog", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -71,7 +151,7 @@ func (sm *ServiceManager) CreateRelationcloudRsCtxToFlowLogFromCloudContextProfi
 								
 			}
 		}
-	}`, "cloudRsCtxToFlowLog", dn,tnCloudAwsFlowLogPolName))
+	}`, "cloudRsCtxToFlowLog", dn, tnCloudAwsFlowLogPolName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -92,11 +172,11 @@ func (sm *ServiceManager) CreateRelationcloudRsCtxToFlowLogFromCloudContextProfi
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationcloudRsCtxToFlowLogFromCloudContextProfile(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationcloudRsCtxToFlowLogFromCloudContextProfile(parentDn string) error {
 	dn := fmt.Sprintf("%s/rsctxToFlowLog", parentDn)
-	return sm.DeleteByDn(dn , "cloudRsCtxToFlowLog")
+	return sm.DeleteByDn(dn, "cloudRsCtxToFlowLog")
 }
-func (sm *ServiceManager) CreateRelationcloudRsToCtxFromCloudContextProfile( parentDn, tnFvCtxName string) error {
+func (sm *ServiceManager) CreateRelationcloudRsToCtxFromCloudContextProfile(parentDn, tnFvCtxName string) error {
 	dn := fmt.Sprintf("%s/rstoCtx", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -105,7 +185,7 @@ func (sm *ServiceManager) CreateRelationcloudRsToCtxFromCloudContextProfile( par
 								
 			}
 		}
-	}`, "cloudRsToCtx", dn,tnFvCtxName))
+	}`, "cloudRsToCtx", dn, tnFvCtxName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -125,7 +205,7 @@ func (sm *ServiceManager) CreateRelationcloudRsToCtxFromCloudContextProfile( par
 
 	return nil
 }
-func (sm *ServiceManager) CreateRelationcloudRsCtxProfileToRegionFromCloudContextProfile( parentDn, tnCloudRegionName string) error {
+func (sm *ServiceManager) CreateRelationcloudRsCtxProfileToRegionFromCloudContextProfile(parentDn, tnCloudRegionName string) error {
 	dn := fmt.Sprintf("%s/rsctxProfileToRegion", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -134,7 +214,7 @@ func (sm *ServiceManager) CreateRelationcloudRsCtxProfileToRegionFromCloudContex
 								
 			}
 		}
-	}`, "cloudRsCtxProfileToRegion", dn,tnCloudRegionName))
+	}`, "cloudRsCtxProfileToRegion", dn, tnCloudRegionName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -155,8 +235,7 @@ func (sm *ServiceManager) CreateRelationcloudRsCtxProfileToRegionFromCloudContex
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationcloudRsCtxProfileToRegionFromCloudContextProfile(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationcloudRsCtxProfileToRegionFromCloudContextProfile(parentDn string) error {
 	dn := fmt.Sprintf("%s/rsctxProfileToRegion", parentDn)
-	return sm.DeleteByDn(dn , "cloudRsCtxProfileToRegion")
+	return sm.DeleteByDn(dn, "cloudRsCtxProfileToRegion")
 }
-

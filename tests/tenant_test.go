@@ -14,7 +14,7 @@ import (
 // }
 
 func GetTestClient() *client.Client {
-	return client.GetClient("https://192.168.10.102", "admin", client.Insecure(true), client.Password("cisco123"))
+	return client.GetClient("https://13.56.187.50", "admin", client.Insecure(true), client.Password("ins3965!"))
 
 }
 
@@ -172,4 +172,17 @@ func TestTenantDelete(t *testing.T) {
 		t.Error(err)
 	}
 
+}
+
+func TestCtxProfileCreation(t *testing.T) {
+	c := GetTestClient()
+	tenant, _ := createTenant(c, "terraform-test-tenant", "A test tenant created with aci-client-sdk.")
+
+	ctxProf, err := c.CreateCloudContextProfile("testprof", tenant.DistinguishedName, "test prof", models.CloudContextProfileAttributes{}, "13.13.0.0/24", "us-west-2")
+
+	if err != nil {
+		t.Error(err)
+
+	}
+	fmt.Println(ctxProf)
 }

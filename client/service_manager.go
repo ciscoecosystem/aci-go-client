@@ -159,6 +159,8 @@ func (sm *ServiceManager) DeleteByDn(dn, className string) error {
 		}
 	}`, className, dn))
 
+	
+
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
 		return err
@@ -188,6 +190,7 @@ func (sm *ServiceManager) PrepareModel(obj models.Model) (*container.Container, 
 		return nil, "", err
 	}
 	className := cont["classname"]
+	// Delete class name key from map so we can add rest of the attributes to the JSON payload.
 	delete(cont, "classname")
 
 	for key, value := range cont {
