@@ -51,15 +51,13 @@ func (sm *ServiceManager) CreateCloudContextProfile(name string, tenant string, 
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("*******payload*******", jsonPayload.String())
 	cont, _, err := sm.client.Do(req)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("%+v", cont)
 
 	//err := sm.Save(cloudCtxProfile)
-	return cloudCtxProfile, err
+	return cloudCtxProfile, CheckForErrors(cont, "POST")
 }
 
 func (sm *ServiceManager) ReadCloudContextProfile(name string, tenant string) (*models.CloudContextProfile, error) {
@@ -127,7 +125,7 @@ func (sm *ServiceManager) UpdateCloudContextProfile(name string, tenant string, 
 	}
 	fmt.Printf("%+v", cont)
 
-	return cloudCtxProfile, err
+	return cloudCtxProfile, CheckForErrors(cont, "POST")
 
 }
 
