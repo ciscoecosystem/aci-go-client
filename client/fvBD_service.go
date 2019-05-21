@@ -106,7 +106,7 @@ func (sm *ServiceManager) DeleteRelationfvRsBDToProfileFromBridgeDomain(parentDn
 
 func (sm *ServiceManager) ReadRelationfvRsBDToProfileFromBridgeDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDToProfile")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsBDToProfile")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsBDToProfile")
@@ -156,7 +156,7 @@ func (sm *ServiceManager) CreateRelationfvRsMldsnFromBridgeDomain( parentDn, tnM
 
 func (sm *ServiceManager) ReadRelationfvRsMldsnFromBridgeDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsMldsn")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsMldsn")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsMldsn")
@@ -211,7 +211,7 @@ func (sm *ServiceManager) DeleteRelationfvRsABDPolMonPolFromBridgeDomain(parentD
 
 func (sm *ServiceManager) ReadRelationfvRsABDPolMonPolFromBridgeDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsABDPolMonPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsABDPolMonPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsABDPolMonPol")
@@ -261,7 +261,7 @@ func (sm *ServiceManager) CreateRelationfvRsBDToNdPFromBridgeDomain( parentDn, t
 
 func (sm *ServiceManager) ReadRelationfvRsBDToNdPFromBridgeDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDToNdP")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsBDToNdP")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsBDToNdP")
@@ -315,7 +315,7 @@ func (sm *ServiceManager) DeleteRelationfvRsBdFloodToFromBridgeDomain(parentDn ,
 
 func (sm *ServiceManager) ReadRelationfvRsBdFloodToFromBridgeDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBdFloodTo")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsBdFloodTo")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsBdFloodTo")
@@ -372,7 +372,7 @@ func (sm *ServiceManager) DeleteRelationfvRsBDToFhsFromBridgeDomain(parentDn str
 
 func (sm *ServiceManager) ReadRelationfvRsBDToFhsFromBridgeDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDToFhs")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsBDToFhs")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsBDToFhs")
@@ -427,7 +427,7 @@ func (sm *ServiceManager) DeleteRelationfvRsBDToRelayPFromBridgeDomain(parentDn 
 
 func (sm *ServiceManager) ReadRelationfvRsBDToRelayPFromBridgeDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDToRelayP")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsBDToRelayP")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsBDToRelayP")
@@ -477,7 +477,7 @@ func (sm *ServiceManager) CreateRelationfvRsCtxFromBridgeDomain( parentDn, tnFvC
 
 func (sm *ServiceManager) ReadRelationfvRsCtxFromBridgeDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsCtx")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsCtx")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsCtx")
@@ -531,7 +531,7 @@ func (sm *ServiceManager) DeleteRelationfvRsBDToNetflowMonitorPolFromBridgeDomai
 
 func (sm *ServiceManager) ReadRelationfvRsBDToNetflowMonitorPolFromBridgeDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDToNetflowMonitorPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsBDToNetflowMonitorPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsBDToNetflowMonitorPol")
@@ -587,7 +587,7 @@ func (sm *ServiceManager) CreateRelationfvRsIgmpsnFromBridgeDomain( parentDn, tn
 
 func (sm *ServiceManager) ReadRelationfvRsIgmpsnFromBridgeDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsIgmpsn")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsIgmpsn")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsIgmpsn")
@@ -637,7 +637,7 @@ func (sm *ServiceManager) CreateRelationfvRsBdToEpRetFromBridgeDomain( parentDn,
 
 func (sm *ServiceManager) ReadRelationfvRsBdToEpRetFromBridgeDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBdToEpRet")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsBdToEpRet")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsBdToEpRet")
@@ -691,7 +691,7 @@ func (sm *ServiceManager) DeleteRelationfvRsBDToOutFromBridgeDomain(parentDn , t
 
 func (sm *ServiceManager) ReadRelationfvRsBDToOutFromBridgeDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDToOut")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsBDToOut")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsBDToOut")

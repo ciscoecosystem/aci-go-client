@@ -101,7 +101,7 @@ func (sm *ServiceManager) CreateRelationfvRsBdFromApplicationEPG( parentDn, tnFv
 
 func (sm *ServiceManager) ReadRelationfvRsBdFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBd")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsBd")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsBd")
@@ -151,7 +151,7 @@ func (sm *ServiceManager) CreateRelationfvRsCustQosPolFromApplicationEPG( parent
 
 func (sm *ServiceManager) ReadRelationfvRsCustQosPolFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsCustQosPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsCustQosPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsCustQosPol")
@@ -205,7 +205,7 @@ func (sm *ServiceManager) DeleteRelationfvRsDomAttFromApplicationEPG(parentDn , 
 
 func (sm *ServiceManager) ReadRelationfvRsDomAttFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsDomAtt")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsDomAtt")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsDomAtt")
@@ -261,7 +261,7 @@ func (sm *ServiceManager) DeleteRelationfvRsFcPathAttFromApplicationEPG(parentDn
 
 func (sm *ServiceManager) ReadRelationfvRsFcPathAttFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsFcPathAtt")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsFcPathAtt")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsFcPathAtt")
@@ -317,7 +317,7 @@ func (sm *ServiceManager) DeleteRelationfvRsProvFromApplicationEPG(parentDn , tn
 
 func (sm *ServiceManager) ReadRelationfvRsProvFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsProv")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsProv")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsProv")
@@ -368,7 +368,7 @@ func (sm *ServiceManager) CreateRelationfvRsGraphDefFromApplicationEPG( parentDn
 
 func (sm *ServiceManager) ReadRelationfvRsGraphDefFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsGraphDef")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsGraphDef")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsGraphDef")
@@ -424,7 +424,7 @@ func (sm *ServiceManager) DeleteRelationfvRsConsIfFromApplicationEPG(parentDn , 
 
 func (sm *ServiceManager) ReadRelationfvRsConsIfFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsConsIf")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsConsIf")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsConsIf")
@@ -480,7 +480,7 @@ func (sm *ServiceManager) DeleteRelationfvRsSecInheritedFromApplicationEPG(paren
 
 func (sm *ServiceManager) ReadRelationfvRsSecInheritedFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsSecInherited")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsSecInherited")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsSecInherited")
@@ -536,7 +536,7 @@ func (sm *ServiceManager) DeleteRelationfvRsNodeAttFromApplicationEPG(parentDn ,
 
 func (sm *ServiceManager) ReadRelationfvRsNodeAttFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsNodeAtt")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsNodeAtt")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsNodeAtt")
@@ -593,7 +593,7 @@ func (sm *ServiceManager) DeleteRelationfvRsDppPolFromApplicationEPG(parentDn st
 
 func (sm *ServiceManager) ReadRelationfvRsDppPolFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsDppPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsDppPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsDppPol")
@@ -647,7 +647,7 @@ func (sm *ServiceManager) DeleteRelationfvRsConsFromApplicationEPG(parentDn , tn
 
 func (sm *ServiceManager) ReadRelationfvRsConsFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsCons")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsCons")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsCons")
@@ -698,7 +698,7 @@ func (sm *ServiceManager) CreateRelationfvRsProvDefFromApplicationEPG( parentDn,
 
 func (sm *ServiceManager) ReadRelationfvRsProvDefFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsProvDef")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsProvDef")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsProvDef")
@@ -755,7 +755,7 @@ func (sm *ServiceManager) DeleteRelationfvRsTrustCtrlFromApplicationEPG(parentDn
 
 func (sm *ServiceManager) ReadRelationfvRsTrustCtrlFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsTrustCtrl")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsTrustCtrl")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsTrustCtrl")
@@ -809,7 +809,7 @@ func (sm *ServiceManager) DeleteRelationfvRsPathAttFromApplicationEPG(parentDn ,
 
 func (sm *ServiceManager) ReadRelationfvRsPathAttFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsPathAtt")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsPathAtt")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsPathAtt")
@@ -865,7 +865,7 @@ func (sm *ServiceManager) DeleteRelationfvRsProtByFromApplicationEPG(parentDn , 
 
 func (sm *ServiceManager) ReadRelationfvRsProtByFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsProtBy")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsProtBy")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsProtBy")
@@ -922,7 +922,7 @@ func (sm *ServiceManager) DeleteRelationfvRsAEPgMonPolFromApplicationEPG(parentD
 
 func (sm *ServiceManager) ReadRelationfvRsAEPgMonPolFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsAEPgMonPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsAEPgMonPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsAEPgMonPol")
@@ -976,7 +976,7 @@ func (sm *ServiceManager) DeleteRelationfvRsIntraEpgFromApplicationEPG(parentDn 
 
 func (sm *ServiceManager) ReadRelationfvRsIntraEpgFromApplicationEPG( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsIntraEpg")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsIntraEpg")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsIntraEpg")

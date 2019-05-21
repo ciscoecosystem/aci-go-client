@@ -104,7 +104,7 @@ func (sm *ServiceManager) DeleteRelationfvRsApMonPolFromApplicationProfile(paren
 
 func (sm *ServiceManager) ReadRelationfvRsApMonPolFromApplicationProfile( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsApMonPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsApMonPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsApMonPol")

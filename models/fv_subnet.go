@@ -16,13 +16,30 @@ type Subnet struct {
 }
   
 type SubnetAttributes struct {
-    Annotation       string `json:",omitempty"`
-    Ctrl       string `json:",omitempty"`
-    Ip       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    Preferred       string `json:",omitempty"`
-    Scope       string `json:",omitempty"`
-    Virtual       string `json:",omitempty"`
+	
+	
+	Ip string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	Ctrl       string `json:",omitempty"`
+	
+    
+    
+	NameAlias       string `json:",omitempty"`
+	
+    
+	Preferred       string `json:",omitempty"`
+	
+    
+	Scope       string `json:",omitempty"`
+	
+    
+	Virtual       string `json:",omitempty"`
+	
     
 }
    
@@ -49,13 +66,30 @@ func (fvSubnet *Subnet) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(fvSubnetMap, "annotation",fvSubnet.Annotation)
-    A(fvSubnetMap, "ctrl",fvSubnet.Ctrl)
-    A(fvSubnetMap, "ip",fvSubnet.Ip)
-    A(fvSubnetMap, "nameAlias",fvSubnet.NameAlias)
-    A(fvSubnetMap, "preferred",fvSubnet.Preferred)
-    A(fvSubnetMap, "scope",fvSubnet.Scope)
-    A(fvSubnetMap, "virtual",fvSubnet.Virtual)
+	
+	
+	A(fvSubnetMap, "ip",fvSubnet.Ip)
+	
+	
+    
+	A(fvSubnetMap, "annotation",fvSubnet.Annotation)
+	
+    
+	A(fvSubnetMap, "ctrl",fvSubnet.Ctrl)
+	
+    
+    
+	A(fvSubnetMap, "nameAlias",fvSubnet.NameAlias)
+	
+    
+	A(fvSubnetMap, "preferred",fvSubnet.Preferred)
+	
+    
+	A(fvSubnetMap, "scope",fvSubnet.Scope)
+	
+    
+	A(fvSubnetMap, "virtual",fvSubnet.Virtual)
+	
     
 	
 
@@ -75,13 +109,30 @@ func SubnetFromContainerList(cont *container.Container, index int) *Subnet {
 		},
         
 		SubnetAttributes{
-        Annotation : G(SubnetCont, "annotation"),
-        Ctrl : G(SubnetCont, "ctrl"),
-        Ip : G(SubnetCont, "ip"),
-        NameAlias : G(SubnetCont, "nameAlias"),
-        Preferred : G(SubnetCont, "preferred"),
-        Scope : G(SubnetCont, "scope"),
-        Virtual : G(SubnetCont, "virtual"),
+		
+		
+			Ip : G(SubnetCont, "ip"),
+		
+		
+        
+	        Annotation : G(SubnetCont, "annotation"),
+		
+        
+	        Ctrl : G(SubnetCont, "ctrl"),
+		
+        
+        
+	        NameAlias : G(SubnetCont, "nameAlias"),
+		
+        
+	        Preferred : G(SubnetCont, "preferred"),
+		
+        
+	        Scope : G(SubnetCont, "scope"),
+		
+        
+	        Virtual : G(SubnetCont, "virtual"),
+		
         		
         },
         
