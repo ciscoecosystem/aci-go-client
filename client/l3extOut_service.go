@@ -105,7 +105,7 @@ func (sm *ServiceManager) DeleteRelationl3extRsDampeningPolFromL3Outside(parentD
 
 func (sm *ServiceManager) ReadRelationl3extRsDampeningPolFromL3Outside( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"l3extRsDampeningPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"l3extRsDampeningPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"l3extRsDampeningPol")
@@ -161,7 +161,7 @@ func (sm *ServiceManager) CreateRelationl3extRsEctxFromL3Outside( parentDn, tnFv
 
 func (sm *ServiceManager) ReadRelationl3extRsEctxFromL3Outside( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"l3extRsEctx")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"l3extRsEctx")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"l3extRsEctx")
@@ -210,7 +210,7 @@ func (sm *ServiceManager) CreateRelationl3extRsOutToBDPublicSubnetHolderFromL3Ou
 
 func (sm *ServiceManager) ReadRelationl3extRsOutToBDPublicSubnetHolderFromL3Outside( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"l3extRsOutToBDPublicSubnetHolder")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"l3extRsOutToBDPublicSubnetHolder")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"l3extRsOutToBDPublicSubnetHolder")
@@ -267,7 +267,7 @@ func (sm *ServiceManager) DeleteRelationl3extRsInterleakPolFromL3Outside(parentD
 
 func (sm *ServiceManager) ReadRelationl3extRsInterleakPolFromL3Outside( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"l3extRsInterleakPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"l3extRsInterleakPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"l3extRsInterleakPol")
@@ -322,7 +322,7 @@ func (sm *ServiceManager) DeleteRelationl3extRsL3DomAttFromL3Outside(parentDn st
 
 func (sm *ServiceManager) ReadRelationl3extRsL3DomAttFromL3Outside( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"l3extRsL3DomAtt")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"l3extRsL3DomAtt")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"l3extRsL3DomAtt")

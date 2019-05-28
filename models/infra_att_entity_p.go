@@ -16,8 +16,17 @@ type AttachableAccessEntityProfile struct {
 }
   
 type AttachableAccessEntityProfileAttributes struct {
-    Annotation       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
     
 }
    
@@ -44,8 +53,17 @@ func (infraAttEntityP *AttachableAccessEntityProfile) ToMap() (map[string]string
 		return nil, err
 	}
 
-    A(infraAttEntityPMap, "annotation",infraAttEntityP.Annotation)
-    A(infraAttEntityPMap, "nameAlias",infraAttEntityP.NameAlias)
+	
+	
+	A(infraAttEntityPMap, "name",infraAttEntityP.Name)
+	
+	
+    
+	A(infraAttEntityPMap, "annotation",infraAttEntityP.Annotation)
+	
+    
+	A(infraAttEntityPMap, "nameAlias",infraAttEntityP.NameAlias)
+	
     
 	
 
@@ -65,8 +83,17 @@ func AttachableAccessEntityProfileFromContainerList(cont *container.Container, i
 		},
         
 		AttachableAccessEntityProfileAttributes{
-        Annotation : G(AttachableAccessEntityProfileCont, "annotation"),
-        NameAlias : G(AttachableAccessEntityProfileCont, "nameAlias"),
+		
+		
+			Name : G(AttachableAccessEntityProfileCont, "name"),
+		
+		
+        
+	        Annotation : G(AttachableAccessEntityProfileCont, "annotation"),
+		
+        
+	        NameAlias : G(AttachableAccessEntityProfileCont, "nameAlias"),
+		
         		
         },
         

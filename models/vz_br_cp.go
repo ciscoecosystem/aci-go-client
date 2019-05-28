@@ -16,11 +16,26 @@ type Contract struct {
 }
   
 type ContractAttributes struct {
-    Annotation       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    Prio       string `json:",omitempty"`
-    Scope       string `json:",omitempty"`
-    TargetDscp       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
+    
+	Prio       string `json:",omitempty"`
+	
+    
+	Scope       string `json:",omitempty"`
+	
+    
+	TargetDscp       string `json:",omitempty"`
+	
     
 }
    
@@ -47,11 +62,26 @@ func (vzBrCP *Contract) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(vzBrCPMap, "annotation",vzBrCP.Annotation)
-    A(vzBrCPMap, "nameAlias",vzBrCP.NameAlias)
-    A(vzBrCPMap, "prio",vzBrCP.Prio)
-    A(vzBrCPMap, "scope",vzBrCP.Scope)
-    A(vzBrCPMap, "targetDscp",vzBrCP.TargetDscp)
+	
+	
+	A(vzBrCPMap, "name",vzBrCP.Name)
+	
+	
+    
+	A(vzBrCPMap, "annotation",vzBrCP.Annotation)
+	
+    
+	A(vzBrCPMap, "nameAlias",vzBrCP.NameAlias)
+	
+    
+	A(vzBrCPMap, "prio",vzBrCP.Prio)
+	
+    
+	A(vzBrCPMap, "scope",vzBrCP.Scope)
+	
+    
+	A(vzBrCPMap, "targetDscp",vzBrCP.TargetDscp)
+	
     
 	
 
@@ -71,11 +101,26 @@ func ContractFromContainerList(cont *container.Container, index int) *Contract {
 		},
         
 		ContractAttributes{
-        Annotation : G(ContractCont, "annotation"),
-        NameAlias : G(ContractCont, "nameAlias"),
-        Prio : G(ContractCont, "prio"),
-        Scope : G(ContractCont, "scope"),
-        TargetDscp : G(ContractCont, "targetDscp"),
+		
+		
+			Name : G(ContractCont, "name"),
+		
+		
+        
+	        Annotation : G(ContractCont, "annotation"),
+		
+        
+	        NameAlias : G(ContractCont, "nameAlias"),
+		
+        
+	        Prio : G(ContractCont, "prio"),
+		
+        
+	        Scope : G(ContractCont, "scope"),
+		
+        
+	        TargetDscp : G(ContractCont, "targetDscp"),
+		
         		
         },
         

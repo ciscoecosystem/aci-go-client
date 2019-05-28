@@ -90,7 +90,7 @@ func (sm *ServiceManager) DeleteRelationinfraRsAccBaseGrpFromAccessPortSelector(
 
 func (sm *ServiceManager) ReadRelationinfraRsAccBaseGrpFromAccessPortSelector(parentDn string) (interface{}, error) {
 	baseurlStr := "/api/node/class"
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json", baseurlStr, parentDn, "infraRsAccBaseGrp")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json", baseurlStr, parentDn, "infraRsAccBaseGrp")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont, "infraRsAccBaseGrp")

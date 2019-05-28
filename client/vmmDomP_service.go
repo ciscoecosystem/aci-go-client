@@ -104,7 +104,7 @@ func (sm *ServiceManager) DeleteRelationvmmRsPrefEnhancedLagPolFromVMMDomain(par
 
 func (sm *ServiceManager) ReadRelationvmmRsPrefEnhancedLagPolFromVMMDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsPrefEnhancedLagPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vmmRsPrefEnhancedLagPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"vmmRsPrefEnhancedLagPol")
@@ -159,7 +159,7 @@ func (sm *ServiceManager) DeleteRelationinfraRsVlanNsFromVMMDomain(parentDn stri
 
 func (sm *ServiceManager) ReadRelationinfraRsVlanNsFromVMMDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsVlanNs")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsVlanNs")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsVlanNs")
@@ -214,7 +214,7 @@ func (sm *ServiceManager) DeleteRelationvmmRsDomMcastAddrNsFromVMMDomain(parentD
 
 func (sm *ServiceManager) ReadRelationvmmRsDomMcastAddrNsFromVMMDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsDomMcastAddrNs")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vmmRsDomMcastAddrNs")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"vmmRsDomMcastAddrNs")
@@ -264,7 +264,7 @@ func (sm *ServiceManager) CreateRelationvmmRsDefaultCdpIfPolFromVMMDomain( paren
 
 func (sm *ServiceManager) ReadRelationvmmRsDefaultCdpIfPolFromVMMDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultCdpIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultCdpIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"vmmRsDefaultCdpIfPol")
@@ -314,7 +314,7 @@ func (sm *ServiceManager) CreateRelationvmmRsDefaultLacpLagPolFromVMMDomain( par
 
 func (sm *ServiceManager) ReadRelationvmmRsDefaultLacpLagPolFromVMMDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultLacpLagPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultLacpLagPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"vmmRsDefaultLacpLagPol")
@@ -364,7 +364,7 @@ func (sm *ServiceManager) CreateRelationinfraRsVlanNsDefFromVMMDomain( parentDn,
 
 func (sm *ServiceManager) ReadRelationinfraRsVlanNsDefFromVMMDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsVlanNsDef")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsVlanNsDef")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsVlanNsDef")
@@ -419,7 +419,7 @@ func (sm *ServiceManager) DeleteRelationinfraRsVipAddrNsFromVMMDomain(parentDn s
 
 func (sm *ServiceManager) ReadRelationinfraRsVipAddrNsFromVMMDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsVipAddrNs")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsVipAddrNs")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsVipAddrNs")
@@ -469,7 +469,7 @@ func (sm *ServiceManager) CreateRelationvmmRsDefaultLldpIfPolFromVMMDomain( pare
 
 func (sm *ServiceManager) ReadRelationvmmRsDefaultLldpIfPolFromVMMDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultLldpIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultLldpIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"vmmRsDefaultLldpIfPol")
@@ -519,7 +519,7 @@ func (sm *ServiceManager) CreateRelationvmmRsDefaultStpIfPolFromVMMDomain( paren
 
 func (sm *ServiceManager) ReadRelationvmmRsDefaultStpIfPolFromVMMDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultStpIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultStpIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"vmmRsDefaultStpIfPol")
@@ -569,7 +569,7 @@ func (sm *ServiceManager) CreateRelationinfraRsDomVxlanNsDefFromVMMDomain( paren
 
 func (sm *ServiceManager) ReadRelationinfraRsDomVxlanNsDefFromVMMDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsDomVxlanNsDef")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsDomVxlanNsDef")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsDomVxlanNsDef")
@@ -619,7 +619,7 @@ func (sm *ServiceManager) CreateRelationvmmRsDefaultFwPolFromVMMDomain( parentDn
 
 func (sm *ServiceManager) ReadRelationvmmRsDefaultFwPolFromVMMDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultFwPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultFwPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"vmmRsDefaultFwPol")
@@ -669,7 +669,7 @@ func (sm *ServiceManager) CreateRelationvmmRsDefaultL2InstPolFromVMMDomain( pare
 
 func (sm *ServiceManager) ReadRelationvmmRsDefaultL2InstPolFromVMMDomain( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultL2InstPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vmmRsDefaultL2InstPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"vmmRsDefaultL2InstPol")

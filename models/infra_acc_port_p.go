@@ -16,8 +16,17 @@ type LeafInterfaceProfile struct {
 }
   
 type LeafInterfaceProfileAttributes struct {
-    Annotation       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
     
 }
    
@@ -44,8 +53,17 @@ func (infraAccPortP *LeafInterfaceProfile) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(infraAccPortPMap, "annotation",infraAccPortP.Annotation)
-    A(infraAccPortPMap, "nameAlias",infraAccPortP.NameAlias)
+	
+	
+	A(infraAccPortPMap, "name",infraAccPortP.Name)
+	
+	
+    
+	A(infraAccPortPMap, "annotation",infraAccPortP.Annotation)
+	
+    
+	A(infraAccPortPMap, "nameAlias",infraAccPortP.NameAlias)
+	
     
 	
 
@@ -65,8 +83,17 @@ func LeafInterfaceProfileFromContainerList(cont *container.Container, index int)
 		},
         
 		LeafInterfaceProfileAttributes{
-        Annotation : G(LeafInterfaceProfileCont, "annotation"),
-        NameAlias : G(LeafInterfaceProfileCont, "nameAlias"),
+		
+		
+			Name : G(LeafInterfaceProfileCont, "name"),
+		
+		
+        
+	        Annotation : G(LeafInterfaceProfileCont, "annotation"),
+		
+        
+	        NameAlias : G(LeafInterfaceProfileCont, "nameAlias"),
+		
         		
         },
         

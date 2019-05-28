@@ -16,9 +16,20 @@ type PCVPCInterfacePolicyGroup struct {
 }
   
 type PCVPCInterfacePolicyGroupAttributes struct {
-    Annotation       string `json:",omitempty"`
-    LagT       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	LagT       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
     
 }
    
@@ -45,9 +56,20 @@ func (infraAccBndlGrp *PCVPCInterfacePolicyGroup) ToMap() (map[string]string, er
 		return nil, err
 	}
 
-    A(infraAccBndlGrpMap, "annotation",infraAccBndlGrp.Annotation)
-    A(infraAccBndlGrpMap, "lagT",infraAccBndlGrp.LagT)
-    A(infraAccBndlGrpMap, "nameAlias",infraAccBndlGrp.NameAlias)
+	
+	
+	A(infraAccBndlGrpMap, "name",infraAccBndlGrp.Name)
+	
+	
+    
+	A(infraAccBndlGrpMap, "annotation",infraAccBndlGrp.Annotation)
+	
+    
+	A(infraAccBndlGrpMap, "lagT",infraAccBndlGrp.LagT)
+	
+    
+	A(infraAccBndlGrpMap, "nameAlias",infraAccBndlGrp.NameAlias)
+	
     
 	
 
@@ -67,9 +89,20 @@ func PCVPCInterfacePolicyGroupFromContainerList(cont *container.Container, index
 		},
         
 		PCVPCInterfacePolicyGroupAttributes{
-        Annotation : G(PCVPCInterfacePolicyGroupCont, "annotation"),
-        LagT : G(PCVPCInterfacePolicyGroupCont, "lagT"),
-        NameAlias : G(PCVPCInterfacePolicyGroupCont, "nameAlias"),
+		
+		
+			Name : G(PCVPCInterfacePolicyGroupCont, "name"),
+		
+		
+        
+	        Annotation : G(PCVPCInterfacePolicyGroupCont, "annotation"),
+		
+        
+	        LagT : G(PCVPCInterfacePolicyGroupCont, "lagT"),
+		
+        
+	        NameAlias : G(PCVPCInterfacePolicyGroupCont, "nameAlias"),
+		
         		
         },
         

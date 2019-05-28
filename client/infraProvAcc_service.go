@@ -105,7 +105,7 @@ func (sm *ServiceManager) DeleteRelationinfraRsFuncToEpgFromVlanEncapsulationfor
 
 func (sm *ServiceManager) ReadRelationinfraRsFuncToEpgFromVlanEncapsulationforVxlanTraffic( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsFuncToEpg")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsFuncToEpg")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsFuncToEpg")

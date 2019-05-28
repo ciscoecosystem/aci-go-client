@@ -16,8 +16,17 @@ type LeafAccessPortPolicyGroup struct {
 }
   
 type LeafAccessPortPolicyGroupAttributes struct {
-    Annotation       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
     
 }
    
@@ -44,8 +53,17 @@ func (infraAccPortGrp *LeafAccessPortPolicyGroup) ToMap() (map[string]string, er
 		return nil, err
 	}
 
-    A(infraAccPortGrpMap, "annotation",infraAccPortGrp.Annotation)
-    A(infraAccPortGrpMap, "nameAlias",infraAccPortGrp.NameAlias)
+	
+	
+	A(infraAccPortGrpMap, "name",infraAccPortGrp.Name)
+	
+	
+    
+	A(infraAccPortGrpMap, "annotation",infraAccPortGrp.Annotation)
+	
+    
+	A(infraAccPortGrpMap, "nameAlias",infraAccPortGrp.NameAlias)
+	
     
 	
 
@@ -65,8 +83,17 @@ func LeafAccessPortPolicyGroupFromContainerList(cont *container.Container, index
 		},
         
 		LeafAccessPortPolicyGroupAttributes{
-        Annotation : G(LeafAccessPortPolicyGroupCont, "annotation"),
-        NameAlias : G(LeafAccessPortPolicyGroupCont, "nameAlias"),
+		
+		
+			Name : G(LeafAccessPortPolicyGroupCont, "name"),
+		
+		
+        
+	        Annotation : G(LeafAccessPortPolicyGroupCont, "annotation"),
+		
+        
+	        NameAlias : G(LeafAccessPortPolicyGroupCont, "nameAlias"),
+		
         		
         },
         

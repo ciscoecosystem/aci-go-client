@@ -16,11 +16,26 @@ type L2InterfacePolicy struct {
 }
   
 type L2InterfacePolicyAttributes struct {
-    Annotation       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    Qinq       string `json:",omitempty"`
-    Vepa       string `json:",omitempty"`
-    VlanScope       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
+    
+	Qinq       string `json:",omitempty"`
+	
+    
+	Vepa       string `json:",omitempty"`
+	
+    
+	VlanScope       string `json:",omitempty"`
+	
     
 }
    
@@ -47,11 +62,26 @@ func (l2IfPol *L2InterfacePolicy) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(l2IfPolMap, "annotation",l2IfPol.Annotation)
-    A(l2IfPolMap, "nameAlias",l2IfPol.NameAlias)
-    A(l2IfPolMap, "qinq",l2IfPol.Qinq)
-    A(l2IfPolMap, "vepa",l2IfPol.Vepa)
-    A(l2IfPolMap, "vlanScope",l2IfPol.VlanScope)
+	
+	
+	A(l2IfPolMap, "name",l2IfPol.Name)
+	
+	
+    
+	A(l2IfPolMap, "annotation",l2IfPol.Annotation)
+	
+    
+	A(l2IfPolMap, "nameAlias",l2IfPol.NameAlias)
+	
+    
+	A(l2IfPolMap, "qinq",l2IfPol.Qinq)
+	
+    
+	A(l2IfPolMap, "vepa",l2IfPol.Vepa)
+	
+    
+	A(l2IfPolMap, "vlanScope",l2IfPol.VlanScope)
+	
     
 	
 
@@ -71,11 +101,26 @@ func L2InterfacePolicyFromContainerList(cont *container.Container, index int) *L
 		},
         
 		L2InterfacePolicyAttributes{
-        Annotation : G(L2InterfacePolicyCont, "annotation"),
-        NameAlias : G(L2InterfacePolicyCont, "nameAlias"),
-        Qinq : G(L2InterfacePolicyCont, "qinq"),
-        Vepa : G(L2InterfacePolicyCont, "vepa"),
-        VlanScope : G(L2InterfacePolicyCont, "vlanScope"),
+		
+		
+			Name : G(L2InterfacePolicyCont, "name"),
+		
+		
+        
+	        Annotation : G(L2InterfacePolicyCont, "annotation"),
+		
+        
+	        NameAlias : G(L2InterfacePolicyCont, "nameAlias"),
+		
+        
+	        Qinq : G(L2InterfacePolicyCont, "qinq"),
+		
+        
+	        Vepa : G(L2InterfacePolicyCont, "vepa"),
+		
+        
+	        VlanScope : G(L2InterfacePolicyCont, "vlanScope"),
+		
         		
         },
         

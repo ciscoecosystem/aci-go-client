@@ -101,7 +101,7 @@ func (sm *ServiceManager) CreateRelationfvRsOspfCtxPolFromVRF( parentDn, tnOspfC
 
 func (sm *ServiceManager) ReadRelationfvRsOspfCtxPolFromVRF( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsOspfCtxPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsOspfCtxPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsOspfCtxPol")
@@ -151,7 +151,7 @@ func (sm *ServiceManager) CreateRelationfvRsVrfValidationPolFromVRF( parentDn, t
 
 func (sm *ServiceManager) ReadRelationfvRsVrfValidationPolFromVRF( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsVrfValidationPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsVrfValidationPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsVrfValidationPol")
@@ -200,7 +200,7 @@ func (sm *ServiceManager) CreateRelationfvRsCtxMcastToFromVRF( parentDn, tDn str
 
 func (sm *ServiceManager) ReadRelationfvRsCtxMcastToFromVRF( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsCtxMcastTo")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsCtxMcastTo")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsCtxMcastTo")
@@ -256,7 +256,7 @@ func (sm *ServiceManager) DeleteRelationfvRsCtxToEigrpCtxAfPolFromVRF(parentDn ,
 
 func (sm *ServiceManager) ReadRelationfvRsCtxToEigrpCtxAfPolFromVRF( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsCtxToEigrpCtxAfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsCtxToEigrpCtxAfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsCtxToEigrpCtxAfPol")
@@ -316,7 +316,7 @@ func (sm *ServiceManager) DeleteRelationfvRsCtxToOspfCtxPolFromVRF(parentDn , tn
 
 func (sm *ServiceManager) ReadRelationfvRsCtxToOspfCtxPolFromVRF( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsCtxToOspfCtxPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsCtxToOspfCtxPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsCtxToOspfCtxPol")
@@ -372,7 +372,7 @@ func (sm *ServiceManager) CreateRelationfvRsCtxToEpRetFromVRF( parentDn, tnFvEpR
 
 func (sm *ServiceManager) ReadRelationfvRsCtxToEpRetFromVRF( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsCtxToEpRet")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsCtxToEpRet")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsCtxToEpRet")
@@ -422,7 +422,7 @@ func (sm *ServiceManager) CreateRelationfvRsBgpCtxPolFromVRF( parentDn, tnBgpCtx
 
 func (sm *ServiceManager) ReadRelationfvRsBgpCtxPolFromVRF( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBgpCtxPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsBgpCtxPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsBgpCtxPol")
@@ -477,7 +477,7 @@ func (sm *ServiceManager) DeleteRelationfvRsCtxMonPolFromVRF(parentDn string) er
 
 func (sm *ServiceManager) ReadRelationfvRsCtxMonPolFromVRF( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsCtxMonPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsCtxMonPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsCtxMonPol")
@@ -527,7 +527,7 @@ func (sm *ServiceManager) CreateRelationfvRsCtxToExtRouteTagPolFromVRF( parentDn
 
 func (sm *ServiceManager) ReadRelationfvRsCtxToExtRouteTagPolFromVRF( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsCtxToExtRouteTagPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsCtxToExtRouteTagPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsCtxToExtRouteTagPol")
@@ -581,7 +581,7 @@ func (sm *ServiceManager) DeleteRelationfvRsCtxToBgpCtxAfPolFromVRF(parentDn , t
 
 func (sm *ServiceManager) ReadRelationfvRsCtxToBgpCtxAfPolFromVRF( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsCtxToBgpCtxAfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsCtxToBgpCtxAfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsCtxToBgpCtxAfPol")

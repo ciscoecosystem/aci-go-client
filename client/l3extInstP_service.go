@@ -105,7 +105,7 @@ func (sm *ServiceManager) DeleteRelationfvRsSecInheritedFromExternalNetworkInsta
 
 func (sm *ServiceManager) ReadRelationfvRsSecInheritedFromExternalNetworkInstanceProfile( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsSecInherited")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsSecInherited")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsSecInherited")
@@ -161,7 +161,7 @@ func (sm *ServiceManager) DeleteRelationfvRsProvFromExternalNetworkInstanceProfi
 
 func (sm *ServiceManager) ReadRelationfvRsProvFromExternalNetworkInstanceProfile( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsProv")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsProv")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsProv")
@@ -213,7 +213,7 @@ func (sm *ServiceManager) CreateRelationl3extRsL3InstPToDomPFromExternalNetworkI
 
 func (sm *ServiceManager) ReadRelationl3extRsL3InstPToDomPFromExternalNetworkInstanceProfile( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"l3extRsL3InstPToDomP")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"l3extRsL3InstPToDomP")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"l3extRsL3InstPToDomP")
@@ -268,7 +268,7 @@ func (sm *ServiceManager) DeleteRelationl3extRsInstPToNatMappingEPgFromExternalN
 
 func (sm *ServiceManager) ReadRelationl3extRsInstPToNatMappingEPgFromExternalNetworkInstanceProfile( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"l3extRsInstPToNatMappingEPg")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"l3extRsInstPToNatMappingEPg")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"l3extRsInstPToNatMappingEPg")
@@ -322,7 +322,7 @@ func (sm *ServiceManager) DeleteRelationfvRsConsIfFromExternalNetworkInstancePro
 
 func (sm *ServiceManager) ReadRelationfvRsConsIfFromExternalNetworkInstanceProfile( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsConsIf")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsConsIf")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsConsIf")
@@ -374,7 +374,7 @@ func (sm *ServiceManager) CreateRelationfvRsCustQosPolFromExternalNetworkInstanc
 
 func (sm *ServiceManager) ReadRelationfvRsCustQosPolFromExternalNetworkInstanceProfile( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsCustQosPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsCustQosPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsCustQosPol")
@@ -428,7 +428,7 @@ func (sm *ServiceManager) DeleteRelationl3extRsInstPToProfileFromExternalNetwork
 
 func (sm *ServiceManager) ReadRelationl3extRsInstPToProfileFromExternalNetworkInstanceProfile( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"l3extRsInstPToProfile")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"l3extRsInstPToProfile")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"l3extRsInstPToProfile")
@@ -488,7 +488,7 @@ func (sm *ServiceManager) DeleteRelationfvRsConsFromExternalNetworkInstanceProfi
 
 func (sm *ServiceManager) ReadRelationfvRsConsFromExternalNetworkInstanceProfile( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsCons")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsCons")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsCons")
@@ -544,7 +544,7 @@ func (sm *ServiceManager) DeleteRelationfvRsProtByFromExternalNetworkInstancePro
 
 func (sm *ServiceManager) ReadRelationfvRsProtByFromExternalNetworkInstanceProfile( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsProtBy")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsProtBy")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsProtBy")
@@ -600,7 +600,7 @@ func (sm *ServiceManager) DeleteRelationfvRsIntraEpgFromExternalNetworkInstanceP
 
 func (sm *ServiceManager) ReadRelationfvRsIntraEpgFromExternalNetworkInstanceProfile( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsIntraEpg")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsIntraEpg")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsIntraEpg")

@@ -16,8 +16,13 @@ type VlanEncapsulationforVxlanTraffic struct {
 }
   
 type VlanEncapsulationforVxlanTrafficAttributes struct {
-    Annotation       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
     
 }
    
@@ -44,8 +49,13 @@ func (infraProvAcc *VlanEncapsulationforVxlanTraffic) ToMap() (map[string]string
 		return nil, err
 	}
 
-    A(infraProvAccMap, "annotation",infraProvAcc.Annotation)
-    A(infraProvAccMap, "nameAlias",infraProvAcc.NameAlias)
+	
+    
+	A(infraProvAccMap, "annotation",infraProvAcc.Annotation)
+	
+    
+	A(infraProvAccMap, "nameAlias",infraProvAcc.NameAlias)
+	
     
 	
 
@@ -65,8 +75,13 @@ func VlanEncapsulationforVxlanTrafficFromContainerList(cont *container.Container
 		},
         
 		VlanEncapsulationforVxlanTrafficAttributes{
-        Annotation : G(VlanEncapsulationforVxlanTrafficCont, "annotation"),
-        NameAlias : G(VlanEncapsulationforVxlanTrafficCont, "nameAlias"),
+		
+        
+	        Annotation : G(VlanEncapsulationforVxlanTrafficCont, "annotation"),
+		
+        
+	        NameAlias : G(VlanEncapsulationforVxlanTrafficCont, "nameAlias"),
+		
         		
         },
         

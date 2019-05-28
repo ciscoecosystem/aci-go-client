@@ -16,12 +16,29 @@ type AccessPortBlock struct {
 }
   
 type AccessPortBlockAttributes struct {
-    Annotation       string `json:",omitempty"`
-    FromCard       string `json:",omitempty"`
-    FromPort       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    ToCard       string `json:",omitempty"`
-    ToPort       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	FromCard       string `json:",omitempty"`
+	
+    
+	FromPort       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
+    
+	ToCard       string `json:",omitempty"`
+	
+    
+	ToPort       string `json:",omitempty"`
+	
     
 }
    
@@ -48,12 +65,29 @@ func (infraPortBlk *AccessPortBlock) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(infraPortBlkMap, "annotation",infraPortBlk.Annotation)
-    A(infraPortBlkMap, "fromCard",infraPortBlk.FromCard)
-    A(infraPortBlkMap, "fromPort",infraPortBlk.FromPort)
-    A(infraPortBlkMap, "nameAlias",infraPortBlk.NameAlias)
-    A(infraPortBlkMap, "toCard",infraPortBlk.ToCard)
-    A(infraPortBlkMap, "toPort",infraPortBlk.ToPort)
+	
+	
+	A(infraPortBlkMap, "name",infraPortBlk.Name)
+	
+	
+    
+	A(infraPortBlkMap, "annotation",infraPortBlk.Annotation)
+	
+    
+	A(infraPortBlkMap, "fromCard",infraPortBlk.FromCard)
+	
+    
+	A(infraPortBlkMap, "fromPort",infraPortBlk.FromPort)
+	
+    
+	A(infraPortBlkMap, "nameAlias",infraPortBlk.NameAlias)
+	
+    
+	A(infraPortBlkMap, "toCard",infraPortBlk.ToCard)
+	
+    
+	A(infraPortBlkMap, "toPort",infraPortBlk.ToPort)
+	
     
 	
 
@@ -73,12 +107,29 @@ func AccessPortBlockFromContainerList(cont *container.Container, index int) *Acc
 		},
         
 		AccessPortBlockAttributes{
-        Annotation : G(AccessPortBlockCont, "annotation"),
-        FromCard : G(AccessPortBlockCont, "fromCard"),
-        FromPort : G(AccessPortBlockCont, "fromPort"),
-        NameAlias : G(AccessPortBlockCont, "nameAlias"),
-        ToCard : G(AccessPortBlockCont, "toCard"),
-        ToPort : G(AccessPortBlockCont, "toPort"),
+		
+		
+			Name : G(AccessPortBlockCont, "name"),
+		
+		
+        
+	        Annotation : G(AccessPortBlockCont, "annotation"),
+		
+        
+	        FromCard : G(AccessPortBlockCont, "fromCard"),
+		
+        
+	        FromPort : G(AccessPortBlockCont, "fromPort"),
+		
+        
+	        NameAlias : G(AccessPortBlockCont, "nameAlias"),
+		
+        
+	        ToCard : G(AccessPortBlockCont, "toCard"),
+		
+        
+	        ToPort : G(AccessPortBlockCont, "toPort"),
+		
         		
         },
         

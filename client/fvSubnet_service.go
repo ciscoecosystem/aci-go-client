@@ -105,7 +105,7 @@ func (sm *ServiceManager) DeleteRelationfvRsBDSubnetToOutFromSubnet(parentDn , t
 
 func (sm *ServiceManager) ReadRelationfvRsBDSubnetToOutFromSubnet( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDSubnetToOut")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsBDSubnetToOut")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsBDSubnetToOut")
@@ -162,7 +162,7 @@ func (sm *ServiceManager) DeleteRelationfvRsNdPfxPolFromSubnet(parentDn string) 
 
 func (sm *ServiceManager) ReadRelationfvRsNdPfxPolFromSubnet( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsNdPfxPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsNdPfxPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsNdPfxPol")
@@ -217,7 +217,7 @@ func (sm *ServiceManager) DeleteRelationfvRsBDSubnetToProfileFromSubnet(parentDn
 
 func (sm *ServiceManager) ReadRelationfvRsBDSubnetToProfileFromSubnet( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsBDSubnetToProfile")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsBDSubnetToProfile")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsBDSubnetToProfile")

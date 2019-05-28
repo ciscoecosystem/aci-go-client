@@ -104,7 +104,7 @@ func (sm *ServiceManager) DeleteRelationvzRsGraphAttFromContract(parentDn string
 
 func (sm *ServiceManager) ReadRelationvzRsGraphAttFromContract( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vzRsGraphAtt")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vzRsGraphAtt")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"vzRsGraphAtt")

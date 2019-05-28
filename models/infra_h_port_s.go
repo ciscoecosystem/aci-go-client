@@ -1,6 +1,5 @@
 package models
 
-
 import (
 	"fmt"
 	"strconv"
@@ -12,19 +11,21 @@ const InfrahportsClassName = "infraHPortS"
 
 type AccessPortSelector struct {
 	BaseAttributes
-    AccessPortSelectorAttributes 
+	AccessPortSelectorAttributes
 }
-  
+
 type AccessPortSelectorAttributes struct {
-    Annotation       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    AccessPortSelector_type       string `json:",omitempty"`
-    
+	Name string `json:",omitempty"`
+
+	AccessPortSelector_type string `json:",omitempty"`
+
+	Annotation string `json:",omitempty"`
+
+	NameAlias string `json:",omitempty"`
 }
-   
 
 func NewAccessPortSelector(infraHPortSRn, parentDn, description string, infraHPortSattr AccessPortSelectorAttributes) *AccessPortSelector {
-	dn := fmt.Sprintf("%s/%s", parentDn, infraHPortSRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, infraHPortSRn)
 	return &AccessPortSelector{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -33,9 +34,8 @@ func NewAccessPortSelector(infraHPortSRn, parentDn, description string, infraHPo
 			ClassName:         InfrahportsClassName,
 			Rn:                infraHPortSRn,
 		},
-        
+
 		AccessPortSelectorAttributes: infraHPortSattr,
-         
 	}
 }
 
@@ -45,11 +45,13 @@ func (infraHPortS *AccessPortSelector) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(infraHPortSMap, "annotation",infraHPortS.Annotation)
-    A(infraHPortSMap, "nameAlias",infraHPortS.NameAlias)
-    A(infraHPortSMap, "type",infraHPortS.AccessPortSelector_type)
-    
-	
+	A(infraHPortSMap, "name", infraHPortS.Name)
+
+	A(infraHPortSMap, "type", infraHPortS.AccessPortSelector_type)
+
+	A(infraHPortSMap, "annotation", infraHPortS.Annotation)
+
+	A(infraHPortSMap, "nameAlias", infraHPortS.NameAlias)
 
 	return infraHPortSMap, err
 }
@@ -65,14 +67,17 @@ func AccessPortSelectorFromContainerList(cont *container.Container, index int) *
 			ClassName:         InfrahportsClassName,
 			Rn:                G(AccessPortSelectorCont, "rn"),
 		},
-        
+
 		AccessPortSelectorAttributes{
-        Annotation : G(AccessPortSelectorCont, "annotation"),
-        NameAlias : G(AccessPortSelectorCont, "nameAlias"),
-        AccessPortSelector_type : G(AccessPortSelectorCont, "type"),
-        		
-        },
-        
+
+			Name: G(AccessPortSelectorCont, "name"),
+
+			AccessPortSelector_type: G(AccessPortSelectorCont, "type"),
+
+			Annotation: G(AccessPortSelectorCont, "annotation"),
+
+			NameAlias: G(AccessPortSelectorCont, "nameAlias"),
+		},
 	}
 }
 

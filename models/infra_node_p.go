@@ -16,8 +16,17 @@ type LeafProfile struct {
 }
   
 type LeafProfileAttributes struct {
-    Annotation       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
     
 }
    
@@ -44,8 +53,17 @@ func (infraNodeP *LeafProfile) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(infraNodePMap, "annotation",infraNodeP.Annotation)
-    A(infraNodePMap, "nameAlias",infraNodeP.NameAlias)
+	
+	
+	A(infraNodePMap, "name",infraNodeP.Name)
+	
+	
+    
+	A(infraNodePMap, "annotation",infraNodeP.Annotation)
+	
+    
+	A(infraNodePMap, "nameAlias",infraNodeP.NameAlias)
+	
     
 	
 
@@ -65,8 +83,17 @@ func LeafProfileFromContainerList(cont *container.Container, index int) *LeafPro
 		},
         
 		LeafProfileAttributes{
-        Annotation : G(LeafProfileCont, "annotation"),
-        NameAlias : G(LeafProfileCont, "nameAlias"),
+		
+		
+			Name : G(LeafProfileCont, "name"),
+		
+		
+        
+	        Annotation : G(LeafProfileCont, "annotation"),
+		
+        
+	        NameAlias : G(LeafProfileCont, "nameAlias"),
+		
         		
         },
         

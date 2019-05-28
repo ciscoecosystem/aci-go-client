@@ -16,12 +16,29 @@ type LACPPolicy struct {
 }
   
 type LACPPolicyAttributes struct {
-    Annotation       string `json:",omitempty"`
-    Ctrl       string `json:",omitempty"`
-    MaxLinks       string `json:",omitempty"`
-    MinLinks       string `json:",omitempty"`
-    Mode       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	Ctrl       string `json:",omitempty"`
+	
+    
+	MaxLinks       string `json:",omitempty"`
+	
+    
+	MinLinks       string `json:",omitempty"`
+	
+    
+	Mode       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
     
 }
    
@@ -48,12 +65,29 @@ func (lacpLagPol *LACPPolicy) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(lacpLagPolMap, "annotation",lacpLagPol.Annotation)
-    A(lacpLagPolMap, "ctrl",lacpLagPol.Ctrl)
-    A(lacpLagPolMap, "maxLinks",lacpLagPol.MaxLinks)
-    A(lacpLagPolMap, "minLinks",lacpLagPol.MinLinks)
-    A(lacpLagPolMap, "mode",lacpLagPol.Mode)
-    A(lacpLagPolMap, "nameAlias",lacpLagPol.NameAlias)
+	
+	
+	A(lacpLagPolMap, "name",lacpLagPol.Name)
+	
+	
+    
+	A(lacpLagPolMap, "annotation",lacpLagPol.Annotation)
+	
+    
+	A(lacpLagPolMap, "ctrl",lacpLagPol.Ctrl)
+	
+    
+	A(lacpLagPolMap, "maxLinks",lacpLagPol.MaxLinks)
+	
+    
+	A(lacpLagPolMap, "minLinks",lacpLagPol.MinLinks)
+	
+    
+	A(lacpLagPolMap, "mode",lacpLagPol.Mode)
+	
+    
+	A(lacpLagPolMap, "nameAlias",lacpLagPol.NameAlias)
+	
     
 	
 
@@ -73,12 +107,29 @@ func LACPPolicyFromContainerList(cont *container.Container, index int) *LACPPoli
 		},
         
 		LACPPolicyAttributes{
-        Annotation : G(LACPPolicyCont, "annotation"),
-        Ctrl : G(LACPPolicyCont, "ctrl"),
-        MaxLinks : G(LACPPolicyCont, "maxLinks"),
-        MinLinks : G(LACPPolicyCont, "minLinks"),
-        Mode : G(LACPPolicyCont, "mode"),
-        NameAlias : G(LACPPolicyCont, "nameAlias"),
+		
+		
+			Name : G(LACPPolicyCont, "name"),
+		
+		
+        
+	        Annotation : G(LACPPolicyCont, "annotation"),
+		
+        
+	        Ctrl : G(LACPPolicyCont, "ctrl"),
+		
+        
+	        MaxLinks : G(LACPPolicyCont, "maxLinks"),
+		
+        
+	        MinLinks : G(LACPPolicyCont, "minLinks"),
+		
+        
+	        Mode : G(LACPPolicyCont, "mode"),
+		
+        
+	        NameAlias : G(LACPPolicyCont, "nameAlias"),
+		
         		
         },
         

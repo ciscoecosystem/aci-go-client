@@ -105,7 +105,7 @@ func (sm *ServiceManager) DeleteRelationfvRsTnDenyRuleFromTenant(parentDn , tDn 
 
 func (sm *ServiceManager) ReadRelationfvRsTnDenyRuleFromTenant( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsTnDenyRule")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsTnDenyRule")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsTnDenyRule")
@@ -157,7 +157,7 @@ func (sm *ServiceManager) CreateRelationfvRsTenantMonPolFromTenant( parentDn, tn
 
 func (sm *ServiceManager) ReadRelationfvRsTenantMonPolFromTenant( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"fvRsTenantMonPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"fvRsTenantMonPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"fvRsTenantMonPol")

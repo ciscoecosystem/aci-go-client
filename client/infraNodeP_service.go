@@ -105,7 +105,7 @@ func (sm *ServiceManager) DeleteRelationinfraRsAccCardPFromLeafProfile(parentDn 
 
 func (sm *ServiceManager) ReadRelationinfraRsAccCardPFromLeafProfile( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsAccCardP")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsAccCardP")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsAccCardP")
@@ -161,7 +161,7 @@ func (sm *ServiceManager) DeleteRelationinfraRsAccPortPFromLeafProfile(parentDn 
 
 func (sm *ServiceManager) ReadRelationinfraRsAccPortPFromLeafProfile( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsAccPortP")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsAccPortP")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsAccPortP")

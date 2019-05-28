@@ -99,7 +99,7 @@ func (sm *ServiceManager) CreateRelationvzRsFiltGraphAttFromFilter( parentDn, tn
 
 func (sm *ServiceManager) ReadRelationvzRsFiltGraphAttFromFilter( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vzRsFiltGraphAtt")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vzRsFiltGraphAtt")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"vzRsFiltGraphAtt")
@@ -149,7 +149,7 @@ func (sm *ServiceManager) CreateRelationvzRsFwdRFltPAttFromFilter( parentDn, tnV
 
 func (sm *ServiceManager) ReadRelationvzRsFwdRFltPAttFromFilter( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vzRsFwdRFltPAtt")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vzRsFwdRFltPAtt")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"vzRsFwdRFltPAtt")
@@ -199,7 +199,7 @@ func (sm *ServiceManager) CreateRelationvzRsRevRFltPAttFromFilter( parentDn, tnV
 
 func (sm *ServiceManager) ReadRelationvzRsRevRFltPAttFromFilter( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vzRsRevRFltPAtt")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vzRsRevRFltPAtt")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"vzRsRevRFltPAtt")

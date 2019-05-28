@@ -16,10 +16,23 @@ type LLDPInterfacePolicy struct {
 }
   
 type LLDPInterfacePolicyAttributes struct {
-    AdminRxSt       string `json:",omitempty"`
-    AdminTxSt       string `json:",omitempty"`
-    Annotation       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	AdminRxSt       string `json:",omitempty"`
+	
+    
+	AdminTxSt       string `json:",omitempty"`
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
     
 }
    
@@ -46,10 +59,23 @@ func (lldpIfPol *LLDPInterfacePolicy) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(lldpIfPolMap, "adminRxSt",lldpIfPol.AdminRxSt)
-    A(lldpIfPolMap, "adminTxSt",lldpIfPol.AdminTxSt)
-    A(lldpIfPolMap, "annotation",lldpIfPol.Annotation)
-    A(lldpIfPolMap, "nameAlias",lldpIfPol.NameAlias)
+	
+	
+	A(lldpIfPolMap, "name",lldpIfPol.Name)
+	
+	
+    
+	A(lldpIfPolMap, "adminRxSt",lldpIfPol.AdminRxSt)
+	
+    
+	A(lldpIfPolMap, "adminTxSt",lldpIfPol.AdminTxSt)
+	
+    
+	A(lldpIfPolMap, "annotation",lldpIfPol.Annotation)
+	
+    
+	A(lldpIfPolMap, "nameAlias",lldpIfPol.NameAlias)
+	
     
 	
 
@@ -69,10 +95,23 @@ func LLDPInterfacePolicyFromContainerList(cont *container.Container, index int) 
 		},
         
 		LLDPInterfacePolicyAttributes{
-        AdminRxSt : G(LLDPInterfacePolicyCont, "adminRxSt"),
-        AdminTxSt : G(LLDPInterfacePolicyCont, "adminTxSt"),
-        Annotation : G(LLDPInterfacePolicyCont, "annotation"),
-        NameAlias : G(LLDPInterfacePolicyCont, "nameAlias"),
+		
+		
+			Name : G(LLDPInterfacePolicyCont, "name"),
+		
+		
+        
+	        AdminRxSt : G(LLDPInterfacePolicyCont, "adminRxSt"),
+		
+        
+	        AdminTxSt : G(LLDPInterfacePolicyCont, "adminTxSt"),
+		
+        
+	        Annotation : G(LLDPInterfacePolicyCont, "annotation"),
+		
+        
+	        NameAlias : G(LLDPInterfacePolicyCont, "nameAlias"),
+		
         		
         },
         

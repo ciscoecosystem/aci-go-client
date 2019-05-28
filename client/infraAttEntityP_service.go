@@ -105,7 +105,7 @@ func (sm *ServiceManager) DeleteRelationinfraRsDomPFromAttachableAccessEntityPro
 
 func (sm *ServiceManager) ReadRelationinfraRsDomPFromAttachableAccessEntityProfile( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsDomP")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsDomP")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsDomP")

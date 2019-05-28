@@ -16,8 +16,17 @@ type Tenant struct {
 }
   
 type TenantAttributes struct {
-    Annotation       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
     
 }
    
@@ -44,8 +53,17 @@ func (fvTenant *Tenant) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(fvTenantMap, "annotation",fvTenant.Annotation)
-    A(fvTenantMap, "nameAlias",fvTenant.NameAlias)
+	
+	
+	A(fvTenantMap, "name",fvTenant.Name)
+	
+	
+    
+	A(fvTenantMap, "annotation",fvTenant.Annotation)
+	
+    
+	A(fvTenantMap, "nameAlias",fvTenant.NameAlias)
+	
     
 	
 
@@ -65,8 +83,17 @@ func TenantFromContainerList(cont *container.Container, index int) *Tenant {
 		},
         
 		TenantAttributes{
-        Annotation : G(TenantCont, "annotation"),
-        NameAlias : G(TenantCont, "nameAlias"),
+		
+		
+			Name : G(TenantCont, "name"),
+		
+		
+        
+	        Annotation : G(TenantCont, "annotation"),
+		
+        
+	        NameAlias : G(TenantCont, "nameAlias"),
+		
         		
         },
         

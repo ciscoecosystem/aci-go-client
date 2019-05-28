@@ -16,10 +16,23 @@ type L3Outside struct {
 }
   
 type L3OutsideAttributes struct {
-    Annotation       string `json:",omitempty"`
-    EnforceRtctrl       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    TargetDscp       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	EnforceRtctrl       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
+    
+	TargetDscp       string `json:",omitempty"`
+	
     
 }
    
@@ -46,10 +59,23 @@ func (l3extOut *L3Outside) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(l3extOutMap, "annotation",l3extOut.Annotation)
-    A(l3extOutMap, "enforceRtctrl",l3extOut.EnforceRtctrl)
-    A(l3extOutMap, "nameAlias",l3extOut.NameAlias)
-    A(l3extOutMap, "targetDscp",l3extOut.TargetDscp)
+	
+	
+	A(l3extOutMap, "name",l3extOut.Name)
+	
+	
+    
+	A(l3extOutMap, "annotation",l3extOut.Annotation)
+	
+    
+	A(l3extOutMap, "enforceRtctrl",l3extOut.EnforceRtctrl)
+	
+    
+	A(l3extOutMap, "nameAlias",l3extOut.NameAlias)
+	
+    
+	A(l3extOutMap, "targetDscp",l3extOut.TargetDscp)
+	
     
 	
 
@@ -69,10 +95,23 @@ func L3OutsideFromContainerList(cont *container.Container, index int) *L3Outside
 		},
         
 		L3OutsideAttributes{
-        Annotation : G(L3OutsideCont, "annotation"),
-        EnforceRtctrl : G(L3OutsideCont, "enforceRtctrl"),
-        NameAlias : G(L3OutsideCont, "nameAlias"),
-        TargetDscp : G(L3OutsideCont, "targetDscp"),
+		
+		
+			Name : G(L3OutsideCont, "name"),
+		
+		
+        
+	        Annotation : G(L3OutsideCont, "annotation"),
+		
+        
+	        EnforceRtctrl : G(L3OutsideCont, "enforceRtctrl"),
+		
+        
+	        NameAlias : G(L3OutsideCont, "nameAlias"),
+		
+        
+	        TargetDscp : G(L3OutsideCont, "targetDscp"),
+		
         		
         },
         

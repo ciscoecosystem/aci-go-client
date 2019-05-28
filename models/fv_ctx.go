@@ -16,13 +16,32 @@ type VRF struct {
 }
   
 type VRFAttributes struct {
-    Annotation       string `json:",omitempty"`
-    BdEnforcedEnable       string `json:",omitempty"`
-    IpDataPlaneLearning       string `json:",omitempty"`
-    KnwMcastAct       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    PcEnfDir       string `json:",omitempty"`
-    PcEnfPref       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	BdEnforcedEnable       string `json:",omitempty"`
+	
+    
+	IpDataPlaneLearning       string `json:",omitempty"`
+	
+    
+	KnwMcastAct       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
+    
+	PcEnfDir       string `json:",omitempty"`
+	
+    
+	PcEnfPref       string `json:",omitempty"`
+	
     
 }
    
@@ -49,13 +68,32 @@ func (fvCtx *VRF) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(fvCtxMap, "annotation",fvCtx.Annotation)
-    A(fvCtxMap, "bdEnforcedEnable",fvCtx.BdEnforcedEnable)
-    A(fvCtxMap, "ipDataPlaneLearning",fvCtx.IpDataPlaneLearning)
-    A(fvCtxMap, "knwMcastAct",fvCtx.KnwMcastAct)
-    A(fvCtxMap, "nameAlias",fvCtx.NameAlias)
-    A(fvCtxMap, "pcEnfDir",fvCtx.PcEnfDir)
-    A(fvCtxMap, "pcEnfPref",fvCtx.PcEnfPref)
+	
+	
+	A(fvCtxMap, "name",fvCtx.Name)
+	
+	
+    
+	A(fvCtxMap, "annotation",fvCtx.Annotation)
+	
+    
+	A(fvCtxMap, "bdEnforcedEnable",fvCtx.BdEnforcedEnable)
+	
+    
+	A(fvCtxMap, "ipDataPlaneLearning",fvCtx.IpDataPlaneLearning)
+	
+    
+	A(fvCtxMap, "knwMcastAct",fvCtx.KnwMcastAct)
+	
+    
+	A(fvCtxMap, "nameAlias",fvCtx.NameAlias)
+	
+    
+	A(fvCtxMap, "pcEnfDir",fvCtx.PcEnfDir)
+	
+    
+	A(fvCtxMap, "pcEnfPref",fvCtx.PcEnfPref)
+	
     
 	
 
@@ -75,13 +113,32 @@ func VRFFromContainerList(cont *container.Container, index int) *VRF {
 		},
         
 		VRFAttributes{
-        Annotation : G(VRFCont, "annotation"),
-        BdEnforcedEnable : G(VRFCont, "bdEnforcedEnable"),
-        IpDataPlaneLearning : G(VRFCont, "ipDataPlaneLearning"),
-        KnwMcastAct : G(VRFCont, "knwMcastAct"),
-        NameAlias : G(VRFCont, "nameAlias"),
-        PcEnfDir : G(VRFCont, "pcEnfDir"),
-        PcEnfPref : G(VRFCont, "pcEnfPref"),
+		
+		
+			Name : G(VRFCont, "name"),
+		
+		
+        
+	        Annotation : G(VRFCont, "annotation"),
+		
+        
+	        BdEnforcedEnable : G(VRFCont, "bdEnforcedEnable"),
+		
+        
+	        IpDataPlaneLearning : G(VRFCont, "ipDataPlaneLearning"),
+		
+        
+	        KnwMcastAct : G(VRFCont, "knwMcastAct"),
+		
+        
+	        NameAlias : G(VRFCont, "nameAlias"),
+		
+        
+	        PcEnfDir : G(VRFCont, "pcEnfDir"),
+		
+        
+	        PcEnfPref : G(VRFCont, "pcEnfPref"),
+		
         		
         },
         

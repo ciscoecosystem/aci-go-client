@@ -5,6 +5,13 @@ import (
 
 	"github.com/ciscoecosystem/aci-go-client/models"
 	"github.com/ciscoecosystem/aci-go-client/container"
+	"github.com/hashicorp/terraform/helper/schema"
+	
+
+
+
+	
+
 
 )
 
@@ -95,6 +102,29 @@ func (sm *ServiceManager) DeleteRelationvzRsAnyToConsFromAny(parentDn , tnVzBrCP
 	dn := fmt.Sprintf("%s/any/rsanyToCons-%s", parentDn, tnVzBrCPName)
 	return sm.DeleteByDn(dn , "vzRsAnyToCons")
 }
+
+func (sm *ServiceManager) ReadRelationvzRsAnyToConsFromAny( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vzRsAnyToCons")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vzRsAnyToCons")
+	
+	st := &schema.Set{
+		F: schema.HashString,
+	}
+	for _, contItem := range contList{
+		dat := models.G(contItem, "tnVzBrCPName")
+		st.Add(dat)
+	}
+	return st, err
+			
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationvzRsAnyToConsIfFromAny( parentDn, tnVzCPIfName string) error {
 	dn := fmt.Sprintf("%s/any/rsanyToConsIf-%s", parentDn, tnVzCPIfName)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -128,6 +158,29 @@ func (sm *ServiceManager) DeleteRelationvzRsAnyToConsIfFromAny(parentDn , tnVzCP
 	dn := fmt.Sprintf("%s/any/rsanyToConsIf-%s", parentDn, tnVzCPIfName)
 	return sm.DeleteByDn(dn , "vzRsAnyToConsIf")
 }
+
+func (sm *ServiceManager) ReadRelationvzRsAnyToConsIfFromAny( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vzRsAnyToConsIf")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vzRsAnyToConsIf")
+	
+	st := &schema.Set{
+		F: schema.HashString,
+	}
+	for _, contItem := range contList{
+		dat := models.G(contItem, "tnVzCPIfName")
+		st.Add(dat)
+	}
+	return st, err
+			
+
+
+
+
+
+}
 func (sm *ServiceManager) CreateRelationvzRsAnyToProvFromAny( parentDn, tnVzBrCPName string) error {
 	dn := fmt.Sprintf("%s/any/rsanyToProv-%s", parentDn, tnVzBrCPName)
 	containerJSON := []byte(fmt.Sprintf(`{
@@ -160,5 +213,28 @@ func (sm *ServiceManager) CreateRelationvzRsAnyToProvFromAny( parentDn, tnVzBrCP
 func (sm *ServiceManager) DeleteRelationvzRsAnyToProvFromAny(parentDn , tnVzBrCPName string) error{
 	dn := fmt.Sprintf("%s/any/rsanyToProv-%s", parentDn, tnVzBrCPName)
 	return sm.DeleteByDn(dn , "vzRsAnyToProv")
+}
+
+func (sm *ServiceManager) ReadRelationvzRsAnyToProvFromAny( parentDn string) (interface{},error) {
+	baseurlStr := "/api/node/class"	
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vzRsAnyToProv")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont,"vzRsAnyToProv")
+	
+	st := &schema.Set{
+		F: schema.HashString,
+	}
+	for _, contItem := range contList{
+		dat := models.G(contItem, "tnVzBrCPName")
+		st.Add(dat)
+	}
+	return st, err
+			
+
+
+
+
+
 }
 

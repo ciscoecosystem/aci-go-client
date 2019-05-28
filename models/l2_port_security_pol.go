@@ -16,12 +16,29 @@ type PortSecurityPolicy struct {
 }
   
 type PortSecurityPolicyAttributes struct {
-    Annotation       string `json:",omitempty"`
-    Maximum       string `json:",omitempty"`
-    Mode       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    Timeout       string `json:",omitempty"`
-    Violation       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	Maximum       string `json:",omitempty"`
+	
+    
+	Mode       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
+    
+	Timeout       string `json:",omitempty"`
+	
+    
+	Violation       string `json:",omitempty"`
+	
     
 }
    
@@ -48,12 +65,29 @@ func (l2PortSecurityPol *PortSecurityPolicy) ToMap() (map[string]string, error) 
 		return nil, err
 	}
 
-    A(l2PortSecurityPolMap, "annotation",l2PortSecurityPol.Annotation)
-    A(l2PortSecurityPolMap, "maximum",l2PortSecurityPol.Maximum)
-    A(l2PortSecurityPolMap, "mode",l2PortSecurityPol.Mode)
-    A(l2PortSecurityPolMap, "nameAlias",l2PortSecurityPol.NameAlias)
-    A(l2PortSecurityPolMap, "timeout",l2PortSecurityPol.Timeout)
-    A(l2PortSecurityPolMap, "violation",l2PortSecurityPol.Violation)
+	
+	
+	A(l2PortSecurityPolMap, "name",l2PortSecurityPol.Name)
+	
+	
+    
+	A(l2PortSecurityPolMap, "annotation",l2PortSecurityPol.Annotation)
+	
+    
+	A(l2PortSecurityPolMap, "maximum",l2PortSecurityPol.Maximum)
+	
+    
+	A(l2PortSecurityPolMap, "mode",l2PortSecurityPol.Mode)
+	
+    
+	A(l2PortSecurityPolMap, "nameAlias",l2PortSecurityPol.NameAlias)
+	
+    
+	A(l2PortSecurityPolMap, "timeout",l2PortSecurityPol.Timeout)
+	
+    
+	A(l2PortSecurityPolMap, "violation",l2PortSecurityPol.Violation)
+	
     
 	
 
@@ -73,12 +107,29 @@ func PortSecurityPolicyFromContainerList(cont *container.Container, index int) *
 		},
         
 		PortSecurityPolicyAttributes{
-        Annotation : G(PortSecurityPolicyCont, "annotation"),
-        Maximum : G(PortSecurityPolicyCont, "maximum"),
-        Mode : G(PortSecurityPolicyCont, "mode"),
-        NameAlias : G(PortSecurityPolicyCont, "nameAlias"),
-        Timeout : G(PortSecurityPolicyCont, "timeout"),
-        Violation : G(PortSecurityPolicyCont, "violation"),
+		
+		
+			Name : G(PortSecurityPolicyCont, "name"),
+		
+		
+        
+	        Annotation : G(PortSecurityPolicyCont, "annotation"),
+		
+        
+	        Maximum : G(PortSecurityPolicyCont, "maximum"),
+		
+        
+	        Mode : G(PortSecurityPolicyCont, "mode"),
+		
+        
+	        NameAlias : G(PortSecurityPolicyCont, "nameAlias"),
+		
+        
+	        Timeout : G(PortSecurityPolicyCont, "timeout"),
+		
+        
+	        Violation : G(PortSecurityPolicyCont, "violation"),
+		
         		
         },
         

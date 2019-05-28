@@ -16,9 +16,20 @@ type MiscablingProtocolInterfacePolicy struct {
 }
   
 type MiscablingProtocolInterfacePolicyAttributes struct {
-    AdminSt       string `json:",omitempty"`
-    Annotation       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	AdminSt       string `json:",omitempty"`
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
     
 }
    
@@ -45,9 +56,20 @@ func (mcpIfPol *MiscablingProtocolInterfacePolicy) ToMap() (map[string]string, e
 		return nil, err
 	}
 
-    A(mcpIfPolMap, "adminSt",mcpIfPol.AdminSt)
-    A(mcpIfPolMap, "annotation",mcpIfPol.Annotation)
-    A(mcpIfPolMap, "nameAlias",mcpIfPol.NameAlias)
+	
+	
+	A(mcpIfPolMap, "name",mcpIfPol.Name)
+	
+	
+    
+	A(mcpIfPolMap, "adminSt",mcpIfPol.AdminSt)
+	
+    
+	A(mcpIfPolMap, "annotation",mcpIfPol.Annotation)
+	
+    
+	A(mcpIfPolMap, "nameAlias",mcpIfPol.NameAlias)
+	
     
 	
 
@@ -67,9 +89,20 @@ func MiscablingProtocolInterfacePolicyFromContainerList(cont *container.Containe
 		},
         
 		MiscablingProtocolInterfacePolicyAttributes{
-        AdminSt : G(MiscablingProtocolInterfacePolicyCont, "adminSt"),
-        Annotation : G(MiscablingProtocolInterfacePolicyCont, "annotation"),
-        NameAlias : G(MiscablingProtocolInterfacePolicyCont, "nameAlias"),
+		
+		
+			Name : G(MiscablingProtocolInterfacePolicyCont, "name"),
+		
+		
+        
+	        AdminSt : G(MiscablingProtocolInterfacePolicyCont, "adminSt"),
+		
+        
+	        Annotation : G(MiscablingProtocolInterfacePolicyCont, "annotation"),
+		
+        
+	        NameAlias : G(MiscablingProtocolInterfacePolicyCont, "nameAlias"),
+		
         		
         },
         

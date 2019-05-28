@@ -16,14 +16,35 @@ type EndPointRetentionPolicy struct {
 }
   
 type EndPointRetentionPolicyAttributes struct {
-    Annotation       string `json:",omitempty"`
-    BounceAgeIntvl       string `json:",omitempty"`
-    BounceTrig       string `json:",omitempty"`
-    HoldIntvl       string `json:",omitempty"`
-    LocalEpAgeIntvl       string `json:",omitempty"`
-    MoveFreq       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    RemoteEpAgeIntvl       string `json:",omitempty"`
+	
+	
+	Name string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	BounceAgeIntvl       string `json:",omitempty"`
+	
+    
+	BounceTrig       string `json:",omitempty"`
+	
+    
+	HoldIntvl       string `json:",omitempty"`
+	
+    
+	LocalEpAgeIntvl       string `json:",omitempty"`
+	
+    
+	MoveFreq       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
+    
+	RemoteEpAgeIntvl       string `json:",omitempty"`
+	
     
 }
    
@@ -50,14 +71,35 @@ func (fvEpRetPol *EndPointRetentionPolicy) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(fvEpRetPolMap, "annotation",fvEpRetPol.Annotation)
-    A(fvEpRetPolMap, "bounceAgeIntvl",fvEpRetPol.BounceAgeIntvl)
-    A(fvEpRetPolMap, "bounceTrig",fvEpRetPol.BounceTrig)
-    A(fvEpRetPolMap, "holdIntvl",fvEpRetPol.HoldIntvl)
-    A(fvEpRetPolMap, "localEpAgeIntvl",fvEpRetPol.LocalEpAgeIntvl)
-    A(fvEpRetPolMap, "moveFreq",fvEpRetPol.MoveFreq)
-    A(fvEpRetPolMap, "nameAlias",fvEpRetPol.NameAlias)
-    A(fvEpRetPolMap, "remoteEpAgeIntvl",fvEpRetPol.RemoteEpAgeIntvl)
+	
+	
+	A(fvEpRetPolMap, "name",fvEpRetPol.Name)
+	
+	
+    
+	A(fvEpRetPolMap, "annotation",fvEpRetPol.Annotation)
+	
+    
+	A(fvEpRetPolMap, "bounceAgeIntvl",fvEpRetPol.BounceAgeIntvl)
+	
+    
+	A(fvEpRetPolMap, "bounceTrig",fvEpRetPol.BounceTrig)
+	
+    
+	A(fvEpRetPolMap, "holdIntvl",fvEpRetPol.HoldIntvl)
+	
+    
+	A(fvEpRetPolMap, "localEpAgeIntvl",fvEpRetPol.LocalEpAgeIntvl)
+	
+    
+	A(fvEpRetPolMap, "moveFreq",fvEpRetPol.MoveFreq)
+	
+    
+	A(fvEpRetPolMap, "nameAlias",fvEpRetPol.NameAlias)
+	
+    
+	A(fvEpRetPolMap, "remoteEpAgeIntvl",fvEpRetPol.RemoteEpAgeIntvl)
+	
     
 	
 
@@ -77,14 +119,35 @@ func EndPointRetentionPolicyFromContainerList(cont *container.Container, index i
 		},
         
 		EndPointRetentionPolicyAttributes{
-        Annotation : G(EndPointRetentionPolicyCont, "annotation"),
-        BounceAgeIntvl : G(EndPointRetentionPolicyCont, "bounceAgeIntvl"),
-        BounceTrig : G(EndPointRetentionPolicyCont, "bounceTrig"),
-        HoldIntvl : G(EndPointRetentionPolicyCont, "holdIntvl"),
-        LocalEpAgeIntvl : G(EndPointRetentionPolicyCont, "localEpAgeIntvl"),
-        MoveFreq : G(EndPointRetentionPolicyCont, "moveFreq"),
-        NameAlias : G(EndPointRetentionPolicyCont, "nameAlias"),
-        RemoteEpAgeIntvl : G(EndPointRetentionPolicyCont, "remoteEpAgeIntvl"),
+		
+		
+			Name : G(EndPointRetentionPolicyCont, "name"),
+		
+		
+        
+	        Annotation : G(EndPointRetentionPolicyCont, "annotation"),
+		
+        
+	        BounceAgeIntvl : G(EndPointRetentionPolicyCont, "bounceAgeIntvl"),
+		
+        
+	        BounceTrig : G(EndPointRetentionPolicyCont, "bounceTrig"),
+		
+        
+	        HoldIntvl : G(EndPointRetentionPolicyCont, "holdIntvl"),
+		
+        
+	        LocalEpAgeIntvl : G(EndPointRetentionPolicyCont, "localEpAgeIntvl"),
+		
+        
+	        MoveFreq : G(EndPointRetentionPolicyCont, "moveFreq"),
+		
+        
+	        NameAlias : G(EndPointRetentionPolicyCont, "nameAlias"),
+		
+        
+	        RemoteEpAgeIntvl : G(EndPointRetentionPolicyCont, "remoteEpAgeIntvl"),
+		
         		
         },
         

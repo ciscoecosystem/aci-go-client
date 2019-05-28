@@ -106,7 +106,7 @@ func (sm *ServiceManager) DeleteRelationvzRsSubjGraphAttFromContractSubject(pare
 
 func (sm *ServiceManager) ReadRelationvzRsSubjGraphAttFromContractSubject( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vzRsSubjGraphAtt")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vzRsSubjGraphAtt")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"vzRsSubjGraphAtt")
@@ -161,7 +161,7 @@ func (sm *ServiceManager) DeleteRelationvzRsSdwanPolFromContractSubject(parentDn
 
 func (sm *ServiceManager) ReadRelationvzRsSdwanPolFromContractSubject( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vzRsSdwanPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vzRsSdwanPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"vzRsSdwanPol")
@@ -215,7 +215,7 @@ func (sm *ServiceManager) DeleteRelationvzRsSubjFiltAttFromContractSubject(paren
 
 func (sm *ServiceManager) ReadRelationvzRsSubjFiltAttFromContractSubject( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"vzRsSubjFiltAtt")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"vzRsSubjFiltAtt")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"vzRsSubjFiltAtt")

@@ -105,7 +105,7 @@ func (sm *ServiceManager) DeleteRelationinfraRsSpanVSrcGrpFromLeafAccessPortPoli
 
 func (sm *ServiceManager) ReadRelationinfraRsSpanVSrcGrpFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsSpanVSrcGrp")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsSpanVSrcGrp")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsSpanVSrcGrp")
@@ -157,7 +157,7 @@ func (sm *ServiceManager) CreateRelationinfraRsStormctrlIfPolFromLeafAccessPortP
 
 func (sm *ServiceManager) ReadRelationinfraRsStormctrlIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsStormctrlIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsStormctrlIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsStormctrlIfPol")
@@ -212,7 +212,7 @@ func (sm *ServiceManager) DeleteRelationinfraRsPoeIfPolFromLeafAccessPortPolicyG
 
 func (sm *ServiceManager) ReadRelationinfraRsPoeIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsPoeIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsPoeIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsPoeIfPol")
@@ -262,7 +262,7 @@ func (sm *ServiceManager) CreateRelationinfraRsLldpIfPolFromLeafAccessPortPolicy
 
 func (sm *ServiceManager) ReadRelationinfraRsLldpIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsLldpIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsLldpIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsLldpIfPol")
@@ -312,7 +312,7 @@ func (sm *ServiceManager) CreateRelationinfraRsMacsecIfPolFromLeafAccessPortPoli
 
 func (sm *ServiceManager) ReadRelationinfraRsMacsecIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsMacsecIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsMacsecIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsMacsecIfPol")
@@ -362,7 +362,7 @@ func (sm *ServiceManager) CreateRelationinfraRsQosDppIfPolFromLeafAccessPortPoli
 
 func (sm *ServiceManager) ReadRelationinfraRsQosDppIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsQosDppIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsQosDppIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsQosDppIfPol")
@@ -412,7 +412,7 @@ func (sm *ServiceManager) CreateRelationinfraRsHIfPolFromLeafAccessPortPolicyGro
 
 func (sm *ServiceManager) ReadRelationinfraRsHIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsHIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsHIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsHIfPol")
@@ -466,7 +466,7 @@ func (sm *ServiceManager) DeleteRelationinfraRsNetflowMonitorPolFromLeafAccessPo
 
 func (sm *ServiceManager) ReadRelationinfraRsNetflowMonitorPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsNetflowMonitorPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsNetflowMonitorPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsNetflowMonitorPol")
@@ -522,7 +522,7 @@ func (sm *ServiceManager) CreateRelationinfraRsL2PortAuthPolFromLeafAccessPortPo
 
 func (sm *ServiceManager) ReadRelationinfraRsL2PortAuthPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsL2PortAuthPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsL2PortAuthPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsL2PortAuthPol")
@@ -572,7 +572,7 @@ func (sm *ServiceManager) CreateRelationinfraRsMcpIfPolFromLeafAccessPortPolicyG
 
 func (sm *ServiceManager) ReadRelationinfraRsMcpIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsMcpIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsMcpIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsMcpIfPol")
@@ -622,7 +622,7 @@ func (sm *ServiceManager) CreateRelationinfraRsL2PortSecurityPolFromLeafAccessPo
 
 func (sm *ServiceManager) ReadRelationinfraRsL2PortSecurityPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsL2PortSecurityPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsL2PortSecurityPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsL2PortSecurityPol")
@@ -672,7 +672,7 @@ func (sm *ServiceManager) CreateRelationinfraRsCoppIfPolFromLeafAccessPortPolicy
 
 func (sm *ServiceManager) ReadRelationinfraRsCoppIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsCoppIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsCoppIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsCoppIfPol")
@@ -726,7 +726,7 @@ func (sm *ServiceManager) DeleteRelationinfraRsSpanVDestGrpFromLeafAccessPortPol
 
 func (sm *ServiceManager) ReadRelationinfraRsSpanVDestGrpFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsSpanVDestGrp")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsSpanVDestGrp")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsSpanVDestGrp")
@@ -778,7 +778,7 @@ func (sm *ServiceManager) CreateRelationinfraRsDwdmIfPolFromLeafAccessPortPolicy
 
 func (sm *ServiceManager) ReadRelationinfraRsDwdmIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsDwdmIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsDwdmIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsDwdmIfPol")
@@ -828,7 +828,7 @@ func (sm *ServiceManager) CreateRelationinfraRsQosPfcIfPolFromLeafAccessPortPoli
 
 func (sm *ServiceManager) ReadRelationinfraRsQosPfcIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsQosPfcIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsQosPfcIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsQosPfcIfPol")
@@ -878,7 +878,7 @@ func (sm *ServiceManager) CreateRelationinfraRsQosSdIfPolFromLeafAccessPortPolic
 
 func (sm *ServiceManager) ReadRelationinfraRsQosSdIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsQosSdIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsQosSdIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsQosSdIfPol")
@@ -928,7 +928,7 @@ func (sm *ServiceManager) CreateRelationinfraRsMonIfInfraPolFromLeafAccessPortPo
 
 func (sm *ServiceManager) ReadRelationinfraRsMonIfInfraPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsMonIfInfraPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsMonIfInfraPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsMonIfInfraPol")
@@ -978,7 +978,7 @@ func (sm *ServiceManager) CreateRelationinfraRsFcIfPolFromLeafAccessPortPolicyGr
 
 func (sm *ServiceManager) ReadRelationinfraRsFcIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsFcIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsFcIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsFcIfPol")
@@ -1028,7 +1028,7 @@ func (sm *ServiceManager) CreateRelationinfraRsQosIngressDppIfPolFromLeafAccessP
 
 func (sm *ServiceManager) ReadRelationinfraRsQosIngressDppIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsQosIngressDppIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsQosIngressDppIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsQosIngressDppIfPol")
@@ -1078,7 +1078,7 @@ func (sm *ServiceManager) CreateRelationinfraRsCdpIfPolFromLeafAccessPortPolicyG
 
 func (sm *ServiceManager) ReadRelationinfraRsCdpIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsCdpIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsCdpIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsCdpIfPol")
@@ -1128,7 +1128,7 @@ func (sm *ServiceManager) CreateRelationinfraRsL2IfPolFromLeafAccessPortPolicyGr
 
 func (sm *ServiceManager) ReadRelationinfraRsL2IfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsL2IfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsL2IfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsL2IfPol")
@@ -1178,7 +1178,7 @@ func (sm *ServiceManager) CreateRelationinfraRsStpIfPolFromLeafAccessPortPolicyG
 
 func (sm *ServiceManager) ReadRelationinfraRsStpIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsStpIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsStpIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsStpIfPol")
@@ -1228,7 +1228,7 @@ func (sm *ServiceManager) CreateRelationinfraRsQosEgressDppIfPolFromLeafAccessPo
 
 func (sm *ServiceManager) ReadRelationinfraRsQosEgressDppIfPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsQosEgressDppIfPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsQosEgressDppIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsQosEgressDppIfPol")
@@ -1283,7 +1283,7 @@ func (sm *ServiceManager) DeleteRelationinfraRsAttEntPFromLeafAccessPortPolicyGr
 
 func (sm *ServiceManager) ReadRelationinfraRsAttEntPFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsAttEntP")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsAttEntP")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsAttEntP")
@@ -1338,7 +1338,7 @@ func (sm *ServiceManager) DeleteRelationinfraRsL2InstPolFromLeafAccessPortPolicy
 
 func (sm *ServiceManager) ReadRelationinfraRsL2InstPolFromLeafAccessPortPolicyGroup( parentDn string) (interface{},error) {
 	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/%s/%s.json",baseurlStr,parentDn,"infraRsL2InstPol")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json",baseurlStr,parentDn,"infraRsL2InstPol")
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont,"infraRsL2InstPol")
