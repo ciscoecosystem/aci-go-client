@@ -2,12 +2,12 @@ package client
 
 import (
 	"fmt"
-
+	"log"
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateCloudContextProfile(name string, tenant string, description string, cloudCtxProfileattr models.CloudContextProfileAttributes, primaryCidr string, region string) (*models.CloudContextProfile, error) {
+func (sm *ServiceManager) CreateCloudContextProfile(name string, tenant string, description string, cloudCtxProfileattr models.CloudContextProfileAttributes, primaryCidr string, region string,vrf string) (*models.CloudContextProfile, error) {
 	rn := fmt.Sprintf("ctxprofile-%s", name)
 	parentDn := tenant
 	cloudCtxProfile := models.NewCloudContextProfile(rn, parentDn, description, cloudCtxProfileattr)
@@ -36,16 +36,35 @@ func (sm *ServiceManager) CreateCloudContextProfile(name string, tenant string, 
 	}
 	`, region))
 
+	ctxAttach := []byte(fmt.Sprintf(`
+	{
+		"cloudRsToCtx": {
+			"attributes": {
+				"tnFvCtxName": "%s"
+			}
+		}
+	}
+	`, vrf))
+
 	cidrCon, err := container.ParseJSON(cidrJSON)
 	regionCon, err := container.ParseJSON(regionAttach)
+	vrfCon, err := container.ParseJSON(ctxAttach)
+	if err != nil {
+		return nil,err
+	}
 	if err != nil {
 		fmt.Println("error occured in parsing")
 		fmt.Println(err)
 	}
+
+	log.Printf("\n\n\n[DEBUG]nknk %v",vrfCon.Data())
 	jsonPayload.Array(cloudCtxProfile.ClassName, "children")
+	jsonPayload.ArrayAppend(vrfCon.Data(),cloudCtxProfile.ClassName,"children")
+
 	jsonPayload.ArrayAppend(cidrCon.Data(), cloudCtxProfile.ClassName, "children")
 	jsonPayload.ArrayAppend(regionCon.Data(), cloudCtxProfile.ClassName, "children")
-	fmt.Println(jsonPayload)
+
+	log.Printf("\n\n\n\n[DEBUG]nkdemo%s\n\n\n\n",jsonPayload.String())
 	jsonPayload.Set(name, cloudCtxProfile.ClassName, "attributes", "name")
 	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("/api/node/mo/%s/%s.json", parentDn, rn), jsonPayload, true)
 	if err != nil {
@@ -76,7 +95,7 @@ func (sm *ServiceManager) DeleteCloudContextProfile(name string, tenant string) 
 	return sm.DeleteByDn(dn, models.CloudctxprofileClassName)
 }
 
-func (sm *ServiceManager) UpdateCloudContextProfile(name string, tenant string, description string, cloudCtxProfileattr models.CloudContextProfileAttributes, primaryCidr string, region string) (*models.CloudContextProfile, error) {
+func (sm *ServiceManager) UpdateCloudContextProfile(name string, tenant string, description string, cloudCtxProfileattr models.CloudContextProfileAttributes, primaryCidr string, region string, vrf string) (*models.CloudContextProfile, error) {
 	rn := fmt.Sprintf("ctxprofile-%s", name)
 	parentDn := tenant
 	cloudCtxProfile := models.NewCloudContextProfile(rn, parentDn, description, cloudCtxProfileattr)
@@ -106,12 +125,23 @@ func (sm *ServiceManager) UpdateCloudContextProfile(name string, tenant string, 
 	}
 	`, region))
 
+	ctxAttach := []byte(fmt.Sprintf(`
+	{
+		"cloudRsToCtx": {
+			"attributes": {
+				"tnFvCtxName": "%s",
+			}
+		}
+	}
+	`, vrf))
+
 	cidrCon, err := container.ParseJSON(cidrJSON)
 	regionCon, err := container.ParseJSON(regionAttach)
-
+	vrfCon, err := container.ParseJSON(ctxAttach)
 	jsonPayload.Array(cloudCtxProfile.ClassName, "children")
 	jsonPayload.ArrayAppend(cidrCon.Data(), cloudCtxProfile.ClassName, "children")
 	jsonPayload.ArrayAppend(regionCon.Data(), cloudCtxProfile.ClassName, "children")
+	jsonPayload.ArrayAppend(vrfCon.Data(),cloudCtxProfile.ClassName,"children")
 	fmt.Println(jsonPayload)
 	jsonPayload.Set(name, cloudCtxProfile.ClassName, "attributes", "name")
 	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("/api/node/mo/%s/%s.json", parentDn, rn), jsonPayload, true)

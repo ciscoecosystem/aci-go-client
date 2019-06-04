@@ -2,30 +2,22 @@ package client
 
 import (
 	"fmt"
+	"log"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
 	"github.com/ciscoecosystem/aci-go-client/container"
-
+	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-
-
-
-
-
-
-
-
-func (sm *ServiceManager) CreateCloudSubnet(ip string ,cloud_cidr_pool_addr string ,cloud_context_profile string ,tenant string , description string, cloudSubnetattr models.CloudSubnetAttributes) (*models.CloudSubnet, error) {	
-	rn := fmt.Sprintf("subnet-[%s]",ip)
-	parentDn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/cidr-[%s]", tenant ,cloud_context_profile ,cloud_cidr_pool_addr )
+func (sm *ServiceManager) CreateCloudSubnet(ip string, cloud_cidr_pool_addr string, cloud_context_profile string, tenant string, description string, cloudSubnetattr models.CloudSubnetAttributes) (*models.CloudSubnet, error) {
+	rn := fmt.Sprintf("subnet-[%s]", ip)
+	parentDn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/cidr-[%s]", tenant, cloud_context_profile, cloud_cidr_pool_addr)
 	cloudSubnet := models.NewCloudSubnet(rn, parentDn, description, cloudSubnetattr)
 	err := sm.Save(cloudSubnet)
 	return cloudSubnet, err
 }
 
-func (sm *ServiceManager) ReadCloudSubnet(ip string ,cloud_cidr_pool_addr string ,cloud_context_profile string ,tenant string ) (*models.CloudSubnet, error) {
-	dn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/cidr-[%s]/subnet-[%s]", tenant ,cloud_context_profile ,cloud_cidr_pool_addr ,ip )    
+func (sm *ServiceManager) ReadCloudSubnet(ip string, cloud_cidr_pool_addr string, cloud_context_profile string, tenant string) (*models.CloudSubnet, error) {
+	dn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/cidr-[%s]/subnet-[%s]", tenant, cloud_context_profile, cloud_cidr_pool_addr, ip)
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
@@ -35,43 +27,44 @@ func (sm *ServiceManager) ReadCloudSubnet(ip string ,cloud_cidr_pool_addr string
 	return cloudSubnet, nil
 }
 
-func (sm *ServiceManager) DeleteCloudSubnet(ip string ,cloud_cidr_pool_addr string ,cloud_context_profile string ,tenant string ) error {
-	dn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/cidr-[%s]/subnet-[%s]", tenant ,cloud_context_profile ,cloud_cidr_pool_addr ,ip )
+func (sm *ServiceManager) DeleteCloudSubnet(ip string, cloud_cidr_pool_addr string, cloud_context_profile string, tenant string) error {
+	dn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/cidr-[%s]/subnet-[%s]", tenant, cloud_context_profile, cloud_cidr_pool_addr, ip)
 	return sm.DeleteByDn(dn, models.CloudsubnetClassName)
 }
 
-func (sm *ServiceManager) UpdateCloudSubnet(ip string ,cloud_cidr_pool_addr string ,cloud_context_profile string ,tenant string  ,description string, cloudSubnetattr models.CloudSubnetAttributes) (*models.CloudSubnet, error) {
-	rn := fmt.Sprintf("subnet-[%s]",ip)
-	parentDn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/cidr-[%s]", tenant ,cloud_context_profile ,cloud_cidr_pool_addr )
+func (sm *ServiceManager) UpdateCloudSubnet(ip string, cloud_cidr_pool_addr string, cloud_context_profile string, tenant string, description string, cloudSubnetattr models.CloudSubnetAttributes) (*models.CloudSubnet, error) {
+	rn := fmt.Sprintf("subnet-[%s]", ip)
+	parentDn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/cidr-[%s]", tenant, cloud_context_profile, cloud_cidr_pool_addr)
 	cloudSubnet := models.NewCloudSubnet(rn, parentDn, description, cloudSubnetattr)
 
-    cloudSubnet.Status = "modified"
+	cloudSubnet.Status = "modified"
 	err := sm.Save(cloudSubnet)
 	return cloudSubnet, err
 
 }
 
-func (sm *ServiceManager) ListCloudSubnet(cloud_cidr_pool_addr string ,cloud_context_profile string ,tenant string ) ([]*models.CloudSubnet, error) {
+func (sm *ServiceManager) ListCloudSubnet(cloud_cidr_pool_addr string, cloud_context_profile string, tenant string) ([]*models.CloudSubnet, error) {
 
-	baseurlStr := "/api/node/class"	
-	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ctxprofile-%s/cidr-[%s]/cloudSubnet.json", baseurlStr , tenant ,cloud_context_profile ,cloud_cidr_pool_addr )
-    
-    cont, err := sm.GetViaURL(dnUrl)
+	baseurlStr := "/api/node/class"
+	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ctxprofile-%s/cidr-[%s]/cloudSubnet.json", baseurlStr, tenant, cloud_context_profile, cloud_cidr_pool_addr)
+
+	cont, err := sm.GetViaURL(dnUrl)
 	list := models.CloudSubnetListFromContainer(cont)
 
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationcloudRsZoneAttachFromCloudSubnet( parentDn, tnCloudZoneName string) error {
+func (sm *ServiceManager) CreateRelationcloudRsZoneAttachFromCloudSubnet(parentDn, tnCloudZoneName string) error {
 	dn := fmt.Sprintf("%s/rszoneAttach", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tnCloudZoneName": "%s"
+				"dn": "%s",
+				"tDn": "%s"
 								
 			}
 		}
-	}`, "cloudRsZoneAttach", dn,tnCloudZoneName))
+	}`, "cloudRsZoneAttach", dn, tnCloudZoneName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -87,16 +80,16 @@ func (sm *ServiceManager) CreateRelationcloudRsZoneAttachFromCloudSubnet( parent
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("\n\n\n[ERROR]subnet%+v", cont)
 
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationcloudRsZoneAttachFromCloudSubnet(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationcloudRsZoneAttachFromCloudSubnet(parentDn string) error {
 	dn := fmt.Sprintf("%s/rszoneAttach", parentDn)
-	return sm.DeleteByDn(dn , "cloudRsZoneAttach")
+	return sm.DeleteByDn(dn, "cloudRsZoneAttach")
 }
-func (sm *ServiceManager) CreateRelationcloudRsSubnetToFlowLogFromCloudSubnet( parentDn, tnCloudAwsFlowLogPolName string) error {
+func (sm *ServiceManager) CreateRelationcloudRsSubnetToFlowLogFromCloudSubnet(parentDn, tnCloudAwsFlowLogPolName string) error {
 	dn := fmt.Sprintf("%s/rssubnetToFlowLog", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -105,7 +98,7 @@ func (sm *ServiceManager) CreateRelationcloudRsSubnetToFlowLogFromCloudSubnet( p
 								
 			}
 		}
-	}`, "cloudRsSubnetToFlowLog", dn,tnCloudAwsFlowLogPolName))
+	}`, "cloudRsSubnetToFlowLog", dn, tnCloudAwsFlowLogPolName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -126,8 +119,7 @@ func (sm *ServiceManager) CreateRelationcloudRsSubnetToFlowLogFromCloudSubnet( p
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationcloudRsSubnetToFlowLogFromCloudSubnet(parentDn string) error{
+func (sm *ServiceManager) DeleteRelationcloudRsSubnetToFlowLogFromCloudSubnet(parentDn string) error {
 	dn := fmt.Sprintf("%s/rssubnetToFlowLog", parentDn)
-	return sm.DeleteByDn(dn , "cloudRsSubnetToFlowLog")
+	return sm.DeleteByDn(dn, "cloudRsSubnetToFlowLog")
 }
-
