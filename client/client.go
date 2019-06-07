@@ -208,7 +208,7 @@ func StrtoInt(s string, startIndex int, bitSize int) (int64, error) {
 }
 func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, error) {
 
-	time.Sleep(10 * time.Millisecond)
+	time.Sleep(100 * time.Millisecond)
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return nil, nil, err
@@ -219,7 +219,7 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 
 	decoder := json.NewDecoder(resp.Body)
 	obj, err := container.ParseJSONDecoder(decoder)
-	defer resp.Body.Close()
+	resp.Body.Close()
 	if err != nil {
 		fmt.Println("Error occurred.")
 		return nil, resp, err
