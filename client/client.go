@@ -224,7 +224,7 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 
 	decoder := json.NewDecoder(resp.Body)
 	obj, err := container.ParseJSONDecoder(decoder)
-	resp.Body.Close()
+	defer resp.Body.Close()
 	if err != nil {
 		fmt.Println("Error occurred.")
 		return nil, resp, err
