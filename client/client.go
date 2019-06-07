@@ -215,12 +215,6 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 
 	fmt.Printf("\nHTTP Request: %s %s \n", req.Method, req.URL.String())
 	fmt.Printf("\nHTTP Response: %d %s \n", resp.StatusCode, resp.Status)
-	if resp.StatusCode == 404 {
-		log.Printf("\n\n\n ****** ERROR ****** %v", resp)
-		time.Sleep(100 * time.Millisecond)
-		obj, resp, err := c.Do(req)
-		return obj, resp, err
-	}
 
 	decoder := json.NewDecoder(resp.Body)
 	obj, err := container.ParseJSONDecoder(decoder)
