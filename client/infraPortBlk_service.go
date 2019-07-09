@@ -58,7 +58,7 @@ func (sm *ServiceManager) CreateRelationinfraRsAccBndlSubgrpFromAccessPortBlock(
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tnInfraAccBndlSubgrpName": "%s"
+				"dn": "%s","tDn": "%s"
 								
 			}
 		}
@@ -96,7 +96,7 @@ func (sm *ServiceManager) ReadRelationinfraRsAccBndlSubgrpFromAccessPortBlock(pa
 	contList := models.ListFromContainer(cont, "infraRsAccBndlSubgrp")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnInfraAccBndlSubgrpName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
