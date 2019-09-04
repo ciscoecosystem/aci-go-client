@@ -1289,7 +1289,7 @@ func (sm *ServiceManager) ReadRelationinfraRsAttEntPFromLeafAccessPortPolicyGrou
 	contList := models.ListFromContainer(cont,"infraRsAttEntP")
 	
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnInfraAttEntityPName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil,err
