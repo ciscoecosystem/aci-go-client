@@ -233,19 +233,20 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 		return nil, nil, err
 	}
 
-	fmt.Printf("\nHTTP Request: %s %s \n", req.Method, req.URL.String())
-	fmt.Printf("\nHTTP Response: %d %s \n", resp.StatusCode, resp.Status)
+	log.Printf("\nHTTP Request: %s %s \n", req.Method, req.URL.String())
+	log.Printf("\nHTTP Response: %d %s \n", resp.StatusCode, resp.Status)
 
 	decoder := json.NewDecoder(resp.Body)
 	obj, err := container.ParseJSONDecoder(decoder)
-	resp.Body.Close()
+	defer resp.Body.Close()
 
 	if err != nil {
 		fmt.Println("Error occurred.")
 		return nil, resp, err
 	}
-
+	log.Printf("[DEBUG] Exit from do method")
 	return obj, resp, err
+
 }
 
 func stripQuotes(word string) string {
