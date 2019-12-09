@@ -157,9 +157,13 @@ func (c *Client) MakeRestRequest(method string, path string, body *container.Con
 	}
 
 	fURL := c.BaseURL.ResolveReference(url)
-
-	req, err := http.NewRequest(method, fURL.String(), bytes.NewBuffer(body.Bytes()))
-
+	var req_body *bytes.Buffer
+	if method == "GET" {
+		req_body = nil
+	} else {
+		req_body = bytes.NewBuffer(body.Bytes())
+	}
+	req, err := http.NewRequest(method, fURL.String(), req_body)
 	if err != nil {
 		return nil, err
 	}
