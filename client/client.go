@@ -238,6 +238,7 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 	if err != nil {
 		return nil, nil, err
 	}
+	time.Sleep(1 * time.Second)
 
 	log.Printf("\nHTTP Request: %s %s \n", req.Method, req.URL.String())
 	log.Printf("\nHTTP Response: %d %s \n", resp.StatusCode, resp.Status)
