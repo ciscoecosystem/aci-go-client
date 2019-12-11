@@ -1,6 +1,5 @@
 package models
 
-
 import (
 	"fmt"
 	"strconv"
@@ -12,25 +11,17 @@ const CloudprovpClassName = "cloudProvP"
 
 type CloudProviderProfile struct {
 	BaseAttributes
-    CloudProviderProfileAttributes 
+	CloudProviderProfileAttributes
 }
-  
+
 type CloudProviderProfileAttributes struct {
-	
-	
 	Vendor string `json:",omitempty"`
-	
-	
-    
-	Annotation       string `json:",omitempty"`
-	
-    
-    
+
+	Annotation string `json:",omitempty"`
 }
-   
 
 func NewCloudProviderProfile(cloudProvPRn, parentDn, description string, cloudProvPattr CloudProviderProfileAttributes) *CloudProviderProfile {
-	dn := fmt.Sprintf("%s/%s", parentDn, cloudProvPRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, cloudProvPRn)
 	return &CloudProviderProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -39,9 +30,8 @@ func NewCloudProviderProfile(cloudProvPRn, parentDn, description string, cloudPr
 			ClassName:         CloudprovpClassName,
 			Rn:                cloudProvPRn,
 		},
-        
+
 		CloudProviderProfileAttributes: cloudProvPattr,
-         
 	}
 }
 
@@ -51,17 +41,9 @@ func (cloudProvP *CloudProviderProfile) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-	
-	
-	A(cloudProvPMap, "vendor",cloudProvP.Vendor)
-	
-	
-    
-	A(cloudProvPMap, "annotation",cloudProvP.Annotation)
-	
-    
-    
-	
+	A(cloudProvPMap, "vendor", cloudProvP.Vendor)
+
+	A(cloudProvPMap, "annotation", cloudProvP.Annotation)
 
 	return cloudProvPMap, err
 }
@@ -77,20 +59,13 @@ func CloudProviderProfileFromContainerList(cont *container.Container, index int)
 			ClassName:         CloudprovpClassName,
 			Rn:                G(CloudProviderProfileCont, "rn"),
 		},
-        
+
 		CloudProviderProfileAttributes{
-		
-		
-			Vendor : G(CloudProviderProfileCont, "vendor"),
-		
-		
-        
-	        Annotation : G(CloudProviderProfileCont, "annotation"),
-		
-        
-        		
-        },
-        
+
+			Vendor: G(CloudProviderProfileCont, "vendor"),
+
+			Annotation: G(CloudProviderProfileCont, "annotation"),
+		},
 	}
 }
 
