@@ -157,15 +157,12 @@ func (c *Client) MakeRestRequest(method string, path string, body *container.Con
 	}
 
 	fURL := c.BaseURL.ResolveReference(url)
-	var req_body *bytes.Buffer
-	fmt.Println(body.String())
+	var req *http.Request
 	if method == "GET" {
-		req_body = bytes.NewBuffer([]byte(""))
+		req, err = http.NewRequest(method, fURL.String(), nil)
 	} else {
-		req_body = bytes.NewBuffer(body.Bytes())
+		req, err = http.NewRequest(method, fURL.String(), bytes.NewBuffer((body.Bytes())))
 	}
-
-	req, err := http.NewRequest(method, fURL.String(), req_body)
 	if err != nil {
 		return nil, err
 	}
@@ -238,8 +235,7 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 	if err != nil {
 		return nil, nil, err
 	}
-	time.Sleep(1 * time.Second)
-
+	log.Printf("\n\n\n HTTP request: %v", req.Body)
 	log.Printf("\nHTTP Request: %s %s \n", req.Method, req.URL.String())
 	log.Printf("\nHTTP Response: %d %s \n", resp.StatusCode, resp.Status)
 
