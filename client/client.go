@@ -238,7 +238,7 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 	}
 	log.Printf("\n\n\n HTTP request: %v", req.Body)
 	log.Printf("\nHTTP Request: %s %s \n", req.Method, req.URL.String())
-	log.Printf("\nHTTP Response: %d %s \n", resp.StatusCode, resp.Status)
+	log.Printf("\nHTTP Response: %d %s %v\n", resp.StatusCode, resp.Status, resp)
 
 	decoder := json.NewDecoder(resp.Body)
 	obj, err := container.ParseJSONDecoder(decoder)
