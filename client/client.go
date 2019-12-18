@@ -241,6 +241,7 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 	log.Printf("nHTTP Response: %d %s %v", resp.StatusCode, resp.Status, resp)
 
 	decoder := json.NewDecoder(resp.Body)
+	log.Printf("JSON RESPONSE %v", decoder)
 	obj, err := container.ParseJSONDecoder(decoder)
 	defer resp.Body.Close()
 
