@@ -166,6 +166,7 @@ func (c *Client) MakeRestRequest(method string, path string, body *container.Con
 	if err != nil {
 		return nil, err
 	}
+	log.Printf("HTTP request %s %s %v", method, path, req)
 
 	if authenticated {
 
