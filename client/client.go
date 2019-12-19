@@ -244,7 +244,7 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 	bodyBytes, err := ioutil.ReadAll(resp.Body)
 	bodyStr := string(bodyBytes)
 
-	log.Printf("\n HTTP response unique string %s", bodyStr)
+	log.Printf("\n HTTP response unique string %s %s %s", req.Method, req.URL.String(), bodyStr)
 	obj, err := container.ParseJSON(bodyBytes)
 	defer resp.Body.Close()
 
