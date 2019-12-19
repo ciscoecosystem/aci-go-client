@@ -59,11 +59,14 @@ func (client *Client) InjectAuthenticationHeader(req *http.Request, path string)
 		})
 		return req, nil
 	} else if client.privatekey != "" && client.adminCert != "" {
-		buffer, _ := ioutil.ReadAll(req.Body)
-		rdr2 := ioutil.NopCloser(bytes.NewBuffer(buffer))
+		var bodyStr string
+		if req.Method != "GET" {
+			buffer, _ := ioutil.ReadAll(req.Body)
+			rdr2 := ioutil.NopCloser(bytes.NewBuffer(buffer))
 
-		req.Body = rdr2
-		bodyStr := string(buffer)
+			req.Body = rdr2
+			bodyStr = string(buffer)
+		}
 		contentStr := ""
 		if bodyStr != "{}" {
 			contentStr = fmt.Sprintf("%s%s%s", req.Method, path, bodyStr)
