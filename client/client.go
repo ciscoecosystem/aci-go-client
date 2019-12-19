@@ -3,9 +3,9 @@ package client
 import (
 	"bytes"
 	"crypto/tls"
-	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
@@ -175,6 +175,7 @@ func (c *Client) MakeRestRequest(method string, path string, body *container.Con
 			return req, err
 		}
 	}
+	log.Printf("HTTP request after injection %s %s %v", method, path, req)
 
 	return req, nil
 }
@@ -240,10 +241,11 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 	log.Printf("\nHTTP Request: %s %s", req.Method, req.URL.String())
 	log.Printf("nHTTP Response: %d %s %v", resp.StatusCode, resp.Status, resp)
 
-	decoder := json.NewDecoder(resp.Body)
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	bodyStr := string(bodyBytes)
 
-	log.Printf("JSON RESPONSE %v", decoder)
-	obj, err := container.ParseJSONDecoder(decoder)
+	log.Printf("\n HTTP response unique string %s", bodyStr)
+	obj, err := container.ParseJSON(bodyBytes)
 	defer resp.Body.Close()
 
 	if err != nil {
