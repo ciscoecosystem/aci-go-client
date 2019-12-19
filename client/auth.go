@@ -43,7 +43,7 @@ func (t *Auth) estimateExpireTime() int64 {
 }
 
 func (client *Client) InjectAuthenticationHeader(req *http.Request, path string) (*http.Request, error) {
-
+	log.Printf("[DEBUG] Begin Injection")
 	if client.password != "" {
 		if client.AuthToken == nil || !client.AuthToken.IsValid() {
 			fmt.Println(client)
@@ -75,11 +75,11 @@ func (client *Client) InjectAuthenticationHeader(req *http.Request, path string)
 			contentStr = fmt.Sprintf("%s%s", req.Method, path)
 
 		}
-		fmt.Println("Content " + contentStr)
+		log.Printf("Content %s", contentStr)
 		content := []byte(contentStr)
 
 		signature, err := createSignature(content, client.privatekey)
-		fmt.Println("sig" + signature)
+		log.Printf("signature %s" + signature)
 		if err != nil {
 			return req, err
 		}
@@ -99,7 +99,7 @@ func (client *Client) InjectAuthenticationHeader(req *http.Request, path string)
 			Name:  "APIC-Certificate-DN",
 			Value: fmt.Sprintf("uni/userext/user-%s/usercert-%s", client.username, client.adminCert),
 		})
-
+		log.Printf("[DEBUG] finished signature creation")
 		return req, nil
 
 	} else {
