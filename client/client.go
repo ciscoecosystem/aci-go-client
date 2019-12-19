@@ -241,12 +241,14 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 	log.Printf("nHTTP Response: %d %s %v", resp.StatusCode, resp.Status, resp)
 
 	decoder := json.NewDecoder(resp.Body)
+
 	log.Printf("JSON RESPONSE %v", decoder)
 	obj, err := container.ParseJSONDecoder(decoder)
 	defer resp.Body.Close()
 
 	if err != nil {
 		fmt.Println("Error occurred.")
+		log.Printf("Error occured while json parsing %+v", err)
 		return nil, resp, err
 	}
 	log.Printf("[DEBUG] Exit from do method")
