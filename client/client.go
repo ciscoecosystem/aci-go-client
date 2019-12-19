@@ -233,6 +233,7 @@ func StrtoInt(s string, startIndex int, bitSize int) (int64, error) {
 
 }
 func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, error) {
+	log.Printf("[DEBUG] Begining DO method %s", req.URL.String())
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return nil, nil, err
