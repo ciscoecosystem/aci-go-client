@@ -7,11 +7,11 @@ import (
 
 	"github.com/ciscoecosystem/aci-go-client/client"
 	"github.com/ciscoecosystem/aci-go-client/models"
-	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
 func GetTestClient() *client.Client {
-	return client.GetClient("https://192.168.10.102", "nirav", client.Insecure(true), client.PrivateKey("/Users/crest/go/src/github.com/ciscoecosystem/certdir/admin.key"), client.AdminCert("test.crt"))
+	return client.GetClient("https://192.168.10.102", "admin", client.Insecure(true), client.PrivateKey("/Users/nirav.katarmal/Downloads/Archive/ansible.key"), client.AdminCert("ansible"))
 
 }
 
@@ -112,12 +112,13 @@ func TestGetTenantContainer(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Logf("%+v", cont)
+	t.Logf("Tenant read container %+v", cont)
 
 	err = deleteTenant(c, tenant)
 	if err != nil {
 		t.Error(err)
 	}
+	t.Error(err)
 }
 
 func TestTenantFromContainer(t *testing.T) {
@@ -207,4 +208,20 @@ func TestReadRel(t *testing.T) {
 
 	}
 
+}
+
+func TestDeleteAll(t *testing.T) {
+	c := GetTestClient()
+	tenList, err := c.ListTenant()
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	for i := 0; i < len(tenList); i++ {
+		err = c.DeleteTenant(tenList[i].Name)
+		if err != nil {
+			t.Error(err)
+		}
+	}
 }
