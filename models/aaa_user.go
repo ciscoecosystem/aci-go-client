@@ -7,7 +7,7 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/container"
 )
 
-const aaaUserClassName = "aaaUser"
+const AaaUserClassName = "aaaUser"
 
 type User struct {
 	BaseAttributes
@@ -61,7 +61,7 @@ func NewUser(aaaUserRn, parentDn, description string, aaaUserattr UserAttributes
 			DistinguishedName: dn,
 			Description:       description,
 			Status:            "created, modified",
-			ClassName:         aaaUserClassName,
+			ClassName:         AaaUserClassName,
 			Rn:                aaaUserRn,
 		},
 
@@ -100,13 +100,13 @@ func (aaaUser *User) ToMap() (map[string]string, error) {
 
 func UserFromContainerList(cont *container.Container, index int) *User {
 
-	UserCont := cont.S("imdata").Index(index).S(aaaUserClassName, "attributes")
+	UserCont := cont.S("imdata").Index(index).S(AaaUserClassName, "attributes")
 	return &User{
 		BaseAttributes{
 			DistinguishedName: G(UserCont, "dn"),
 			Description:       G(UserCont, "descr"),
 			Status:            G(UserCont, "status"),
-			ClassName:         aaaUserClassName,
+			ClassName:         AaaUserClassName,
 			Rn:                G(UserCont, "rn"),
 		},
 
