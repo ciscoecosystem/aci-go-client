@@ -1,6 +1,5 @@
 package models
 
-
 import (
 	"fmt"
 	"strconv"
@@ -12,22 +11,20 @@ const InfraportblkClassName = "infraPortBlk"
 
 type AccessPortBlock struct {
 	BaseAttributes
-    AccessPortBlockAttributes 
+	AccessPortBlockAttributes
 }
-  
+
 type AccessPortBlockAttributes struct {
-    Annotation       string `json:",omitempty"`
-    FromCard       string `json:",omitempty"`
-    FromPort       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    ToCard       string `json:",omitempty"`
-    ToPort       string `json:",omitempty"`
-    
+	Annotation string `json:",omitempty"`
+	FromCard   string `json:",omitempty"`
+	FromPort   string `json:",omitempty"`
+	NameAlias  string `json:",omitempty"`
+	ToCard     string `json:",omitempty"`
+	ToPort     string `json:",omitempty"`
 }
-   
 
 func NewAccessPortBlock(infraPortBlkRn, parentDn, description string, infraPortBlkattr AccessPortBlockAttributes) *AccessPortBlock {
-	dn := fmt.Sprintf("%s/%s", parentDn, infraPortBlkRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, infraPortBlkRn)
 	return &AccessPortBlock{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -36,9 +33,8 @@ func NewAccessPortBlock(infraPortBlkRn, parentDn, description string, infraPortB
 			ClassName:         InfraportblkClassName,
 			Rn:                infraPortBlkRn,
 		},
-        
+
 		AccessPortBlockAttributes: infraPortBlkattr,
-         
 	}
 }
 
@@ -48,14 +44,12 @@ func (infraPortBlk *AccessPortBlock) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(infraPortBlkMap, "annotation",infraPortBlk.Annotation)
-    A(infraPortBlkMap, "fromCard",infraPortBlk.FromCard)
-    A(infraPortBlkMap, "fromPort",infraPortBlk.FromPort)
-    A(infraPortBlkMap, "nameAlias",infraPortBlk.NameAlias)
-    A(infraPortBlkMap, "toCard",infraPortBlk.ToCard)
-    A(infraPortBlkMap, "toPort",infraPortBlk.ToPort)
-    
-	
+	A(infraPortBlkMap, "annotation", infraPortBlk.Annotation)
+	A(infraPortBlkMap, "fromCard", infraPortBlk.FromCard)
+	A(infraPortBlkMap, "fromPort", infraPortBlk.FromPort)
+	A(infraPortBlkMap, "nameAlias", infraPortBlk.NameAlias)
+	A(infraPortBlkMap, "toCard", infraPortBlk.ToCard)
+	A(infraPortBlkMap, "toPort", infraPortBlk.ToPort)
 
 	return infraPortBlkMap, err
 }
@@ -71,17 +65,15 @@ func AccessPortBlockFromContainerList(cont *container.Container, index int) *Acc
 			ClassName:         InfraportblkClassName,
 			Rn:                G(AccessPortBlockCont, "rn"),
 		},
-        
+
 		AccessPortBlockAttributes{
-        Annotation : G(AccessPortBlockCont, "annotation"),
-        FromCard : G(AccessPortBlockCont, "fromCard"),
-        FromPort : G(AccessPortBlockCont, "fromPort"),
-        NameAlias : G(AccessPortBlockCont, "nameAlias"),
-        ToCard : G(AccessPortBlockCont, "toCard"),
-        ToPort : G(AccessPortBlockCont, "toPort"),
-        		
-        },
-        
+			Annotation: G(AccessPortBlockCont, "annotation"),
+			FromCard:   G(AccessPortBlockCont, "fromCard"),
+			FromPort:   G(AccessPortBlockCont, "fromPort"),
+			NameAlias:  G(AccessPortBlockCont, "nameAlias"),
+			ToCard:     G(AccessPortBlockCont, "toCard"),
+			ToPort:     G(AccessPortBlockCont, "toPort"),
+		},
 	}
 }
 

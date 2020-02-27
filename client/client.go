@@ -121,6 +121,7 @@ func GetClient(clientUrl, username string, options ...Option) *Client {
 	}
 	return clientImpl
 }
+
 func (c *Client) configProxy(transport *http.Transport) *http.Transport {
 	pUrl, err := url.Parse(c.proxyUrl)
 	if err != nil {
@@ -130,6 +131,7 @@ func (c *Client) configProxy(transport *http.Transport) *http.Transport {
 	return transport
 
 }
+
 func (c *Client) useInsecureHTTPClient() *http.Transport {
 	// proxyUrl, _ := url.Parse("http://10.0.1.167:3128")
 	transport := &http.Transport{
@@ -146,11 +148,9 @@ func (c *Client) useInsecureHTTPClient() *http.Transport {
 	}
 
 	return transport
-
 }
 
 func (c *Client) MakeRestRequest(method string, path string, body *container.Container, authenticated bool) (*http.Request, error) {
-
 	url, err := url.Parse(path)
 	if err != nil {
 		return nil, err
@@ -165,7 +165,6 @@ func (c *Client) MakeRestRequest(method string, path string, body *container.Con
 	}
 
 	if authenticated {
-
 		req, err = c.InjectAuthenticationHeader(req, path)
 		if err != nil {
 			return req, err
@@ -185,7 +184,6 @@ func (c *Client) Authenticate() error {
 		return err
 	}
 
-	fmt.Println(body.String())
 	req, err := c.MakeRestRequest(method, path, body, false)
 	obj, _, err := c.Do(req)
 
@@ -223,19 +221,16 @@ func (c *Client) Authenticate() error {
 
 	return nil
 }
+
 func StrtoInt(s string, startIndex int, bitSize int) (int64, error) {
 	return strconv.ParseInt(s, startIndex, bitSize)
-
 }
-func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, error) {
 
+func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, error) {
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return nil, nil, err
 	}
-
-	fmt.Printf("\nHTTP Request: %s %s \n", req.Method, req.URL.String())
-	fmt.Printf("\nHTTP Response: %d %s \n", resp.StatusCode, resp.Status)
 
 	decoder := json.NewDecoder(resp.Body)
 	obj, err := container.ParseJSONDecoder(decoder)

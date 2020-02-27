@@ -1,6 +1,5 @@
 package models
 
-
 import (
 	"fmt"
 	"strconv"
@@ -12,19 +11,17 @@ const InfraaccbndlgrpClassName = "infraAccBndlGrp"
 
 type PCVPCInterfacePolicyGroup struct {
 	BaseAttributes
-    PCVPCInterfacePolicyGroupAttributes 
+	PCVPCInterfacePolicyGroupAttributes
 }
-  
+
 type PCVPCInterfacePolicyGroupAttributes struct {
-    Annotation       string `json:",omitempty"`
-    LagT       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    
+	Annotation string `json:",omitempty"`
+	LagT       string `json:",omitempty"`
+	NameAlias  string `json:",omitempty"`
 }
-   
 
 func NewPCVPCInterfacePolicyGroup(infraAccBndlGrpRn, parentDn, description string, infraAccBndlGrpattr PCVPCInterfacePolicyGroupAttributes) *PCVPCInterfacePolicyGroup {
-	dn := fmt.Sprintf("%s/%s", parentDn, infraAccBndlGrpRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, infraAccBndlGrpRn)
 	return &PCVPCInterfacePolicyGroup{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -33,9 +30,8 @@ func NewPCVPCInterfacePolicyGroup(infraAccBndlGrpRn, parentDn, description strin
 			ClassName:         InfraaccbndlgrpClassName,
 			Rn:                infraAccBndlGrpRn,
 		},
-        
+
 		PCVPCInterfacePolicyGroupAttributes: infraAccBndlGrpattr,
-         
 	}
 }
 
@@ -45,11 +41,9 @@ func (infraAccBndlGrp *PCVPCInterfacePolicyGroup) ToMap() (map[string]string, er
 		return nil, err
 	}
 
-    A(infraAccBndlGrpMap, "annotation",infraAccBndlGrp.Annotation)
-    A(infraAccBndlGrpMap, "lagT",infraAccBndlGrp.LagT)
-    A(infraAccBndlGrpMap, "nameAlias",infraAccBndlGrp.NameAlias)
-    
-	
+	A(infraAccBndlGrpMap, "annotation", infraAccBndlGrp.Annotation)
+	A(infraAccBndlGrpMap, "lagT", infraAccBndlGrp.LagT)
+	A(infraAccBndlGrpMap, "nameAlias", infraAccBndlGrp.NameAlias)
 
 	return infraAccBndlGrpMap, err
 }
@@ -65,14 +59,12 @@ func PCVPCInterfacePolicyGroupFromContainerList(cont *container.Container, index
 			ClassName:         InfraaccbndlgrpClassName,
 			Rn:                G(PCVPCInterfacePolicyGroupCont, "rn"),
 		},
-        
+
 		PCVPCInterfacePolicyGroupAttributes{
-        Annotation : G(PCVPCInterfacePolicyGroupCont, "annotation"),
-        LagT : G(PCVPCInterfacePolicyGroupCont, "lagT"),
-        NameAlias : G(PCVPCInterfacePolicyGroupCont, "nameAlias"),
-        		
-        },
-        
+			Annotation: G(PCVPCInterfacePolicyGroupCont, "annotation"),
+			LagT:       G(PCVPCInterfacePolicyGroupCont, "lagT"),
+			NameAlias:  G(PCVPCInterfacePolicyGroupCont, "nameAlias"),
+		},
 	}
 }
 

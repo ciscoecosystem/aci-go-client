@@ -1,6 +1,5 @@
 package models
 
-
 import (
 	"fmt"
 	"strconv"
@@ -12,24 +11,22 @@ const L3extinstpClassName = "l3extInstP"
 
 type ExternalNetworkInstanceProfile struct {
 	BaseAttributes
-    ExternalNetworkInstanceProfileAttributes 
+	ExternalNetworkInstanceProfileAttributes
 }
-  
+
 type ExternalNetworkInstanceProfileAttributes struct {
-    Annotation       string `json:",omitempty"`
-    ExceptionTag       string `json:",omitempty"`
-    FloodOnEncap       string `json:",omitempty"`
-    MatchT       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    PrefGrMemb       string `json:",omitempty"`
-    Prio       string `json:",omitempty"`
-    TargetDscp       string `json:",omitempty"`
-    
+	Annotation   string `json:",omitempty"`
+	ExceptionTag string `json:",omitempty"`
+	FloodOnEncap string `json:",omitempty"`
+	MatchT       string `json:",omitempty"`
+	NameAlias    string `json:",omitempty"`
+	PrefGrMemb   string `json:",omitempty"`
+	Prio         string `json:",omitempty"`
+	TargetDscp   string `json:",omitempty"`
 }
-   
 
 func NewExternalNetworkInstanceProfile(l3extInstPRn, parentDn, description string, l3extInstPattr ExternalNetworkInstanceProfileAttributes) *ExternalNetworkInstanceProfile {
-	dn := fmt.Sprintf("%s/%s", parentDn, l3extInstPRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, l3extInstPRn)
 	return &ExternalNetworkInstanceProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -38,9 +35,8 @@ func NewExternalNetworkInstanceProfile(l3extInstPRn, parentDn, description strin
 			ClassName:         L3extinstpClassName,
 			Rn:                l3extInstPRn,
 		},
-        
+
 		ExternalNetworkInstanceProfileAttributes: l3extInstPattr,
-         
 	}
 }
 
@@ -50,16 +46,14 @@ func (l3extInstP *ExternalNetworkInstanceProfile) ToMap() (map[string]string, er
 		return nil, err
 	}
 
-    A(l3extInstPMap, "annotation",l3extInstP.Annotation)
-    A(l3extInstPMap, "exceptionTag",l3extInstP.ExceptionTag)
-    A(l3extInstPMap, "floodOnEncap",l3extInstP.FloodOnEncap)
-    A(l3extInstPMap, "matchT",l3extInstP.MatchT)
-    A(l3extInstPMap, "nameAlias",l3extInstP.NameAlias)
-    A(l3extInstPMap, "prefGrMemb",l3extInstP.PrefGrMemb)
-    A(l3extInstPMap, "prio",l3extInstP.Prio)
-    A(l3extInstPMap, "targetDscp",l3extInstP.TargetDscp)
-    
-	
+	A(l3extInstPMap, "annotation", l3extInstP.Annotation)
+	A(l3extInstPMap, "exceptionTag", l3extInstP.ExceptionTag)
+	A(l3extInstPMap, "floodOnEncap", l3extInstP.FloodOnEncap)
+	A(l3extInstPMap, "matchT", l3extInstP.MatchT)
+	A(l3extInstPMap, "nameAlias", l3extInstP.NameAlias)
+	A(l3extInstPMap, "prefGrMemb", l3extInstP.PrefGrMemb)
+	A(l3extInstPMap, "prio", l3extInstP.Prio)
+	A(l3extInstPMap, "targetDscp", l3extInstP.TargetDscp)
 
 	return l3extInstPMap, err
 }
@@ -75,19 +69,17 @@ func ExternalNetworkInstanceProfileFromContainerList(cont *container.Container, 
 			ClassName:         L3extinstpClassName,
 			Rn:                G(ExternalNetworkInstanceProfileCont, "rn"),
 		},
-        
+
 		ExternalNetworkInstanceProfileAttributes{
-        Annotation : G(ExternalNetworkInstanceProfileCont, "annotation"),
-        ExceptionTag : G(ExternalNetworkInstanceProfileCont, "exceptionTag"),
-        FloodOnEncap : G(ExternalNetworkInstanceProfileCont, "floodOnEncap"),
-        MatchT : G(ExternalNetworkInstanceProfileCont, "matchT"),
-        NameAlias : G(ExternalNetworkInstanceProfileCont, "nameAlias"),
-        PrefGrMemb : G(ExternalNetworkInstanceProfileCont, "prefGrMemb"),
-        Prio : G(ExternalNetworkInstanceProfileCont, "prio"),
-        TargetDscp : G(ExternalNetworkInstanceProfileCont, "targetDscp"),
-        		
-        },
-        
+			Annotation:   G(ExternalNetworkInstanceProfileCont, "annotation"),
+			ExceptionTag: G(ExternalNetworkInstanceProfileCont, "exceptionTag"),
+			FloodOnEncap: G(ExternalNetworkInstanceProfileCont, "floodOnEncap"),
+			MatchT:       G(ExternalNetworkInstanceProfileCont, "matchT"),
+			NameAlias:    G(ExternalNetworkInstanceProfileCont, "nameAlias"),
+			PrefGrMemb:   G(ExternalNetworkInstanceProfileCont, "prefGrMemb"),
+			Prio:         G(ExternalNetworkInstanceProfileCont, "prio"),
+			TargetDscp:   G(ExternalNetworkInstanceProfileCont, "targetDscp"),
+		},
 	}
 }
 

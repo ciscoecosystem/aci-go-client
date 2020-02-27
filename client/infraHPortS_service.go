@@ -39,11 +39,9 @@ func (sm *ServiceManager) UpdateAccessPortSelector(access_port_selector_type str
 	infraHPortS.Status = "modified"
 	err := sm.Save(infraHPortS)
 	return infraHPortS, err
-
 }
 
 func (sm *ServiceManager) ListAccessPortSelector(leaf_interface_profile string) ([]*models.AccessPortSelector, error) {
-
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infra/accportprof-%s/infraHPortS.json", baseurlStr, leaf_interface_profile)
 
@@ -59,7 +57,6 @@ func (sm *ServiceManager) CreateRelationinfraRsAccBaseGrpFromAccessPortSelector(
 		"%s": {
 			"attributes": {
 				"dn": "%s","tnInfraAccBaseGrpName": "%s"
-								
 			}
 		}
 	}`, "infraRsAccBaseGrp", dn, tnInfraAccBaseGrpName))
@@ -101,5 +98,4 @@ func (sm *ServiceManager) ReadRelationinfraRsAccBaseGrpFromAccessPortSelector(pa
 	} else {
 		return nil, err
 	}
-
 }

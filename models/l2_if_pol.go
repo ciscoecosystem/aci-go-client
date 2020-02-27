@@ -1,6 +1,5 @@
 package models
 
-
 import (
 	"fmt"
 	"strconv"
@@ -12,21 +11,19 @@ const L2ifpolClassName = "l2IfPol"
 
 type L2InterfacePolicy struct {
 	BaseAttributes
-    L2InterfacePolicyAttributes 
+	L2InterfacePolicyAttributes
 }
-  
+
 type L2InterfacePolicyAttributes struct {
-    Annotation       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    Qinq       string `json:",omitempty"`
-    Vepa       string `json:",omitempty"`
-    VlanScope       string `json:",omitempty"`
-    
+	Annotation string `json:",omitempty"`
+	NameAlias  string `json:",omitempty"`
+	Qinq       string `json:",omitempty"`
+	Vepa       string `json:",omitempty"`
+	VlanScope  string `json:",omitempty"`
 }
-   
 
 func NewL2InterfacePolicy(l2IfPolRn, parentDn, description string, l2IfPolattr L2InterfacePolicyAttributes) *L2InterfacePolicy {
-	dn := fmt.Sprintf("%s/%s", parentDn, l2IfPolRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, l2IfPolRn)
 	return &L2InterfacePolicy{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -35,9 +32,8 @@ func NewL2InterfacePolicy(l2IfPolRn, parentDn, description string, l2IfPolattr L
 			ClassName:         L2ifpolClassName,
 			Rn:                l2IfPolRn,
 		},
-        
+
 		L2InterfacePolicyAttributes: l2IfPolattr,
-         
 	}
 }
 
@@ -47,13 +43,11 @@ func (l2IfPol *L2InterfacePolicy) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(l2IfPolMap, "annotation",l2IfPol.Annotation)
-    A(l2IfPolMap, "nameAlias",l2IfPol.NameAlias)
-    A(l2IfPolMap, "qinq",l2IfPol.Qinq)
-    A(l2IfPolMap, "vepa",l2IfPol.Vepa)
-    A(l2IfPolMap, "vlanScope",l2IfPol.VlanScope)
-    
-	
+	A(l2IfPolMap, "annotation", l2IfPol.Annotation)
+	A(l2IfPolMap, "nameAlias", l2IfPol.NameAlias)
+	A(l2IfPolMap, "qinq", l2IfPol.Qinq)
+	A(l2IfPolMap, "vepa", l2IfPol.Vepa)
+	A(l2IfPolMap, "vlanScope", l2IfPol.VlanScope)
 
 	return l2IfPolMap, err
 }
@@ -69,16 +63,14 @@ func L2InterfacePolicyFromContainerList(cont *container.Container, index int) *L
 			ClassName:         L2ifpolClassName,
 			Rn:                G(L2InterfacePolicyCont, "rn"),
 		},
-        
+
 		L2InterfacePolicyAttributes{
-        Annotation : G(L2InterfacePolicyCont, "annotation"),
-        NameAlias : G(L2InterfacePolicyCont, "nameAlias"),
-        Qinq : G(L2InterfacePolicyCont, "qinq"),
-        Vepa : G(L2InterfacePolicyCont, "vepa"),
-        VlanScope : G(L2InterfacePolicyCont, "vlanScope"),
-        		
-        },
-        
+			Annotation: G(L2InterfacePolicyCont, "annotation"),
+			NameAlias:  G(L2InterfacePolicyCont, "nameAlias"),
+			Qinq:       G(L2InterfacePolicyCont, "qinq"),
+			Vepa:       G(L2InterfacePolicyCont, "vepa"),
+			VlanScope:  G(L2InterfacePolicyCont, "vlanScope"),
+		},
 	}
 }
 

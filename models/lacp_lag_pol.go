@@ -1,6 +1,5 @@
 package models
 
-
 import (
 	"fmt"
 	"strconv"
@@ -12,22 +11,20 @@ const LacplagpolClassName = "lacpLagPol"
 
 type LACPPolicy struct {
 	BaseAttributes
-    LACPPolicyAttributes 
+	LACPPolicyAttributes
 }
-  
+
 type LACPPolicyAttributes struct {
-    Annotation       string `json:",omitempty"`
-    Ctrl       string `json:",omitempty"`
-    MaxLinks       string `json:",omitempty"`
-    MinLinks       string `json:",omitempty"`
-    Mode       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    
+	Annotation string `json:",omitempty"`
+	Ctrl       string `json:",omitempty"`
+	MaxLinks   string `json:",omitempty"`
+	MinLinks   string `json:",omitempty"`
+	Mode       string `json:",omitempty"`
+	NameAlias  string `json:",omitempty"`
 }
-   
 
 func NewLACPPolicy(lacpLagPolRn, parentDn, description string, lacpLagPolattr LACPPolicyAttributes) *LACPPolicy {
-	dn := fmt.Sprintf("%s/%s", parentDn, lacpLagPolRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, lacpLagPolRn)
 	return &LACPPolicy{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -36,9 +33,8 @@ func NewLACPPolicy(lacpLagPolRn, parentDn, description string, lacpLagPolattr LA
 			ClassName:         LacplagpolClassName,
 			Rn:                lacpLagPolRn,
 		},
-        
+
 		LACPPolicyAttributes: lacpLagPolattr,
-         
 	}
 }
 
@@ -48,14 +44,12 @@ func (lacpLagPol *LACPPolicy) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(lacpLagPolMap, "annotation",lacpLagPol.Annotation)
-    A(lacpLagPolMap, "ctrl",lacpLagPol.Ctrl)
-    A(lacpLagPolMap, "maxLinks",lacpLagPol.MaxLinks)
-    A(lacpLagPolMap, "minLinks",lacpLagPol.MinLinks)
-    A(lacpLagPolMap, "mode",lacpLagPol.Mode)
-    A(lacpLagPolMap, "nameAlias",lacpLagPol.NameAlias)
-    
-	
+	A(lacpLagPolMap, "annotation", lacpLagPol.Annotation)
+	A(lacpLagPolMap, "ctrl", lacpLagPol.Ctrl)
+	A(lacpLagPolMap, "maxLinks", lacpLagPol.MaxLinks)
+	A(lacpLagPolMap, "minLinks", lacpLagPol.MinLinks)
+	A(lacpLagPolMap, "mode", lacpLagPol.Mode)
+	A(lacpLagPolMap, "nameAlias", lacpLagPol.NameAlias)
 
 	return lacpLagPolMap, err
 }
@@ -71,17 +65,15 @@ func LACPPolicyFromContainerList(cont *container.Container, index int) *LACPPoli
 			ClassName:         LacplagpolClassName,
 			Rn:                G(LACPPolicyCont, "rn"),
 		},
-        
+
 		LACPPolicyAttributes{
-        Annotation : G(LACPPolicyCont, "annotation"),
-        Ctrl : G(LACPPolicyCont, "ctrl"),
-        MaxLinks : G(LACPPolicyCont, "maxLinks"),
-        MinLinks : G(LACPPolicyCont, "minLinks"),
-        Mode : G(LACPPolicyCont, "mode"),
-        NameAlias : G(LACPPolicyCont, "nameAlias"),
-        		
-        },
-        
+			Annotation: G(LACPPolicyCont, "annotation"),
+			Ctrl:       G(LACPPolicyCont, "ctrl"),
+			MaxLinks:   G(LACPPolicyCont, "maxLinks"),
+			MinLinks:   G(LACPPolicyCont, "minLinks"),
+			Mode:       G(LACPPolicyCont, "mode"),
+			NameAlias:  G(LACPPolicyCont, "nameAlias"),
+		},
 	}
 }
 

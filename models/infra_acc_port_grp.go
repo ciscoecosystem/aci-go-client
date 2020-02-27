@@ -1,6 +1,5 @@
 package models
 
-
 import (
 	"fmt"
 	"strconv"
@@ -12,18 +11,16 @@ const InfraaccportgrpClassName = "infraAccPortGrp"
 
 type LeafAccessPortPolicyGroup struct {
 	BaseAttributes
-    LeafAccessPortPolicyGroupAttributes 
+	LeafAccessPortPolicyGroupAttributes
 }
-  
+
 type LeafAccessPortPolicyGroupAttributes struct {
-    Annotation       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    
+	Annotation string `json:",omitempty"`
+	NameAlias  string `json:",omitempty"`
 }
-   
 
 func NewLeafAccessPortPolicyGroup(infraAccPortGrpRn, parentDn, description string, infraAccPortGrpattr LeafAccessPortPolicyGroupAttributes) *LeafAccessPortPolicyGroup {
-	dn := fmt.Sprintf("%s/%s", parentDn, infraAccPortGrpRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, infraAccPortGrpRn)
 	return &LeafAccessPortPolicyGroup{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -32,9 +29,8 @@ func NewLeafAccessPortPolicyGroup(infraAccPortGrpRn, parentDn, description strin
 			ClassName:         InfraaccportgrpClassName,
 			Rn:                infraAccPortGrpRn,
 		},
-        
+
 		LeafAccessPortPolicyGroupAttributes: infraAccPortGrpattr,
-         
 	}
 }
 
@@ -44,10 +40,8 @@ func (infraAccPortGrp *LeafAccessPortPolicyGroup) ToMap() (map[string]string, er
 		return nil, err
 	}
 
-    A(infraAccPortGrpMap, "annotation",infraAccPortGrp.Annotation)
-    A(infraAccPortGrpMap, "nameAlias",infraAccPortGrp.NameAlias)
-    
-	
+	A(infraAccPortGrpMap, "annotation", infraAccPortGrp.Annotation)
+	A(infraAccPortGrpMap, "nameAlias", infraAccPortGrp.NameAlias)
 
 	return infraAccPortGrpMap, err
 }
@@ -63,13 +57,11 @@ func LeafAccessPortPolicyGroupFromContainerList(cont *container.Container, index
 			ClassName:         InfraaccportgrpClassName,
 			Rn:                G(LeafAccessPortPolicyGroupCont, "rn"),
 		},
-        
+
 		LeafAccessPortPolicyGroupAttributes{
-        Annotation : G(LeafAccessPortPolicyGroupCont, "annotation"),
-        NameAlias : G(LeafAccessPortPolicyGroupCont, "nameAlias"),
-        		
-        },
-        
+			Annotation: G(LeafAccessPortPolicyGroupCont, "annotation"),
+			NameAlias:  G(LeafAccessPortPolicyGroupCont, "nameAlias"),
+		},
 	}
 }
 

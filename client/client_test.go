@@ -7,7 +7,6 @@ import (
 )
 
 func TestClientAuthenticate(t *testing.T) {
-
 	client := GetTestClient()
 	err := client.Authenticate()
 	if err != nil {
@@ -21,5 +20,4 @@ func TestClientAuthenticate(t *testing.T) {
 
 func GetTestClient() *client.Client {
 	return client.GetClient("https://192.168.10.102", "admin", client.Password("cisco123"), client.Insecure(true))
-
 }

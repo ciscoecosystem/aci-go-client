@@ -33,6 +33,7 @@ func (au *Auth) IsValid() bool {
 func (t *Auth) CalculateExpiry(willExpire int64) {
 	t.Expiry = time.Unix((t.apicCreatedAt.Unix() + willExpire), 0)
 }
+
 func (t *Auth) CaclulateOffset() {
 	t.offset = t.apicCreatedAt.Unix() - t.realCreatedAt.Unix()
 }
@@ -42,12 +43,9 @@ func (t *Auth) estimateExpireTime() int64 {
 }
 
 func (client *Client) InjectAuthenticationHeader(req *http.Request, path string) (*http.Request, error) {
-
 	if client.password != "" {
 		if client.AuthToken == nil || !client.AuthToken.IsValid() {
-			fmt.Println(client)
 			err := client.Authenticate()
-			fmt.Println(client)
 			if err != nil {
 				return nil, err
 			}
@@ -57,7 +55,6 @@ func (client *Client) InjectAuthenticationHeader(req *http.Request, path string)
 			Name:  "APIC-Cookie",
 			Value: client.AuthToken.Token,
 		})
-		return req, nil
 	} else if client.privatekey != "" && client.adminCert != "" {
 		buffer, _ := ioutil.ReadAll(req.Body)
 		rdr2 := ioutil.NopCloser(bytes.NewBuffer(buffer))
@@ -71,11 +68,9 @@ func (client *Client) InjectAuthenticationHeader(req *http.Request, path string)
 			contentStr = fmt.Sprintf("%s%s", req.Method, path)
 
 		}
-		fmt.Println("Content " + contentStr)
 		content := []byte(contentStr)
 
 		signature, err := createSignature(content, client.privatekey)
-		fmt.Println("sig" + signature)
 		if err != nil {
 			return req, err
 		}
@@ -96,10 +91,7 @@ func (client *Client) InjectAuthenticationHeader(req *http.Request, path string)
 			Value: fmt.Sprintf("uni/userext/user-%s/usercert-%s", client.username, client.adminCert),
 		})
 
-		return req, nil
-
 	} else {
-
 		return req, fmt.Errorf("Anyone of password or privatekey/certificate name is must.")
 	}
 

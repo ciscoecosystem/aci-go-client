@@ -39,11 +39,9 @@ func (sm *ServiceManager) UpdateAccessPortBlock(name string, access_port_selecto
 	infraPortBlk.Status = "modified"
 	err := sm.Save(infraPortBlk)
 	return infraPortBlk, err
-
 }
 
 func (sm *ServiceManager) ListAccessPortBlock(access_port_selector_type string, access_port_selector string, leaf_interface_profile string) ([]*models.AccessPortBlock, error) {
-
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infra/accportprof-%s/hports-%s-typ-%s/infraPortBlk.json", baseurlStr, leaf_interface_profile, access_port_selector, access_port_selector_type)
 
@@ -59,7 +57,6 @@ func (sm *ServiceManager) CreateRelationinfraRsAccBndlSubgrpFromAccessPortBlock(
 		"%s": {
 			"attributes": {
 				"dn": "%s","tDn": "%s"
-								
 			}
 		}
 	}`, "infraRsAccBndlSubgrp", dn, tnInfraAccBndlSubgrpName))
@@ -101,5 +98,4 @@ func (sm *ServiceManager) ReadRelationinfraRsAccBndlSubgrpFromAccessPortBlock(pa
 	} else {
 		return nil, err
 	}
-
 }

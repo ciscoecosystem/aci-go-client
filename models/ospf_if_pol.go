@@ -1,6 +1,5 @@
 package models
 
-
 import (
 	"fmt"
 	"strconv"
@@ -12,27 +11,25 @@ const OspfifpolClassName = "ospfIfPol"
 
 type OSPFInterfacePolicy struct {
 	BaseAttributes
-    OSPFInterfacePolicyAttributes 
+	OSPFInterfacePolicyAttributes
 }
-  
+
 type OSPFInterfacePolicyAttributes struct {
-    Annotation       string `json:",omitempty"`
-    Cost       string `json:",omitempty"`
-    Ctrl       string `json:",omitempty"`
-    DeadIntvl       string `json:",omitempty"`
-    HelloIntvl       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    NwT       string `json:",omitempty"`
-    PfxSuppress       string `json:",omitempty"`
-    Prio       string `json:",omitempty"`
-    RexmitIntvl       string `json:",omitempty"`
-    XmitDelay       string `json:",omitempty"`
-    
+	Annotation  string `json:",omitempty"`
+	Cost        string `json:",omitempty"`
+	Ctrl        string `json:",omitempty"`
+	DeadIntvl   string `json:",omitempty"`
+	HelloIntvl  string `json:",omitempty"`
+	NameAlias   string `json:",omitempty"`
+	NwT         string `json:",omitempty"`
+	PfxSuppress string `json:",omitempty"`
+	Prio        string `json:",omitempty"`
+	RexmitIntvl string `json:",omitempty"`
+	XmitDelay   string `json:",omitempty"`
 }
-   
 
 func NewOSPFInterfacePolicy(ospfIfPolRn, parentDn, description string, ospfIfPolattr OSPFInterfacePolicyAttributes) *OSPFInterfacePolicy {
-	dn := fmt.Sprintf("%s/%s", parentDn, ospfIfPolRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, ospfIfPolRn)
 	return &OSPFInterfacePolicy{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -41,9 +38,8 @@ func NewOSPFInterfacePolicy(ospfIfPolRn, parentDn, description string, ospfIfPol
 			ClassName:         OspfifpolClassName,
 			Rn:                ospfIfPolRn,
 		},
-        
+
 		OSPFInterfacePolicyAttributes: ospfIfPolattr,
-         
 	}
 }
 
@@ -53,19 +49,17 @@ func (ospfIfPol *OSPFInterfacePolicy) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(ospfIfPolMap, "annotation",ospfIfPol.Annotation)
-    A(ospfIfPolMap, "cost",ospfIfPol.Cost)
-    A(ospfIfPolMap, "ctrl",ospfIfPol.Ctrl)
-    A(ospfIfPolMap, "deadIntvl",ospfIfPol.DeadIntvl)
-    A(ospfIfPolMap, "helloIntvl",ospfIfPol.HelloIntvl)
-    A(ospfIfPolMap, "nameAlias",ospfIfPol.NameAlias)
-    A(ospfIfPolMap, "nwT",ospfIfPol.NwT)
-    A(ospfIfPolMap, "pfxSuppress",ospfIfPol.PfxSuppress)
-    A(ospfIfPolMap, "prio",ospfIfPol.Prio)
-    A(ospfIfPolMap, "rexmitIntvl",ospfIfPol.RexmitIntvl)
-    A(ospfIfPolMap, "xmitDelay",ospfIfPol.XmitDelay)
-    
-	
+	A(ospfIfPolMap, "annotation", ospfIfPol.Annotation)
+	A(ospfIfPolMap, "cost", ospfIfPol.Cost)
+	A(ospfIfPolMap, "ctrl", ospfIfPol.Ctrl)
+	A(ospfIfPolMap, "deadIntvl", ospfIfPol.DeadIntvl)
+	A(ospfIfPolMap, "helloIntvl", ospfIfPol.HelloIntvl)
+	A(ospfIfPolMap, "nameAlias", ospfIfPol.NameAlias)
+	A(ospfIfPolMap, "nwT", ospfIfPol.NwT)
+	A(ospfIfPolMap, "pfxSuppress", ospfIfPol.PfxSuppress)
+	A(ospfIfPolMap, "prio", ospfIfPol.Prio)
+	A(ospfIfPolMap, "rexmitIntvl", ospfIfPol.RexmitIntvl)
+	A(ospfIfPolMap, "xmitDelay", ospfIfPol.XmitDelay)
 
 	return ospfIfPolMap, err
 }
@@ -81,22 +75,20 @@ func OSPFInterfacePolicyFromContainerList(cont *container.Container, index int) 
 			ClassName:         OspfifpolClassName,
 			Rn:                G(OSPFInterfacePolicyCont, "rn"),
 		},
-        
+
 		OSPFInterfacePolicyAttributes{
-        Annotation : G(OSPFInterfacePolicyCont, "annotation"),
-        Cost : G(OSPFInterfacePolicyCont, "cost"),
-        Ctrl : G(OSPFInterfacePolicyCont, "ctrl"),
-        DeadIntvl : G(OSPFInterfacePolicyCont, "deadIntvl"),
-        HelloIntvl : G(OSPFInterfacePolicyCont, "helloIntvl"),
-        NameAlias : G(OSPFInterfacePolicyCont, "nameAlias"),
-        NwT : G(OSPFInterfacePolicyCont, "nwT"),
-        PfxSuppress : G(OSPFInterfacePolicyCont, "pfxSuppress"),
-        Prio : G(OSPFInterfacePolicyCont, "prio"),
-        RexmitIntvl : G(OSPFInterfacePolicyCont, "rexmitIntvl"),
-        XmitDelay : G(OSPFInterfacePolicyCont, "xmitDelay"),
-        		
-        },
-        
+			Annotation:  G(OSPFInterfacePolicyCont, "annotation"),
+			Cost:        G(OSPFInterfacePolicyCont, "cost"),
+			Ctrl:        G(OSPFInterfacePolicyCont, "ctrl"),
+			DeadIntvl:   G(OSPFInterfacePolicyCont, "deadIntvl"),
+			HelloIntvl:  G(OSPFInterfacePolicyCont, "helloIntvl"),
+			NameAlias:   G(OSPFInterfacePolicyCont, "nameAlias"),
+			NwT:         G(OSPFInterfacePolicyCont, "nwT"),
+			PfxSuppress: G(OSPFInterfacePolicyCont, "pfxSuppress"),
+			Prio:        G(OSPFInterfacePolicyCont, "prio"),
+			RexmitIntvl: G(OSPFInterfacePolicyCont, "rexmitIntvl"),
+			XmitDelay:   G(OSPFInterfacePolicyCont, "xmitDelay"),
+		},
 	}
 }
 

@@ -15,7 +15,6 @@ type ServiceManager struct {
 }
 
 func NewServiceManager(moURL string, client *Client) *ServiceManager {
-
 	sm := &ServiceManager{
 		MOURL:  moURL,
 		client: client,
@@ -32,7 +31,6 @@ func (sm *ServiceManager) Get(dn string) (*container.Container, error) {
 	}
 
 	obj, _, err := sm.client.Do(req)
-	fmt.Println(obj)
 	if err != nil {
 		return nil, err
 	}
@@ -55,15 +53,10 @@ func createJsonPayload(payload map[string]string) (*container.Container, error) 
 }
 
 func (sm *ServiceManager) Save(obj models.Model) error {
-
 	jsonPayload, _, err := sm.PrepareModel(obj)
-
 	if err != nil {
 		return err
 	}
-	fmt.Println("MO" + sm.MOURL)
-	fmt.Println(sm.client)
-	fmt.Println(jsonPayload.String())
 	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
 	if err != nil {
 		return err
@@ -85,9 +78,7 @@ func CheckForErrors(cont *container.Container, method string) error {
 	}
 	imdata := cont.S("imdata").Index(0)
 	if number > 0 {
-
 		if imdata.Exists("error") {
-
 			if models.StripQuotes(imdata.Path("error.attributes.code").String()) == "103" {
 				return nil
 			} else {
@@ -98,7 +89,6 @@ func CheckForErrors(cont *container.Container, method string) error {
 				return errors.New(models.StripQuotes(imdata.Path("error.attributes.text").String()))
 			}
 		}
-
 	}
 
 	if imdata.String() == "{}" && method == "GET" {
@@ -109,14 +99,10 @@ func CheckForErrors(cont *container.Container, method string) error {
 }
 
 func (sm *ServiceManager) Delete(obj models.Model) error {
-
 	jsonPayload, className, err := sm.PrepareModel(obj)
-
 	if err != nil {
 		return err
 	}
-	fmt.Println(sm.MOURL)
-	fmt.Println(sm.client)
 
 	jsonPayload.Set("deleted", className, "attributes", "status")
 	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
@@ -135,13 +121,11 @@ func (sm *ServiceManager) Delete(obj models.Model) error {
 
 func (sm *ServiceManager) GetViaURL(url string) (*container.Container, error) {
 	req, err := sm.client.MakeRestRequest("GET", url, nil, true)
-
 	if err != nil {
 		return nil, err
 	}
 
 	obj, _, err := sm.client.Do(req)
-	fmt.Println(obj)
 	if err != nil {
 		return nil, err
 	}
@@ -177,11 +161,10 @@ func (sm *ServiceManager) DeleteByDn(dn, className string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
 
 	return nil
-
 }
+
 func (sm *ServiceManager) PrepareModel(obj models.Model) (*container.Container, string, error) {
 	cont, err := obj.ToMap()
 	if err != nil {

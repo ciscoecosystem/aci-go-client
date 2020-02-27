@@ -1,6 +1,5 @@
 package models
 
-
 import (
 	"fmt"
 	"strconv"
@@ -12,20 +11,18 @@ const LldpifpolClassName = "lldpIfPol"
 
 type LLDPInterfacePolicy struct {
 	BaseAttributes
-    LLDPInterfacePolicyAttributes 
+	LLDPInterfacePolicyAttributes
 }
-  
+
 type LLDPInterfacePolicyAttributes struct {
-    AdminRxSt       string `json:",omitempty"`
-    AdminTxSt       string `json:",omitempty"`
-    Annotation       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    
+	AdminRxSt  string `json:",omitempty"`
+	AdminTxSt  string `json:",omitempty"`
+	Annotation string `json:",omitempty"`
+	NameAlias  string `json:",omitempty"`
 }
-   
 
 func NewLLDPInterfacePolicy(lldpIfPolRn, parentDn, description string, lldpIfPolattr LLDPInterfacePolicyAttributes) *LLDPInterfacePolicy {
-	dn := fmt.Sprintf("%s/%s", parentDn, lldpIfPolRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, lldpIfPolRn)
 	return &LLDPInterfacePolicy{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -34,9 +31,8 @@ func NewLLDPInterfacePolicy(lldpIfPolRn, parentDn, description string, lldpIfPol
 			ClassName:         LldpifpolClassName,
 			Rn:                lldpIfPolRn,
 		},
-        
+
 		LLDPInterfacePolicyAttributes: lldpIfPolattr,
-         
 	}
 }
 
@@ -46,12 +42,10 @@ func (lldpIfPol *LLDPInterfacePolicy) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(lldpIfPolMap, "adminRxSt",lldpIfPol.AdminRxSt)
-    A(lldpIfPolMap, "adminTxSt",lldpIfPol.AdminTxSt)
-    A(lldpIfPolMap, "annotation",lldpIfPol.Annotation)
-    A(lldpIfPolMap, "nameAlias",lldpIfPol.NameAlias)
-    
-	
+	A(lldpIfPolMap, "adminRxSt", lldpIfPol.AdminRxSt)
+	A(lldpIfPolMap, "adminTxSt", lldpIfPol.AdminTxSt)
+	A(lldpIfPolMap, "annotation", lldpIfPol.Annotation)
+	A(lldpIfPolMap, "nameAlias", lldpIfPol.NameAlias)
 
 	return lldpIfPolMap, err
 }
@@ -67,15 +61,13 @@ func LLDPInterfacePolicyFromContainerList(cont *container.Container, index int) 
 			ClassName:         LldpifpolClassName,
 			Rn:                G(LLDPInterfacePolicyCont, "rn"),
 		},
-        
+
 		LLDPInterfacePolicyAttributes{
-        AdminRxSt : G(LLDPInterfacePolicyCont, "adminRxSt"),
-        AdminTxSt : G(LLDPInterfacePolicyCont, "adminTxSt"),
-        Annotation : G(LLDPInterfacePolicyCont, "annotation"),
-        NameAlias : G(LLDPInterfacePolicyCont, "nameAlias"),
-        		
-        },
-        
+			AdminRxSt:  G(LLDPInterfacePolicyCont, "adminRxSt"),
+			AdminTxSt:  G(LLDPInterfacePolicyCont, "adminTxSt"),
+			Annotation: G(LLDPInterfacePolicyCont, "annotation"),
+			NameAlias:  G(LLDPInterfacePolicyCont, "nameAlias"),
+		},
 	}
 }
 

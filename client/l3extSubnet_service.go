@@ -39,11 +39,9 @@ func (sm *ServiceManager) UpdateL3ExtSubnet(ip string, external_network_instance
 	l3extSubnet.Status = "modified"
 	err := sm.Save(l3extSubnet)
 	return l3extSubnet, err
-
 }
 
 func (sm *ServiceManager) ListL3L3ExtSubnet(external_network_instance_profile string, l3_outside string, tenant string) ([]*models.L3ExtSubnet, error) {
-
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/instP-%s/l3extSubnet.json", baseurlStr, tenant, l3_outside, external_network_instance_profile)
 
@@ -102,11 +100,9 @@ func (sm *ServiceManager) ReadRelationl3extRsSubnetToProfileFromL3ExtSubnet(pare
 		paramMap["direction"] = models.G(contItem, "direction")
 
 		st = append(st, paramMap)
-
 	}
 
 	return st, err
-
 }
 func (sm *ServiceManager) CreateRelationl3extRsSubnetToRtSummFromL3ExtSubnet(parentDn, tnRtsumARtSummPolName string) error {
 	dn := fmt.Sprintf("%s/rsSubnetToRtSumm", parentDn)
@@ -114,7 +110,6 @@ func (sm *ServiceManager) CreateRelationl3extRsSubnetToRtSummFromL3ExtSubnet(par
 		"%s": {
 			"attributes": {
 				"dn": "%s","tnRtsumARtSummPolName": "%s"
-								
 			}
 		}
 	}`, "l3extRsSubnetToRtSumm", dn, tnRtsumARtSummPolName))
@@ -156,5 +151,4 @@ func (sm *ServiceManager) ReadRelationl3extRsSubnetToRtSummFromL3ExtSubnet(paren
 	} else {
 		return nil, err
 	}
-
 }
