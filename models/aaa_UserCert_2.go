@@ -22,6 +22,8 @@ type X509CertificateAttributes struct {
 	Data string `json:",omitempty"`
 
 	NameAlias string `json:",omitempty"`
+
+	//FilePath string `json:"omit empty"`
 }
 
 func NewX509Certificate(aaaUserCertRn, parentDn, description string, aaaUserCertattr X509CertificateAttributes) *X509Certificate {
@@ -53,6 +55,8 @@ func (aaaUserCert *X509Certificate) ToMap() (map[string]string, error) {
 
 	A(aaaUserCertMap, "nameAlias", aaaUserCert.NameAlias)
 
+	//A(aaaUserCertMap, "filepath", aaaUserCert.FilePath)
+
 	return aaaUserCertMap, err
 }
 
@@ -77,6 +81,8 @@ func X509CertificateFromContainerList(cont *container.Container, index int) *X50
 			Data: G(X509CertificateCont, "data"),
 
 			NameAlias: G(X509CertificateCont, "nameAlias"),
+
+			//FilePath: G(X509CertificateCont, "filepath"),
 		},
 	}
 }
