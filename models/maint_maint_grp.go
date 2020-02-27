@@ -1,5 +1,6 @@
 package models
 
+
 import (
 	"fmt"
 	"strconv"
@@ -11,23 +12,33 @@ const MaintmaintgrpClassName = "maintMaintGrp"
 
 type PODMaintenanceGroup struct {
 	BaseAttributes
-	PODMaintenanceGroupAttributes
+    PODMaintenanceGroupAttributes 
 }
-
+  
 type PODMaintenanceGroupAttributes struct {
+	
+	
 	Name string `json:",omitempty"`
-
-	Annotation string `json:",omitempty"`
-
-	Fwtype string `json:",omitempty"`
-
-	NameAlias string `json:",omitempty"`
-
-	PODMaintenanceGroup_type string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	Fwtype       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
+    
+	PODMaintenanceGroup_type       string `json:",omitempty"`
+	
+    
 }
+   
 
 func NewPODMaintenanceGroup(maintMaintGrpRn, parentDn, description string, maintMaintGrpattr PODMaintenanceGroupAttributes) *PODMaintenanceGroup {
-	dn := fmt.Sprintf("%s/%s", parentDn, maintMaintGrpRn)
+	dn := fmt.Sprintf("%s/%s", parentDn, maintMaintGrpRn)  
 	return &PODMaintenanceGroup{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -36,8 +47,9 @@ func NewPODMaintenanceGroup(maintMaintGrpRn, parentDn, description string, maint
 			ClassName:         MaintmaintgrpClassName,
 			Rn:                maintMaintGrpRn,
 		},
-
+        
 		PODMaintenanceGroupAttributes: maintMaintGrpattr,
+         
 	}
 }
 
@@ -47,15 +59,25 @@ func (maintMaintGrp *PODMaintenanceGroup) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-	A(maintMaintGrpMap, "name", maintMaintGrp.Name)
-
-	A(maintMaintGrpMap, "annotation", maintMaintGrp.Annotation)
-
-	A(maintMaintGrpMap, "fwtype", maintMaintGrp.Fwtype)
-
-	A(maintMaintGrpMap, "nameAlias", maintMaintGrp.NameAlias)
-
-	A(maintMaintGrpMap, "type", maintMaintGrp.PODMaintenanceGroup_type)
+	
+	
+	A(maintMaintGrpMap, "name",maintMaintGrp.Name)
+	
+	
+    
+	A(maintMaintGrpMap, "annotation",maintMaintGrp.Annotation)
+	
+    
+	A(maintMaintGrpMap, "fwtype",maintMaintGrp.Fwtype)
+	
+    
+	A(maintMaintGrpMap, "nameAlias",maintMaintGrp.NameAlias)
+	
+    
+	A(maintMaintGrpMap, "type",maintMaintGrp.PODMaintenanceGroup_type)
+	
+    
+	
 
 	return maintMaintGrpMap, err
 }
@@ -71,19 +93,28 @@ func PODMaintenanceGroupFromContainerList(cont *container.Container, index int) 
 			ClassName:         MaintmaintgrpClassName,
 			Rn:                G(PODMaintenanceGroupCont, "rn"),
 		},
-
+        
 		PODMaintenanceGroupAttributes{
-
-			Name: G(PODMaintenanceGroupCont, "name"),
-
-			Annotation: G(PODMaintenanceGroupCont, "annotation"),
-
-			Fwtype: G(PODMaintenanceGroupCont, "fwtype"),
-
-			NameAlias: G(PODMaintenanceGroupCont, "nameAlias"),
-
-			PODMaintenanceGroup_type: G(PODMaintenanceGroupCont, "type"),
-		},
+		
+		
+			Name : G(PODMaintenanceGroupCont, "name"),
+		
+		
+        
+	        Annotation : G(PODMaintenanceGroupCont, "annotation"),
+		
+        
+	        Fwtype : G(PODMaintenanceGroupCont, "fwtype"),
+		
+        
+	        NameAlias : G(PODMaintenanceGroupCont, "nameAlias"),
+		
+        
+	        PODMaintenanceGroup_type : G(PODMaintenanceGroupCont, "type"),
+		
+        		
+        },
+        
 	}
 }
 
