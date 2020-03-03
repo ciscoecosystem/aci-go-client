@@ -1,6 +1,5 @@
 package models
 
-
 import (
 	"fmt"
 	"strconv"
@@ -12,27 +11,17 @@ const InfrarsdompClassName = "infraRsDomP"
 
 type Domain struct {
 	BaseAttributes
-    DomainAttributes 
+	DomainAttributes
 }
-  
+
 type DomainAttributes struct {
-	
-	
 	TDn string `json:",omitempty"`
-	
-	
-    
-	Annotation       string `json:",omitempty"`
-	
-    
-	TDn       string `json:",omitempty"`
-	
-    
+
+	Annotation string `json:",omitempty"`
 }
-   
 
 func NewDomain(infraRsDomPRn, parentDn, description string, infraRsDomPattr DomainAttributes) *Domain {
-	dn := fmt.Sprintf("%s/%s", parentDn, infraRsDomPRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, infraRsDomPRn)
 	return &Domain{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -41,9 +30,8 @@ func NewDomain(infraRsDomPRn, parentDn, description string, infraRsDomPattr Doma
 			ClassName:         InfrarsdompClassName,
 			Rn:                infraRsDomPRn,
 		},
-        
+
 		DomainAttributes: infraRsDomPattr,
-         
 	}
 }
 
@@ -53,19 +41,9 @@ func (infraRsDomP *Domain) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-	
-	
-	A(infraRsDomPMap, "tDn",infraRsDomP.TDn)
-	
-	
-    
-	A(infraRsDomPMap, "annotation",infraRsDomP.Annotation)
-	
-    
-	A(infraRsDomPMap, "tDn",infraRsDomP.TDn)
-	
-    
-	
+	A(infraRsDomPMap, "tDn", infraRsDomP.TDn)
+
+	A(infraRsDomPMap, "annotation", infraRsDomP.Annotation)
 
 	return infraRsDomPMap, err
 }
@@ -81,22 +59,13 @@ func DomainFromContainerList(cont *container.Container, index int) *Domain {
 			ClassName:         InfrarsdompClassName,
 			Rn:                G(DomainCont, "rn"),
 		},
-        
+
 		DomainAttributes{
-		
-		
-			TDn : G(DomainCont, "tDn"),
-		
-		
-        
-	        Annotation : G(DomainCont, "annotation"),
-		
-        
-	        TDn : G(DomainCont, "tDn"),
-		
-        		
-        },
-        
+
+			TDn: G(DomainCont, "tDn"),
+
+			Annotation: G(DomainCont, "annotation"),
+		},
 	}
 }
 
