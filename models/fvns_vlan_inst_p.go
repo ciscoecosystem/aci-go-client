@@ -19,8 +19,6 @@ type VLANPoolAttributes struct {
 
 	AllocMode string `json:",omitempty"`
 
-	AllocMode string `json:",omitempty"`
-
 	Annotation string `json:",omitempty"`
 
 	NameAlias string `json:",omitempty"`
@@ -51,8 +49,6 @@ func (fvnsVlanInstP *VLANPool) ToMap() (map[string]string, error) {
 
 	A(fvnsVlanInstPMap, "allocMode", fvnsVlanInstP.AllocMode)
 
-	A(fvnsVlanInstPMap, "allocMode", fvnsVlanInstP.AllocMode)
-
 	A(fvnsVlanInstPMap, "annotation", fvnsVlanInstP.Annotation)
 
 	A(fvnsVlanInstPMap, "nameAlias", fvnsVlanInstP.NameAlias)
@@ -75,8 +71,6 @@ func VLANPoolFromContainerList(cont *container.Container, index int) *VLANPool {
 		VLANPoolAttributes{
 
 			Name: G(VLANPoolCont, "name"),
-
-			AllocMode: G(VLANPoolCont, "allocMode"),
 
 			AllocMode: G(VLANPoolCont, "allocMode"),
 
