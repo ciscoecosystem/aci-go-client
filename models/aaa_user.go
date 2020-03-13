@@ -7,147 +7,183 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/container"
 )
 
-const AaaUserClassName = "aaaUser"
+const AaauserClassName = "aaaUser"
 
-type User struct {
+type LocalUser struct {
 	BaseAttributes
-	UserAttributes
+	LocalUserAttributes
 }
 
-type UserAttributes struct {
-	Name string `json:"omit empty"`
+type LocalUserAttributes struct {
+	Name string `json:",omitempty"`
 
-	AccountStatus string `json:"omit empty"`
+	AccountStatus string `json:",omitempty"`
 
-	NameAlias string `json:"omit empty"`
+	Annotation string `json:",omitempty"`
 
-	//OtpEnable bool `json:"omit empty"`
+	CertAttribute string `json:",omitempty"`
 
-	OtpKey string `json:"omit empty"`
+	ClearPwdHistory string `json:",omitempty"`
 
-	Phone string `json:"omit empty"`
+	Email string `json:",omitempty"`
 
-	Pwd string `json:"omit empty"`
+	Expiration string `json:",omitempty"`
 
-	//PwdLifetime int `json:"omit empty"`
+	Expires string `json:",omitempty"`
 
-	//PwdUpdateRequired bool `json:"omit empty"`
+	FirstName string `json:",omitempty"`
 
-	RbacString string `json:"omit empty"`
+	LastName string `json:",omitempty"`
 
-	//UnixUserId int `json:"omit empty"`
+	NameAlias string `json:",omitempty"`
 
-	Annotation string `json:"omit empty"`
+	Otpenable string `json:",omitempty"`
 
-	CertAttribute string `json:"omit empty"`
+	Otpkey string `json:",omitempty"`
 
-	ClearPwdHistory string `json:"omit empty"`
+	Phone string `json:",omitempty"`
 
-	Email string `json:"omit empty"`
+	Pwd string `json:",omitempty"`
 
-	Expiration string `json:"omit empty"`
+	PwdLifeTime string `json:",omitempty"`
 
-	Expires string `json:"omit empty"`
+	PwdUpdateRequired string `json:",omitempty"`
 
-	FirstName string `json:"omit empty"`
+	RbacString string `json:",omitempty"`
 
-	LastName string `json:"omit empty"`
+	UnixUserId string `json:",omitempty"`
 }
 
-func NewUser(aaaUserRn, parentDn, description string, aaaUserattr UserAttributes) *User {
+func NewLocalUser(aaaUserRn, parentDn, description string, aaaUserattr LocalUserAttributes) *LocalUser {
 	dn := fmt.Sprintf("%s/%s", parentDn, aaaUserRn)
-	return &User{
+	return &LocalUser{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
 			Status:            "created, modified",
-			ClassName:         AaaUserClassName,
+			ClassName:         AaauserClassName,
 			Rn:                aaaUserRn,
 		},
 
-		UserAttributes: aaaUserattr,
+		LocalUserAttributes: aaaUserattr,
 	}
 }
 
-func (aaaUser *User) ToMap() (map[string]string, error) {
+func (aaaUser *LocalUser) ToMap() (map[string]string, error) {
 	aaaUserMap, err := aaaUser.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
 	}
 
 	A(aaaUserMap, "name", aaaUser.Name)
-	A(aaaUserMap, "account_status", aaaUser.AccountStatus)
-	A(aaaUserMap, "name_alias", aaaUser.NameAlias)
-	//A(aaaUserMap, "otp_enable", aaaUser.OtpEnable)
-	A(aaaUserMap, "otp_key", aaaUser.OtpKey)
-	A(aaaUserMap, "phone", aaaUser.Phone)
-	A(aaaUserMap, "pwd", aaaUser.Pwd)
-	//A(aaaUserMap, "pwd_life_time", aaaUser.PwdLifetime)
-	//A(aaaUserMap, "pwd_update_required", aaaUser.PwdUpdateRequired)
-	A(aaaUserMap, "rbac_string", aaaUser.RbacString)
-	//A(aaaUserMap, "unix_user_id", aaaUser.UnixUserId)
+
+	A(aaaUserMap, "accountStatus", aaaUser.AccountStatus)
+
 	A(aaaUserMap, "annotation", aaaUser.Annotation)
-	A(aaaUserMap, "cert_attribute", aaaUser.CertAttribute)
-	A(aaaUserMap, "clear_pwd_history", aaaUser.ClearPwdHistory)
+
+	A(aaaUserMap, "certAttribute", aaaUser.CertAttribute)
+
+	A(aaaUserMap, "clearPwdHistory", aaaUser.ClearPwdHistory)
+
 	A(aaaUserMap, "email", aaaUser.Email)
+
 	A(aaaUserMap, "expiration", aaaUser.Expiration)
+
 	A(aaaUserMap, "expires", aaaUser.Expires)
-	A(aaaUserMap, "first_name", aaaUser.FirstName)
-	A(aaaUserMap, "last_name", aaaUser.LastName)
+
+	A(aaaUserMap, "firstName", aaaUser.FirstName)
+
+	A(aaaUserMap, "lastName", aaaUser.LastName)
+
+	A(aaaUserMap, "nameAlias", aaaUser.NameAlias)
+
+	A(aaaUserMap, "otpenable", aaaUser.Otpenable)
+
+	A(aaaUserMap, "otpkey", aaaUser.Otpkey)
+
+	A(aaaUserMap, "phone", aaaUser.Phone)
+
+	A(aaaUserMap, "pwd", aaaUser.Pwd)
+
+	A(aaaUserMap, "pwdLifeTime", aaaUser.PwdLifeTime)
+
+	A(aaaUserMap, "pwdUpdateRequired", aaaUser.PwdUpdateRequired)
+
+	A(aaaUserMap, "rbacString", aaaUser.RbacString)
+
+	A(aaaUserMap, "unixUserId", aaaUser.UnixUserId)
 
 	return aaaUserMap, err
 }
 
-func UserFromContainerList(cont *container.Container, index int) *User {
+func LocalUserFromContainerList(cont *container.Container, index int) *LocalUser {
 
-	UserCont := cont.S("imdata").Index(index).S(AaaUserClassName, "attributes")
-	return &User{
+	LocalUserCont := cont.S("imdata").Index(index).S(AaauserClassName, "attributes")
+	return &LocalUser{
 		BaseAttributes{
-			DistinguishedName: G(UserCont, "dn"),
-			Description:       G(UserCont, "descr"),
-			Status:            G(UserCont, "status"),
-			ClassName:         AaaUserClassName,
-			Rn:                G(UserCont, "rn"),
+			DistinguishedName: G(LocalUserCont, "dn"),
+			Description:       G(LocalUserCont, "descr"),
+			Status:            G(LocalUserCont, "status"),
+			ClassName:         AaauserClassName,
+			Rn:                G(LocalUserCont, "rn"),
 		},
 
-		UserAttributes{
+		LocalUserAttributes{
 
-			Name:          G(UserCont, "name"),
-			AccountStatus: G(UserCont, "account_status"),
-			NameAlias:     G(UserCont, "name_alias"),
-			//OtpEnable:         G(UserCont, "otp_enable"),
-			OtpKey: G(UserCont, "otp_key"),
-			Phone:  G(UserCont, "phone"),
-			Pwd:    G(UserCont, "pwd"),
-			//PwdLifetime:       G(UserCont, "pwd_life_time"),
-			//PwdUpdateRequired: G(UserCont, "pwd_update_required"),
-			//UnixUserId:        G(UserCont, "unix_user_id"),
-			RbacString:      G(UserCont, "rbac_string"),
-			Annotation:      G(UserCont, "annotation"),
-			CertAttribute:   G(UserCont, "cert_attribute"),
-			ClearPwdHistory: G(UserCont, "clear_pwd_history"),
-			Email:           G(UserCont, "email"),
-			Expiration:      G(UserCont, "expiration"),
-			Expires:         G(UserCont, "expires"),
-			FirstName:       G(UserCont, "first_name"),
-			LastName:        G(UserCont, "last_name"),
+			Name: G(LocalUserCont, "name"),
+
+			AccountStatus: G(LocalUserCont, "accountStatus"),
+
+			Annotation: G(LocalUserCont, "annotation"),
+
+			CertAttribute: G(LocalUserCont, "certAttribute"),
+
+			ClearPwdHistory: G(LocalUserCont, "clearPwdHistory"),
+
+			Email: G(LocalUserCont, "email"),
+
+			Expiration: G(LocalUserCont, "expiration"),
+
+			Expires: G(LocalUserCont, "expires"),
+
+			FirstName: G(LocalUserCont, "firstName"),
+
+			LastName: G(LocalUserCont, "lastName"),
+
+			NameAlias: G(LocalUserCont, "nameAlias"),
+
+			Otpenable: G(LocalUserCont, "otpenable"),
+
+			Otpkey: G(LocalUserCont, "otpkey"),
+
+			Phone: G(LocalUserCont, "phone"),
+
+			Pwd: G(LocalUserCont, "pwd"),
+
+			PwdLifeTime: G(LocalUserCont, "pwdLifeTime"),
+
+			PwdUpdateRequired: G(LocalUserCont, "pwdUpdateRequired"),
+
+			RbacString: G(LocalUserCont, "rbacString"),
+
+			UnixUserId: G(LocalUserCont, "unixUserId"),
 		},
 	}
 }
 
-func UserFromContainer(cont *container.Container) *User {
+func LocalUserFromContainer(cont *container.Container) *LocalUser {
 
-	return UserFromContainerList(cont, 0)
+	return LocalUserFromContainerList(cont, 0)
 }
 
-func UserListFromContainer(cont *container.Container) []*User {
+func LocalUserListFromContainer(cont *container.Container) []*LocalUser {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*User, length)
+	arr := make([]*LocalUser, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = UserFromContainerList(cont, i)
+		arr[i] = LocalUserFromContainerList(cont, i)
 	}
 
 	return arr
