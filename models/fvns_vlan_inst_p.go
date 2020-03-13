@@ -32,7 +32,7 @@ func NewVLANPool(fvnsVlanInstPRn, parentDn, description string, fvnsVlanInstPatt
 			Description:       description,
 			Status:            "created, modified",
 			ClassName:         FvnsvlaninstpClassName,
-			Rn:                fvnsVlanInstPRn,
+			//Rn:                fvnsVlanInstPRn,
 		},
 
 		VLANPoolAttributes: fvnsVlanInstPattr,
@@ -65,7 +65,7 @@ func VLANPoolFromContainerList(cont *container.Container, index int) *VLANPool {
 			Description:       G(VLANPoolCont, "descr"),
 			Status:            G(VLANPoolCont, "status"),
 			ClassName:         FvnsvlaninstpClassName,
-			Rn:                G(VLANPoolCont, "rn"),
+			//Rn:                G(VLANPoolCont, "rn"),
 		},
 
 		VLANPoolAttributes{
