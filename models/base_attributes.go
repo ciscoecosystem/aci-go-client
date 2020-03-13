@@ -18,7 +18,7 @@ type BaseAttributes struct {
 	Status            string `json:"status"`
 	Description       string `json:"descr"`
 	ClassName         string `json:"-"`
-	Rn                string `json:"rn"`
+	Rn                string `json:"-"`
 }
 
 func (ba *BaseAttributes) ToJson() (string, error) {
