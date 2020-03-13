@@ -38,7 +38,7 @@ func NewRanges(fvnsEncapBlkRn, parentDn, description string, fvnsEncapBlkattr Ra
 			Description:       description,
 			Status:            "created, modified",
 			ClassName:         FvnsencapblkClassName,
-			Rn:                fvnsEncapBlkRn,
+			//Rn:                fvnsEncapBlkRn,
 		},
 
 		RangesAttributes: fvnsEncapBlkattr,
@@ -77,7 +77,7 @@ func RangesFromContainerList(cont *container.Container, index int) *Ranges {
 			Description:       G(RangesCont, "descr"),
 			Status:            G(RangesCont, "status"),
 			ClassName:         FvnsencapblkClassName,
-			Rn:                G(RangesCont, "rn"),
+			//Rn:                G(RangesCont, "rn"),
 		},
 
 		RangesAttributes{
