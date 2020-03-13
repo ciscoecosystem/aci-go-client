@@ -32,7 +32,7 @@ func NewVSANPool(fvnsVsanInstPRn, parentDn, description string, fvnsVsanInstPatt
 			Description:       description,
 			Status:            "created, modified",
 			ClassName:         FvnsvsaninstpClassName,
-			Rn:                fvnsVsanInstPRn,
+			//Rn:                fvnsVsanInstPRn,
 		},
 
 		VSANPoolAttributes: fvnsVsanInstPattr,
@@ -65,7 +65,7 @@ func VSANPoolFromContainerList(cont *container.Container, index int) *VSANPool {
 			Description:       G(VSANPoolCont, "descr"),
 			Status:            G(VSANPoolCont, "status"),
 			ClassName:         FvnsvsaninstpClassName,
-			Rn:                G(VSANPoolCont, "rn"),
+			//Rn:                G(VSANPoolCont, "rn"),
 		},
 
 		VSANPoolAttributes{
