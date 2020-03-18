@@ -6,7 +6,7 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateNodeBlockFW(name string, firmware_group string, description string, fabricNodeBlkattr models.NodeBlockAttributes) (*models.NodeBlock, error) {
+func (sm *ServiceManager) CreateNodeBlockFW(name string, firmware_group string, description string, fabricNodeBlkattr models.NodeBlockAttributesFW) (*models.NodeBlockFW, error) {
 	rn := fmt.Sprintf("nodeblk-%s", name)
 	parentDn := fmt.Sprintf("uni/fabric/fwgrp-%s", firmware_group)
 	fabricNodeBlk := models.NewNodeBlockFW(rn, parentDn, description, fabricNodeBlkattr)

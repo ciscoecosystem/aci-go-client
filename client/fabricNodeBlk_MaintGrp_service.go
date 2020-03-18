@@ -6,7 +6,7 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateNodeBlockMG(name string, pod_maintenance_group string, description string, fabricNodeBlkattr models.NodeBlockAttributes) (*models.NodeBlock, error) {
+func (sm *ServiceManager) CreateNodeBlockMG(name string, pod_maintenance_group string, description string, fabricNodeBlkattr models.NodeBlockAttributesMG) (*models.NodeBlockMG, error) {
 	rn := fmt.Sprintf("nodeblk-%s", name)
 	parentDn := fmt.Sprintf("uni/fabric/maintgrp-%s", pod_maintenance_group)
 	fabricNodeBlk := models.NewNodeBlockMG(rn, parentDn, description, fabricNodeBlkattr)
@@ -21,7 +21,7 @@ func (sm *ServiceManager) ReadNodeBlockMG(name string, pod_maintenance_group str
 		return nil, err
 	}
 
-	fabricNodeBlk := models.NodeBlockFromContainer(cont)
+	fabricNodeBlk := models.NodeBlockFromContainerMG(cont)
 	return fabricNodeBlk, nil
 }
 
@@ -47,7 +47,7 @@ func (sm *ServiceManager) ListNodeBlockMG(pod_maintenance_group string) ([]*mode
 	dnUrl := fmt.Sprintf("%s/uni/fabric/maintgrp-%s/fabricNodeBlk.json", baseurlStr, pod_maintenance_group)
 
 	cont, err := sm.GetViaURL(dnUrl)
-	list := models.NodeBlockListFromContainer(cont)
+	list := models.NodeBlockListFromContainerMG(cont)
 
 	return list, err
 }
