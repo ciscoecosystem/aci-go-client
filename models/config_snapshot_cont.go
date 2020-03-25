@@ -28,7 +28,7 @@ func NewConfigBackupSnapshotContainer(configSnapshotContRn, parentDn, descriptio
 			Description:       description,
 			Status:            "created, modified",
 			ClassName:         ConfigsnapshotcontClassName,
-			Rn:                configSnapshotContRn,
+			// Rn:                configSnapshotContRn,
 		},
 
 		ConfigBackupSnapshotContainerAttributes: configSnapshotContattr,
