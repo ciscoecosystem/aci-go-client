@@ -23,6 +23,8 @@ type FabricNodeMemberAttributes struct {
 
 	FabricId string `json:",omitempty"`
 
+	Name string `json:",omitempty"`
+
 	NameAlias string `json:",omitempty"`
 
 	NodeId string `json:",omitempty"`
@@ -63,6 +65,8 @@ func (fabricNodeIdentP *FabricNodeMember) ToMap() (map[string]string, error) {
 
 	A(fabricNodeIdentPMap, "fabricId", fabricNodeIdentP.FabricId)
 
+	A(fabricNodeIdentPMap, "name", fabricNodeIdentP.NameAlias)
+
 	A(fabricNodeIdentPMap, "nameAlias", fabricNodeIdentP.NameAlias)
 
 	A(fabricNodeIdentPMap, "nodeId", fabricNodeIdentP.NodeId)
@@ -99,6 +103,8 @@ func FabricNodeMemberFromContainerList(cont *container.Container, index int) *Fa
 			FabricId: G(FabricNodeMemberCont, "fabricId"),
 
 			NameAlias: G(FabricNodeMemberCont, "nameAlias"),
+
+			Name: G(FabricNodeMemberCont, "name"),
 
 			NodeId: G(FabricNodeMemberCont, "nodeId"),
 
