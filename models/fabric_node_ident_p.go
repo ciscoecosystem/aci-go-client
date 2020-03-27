@@ -65,7 +65,7 @@ func (fabricNodeIdentP *FabricNodeMember) ToMap() (map[string]string, error) {
 
 	A(fabricNodeIdentPMap, "fabricId", fabricNodeIdentP.FabricId)
 
-	A(fabricNodeIdentPMap, "name", fabricNodeIdentP.NameAlias)
+	A(fabricNodeIdentPMap, "name", fabricNodeIdentP.Name)
 
 	A(fabricNodeIdentPMap, "nameAlias", fabricNodeIdentP.NameAlias)
 
