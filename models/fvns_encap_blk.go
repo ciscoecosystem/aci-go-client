@@ -31,13 +31,13 @@ type RangesAttributes struct {
 }
 
 func NewRanges(fvnsEncapBlkRn, parentDn, description string, fvnsEncapBlkattr RangesAttributes) *Ranges {
-	dn := fmt.Sprintf("%s/%s", parentDn, fvnsEncapBlkRn)
+	_ = fmt.Sprintf("%s/%s", parentDn, fvnsEncapBlkRn)
 	return &Ranges{
 		BaseAttributes: BaseAttributes{
-			DistinguishedName: dn,
-			Description:       description,
-			Status:            "created, modified",
-			ClassName:         FvnsencapblkClassName,
+			//DistinguishedName: dn,
+			Description: description,
+			Status:      "created, modified",
+			ClassName:   FvnsencapblkClassName,
 			//Rn:                fvnsEncapBlkRn,
 		},
 
