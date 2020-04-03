@@ -13,8 +13,11 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"sync"
 	"time"
 )
+
+var l sync.Mutex
 
 type Auth struct {
 	Token         string
@@ -44,6 +47,8 @@ func (t *Auth) estimateExpireTime() int64 {
 
 func (client *Client) InjectAuthenticationHeader(req *http.Request, path string) (*http.Request, error) {
 	log.Printf("[DEBUG] Begin Injection")
+	l.Lock()
+	defer l.Unlock()
 	if client.password != "" {
 		if client.AuthToken == nil || !client.AuthToken.IsValid() {
 			log.Printf("Hello client %v", client)
