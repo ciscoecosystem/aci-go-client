@@ -1,6 +1,5 @@
 package models
 
-
 import (
 	"fmt"
 	"strconv"
@@ -12,36 +11,23 @@ const L3extrsnodel3outattClassName = "l3extRsNodeL3OutAtt"
 
 type FabricNode struct {
 	BaseAttributes
-    FabricNodeAttributes 
+	FabricNodeAttributes
 }
-  
+
 type FabricNodeAttributes struct {
-	
-	
 	TDn string `json:",omitempty"`
-	
-	
-    
-	Annotation       string `json:",omitempty"`
-	
-    
-	ConfigIssues       string `json:",omitempty"`
-	
-    
-	RtrId       string `json:",omitempty"`
-	
-    
-	RtrIdLoopBack       string `json:",omitempty"`
-	
-    
-	TDn       string `json:",omitempty"`
-	
-    
+
+	Annotation string `json:",omitempty"`
+
+	ConfigIssues string `json:",omitempty"`
+
+	RtrId string `json:",omitempty"`
+
+	RtrIdLoopBack string `json:",omitempty"`
 }
-   
 
 func NewFabricNode(l3extRsNodeL3OutAttRn, parentDn, description string, l3extRsNodeL3OutAttattr FabricNodeAttributes) *FabricNode {
-	dn := fmt.Sprintf("%s/%s", parentDn, l3extRsNodeL3OutAttRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, l3extRsNodeL3OutAttRn)
 	return &FabricNode{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -50,9 +36,8 @@ func NewFabricNode(l3extRsNodeL3OutAttRn, parentDn, description string, l3extRsN
 			ClassName:         L3extrsnodel3outattClassName,
 			Rn:                l3extRsNodeL3OutAttRn,
 		},
-        
+
 		FabricNodeAttributes: l3extRsNodeL3OutAttattr,
-         
 	}
 }
 
@@ -62,28 +47,15 @@ func (l3extRsNodeL3OutAtt *FabricNode) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-	
-	
-	A(l3extRsNodeL3OutAttMap, "tDn",l3extRsNodeL3OutAtt.TDn)
-	
-	
-    
-	A(l3extRsNodeL3OutAttMap, "annotation",l3extRsNodeL3OutAtt.Annotation)
-	
-    
-	A(l3extRsNodeL3OutAttMap, "configIssues",l3extRsNodeL3OutAtt.ConfigIssues)
-	
-    
-	A(l3extRsNodeL3OutAttMap, "rtrId",l3extRsNodeL3OutAtt.RtrId)
-	
-    
-	A(l3extRsNodeL3OutAttMap, "rtrIdLoopBack",l3extRsNodeL3OutAtt.RtrIdLoopBack)
-	
-    
-	A(l3extRsNodeL3OutAttMap, "tDn",l3extRsNodeL3OutAtt.TDn)
-	
-    
-	
+	A(l3extRsNodeL3OutAttMap, "tDn", l3extRsNodeL3OutAtt.TDn)
+
+	A(l3extRsNodeL3OutAttMap, "annotation", l3extRsNodeL3OutAtt.Annotation)
+
+	A(l3extRsNodeL3OutAttMap, "configIssues", l3extRsNodeL3OutAtt.ConfigIssues)
+
+	A(l3extRsNodeL3OutAttMap, "rtrId", l3extRsNodeL3OutAtt.RtrId)
+
+	A(l3extRsNodeL3OutAttMap, "rtrIdLoopBack", l3extRsNodeL3OutAtt.RtrIdLoopBack)
 
 	return l3extRsNodeL3OutAttMap, err
 }
@@ -99,31 +71,19 @@ func FabricNodeFromContainerList(cont *container.Container, index int) *FabricNo
 			ClassName:         L3extrsnodel3outattClassName,
 			Rn:                G(FabricNodeCont, "rn"),
 		},
-        
+
 		FabricNodeAttributes{
-		
-		
-			TDn : G(FabricNodeCont, "tDn"),
-		
-		
-        
-	        Annotation : G(FabricNodeCont, "annotation"),
-		
-        
-	        ConfigIssues : G(FabricNodeCont, "configIssues"),
-		
-        
-	        RtrId : G(FabricNodeCont, "rtrId"),
-		
-        
-	        RtrIdLoopBack : G(FabricNodeCont, "rtrIdLoopBack"),
-		
-        
-	        TDn : G(FabricNodeCont, "tDn"),
-		
-        		
-        },
-        
+
+			TDn: G(FabricNodeCont, "tDn"),
+
+			Annotation: G(FabricNodeCont, "annotation"),
+
+			ConfigIssues: G(FabricNodeCont, "configIssues"),
+
+			RtrId: G(FabricNodeCont, "rtrId"),
+
+			RtrIdLoopBack: G(FabricNodeCont, "rtrIdLoopBack"),
+		},
 	}
 }
 

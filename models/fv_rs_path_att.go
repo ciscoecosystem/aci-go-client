@@ -36,9 +36,7 @@ type StaticPathAttributes struct {
     
 	PrimaryEncap       string `json:",omitempty"`
 	
-    
-	TDn       string `json:",omitempty"`
-	
+    	
     
 }
    
@@ -86,7 +84,6 @@ func (fvRsPathAtt *StaticPath) ToMap() (map[string]string, error) {
 	A(fvRsPathAttMap, "primaryEncap",fvRsPathAtt.PrimaryEncap)
 	
     
-	A(fvRsPathAttMap, "tDn",fvRsPathAtt.TDn)
 	
     
 	
@@ -128,7 +125,6 @@ func StaticPathFromContainerList(cont *container.Container, index int) *StaticPa
 	        PrimaryEncap : G(StaticPathCont, "primaryEncap"),
 		
         
-	        TDn : G(StaticPathCont, "tDn"),
 		
         		
         },
