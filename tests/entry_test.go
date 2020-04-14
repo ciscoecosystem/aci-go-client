@@ -109,7 +109,7 @@ package tests
 // 	}
 
 // 	entryCon := models.EntryFromContainer(cont)
-// 	fmt.Println(entryCon.DistinguishedName)
+//
 // 	if entryCon.DistinguishedName == "" {
 // 		t.Error("the entry dn was empty")
 
@@ -139,7 +139,7 @@ package tests
 // 	}
 
 // 	entryCon := models.EntryFromContainer(cont)
-// 	fmt.Println(entryCon.DistinguishedName)
+//
 // 	if entryCon.DistinguishedName == "" {
 // 		t.Error("the entry dn was empty")
 
@@ -149,7 +149,7 @@ package tests
 // 	if err != nil {
 // 		t.Error(err)
 // 	}
-// 	fmt.Println("Entry was updated")
+//
 
 // 	err = deleteEntry(client, tenant, filter, entry)
 // 	if err != nil {
@@ -176,7 +176,7 @@ package tests
 // 	}
 
 // 	entryCon := models.EntryFromContainer(cont)
-// 	fmt.Println(entryCon.DistinguishedName)
+//
 // 	if entryCon.DistinguishedName == "" {
 // 		t.Error("the entry dn was empty")
 

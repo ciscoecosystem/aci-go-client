@@ -108,7 +108,7 @@ package tests
 // 	}
 
 // 	filterCon := models.FilterFromContainer(cont)
-// 	fmt.Println(filterCon.DistinguishedName)
+//
 // 	if filterCon.DistinguishedName == "" {
 // 		t.Error("the filter dn was empty")
 
@@ -138,7 +138,7 @@ package tests
 // 	}
 
 // 	filterCon := models.FilterFromContainer(cont)
-// 	fmt.Println(filterCon.DistinguishedName)
+//
 // 	if filterCon.DistinguishedName == "" {
 // 		t.Error("the filter dn was empty")
 
@@ -150,7 +150,7 @@ package tests
 // 		t.Error(err)
 // 	}
 
-// 	fmt.Println("Updated Filter")
+//
 // 	err = deleteFilter(client, tenant, filter)
 // 	if err != nil {
 // 		t.Error(err)
@@ -175,7 +175,7 @@ package tests
 // 	}
 
 // 	filterCon := models.FilterFromContainer(cont)
-// 	fmt.Println(filterCon.DistinguishedName)
+//
 // 	if filterCon.DistinguishedName == "" {
 // 		t.Error("the filter dn was empty")
 

@@ -65,7 +65,7 @@ package tests
 // 		t.Fatal(err)
 // 	}
 
-// 	fmt.Println(bdCon.DistinguishedName)
+//
 // 	if bdCon.DistinguishedName == "" {
 // 		t.Error("the Bridge Domain dn was empty")
 
@@ -76,7 +76,7 @@ package tests
 // 	if err != nil {
 // 		t.Error(err)
 // 	}
-// 	fmt.Println("Updated the bd")
+//
 // 	err = deleteBd(client, tenant, bd)
 // 	if err != nil {
 // 		t.Error(err)
@@ -93,7 +93,7 @@ package tests
 // 		t.Fatal(err)
 // 	}
 
-// 	fmt.Println(bdCon.DistinguishedName)
+//
 // 	if bdCon.DistinguishedName == "" {
 // 		t.Error("the Bridge Domain dn was empty")
 
@@ -123,7 +123,7 @@ package tests
 
 // 	cont, err := client.ListBridgeDomain(models.GetMOName(tenant.DistinguishedName))
 
-// 	fmt.Printf("\n\n List %+v\n\n", cont)
+//
 // 	if err != nil {
 // 		t.Error(err)
 // 	}

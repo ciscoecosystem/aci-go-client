@@ -82,7 +82,7 @@ package tests
 // 	}
 
 // 	contractCon := models.ContractFromContainer(cont)
-// 	fmt.Println(contractCon.DistinguishedName)
+//
 // 	if contractCon.DistinguishedName == "" {
 // 		t.Error("the contract dn was empty")
 
@@ -104,7 +104,7 @@ package tests
 // 	}
 
 // 	contractCon := models.ContractFromContainer(cont)
-// 	fmt.Println(contractCon.DistinguishedName)
+//
 // 	if contractCon.DistinguishedName == "" {
 // 		t.Error("the contract dn was empty")
 
@@ -115,7 +115,7 @@ package tests
 // 	if err != nil {
 // 		t.Error(err)
 // 	}
-// 	fmt.Println("Contract was Updated")
+//
 // 	err = deleteContarct(client, tenant, contract)
 // 	if err != nil {
 // 		t.Error(err)
@@ -132,7 +132,7 @@ package tests
 // 	}
 
 // 	contractCon := models.ContractFromContainer(cont)
-// 	fmt.Println(contractCon.DistinguishedName)
+//
 // 	if contractCon.DistinguishedName == "" {
 // 		t.Error("the contract dn was empty")
 

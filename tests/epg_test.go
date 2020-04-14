@@ -99,7 +99,7 @@ package tests
 // 	}
 
 // 	epgCon := models.EPGFromContainer(cont)
-// 	fmt.Println(epgCon.DistinguishedName)
+//
 // 	if epgCon.DistinguishedName == "" {
 // 		t.Error("the epg dn was empty")
 
@@ -123,7 +123,7 @@ package tests
 // 	}
 
 // 	epgCon := models.EPGFromContainer(cont)
-// 	fmt.Println(epgCon.DistinguishedName)
+//
 // 	if epgCon.DistinguishedName == "" {
 // 		t.Error("the epg dn was empty")
 
@@ -134,7 +134,7 @@ package tests
 // 	if err != nil {
 // 		t.Error(err)
 // 	}
-// 	fmt.Println("EPG was updated")
+//
 // 	err = deleteEpg(client, tenant, ap, epg)
 // 	if err != nil {
 // 		t.Error(err)
@@ -154,7 +154,7 @@ package tests
 // 	}
 
 // 	epgCon := models.EPGFromContainer(cont)
-// 	fmt.Println(epgCon.DistinguishedName)
+//
 // 	if epgCon.DistinguishedName == "" {
 // 		t.Error("the epg dn was empty")
 

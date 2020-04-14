@@ -95,7 +95,7 @@ package tests
 // 		t.Fatal(err)
 // 	}
 // 	subjectCon := models.SubjectFromContainer(cont)
-// 	fmt.Println(subjectCon.DistinguishedName)
+//
 // 	if subjectCon.DistinguishedName == "" {
 // 		t.Error("the subject dn was empty")
 // 	}
@@ -117,7 +117,7 @@ package tests
 // 		t.Fatal(err)
 // 	}
 // 	subjectCon := models.SubjectFromContainer(cont)
-// 	fmt.Println(subjectCon.DistinguishedName)
+//
 // 	if subjectCon.DistinguishedName == "" {
 // 		t.Error("the subject dn was empty")
 // 	}
@@ -127,7 +127,7 @@ package tests
 // 	if err != nil {
 // 		t.Error(err)
 // 	}
-// 	fmt.Println("subject was updated")
+//
 // 	err = deleteSubject(client, tenant, contract, subject)
 // 	if err != nil {
 // 		t.Error(err)
@@ -147,7 +147,7 @@ package tests
 // 		t.Fatal(err)
 // 	}
 // 	subjectCon := models.SubjectFromContainer(cont)
-// 	fmt.Println(subjectCon.DistinguishedName)
+//
 // 	if subjectCon.DistinguishedName == "" {
 // 		t.Error("the subject dn was empty")
 // 	}

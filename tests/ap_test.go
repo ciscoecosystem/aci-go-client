@@ -104,7 +104,7 @@ package tests
 // 	}
 
 // 	apCon := models.ApplicationProfileFromContainer(cont)
-// 	fmt.Println(apCon.DistinguishedName)
+//
 // 	if apCon.DistinguishedName == "" {
 // 		t.Error("the application profile dn was empty")
 
@@ -133,7 +133,7 @@ package tests
 // 	}
 
 // 	apCon := models.ApplicationProfileFromContainer(cont)
-// 	fmt.Println(apCon.DistinguishedName)
+//
 // 	if apCon.DistinguishedName == "" {
 // 		t.Error("the application profile dn was empty")
 
@@ -145,7 +145,7 @@ package tests
 // 		t.Error(err)
 // 	}
 
-// 	fmt.Println("Updated AP")
+//
 // 	err = deleteAp(client, tenant, ap)
 // 	if err != nil {
 // 		t.Error(err)
@@ -170,7 +170,7 @@ package tests
 // 	}
 
 // 	apCon := models.ApplicationProfileFromContainer(cont)
-// 	fmt.Println(apCon.DistinguishedName)
+//
 // 	if apCon.DistinguishedName == "" {
 // 		t.Error("the application profile dn was empty")
 

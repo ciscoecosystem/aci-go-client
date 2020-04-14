@@ -95,7 +95,7 @@ package tests
 // 	}
 
 // 	subnetCon := models.SubnetFromContainer(cont)
-// 	fmt.Println(subnetCon.DistinguishedName)
+//
 // 	if subnetCon.DistinguishedName == "" {
 // 		t.Error("The subnet dn was empty")
 // 	}
@@ -117,7 +117,7 @@ package tests
 // 	}
 
 // 	subnetCon := models.SubnetFromContainer(cont)
-// 	fmt.Println(subnetCon.DistinguishedName)
+//
 // 	if subnetCon.DistinguishedName == "" {
 // 		t.Error("The subnet dn was empty")
 // 	}
@@ -129,7 +129,7 @@ package tests
 // 	if err != nil {
 // 		t.Error(err)
 // 	}
-// 	fmt.Println("subnet was updated")
+//
 // 	err = deleteSubnet(client, tenant, bd, subnet)
 // 	if err != nil {
 // 		t.Error(err)
@@ -148,7 +148,7 @@ package tests
 // 	}
 
 // 	subnetCon := models.SubnetFromContainer(cont)
-// 	fmt.Println(subnetCon.DistinguishedName)
+//
 // 	if subnetCon.DistinguishedName == "" {
 // 		t.Error("The subnet dn was empty")
 // 	}
