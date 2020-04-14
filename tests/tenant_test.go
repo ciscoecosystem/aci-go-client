@@ -10,8 +10,27 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
+const privKey = `
+-----BEGIN PRIVATE KEY-----
+MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBANCgcS0CtMkwTDFG
+E1bYJ3Gt3XzHJhV75i8TjzGswzwBasXqFTLsxaqAf7NvrHu/O+k2KN+2kOLhLBAp
+f1FdhJaTeualowF9UAUGY6HX28jaXjUkKEUNVWasl7hYiKSQaTKKh5eCJ0kwn6Ta
+zNeZs1NoW3JjnA7WolC85Z5tdJ3RAgMBAAECgYEAkuOUK+vO3CScUMkVDr1MMFcJ
+LjSNlOzSaezskj4gjBw3UDf7Swq4Nc8Zmn4TRGGlzhKq/rBtHMELpCmDkgc1NQT0
+aHsgR+RFtJnYkafuEISuneRZEIz7b2AwUCiDw2z5uJ7xxgCM9MTibXIRRtjTgq1k
+KmllK06vgg2Y9S/28pECQQD7cV1auzUFVojL5/E+ZofUAMtqLduVnwsQiQa9A683
+5jOgRXJCwOyXJrEyfHUBAt+FW3uIt8iIo0IOLjb0y/NdAkEA1GhruuR/YGRx/rPt
+RO+tt3BPznpo5sb411bVBWn2WIh34ocigr3I7KyeQqePlZjZTHIJhVa5sTHvBnJI
+gMOBBQJBAJOCAwFKWCWEiYYN0OIJpl+CA9OLiYlyHzyZFoHmWnGRs/GvLAPrSCC4
+SzXR+5YXSGfkrkkbgCJgnEzTYdwkleUCQQCs0zm0m264s4G9SBDqYknqU8vbqOXp
+wEOAkvpIqWrzpjZFbsa5sknlqJ4shcHiareD59WvVF1Ku+JMUHiFrI0xAkA/r1il
+G8oH/CjSLRukLRkEPfNgVPVk4ZjJiOXR7H6kc/KAJ084Ba5PuvjpC/Z99AHYAjYS
++ZXowhw0oCckCjLf
+-----END PRIVATE KEY-----
+`
+
 func GetTestClient() *client.Client {
-	return client.GetClient("https://192.168.10.102", "admin", client.Insecure(true), client.PrivateKey("/Users/nirav.katarmal/Downloads/Archive/ansible.key"), client.AdminCert("ansible"))
+	return client.GetClient("https://192.168.10.102", "admin", client.Insecure(true), client.PrivateKey("/Users/nirav.katarmal/Documents/github/aci_test/admin.key"), client.AdminCert("admin"))
 
 }
 
