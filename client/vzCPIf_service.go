@@ -54,14 +54,13 @@ func (sm *ServiceManager) ListImportedContract(tenant string) ([]*models.Importe
 }
 
 func (sm *ServiceManager) CreateRelationvzRsIfFromImportedContract(parentDn, tnVzACtrctName string) error {
-	dn := fmt.Sprintf("%s/rsif", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
 				"tDn": "%s"				
 			}
 		}
-	}`, "vzRsIf", dn, tnVzACtrctName))
+	}`, "vzRsIf", tnVzACtrctName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
