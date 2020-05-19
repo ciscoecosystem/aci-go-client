@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
@@ -22,12 +23,14 @@ type ImportedContractAttributes struct {
 }
 
 func NewImportedContract(vzCPIfRn, parentDn, description string, vzCPIfattr ImportedContractAttributes) *ImportedContract {
+	dn := fmt.Sprintf("%s/%s", parentDn, vzCPIfRn)
 	return &ImportedContract{
 		BaseAttributes: BaseAttributes{
-			Description: description,
-			Status:      "created, modified",
-			ClassName:   VzcpifClassName,
-			Rn:          vzCPIfRn,
+			DistinguishedName: dn,
+			Description:       description,
+			Status:            "created, modified",
+			ClassName:         VzcpifClassName,
+			Rn:                vzCPIfRn,
 		},
 
 		ImportedContractAttributes: vzCPIfattr,
