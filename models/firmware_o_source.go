@@ -174,14 +174,17 @@ type OSource struct {
 }
 
 type OSourceAttributes struct {
-	Name       string `json:",omitempty"`
-	Annotation string `json:",omitempty"`
-	Url        string `json:",omitempty"`
-	Proto      string `json:",omitempty"`
-	User       string `json:",omitempty"`
-	AuthType   string `json:",omitempty"`
-	AuthPass   string `json:",omitempty"`
-	Password   string `json:",omitempty"`
+	Name                         string `json:",omitempty"`
+	Annotation                   string `json:",omitempty"`
+	Url                          string `json:",omitempty"`
+	Proto                        string `json:",omitempty"`
+	User                         string `json:",omitempty"`
+	AuthType                     string `json:",omitempty"`
+	AuthPass                     string `json:",omitempty"`
+	Password                     string `json:",omitempty"`
+	IdentityPrivateKeyContents   string `json:",omitempty"`
+	IdentityPrivateKeyPassphrase string `json:",omitempty"`
+	IdentityPublicKeyContents    string `json:",omitempty"`
 }
 
 func NewOSource(firmwareOSourceRn, parentDn, description string, firmwareOSourceAttr OSourceAttributes) *OSource {
@@ -212,6 +215,9 @@ func (firmwareOSource *OSource) ToMap() (map[string]string, error) {
 	A(firmwareOSourceMap, "authType", firmwareOSource.AuthType)
 	A(firmwareOSourceMap, "authPass", firmwareOSource.AuthPass)
 	A(firmwareOSourceMap, "password", firmwareOSource.Password)
+	A(firmwareOSourceMap, "identityPrivateKeyContents", firmwareOSource.IdentityPrivateKeyContents)
+	A(firmwareOSourceMap, "identityPrivateKeyPassphrase", firmwareOSource.IdentityPrivateKeyPassphrase)
+	A(firmwareOSourceMap, "identityPublicKeyContents", firmwareOSource.IdentityPublicKeyContents)
 
 	return firmwareOSourceMap, err
 }
@@ -229,14 +235,17 @@ func OSourceFromContainerList(cont *container.Container, index int) *OSource {
 		},
 
 		OSourceAttributes{
-			Name:       G(OSourceCont, "name"),
-			Annotation: G(OSourceCont, "annotation"),
-			Url:        G(OSourceCont, "url"),
-			Proto:      G(OSourceCont, "proto"),
-			User:       G(OSourceCont, "user"),
-			AuthType:   G(OSourceCont, "authType"),
-			AuthPass:   G(OSourceCont, "AuthPass"),
-			Password:   G(OSourceCont, "password"),
+			Name:                         G(OSourceCont, "name"),
+			Annotation:                   G(OSourceCont, "annotation"),
+			Url:                          G(OSourceCont, "url"),
+			Proto:                        G(OSourceCont, "proto"),
+			User:                         G(OSourceCont, "user"),
+			AuthType:                     G(OSourceCont, "authType"),
+			AuthPass:                     G(OSourceCont, "AuthPass"),
+			Password:                     G(OSourceCont, "password"),
+			IdentityPrivateKeyContents:   G(OSourceCont, "identityPrivateKeyContents"),
+			IdentityPrivateKeyPassphrase: G(OSourceCont, "identityPrivateKeyPassphrase"),
+			IdentityPublicKeyContents:    G(OSourceCont, "identityPublicKeyContents"),
 		},
 	}
 }
