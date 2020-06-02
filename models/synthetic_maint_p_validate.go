@@ -14,16 +14,17 @@ type MaintPValidate struct {
 }
 
 type MaintPValidateAttributes struct {
-	Annotation  string `json:",omitempty"`
-	ChildAction string `json:",omitempty"`
-	Criticality string `json:",omitempty"`
-	ExtMngdBy   string `json:",omitempty"`
-	LcOwn       string `json:",omitempty"`
-	ModTs       string `json:",omitempty"`
-	Name        string `json:",omitempty"`
-	Reason      string `json:",omitempty"`
-	Result      string `json:",omitempty"`
-	Sub_reason  string `json:",omitempty"`
+	Annotation         string `json:",omitempty"`
+	ChildAction        string `json:",omitempty"`
+	Criticality        string `json:",omitempty"`
+	ExtMngdBy          string `json:",omitempty"`
+	LcOwn              string `json:",omitempty"`
+	ModTs              string `json:",omitempty"`
+	Name               string `json:",omitempty"`
+	Reason             string `json:",omitempty"`
+	Recommended_action string `json:",omitempty"`
+	Result             string `json:",omitempty"`
+	Sub_reason         string `json:",omitempty"`
 }
 
 func NewMaintPValidate(syntheticMaintPValidateRn, parentDn, description string, syntheticMaintPValidateattr MaintPValidateAttributes) *MaintPValidate {
@@ -55,6 +56,7 @@ func (syntheticMaintPValidate *MaintPValidate) ToMap() (map[string]string, error
 	A(syntheticMaintPValidateMap, "modTs", syntheticMaintPValidate.ModTs)
 	A(syntheticMaintPValidateMap, "name", syntheticMaintPValidate.Name)
 	A(syntheticMaintPValidateMap, "reason", syntheticMaintPValidate.Reason)
+	A(syntheticMaintPValidateMap, "recommended_action", syntheticMaintPValidate.Recommended_action)
 	A(syntheticMaintPValidateMap, "result", syntheticMaintPValidate.Result)
 	A(syntheticMaintPValidateMap, "sub_reason", syntheticMaintPValidate.Sub_reason)
 
@@ -73,16 +75,17 @@ func MaintPValidateFromContainerList(cont *container.Container, index int) *Main
 		},
 
 		MaintPValidateAttributes{
-			Annotation:  G(MaintPValidateCont, "annotation"),
-			ChildAction: G(MaintPValidateCont, "childAction"),
-			Criticality: G(MaintPValidateCont, "criticality"),
-			ExtMngdBy:   G(MaintPValidateCont, "extmngdby"),
-			LcOwn:       G(MaintPValidateCont, "lcOwn"),
-			ModTs:       G(MaintPValidateCont, "modTs"),
-			Name:        G(MaintPValidateCont, "name"),
-			Reason:      G(MaintPValidateCont, "reason"),
-			Result:      G(MaintPValidateCont, "result"),
-			Sub_reason:  G(MaintPValidateCont, "sub_reason"),
+			Annotation:         G(MaintPValidateCont, "annotation"),
+			ChildAction:        G(MaintPValidateCont, "childAction"),
+			Criticality:        G(MaintPValidateCont, "criticality"),
+			ExtMngdBy:          G(MaintPValidateCont, "extmngdby"),
+			LcOwn:              G(MaintPValidateCont, "lcOwn"),
+			ModTs:              G(MaintPValidateCont, "modTs"),
+			Name:               G(MaintPValidateCont, "name"),
+			Reason:             G(MaintPValidateCont, "reason"),
+			Recommended_action: G(MaintPValidateCont, "recommended_action"),
+			Result:             G(MaintPValidateCont, "result"),
+			Sub_reason:         G(MaintPValidateCont, "sub_reason"),
 		},
 	}
 }
