@@ -29,7 +29,6 @@ func NewContractProvider(fvRsProvRn, parentDn string, fvRsProvattr ContractProvi
 	return &ContractProvider{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
-			Description:       description,
 			Status:            "created, modified",
 			ClassName:         FvrsprovClassName,
 			Rn:                fvRsProvRn,

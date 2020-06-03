@@ -27,7 +27,6 @@ func NewContractConsumer(fvRsConsRn, parentDn string, fvRsConsattr ContractConsu
 	return &ContractConsumer{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
-			Description:       description,
 			Status:            "created, modified",
 			ClassName:         FvrsconsClassName,
 			Rn:                fvRsConsRn,
