@@ -61,7 +61,6 @@ func ContractProviderFromContainerList(cont *container.Container, index int) *Co
 	return &ContractProvider{
 		BaseAttributes{
 			DistinguishedName: G(ContractProviderCont, "dn"),
-			Description:       G(ContractProviderCont, "descr"),
 			Status:            G(ContractProviderCont, "status"),
 			ClassName:         FvrsprovClassName,
 			Rn:                G(ContractProviderCont, "rn"),

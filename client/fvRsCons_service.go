@@ -6,7 +6,7 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateContractConsumer(tnVzBrCPName string, application_epg string, application_profile string, tenant string, description string, fvRsConsattr models.ContractConsumerAttributes) (*models.ContractConsumer, error) {
+func (sm *ServiceManager) CreateContractConsumer(tnVzBrCPName string, application_epg string, application_profile string, tenant string, fvRsConsattr models.ContractConsumerAttributes) (*models.ContractConsumer, error) {
 	rn := fmt.Sprintf("rscons-%s", tnVzBrCPName)
 	parentDn := fmt.Sprintf("uni/tn-%s/ap-%s/epg-%s", tenant, application_profile, application_epg)
 	fvRsCons := models.NewContractConsumer(rn, parentDn, fvRsConsattr)
@@ -30,7 +30,7 @@ func (sm *ServiceManager) DeleteContractConsumer(tnVzBrCPName string, applicatio
 	return sm.DeleteByDn(dn, models.FvrsconsClassName)
 }
 
-func (sm *ServiceManager) UpdateContractConsumer(tnVzBrCPName string, application_epg string, application_profile string, tenant string, description string, fvRsConsattr models.ContractConsumerAttributes) (*models.ContractConsumer, error) {
+func (sm *ServiceManager) UpdateContractConsumer(tnVzBrCPName string, application_epg string, application_profile string, tenant string, fvRsConsattr models.ContractConsumerAttributes) (*models.ContractConsumer, error) {
 	rn := fmt.Sprintf("rscons-%s", tnVzBrCPName)
 	parentDn := fmt.Sprintf("uni/tn-%s/ap-%s/epg-%s", tenant, application_profile, application_epg)
 	fvRsCons := models.NewContractConsumer(rn, parentDn, fvRsConsattr)

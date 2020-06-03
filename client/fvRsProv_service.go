@@ -6,7 +6,7 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateContractProvider(tnVzBrCPName string, application_epg string, application_profile string, tenant string, description string, fvRsProvattr models.ContractProviderAttributes) (*models.ContractProvider, error) {
+func (sm *ServiceManager) CreateContractProvider(tnVzBrCPName string, application_epg string, application_profile string, tenant string, fvRsProvattr models.ContractProviderAttributes) (*models.ContractProvider, error) {
 	rn := fmt.Sprintf("rsprov-%s", tnVzBrCPName)
 	parentDn := fmt.Sprintf("uni/tn-%s/ap-%s/epg-%s", tenant, application_profile, application_epg)
 	fvRsProv := models.NewContractProvider(rn, parentDn, fvRsProvattr)
@@ -30,7 +30,7 @@ func (sm *ServiceManager) DeleteContractProvider(tnVzBrCPName string, applicatio
 	return sm.DeleteByDn(dn, models.FvrsprovClassName)
 }
 
-func (sm *ServiceManager) UpdateContractProvider(tnVzBrCPName string, application_epg string, application_profile string, tenant string, description string, fvRsProvattr models.ContractProviderAttributes) (*models.ContractProvider, error) {
+func (sm *ServiceManager) UpdateContractProvider(tnVzBrCPName string, application_epg string, application_profile string, tenant string, fvRsProvattr models.ContractProviderAttributes) (*models.ContractProvider, error) {
 	rn := fmt.Sprintf("rsprov-%s", tnVzBrCPName)
 	parentDn := fmt.Sprintf("uni/tn-%s/ap-%s/epg-%s", tenant, application_profile, application_epg)
 	fvRsProv := models.NewContractProvider(rn, parentDn, fvRsProvattr)
