@@ -24,7 +24,7 @@ type ContractProviderAttributes struct {
 	Prio string `json:",omitempty"`
 }
 
-func NewContractProvider(fvRsProvRn, parentDn, description string, fvRsProvattr ContractProviderAttributes) *ContractProvider {
+func NewContractProvider(fvRsProvRn, parentDn string, fvRsProvattr ContractProviderAttributes) *ContractProvider {
 	dn := fmt.Sprintf("%s/%s", parentDn, fvRsProvRn)
 	return &ContractProvider{
 		BaseAttributes: BaseAttributes{

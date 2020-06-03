@@ -22,7 +22,7 @@ type ContractConsumerAttributes struct {
 	Prio string `json:",omitempty"`
 }
 
-func NewContractConsumer(fvRsConsRn, parentDn, description string, fvRsConsattr ContractConsumerAttributes) *ContractConsumer {
+func NewContractConsumer(fvRsConsRn, parentDn string, fvRsConsattr ContractConsumerAttributes) *ContractConsumer {
 	dn := fmt.Sprintf("%s/%s", parentDn, fvRsConsRn)
 	return &ContractConsumer{
 		BaseAttributes: BaseAttributes{
