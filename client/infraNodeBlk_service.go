@@ -21,7 +21,7 @@ func (sm *ServiceManager) ReadNodeBlock(name string, switch_association_type str
 		return nil, err
 	}
 
-	infraNodeBlk := models.NodeBlockFromContainer(cont)
+	infraNodeBlk := models.NodeBlockFromContainerBLK(cont)
 	return infraNodeBlk, nil
 }
 
@@ -47,7 +47,7 @@ func (sm *ServiceManager) ListNodeBlock(switch_association_type string, switch_a
 	dnUrl := fmt.Sprintf("%s/uni/infra/nprof-%s/leaves-%s-typ-%s/infraNodeBlk.json", baseurlStr, leaf_profile, switch_association, switch_association_type)
 
 	cont, err := sm.GetViaURL(dnUrl)
-	list := models.NodeBlockListFromContainer(cont)
+	list := models.NodeBlockListFromContainerBLK(cont)
 
 	return list, err
 }
