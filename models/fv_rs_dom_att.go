@@ -9,12 +9,12 @@ import (
 
 const FvrsdomattClassName = "fvRsDomAtt"
 
-type Domain struct {
+type FVDomain struct {
 	BaseAttributes
-	DomainAttributes
+	FVDomainAttributes
 }
 
-type DomainAttributes struct {
+type FVDomainAttributes struct {
 	TDn string `json:",omitempty"`
 
 	Annotation string `json:",omitempty"`
@@ -56,9 +56,9 @@ type DomainAttributes struct {
 	SwitchingMode string `json:",omitempty"`
 }
 
-func NewDomain(fvRsDomAttRn, parentDn, description string, fvRsDomAttattr DomainAttributes) *Domain {
+func NewFVDomain(fvRsDomAttRn, parentDn, description string, fvRsDomAttattr FVDomainAttributes) *FVDomain {
 	dn := fmt.Sprintf("%s/%s", parentDn, fvRsDomAttRn)
-	return &Domain{
+	return &FVDomain{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -67,11 +67,11 @@ func NewDomain(fvRsDomAttRn, parentDn, description string, fvRsDomAttattr Domain
 			Rn:                fvRsDomAttRn,
 		},
 
-		DomainAttributes: fvRsDomAttattr,
+		FVDomainAttributes: fvRsDomAttattr,
 	}
 }
 
-func (fvRsDomAtt *Domain) ToMap() (map[string]string, error) {
+func (fvRsDomAtt *FVDomain) ToMap() (map[string]string, error) {
 	fvRsDomAttMap, err := fvRsDomAtt.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -120,10 +120,10 @@ func (fvRsDomAtt *Domain) ToMap() (map[string]string, error) {
 	return fvRsDomAttMap, err
 }
 
-func DomainFromContainerList(cont *container.Container, index int) *Domain {
+func FVDomainFromContainerList(cont *container.Container, index int) *FVDomain {
 
 	DomainCont := cont.S("imdata").Index(index).S(FvrsdomattClassName, "attributes")
-	return &Domain{
+	return &FVDomain{
 		BaseAttributes{
 			DistinguishedName: G(DomainCont, "dn"),
 			Description:       G(DomainCont, "descr"),
@@ -132,7 +132,7 @@ func DomainFromContainerList(cont *container.Container, index int) *Domain {
 			Rn:                G(DomainCont, "rn"),
 		},
 
-		DomainAttributes{
+		FVDomainAttributes{
 
 			TDn: G(DomainCont, "tDn"),
 
@@ -177,19 +177,19 @@ func DomainFromContainerList(cont *container.Container, index int) *Domain {
 	}
 }
 
-func DomainFromContainer(cont *container.Container) *Domain {
+func FVDomainFromContainer(cont *container.Container) *FVDomain {
 
-	return DomainFromContainerList(cont, 0)
+	return FVDomainFromContainerList(cont, 0)
 }
 
-func DomainListFromContainer(cont *container.Container) []*Domain {
+func FVDomainListFromContainer(cont *container.Container) []*FVDomain {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*Domain, length)
+	arr := make([]*FVDomain, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = DomainFromContainerList(cont, i)
+		arr[i] = FVDomainFromContainerList(cont, i)
 	}
 
 	return arr
