@@ -6,7 +6,7 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateDomain(tDn string, application_epg string, application_profile string, tenant string, description string, fvRsDomAttattr models.FVDomainAttributes) (*models.FVDomain, error) {
+func (sm *ServiceManager) CreateFVDomain(tDn string, application_epg string, application_profile string, tenant string, description string, fvRsDomAttattr models.FVDomainAttributes) (*models.FVDomain, error) {
 	rn := fmt.Sprintf("rsdomAtt-[%s]", tDn)
 	parentDn := fmt.Sprintf("uni/tn-%s/ap-%s/epg-%s", tenant, application_profile, application_epg)
 	fvRsDomAtt := models.NewFVDomain(rn, parentDn, description, fvRsDomAttattr)
@@ -14,7 +14,7 @@ func (sm *ServiceManager) CreateDomain(tDn string, application_epg string, appli
 	return fvRsDomAtt, err
 }
 
-func (sm *ServiceManager) ReadDomain(tDn string, application_epg string, application_profile string, tenant string) (*models.FVDomain, error) {
+func (sm *ServiceManager) ReadFVDomain(tDn string, application_epg string, application_profile string, tenant string) (*models.FVDomain, error) {
 	dn := fmt.Sprintf("uni/tn-%s/ap-%s/epg-%s/rsdomAtt-[%s]", tenant, application_profile, application_epg, tDn)
 	cont, err := sm.Get(dn)
 	if err != nil {
@@ -25,12 +25,12 @@ func (sm *ServiceManager) ReadDomain(tDn string, application_epg string, applica
 	return fvRsDomAtt, nil
 }
 
-func (sm *ServiceManager) DeleteDomain(tDn string, application_epg string, application_profile string, tenant string) error {
+func (sm *ServiceManager) DeleteFVDomain(tDn string, application_epg string, application_profile string, tenant string) error {
 	dn := fmt.Sprintf("uni/tn-%s/ap-%s/epg-%s/rsdomAtt-[%s]", tenant, application_profile, application_epg, tDn)
 	return sm.DeleteByDn(dn, models.FvrsdomattClassName)
 }
 
-func (sm *ServiceManager) UpdateDomain(tDn string, application_epg string, application_profile string, tenant string, description string, fvRsDomAttattr models.FVDomainAttributes) (*models.FVDomain, error) {
+func (sm *ServiceManager) UpdateFVDomain(tDn string, application_epg string, application_profile string, tenant string, description string, fvRsDomAttattr models.FVDomainAttributes) (*models.FVDomain, error) {
 	rn := fmt.Sprintf("rsdomAtt-[%s]", tDn)
 	parentDn := fmt.Sprintf("uni/tn-%s/ap-%s/epg-%s", tenant, application_profile, application_epg)
 	fvRsDomAtt := models.NewFVDomain(rn, parentDn, description, fvRsDomAttattr)
@@ -41,7 +41,7 @@ func (sm *ServiceManager) UpdateDomain(tDn string, application_epg string, appli
 
 }
 
-func (sm *ServiceManager) ListDomain(application_epg string, application_profile string, tenant string) ([]*models.FVDomain, error) {
+func (sm *ServiceManager) ListFVDomain(application_epg string, application_profile string, tenant string) ([]*models.FVDomain, error) {
 
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ap-%s/epg-%s/fvRsDomAtt.json", baseurlStr, tenant, application_profile, application_epg)
