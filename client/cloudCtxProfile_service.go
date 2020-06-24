@@ -235,7 +235,7 @@ func (sm *ServiceManager) CreateRelationcloudRsCtxProfileToRegionFromCloudContex
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tnCloudRegionName": "%s"
+				"dn": "%s","tDn": "%s"
 								
 			}
 		}
@@ -261,5 +261,5 @@ func (sm *ServiceManager) CreateRelationcloudRsCtxProfileToRegionFromCloudContex
 
 func (sm *ServiceManager) DeleteRelationcloudRsCtxProfileToRegionFromCloudContextProfile(parentDn string) error {
 	dn := fmt.Sprintf("%s/rsctxProfileToRegion", parentDn)
-	return sm.DeleteByDn(dn, "cloudRsCtxProfileToRegion")
+	return sm.DeleteByDn(dn, "tDn")
 }
