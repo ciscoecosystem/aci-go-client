@@ -57,7 +57,6 @@ func (sm *ServiceManager) CreateOSource(name string, description string, firmwar
 	rn := fmt.Sprintf("osrc-%s", name)
 	parentDn := fmt.Sprintf("uni/fabric/fwrepop")
 	firmwareOSource := models.NewOSource(rn, parentDn, description, firmwareOSourceAttr)
-	firmwareOSource.Status = ""  // this avoids API failure in case MO is already created in APIC
 	err := sm.Save(firmwareOSource)
 	return firmwareOSource, err
 }
@@ -81,7 +80,6 @@ func (sm *ServiceManager) UpdateOSource(name string, description string, firmwar
 	rn := fmt.Sprintf("osrc-%s", name)
 	parentDn := fmt.Sprintf("uni/fabric/fwrepop")
 	firmwareOSource := models.NewOSource(rn, parentDn, description, firmwareOSourceAttr)
-	firmwareOSource.Status = ""  // this avoids API failure in case MO is not created in APIC
 	err := sm.Save(firmwareOSource)
 	return firmwareOSource, err
 
