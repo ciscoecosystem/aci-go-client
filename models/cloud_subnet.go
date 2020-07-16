@@ -25,8 +25,7 @@ type CloudSubnetAttributes struct {
 
 	Usage string `json:",omitempty"`
 
-	RealZone string `json:",omitempty"`
-	Zone     string `json:",omitempty"`
+	Zone string `json:",omitempty"`
 }
 
 func NewCloudSubnet(cloudSubnetRn, parentDn, description string, cloudSubnetattr CloudSubnetAttributes) *CloudSubnet {
@@ -59,7 +58,6 @@ func (cloudSubnet *CloudSubnet) ToMap() (map[string]string, error) {
 	A(cloudSubnetMap, "scope", cloudSubnet.Scope)
 
 	A(cloudSubnetMap, "usage", cloudSubnet.Usage)
-	A(cloudSubnetMap, "realZone", cloudSubnet.RealZone)
 	A(cloudSubnetMap, "zone", cloudSubnet.Zone)
 
 	return cloudSubnetMap, err
@@ -88,8 +86,6 @@ func CloudSubnetFromContainerList(cont *container.Container, index int) *CloudSu
 			Scope: G(CloudSubnetCont, "scope"),
 
 			Usage: G(CloudSubnetCont, "usage"),
-
-			RealZone: G(CloudSubnetCont, "realZone"),
 
 			Zone: G(CloudSubnetCont, "zone"),
 		},
