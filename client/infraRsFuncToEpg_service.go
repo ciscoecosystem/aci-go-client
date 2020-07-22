@@ -6,16 +6,16 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateEPGsUsingFunction(tDn string, access_generic string, attachable_access_entity_profile string, description string, infraRsFuncToEpgattr models.EPGsUsingFunctionAttributes) (*models.EPGsUsingFunction, error) {
-	rn := fmt.Sprintf("rsfuncToEpg-[%s]", tDn)
-	parentDn := fmt.Sprintf("uni/infra/attentp-%s/gen-%s", attachable_access_entity_profile, access_generic)
+func (sm *ServiceManager) CreateEPGsUsingFunction(tDn string, attachable_access_entity_profile string, description string, infraRsFuncToEpgattr models.EPGsUsingFunctionAttributes) (*models.EPGsUsingFunction, error) {
+	rn := fmt.Sprintf("provacc/rsfuncToEpg-[%s]", tDn)
+	parentDn := fmt.Sprintf("uni/infra/attentp-%s", attachable_access_entity_profile)
 	infraRsFuncToEpg := models.NewEPGsUsingFunction(rn, parentDn, description, infraRsFuncToEpgattr)
 	err := sm.Save(infraRsFuncToEpg)
 	return infraRsFuncToEpg, err
 }
 
-func (sm *ServiceManager) ReadEPGsUsingFunction(tDn string, access_generic string, attachable_access_entity_profile string) (*models.EPGsUsingFunction, error) {
-	dn := fmt.Sprintf("uni/infra/attentp-%s/gen-%s/rsfuncToEpg-[%s]", attachable_access_entity_profile, access_generic, tDn)
+func (sm *ServiceManager) ReadEPGsUsingFunction(tDn string, attachable_access_entity_profile string) (*models.EPGsUsingFunction, error) {
+	dn := fmt.Sprintf("uni/infra/attentp-%s/provacc/rsfuncToEpg-[%s]", attachable_access_entity_profile, tDn)
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
@@ -25,14 +25,14 @@ func (sm *ServiceManager) ReadEPGsUsingFunction(tDn string, access_generic strin
 	return infraRsFuncToEpg, nil
 }
 
-func (sm *ServiceManager) DeleteEPGsUsingFunction(tDn string, access_generic string, attachable_access_entity_profile string) error {
-	dn := fmt.Sprintf("uni/infra/attentp-%s/gen-%s/rsfuncToEpg-[%s]", attachable_access_entity_profile, access_generic, tDn)
+func (sm *ServiceManager) DeleteEPGsUsingFunction(tDn string, attachable_access_entity_profile string) error {
+	dn := fmt.Sprintf("uni/infra/attentp-%s/provacc/rsfuncToEpg-[%s]", attachable_access_entity_profile, tDn)
 	return sm.DeleteByDn(dn, models.InfrarsfunctoepgClassName)
 }
 
-func (sm *ServiceManager) UpdateEPGsUsingFunction(tDn string, access_generic string, attachable_access_entity_profile string, description string, infraRsFuncToEpgattr models.EPGsUsingFunctionAttributes) (*models.EPGsUsingFunction, error) {
-	rn := fmt.Sprintf("rsfuncToEpg-[%s]", tDn)
-	parentDn := fmt.Sprintf("uni/infra/attentp-%s/gen-%s", attachable_access_entity_profile, access_generic)
+func (sm *ServiceManager) UpdateEPGsUsingFunction(tDn string, attachable_access_entity_profile string, description string, infraRsFuncToEpgattr models.EPGsUsingFunctionAttributes) (*models.EPGsUsingFunction, error) {
+	rn := fmt.Sprintf("provacc/rsfuncToEpg-[%s]", tDn)
+	parentDn := fmt.Sprintf("uni/infra/attentp-%s", attachable_access_entity_profile)
 	infraRsFuncToEpg := models.NewEPGsUsingFunction(rn, parentDn, description, infraRsFuncToEpgattr)
 
 	infraRsFuncToEpg.Status = "modified"
@@ -41,10 +41,10 @@ func (sm *ServiceManager) UpdateEPGsUsingFunction(tDn string, access_generic str
 
 }
 
-func (sm *ServiceManager) ListEPGsUsingFunction(access_generic string, attachable_access_entity_profile string) ([]*models.EPGsUsingFunction, error) {
+func (sm *ServiceManager) ListEPGsUsingFunction(attachable_access_entity_profile string) ([]*models.EPGsUsingFunction, error) {
 
 	baseurlStr := "/api/node/class"
-	dnUrl := fmt.Sprintf("%s/uni/infra/attentp-%s/gen-%s/infraRsFuncToEpg.json", baseurlStr, attachable_access_entity_profile, access_generic)
+	dnUrl := fmt.Sprintf("%s/uni/infra/attentp-%s/infraRsFuncToEpg.json", baseurlStr, attachable_access_entity_profile)
 
 	cont, err := sm.GetViaURL(dnUrl)
 	list := models.EPGsUsingFunctionListFromContainer(cont)
