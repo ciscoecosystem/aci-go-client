@@ -36,7 +36,7 @@ func NewEPGsUsingFunction(infraRsFuncToEpgRn, parentDn, description string, infr
 			Description:       description,
 			Status:            "created, modified",
 			ClassName:         InfrarsfunctoepgClassName,
-			Rn:                infraRsFuncToEpgRn,
+			// Rn:                infraRsFuncToEpgRn,
 		},
 
 		EPGsUsingFunctionAttributes: infraRsFuncToEpgattr,
