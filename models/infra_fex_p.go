@@ -17,7 +17,7 @@ type FEXProfile struct {
 type FEXProfileAttributes struct {
 	Name string `json:",omitempty"`
 
-	Annotation string `json:",omitempty"`
+	Annotation string
 
 	NameAlias string `json:",omitempty"`
 }
