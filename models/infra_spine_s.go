@@ -9,12 +9,12 @@ import (
 
 const InfraspinesClassName = "infraSpineS"
 
-type SwitchAssociation struct {
+type SwitchSpineAssociation struct {
 	BaseAttributes
-	SwitchAssociationAttributes
+	SwitchSpineAssociationAttributes
 }
 
-type SwitchAssociationAttributes struct {
+type SwitchSpineAssociationAttributes struct {
 	Name string `json:",omitempty"`
 
 	SwitchAssociationType string `json:",omitempty"`
@@ -24,9 +24,9 @@ type SwitchAssociationAttributes struct {
 	NameAlias string `json:",omitempty"`
 }
 
-func NewSwitchAssociation(infraSpineSRn, parentDn, description string, infraSpineSattr SwitchAssociationAttributes) *SwitchAssociation {
+func NewSwitchSpineAssociation(infraSpineSRn, parentDn, description string, infraSpineSattr SwitchSpineAssociationAttributes) *SwitchSpineAssociation {
 	dn := fmt.Sprintf("%s/%s", parentDn, infraSpineSRn)
-	return &SwitchAssociation{
+	return &SwitchSpineAssociation{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -35,11 +35,11 @@ func NewSwitchAssociation(infraSpineSRn, parentDn, description string, infraSpin
 			Rn:                infraSpineSRn,
 		},
 
-		SwitchAssociationAttributes: infraSpineSattr,
+		SwitchSpineAssociationAttributes: infraSpineSattr,
 	}
 }
 
-func (infraSpineS *SwitchAssociation) ToMap() (map[string]string, error) {
+func (infraSpineS *SwitchSpineAssociation) ToMap() (map[string]string, error) {
 	infraSpineSMap, err := infraSpineS.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -47,7 +47,7 @@ func (infraSpineS *SwitchAssociation) ToMap() (map[string]string, error) {
 
 	A(infraSpineSMap, "name", infraSpineS.Name)
 
-	A(infraSpineSMap, "type", infraSpineS.Switch_association_type)
+	A(infraSpineSMap, "type", infraSpineS.SwitchAssociationType)
 
 	A(infraSpineSMap, "annotation", infraSpineS.Annotation)
 
@@ -56,10 +56,10 @@ func (infraSpineS *SwitchAssociation) ToMap() (map[string]string, error) {
 	return infraSpineSMap, err
 }
 
-func SwitchAssociationFromContainerList(cont *container.Container, index int) *SwitchAssociation {
+func SwitchSpineAssociationFromContainerList(cont *container.Container, index int) *SwitchSpineAssociation {
 
 	SwitchAssociationCont := cont.S("imdata").Index(index).S(InfraspinesClassName, "attributes")
-	return &SwitchAssociation{
+	return &SwitchSpineAssociation{
 		BaseAttributes{
 			DistinguishedName: G(SwitchAssociationCont, "dn"),
 			Description:       G(SwitchAssociationCont, "descr"),
@@ -68,11 +68,11 @@ func SwitchAssociationFromContainerList(cont *container.Container, index int) *S
 			Rn:                G(SwitchAssociationCont, "rn"),
 		},
 
-		SwitchAssociationAttributes{
+		SwitchSpineAssociationAttributes{
 
 			Name: G(SwitchAssociationCont, "name"),
 
-			Switch_association_type: G(SwitchAssociationCont, "type"),
+			SwitchAssociationType: G(SwitchAssociationCont, "type"),
 
 			Annotation: G(SwitchAssociationCont, "annotation"),
 
@@ -81,19 +81,19 @@ func SwitchAssociationFromContainerList(cont *container.Container, index int) *S
 	}
 }
 
-func SwitchAssociationFromContainer(cont *container.Container) *SwitchAssociation {
+func SwitchSpineAssociationFromContainer(cont *container.Container) *SwitchSpineAssociation {
 
-	return SwitchAssociationFromContainerList(cont, 0)
+	return SwitchSpineAssociationFromContainerList(cont, 0)
 }
 
-func SwitchAssociationListFromContainer(cont *container.Container) []*SwitchAssociation {
+func SwitchSpineAssociationListFromContainer(cont *container.Container) []*SwitchSpineAssociation {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*SwitchAssociation, length)
+	arr := make([]*SwitchSpineAssociation, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = SwitchAssociationFromContainerList(cont, i)
+		arr[i] = SwitchSpineAssociationFromContainerList(cont, i)
 	}
 
 	return arr
