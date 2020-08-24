@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
@@ -33,6 +34,7 @@ type Client struct {
 	MOURL              string
 	httpClient         *http.Client
 	AuthToken          *Auth
+	l                  sync.Mutex
 	username           string
 	password           string
 	privatekey         string
