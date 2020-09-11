@@ -288,6 +288,9 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 
 	bodyBytes, err := ioutil.ReadAll(resp.Body)
 	bodyStr := string(bodyBytes)
+	if resp.StatusCode >= 400 {
+		return nil, nil, errors.New(resp.Status + ". Response body: " + bodyStr)
+	}
 	resp.Body.Close()
 	log.Printf("\n HTTP response unique string %s %s %s", req.Method, req.URL.String(), bodyStr)
 	obj, err := container.ParseJSON(bodyBytes)
