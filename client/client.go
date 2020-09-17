@@ -266,6 +266,10 @@ func (c *Client) Authenticate() error {
 	if obj == nil {
 		return errors.New("Empty response")
 	}
+	err = CheckForErrors(obj, method)
+	if err != nil {
+		return err
+	}
 
 	token := obj.S("imdata").Index(0).S("aaaLogin", "attributes", "token").String()
 	creationTimeStr := stripQuotes(obj.S("imdata").Index(0).S("aaaLogin", "attributes", "creationTime").String())
