@@ -244,6 +244,10 @@ func (c *Client) Authenticate() error {
 	if obj == nil {
 		return errors.New("Empty response")
 	}
+	err = CheckForErrors(obj, method)
+	if err != nil {
+		return err
+	}
 
 	token := obj.S("imdata").Index(0).S("aaaLogin", "attributes", "token").String()
 	creationTimeStr := stripQuotes(obj.S("imdata").Index(0).S("aaaLogin", "attributes", "creationTime").String())
@@ -288,9 +292,6 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 
 	bodyBytes, err := ioutil.ReadAll(resp.Body)
 	bodyStr := string(bodyBytes)
-	if resp.StatusCode >= 400 {
-		return nil, nil, errors.New(resp.Status + ". Response body: " + bodyStr)
-	}
 	resp.Body.Close()
 	log.Printf("\n HTTP response unique string %s %s %s", req.Method, req.URL.String(), bodyStr)
 	obj, err := container.ParseJSON(bodyBytes)
