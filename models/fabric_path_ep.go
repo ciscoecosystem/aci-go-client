@@ -55,6 +55,10 @@ func FabricPathEndpointFromContainerList(cont *container.Container, index int) *
 			ClassName:         FabricpathepClassName,
 			Rn:                G(FabricPathEndpointCont, "rn"),
 		},
+
+		FabricPathEndpointAttributes{
+			Name: G(FabricPathEndpointCont, "name"),
+		},
 	}
 }
 
