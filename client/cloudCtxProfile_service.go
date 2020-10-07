@@ -76,7 +76,7 @@ func (sm *ServiceManager) CreateCloudContextProfile(name string, tenant string, 
 	}
 
 	//err := sm.Save(cloudCtxProfile)
-	return cloudCtxProfile, CheckForErrors(cont, "POST")
+	return cloudCtxProfile, CheckForErrors(cont, "POST", sm.client.skipLoggingPayload)
 }
 
 func (sm *ServiceManager) ReadCloudContextProfile(name string, tenant string) (*models.CloudContextProfile, error) {
@@ -154,7 +154,7 @@ func (sm *ServiceManager) UpdateCloudContextProfile(name string, tenant string, 
 		return nil, err
 	}
 
-	return cloudCtxProfile, CheckForErrors(cont, "POST")
+	return cloudCtxProfile, CheckForErrors(cont, "POST", sm.client.skipLoggingPayload)
 
 }
 
