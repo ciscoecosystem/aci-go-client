@@ -48,6 +48,7 @@ type Client struct {
 	reqTimeoutVal      uint32
 	proxyUrl           string
 	skipLoggingPayload bool
+	appUserName        string
 	*ServiceManager
 }
 
@@ -83,6 +84,12 @@ func PrivateKey(privatekey string) Option {
 func AdminCert(adminCert string) Option {
 	return func(client *Client) {
 		client.adminCert = adminCert
+	}
+}
+
+func AppUserName(appUserName string) Option {
+	return func(client *Client) {
+		client.appUserName = appUserName
 	}
 }
 
