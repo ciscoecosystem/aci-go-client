@@ -26,6 +26,14 @@ const authPayload = `{
 	}
 }`
 
+const authAppPayload = `{
+	"aaaAppToken" : {
+		"attributes" : {
+			"appName" : "%s"
+		}
+	}
+}`
+
 // Default timeout for NGINX in ACI is 90 Seconds.
 // Allow the client to set a shorter or longer time depending on their
 // environment
@@ -257,14 +265,21 @@ func (c *Client) MakeRestRequest(method string, path string, body *container.Con
 // Authenticate is used to
 func (c *Client) Authenticate() error {
 	method := "POST"
+	authenticated := false
 	path := "/api/aaaLogin.json"
 	body, err := container.ParseJSON([]byte(fmt.Sprintf(authPayload, c.username, c.password)))
+
+	if c.appUserName != "" {
+		path = "/api/requestAppToken.json"
+		body, err = container.ParseJSON([]byte(fmt.Sprintf(authAppPayload, c.appUserName)))
+		authenticated = true
+	}
 
 	if err != nil {
 		return err
 	}
 
-	req, err := c.MakeRestRequest(method, path, body, false)
+	req, err := c.MakeRestRequest(method, path, body, authenticated)
 	obj, _, err := c.Do(req)
 
 	if err != nil {
