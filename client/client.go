@@ -273,7 +273,7 @@ func (c *Client) Authenticate() error {
 	if obj == nil {
 		return errors.New("Empty response")
 	}
-	err = CheckForErrors(obj, method)
+	err = CheckForErrors(obj, method, c.skipLoggingPayload)
 	if err != nil {
 		return err
 	}
@@ -315,14 +315,22 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 	if err != nil {
 		return nil, nil, err
 	}
-	log.Printf("\n\n\n HTTP request: %v", req.Body)
+	if !c.skipLoggingPayload {
+		log.Printf("\n\n\n HTTP request: %v", req.Body)
+	}
 	log.Printf("\nHTTP Request: %s %s", req.Method, req.URL.String())
-	log.Printf("nHTTP Response: %d %s %v", resp.StatusCode, resp.Status, resp)
+	if !c.skipLoggingPayload {
+		log.Printf("\nHTTP Response: %d %s %v", resp.StatusCode, resp.Status, resp)
+	} else {
+		log.Printf("\nHTTP Response: %d %s", resp.StatusCode, resp.Status)
+	}
 
 	bodyBytes, err := ioutil.ReadAll(resp.Body)
 	bodyStr := string(bodyBytes)
 	resp.Body.Close()
-	log.Printf("\n HTTP response unique string %s %s %s", req.Method, req.URL.String(), bodyStr)
+	if !c.skipLoggingPayload {
+		log.Printf("\n HTTP response unique string %s %s %s", req.Method, req.URL.String(), bodyStr)
+	}
 	obj, err := container.ParseJSON(bodyBytes)
 
 	if err != nil {
@@ -342,9 +350,15 @@ func (c *Client) DoRaw(req *http.Request) (*http.Response, error) {
 		return nil, err
 	}
 
-	log.Printf("\n\n\n HTTP request: %v", req.Body)
+	if !c.skipLoggingPayload {
+		log.Printf("\n\n\n HTTP request: %v", req.Body)
+	}
 	log.Printf("\nHTTP Request: %s %s", req.Method, req.URL.String())
-	log.Printf("nHTTP Response: %d %s %v", resp.StatusCode, resp.Status, resp)
+	if !c.skipLoggingPayload {
+		log.Printf("\nHTTP Response: %d %s %v", resp.StatusCode, resp.Status, resp)
+	} else {
+		log.Printf("\nHTTP Response: %d %s", resp.StatusCode, resp.Status)
+	}
 
 	return resp, err
 }
