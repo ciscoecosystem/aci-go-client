@@ -265,7 +265,7 @@ func (sm *ServiceManager) DeleteRelationcloudRsCtxProfileToRegionFromCloudContex
 }
 
 func (sm *ServiceManager) CreateRelationcloudRsCtxProfileTocloudRsCtxProfileToGatewayRouterP(parentDn, tDN string) error {
-	dn := fmt.Sprintf("%s/rsctxProfileToGatewayRouterP", parentDn)
+	dn := fmt.Sprintf("%s/rsctxProfileToGatewayRouterP-[%s]", parentDn, tDN)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
@@ -293,7 +293,7 @@ func (sm *ServiceManager) CreateRelationcloudRsCtxProfileTocloudRsCtxProfileToGa
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationcloudRsCtxProfileTocloudRsCtxProfileToGatewayRouterP(parentDn string) error {
-	dn := fmt.Sprintf("%s/rsctxProfileToGatewayRouterP", parentDn)
+func (sm *ServiceManager) DeleteRelationcloudRsCtxProfileTocloudRsCtxProfileToGatewayRouterP(parentDn, tDN string) error {
+	dn := fmt.Sprintf("%s/rsctxProfileToGatewayRouterP-[%s]", parentDn, tDN)
 	return sm.DeleteByDn(dn, "cloudRsCtxProfileToGatewayRouterP")
 }
