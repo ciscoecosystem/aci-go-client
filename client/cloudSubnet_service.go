@@ -2,17 +2,50 @@ package client
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateCloudSubnet(ip string, cloud_cidr_pool_addr string, cloud_context_profile string, tenant string, description string, cloudSubnetattr models.CloudSubnetAttributes) (*models.CloudSubnet, error) {
+func (sm *ServiceManager) CreateCloudSubnet(ip string, cloud_cidr_pool_addr string, cloud_context_profile string, tenant string, description string, cloudSubnetattr models.CloudSubnetAttributes, zoneDn string) (*models.CloudSubnet, error) {
 	rn := fmt.Sprintf("subnet-[%s]", ip)
 	parentDn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/cidr-[%s]", tenant, cloud_context_profile, cloud_cidr_pool_addr)
 	cloudSubnet := models.NewCloudSubnet(rn, parentDn, description, cloudSubnetattr)
-	err := sm.Save(cloudSubnet)
-	return cloudSubnet, err
+	jsonPayload, _, err := sm.PrepareModel(cloudSubnet)
+
+	rsZoneAttachJSON := []byte(fmt.Sprintf(`
+	{
+		"cloudRsZoneAttach": {
+			"attributes": {
+				"annotation": "orchestrator:terraform",
+				"dn": "%s/rszoneAttach",
+				"tDn": "%s"
+			}
+		}
+	}
+	`, parentDn, zoneDn))
+	zoneCon, err := container.ParseJSON(rsZoneAttachJSON)
+	if err != nil {
+		return nil, err
+	}
+
+	log.Printf("\n[DEBUG]asas %v", zoneCon.Data())
+	jsonPayload.Array(cloudSubnet.ClassName, "children")
+	jsonPayload.ArrayAppend(zoneCon.Data(), cloudSubnet.ClassName, "children")
+	log.Printf("\n\n[DEBUG]asas %s\n\n", jsonPayload.String())
+	jsonPayload.Set(ip, cloudSubnet.ClassName, "attributes", "ip")
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("/api/node/mo/%s/%s.json", parentDn, rn), jsonPayload, true)
+	if err != nil {
+		return nil, err
+	}
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	// err := sm.Save(cloudSubnet)
+	return cloudSubnet, CheckForErrors(cont, "POST", sm.client.skipLoggingPayload)
 }
 
 func (sm *ServiceManager) ReadCloudSubnet(ip string, cloud_cidr_pool_addr string, cloud_context_profile string, tenant string) (*models.CloudSubnet, error) {
@@ -31,14 +64,46 @@ func (sm *ServiceManager) DeleteCloudSubnet(ip string, cloud_cidr_pool_addr stri
 	return sm.DeleteByDn(dn, models.CloudsubnetClassName)
 }
 
-func (sm *ServiceManager) UpdateCloudSubnet(ip string, cloud_cidr_pool_addr string, cloud_context_profile string, tenant string, description string, cloudSubnetattr models.CloudSubnetAttributes) (*models.CloudSubnet, error) {
+func (sm *ServiceManager) UpdateCloudSubnet(ip string, cloud_cidr_pool_addr string, cloud_context_profile string, tenant string, description string, cloudSubnetattr models.CloudSubnetAttributes zoneDn string) (*models.CloudSubnet, error) {
 	rn := fmt.Sprintf("subnet-[%s]", ip)
 	parentDn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/cidr-[%s]", tenant, cloud_context_profile, cloud_cidr_pool_addr)
 	cloudSubnet := models.NewCloudSubnet(rn, parentDn, description, cloudSubnetattr)
-
 	cloudSubnet.Status = "modified"
-	err := sm.Save(cloudSubnet)
-	return cloudSubnet, err
+
+	jsonPayload, _, err := sm.PrepareModel(cloudSubnet)
+
+	rsZoneAttachJSON := []byte(fmt.Sprintf(`
+	{
+		"cloudRsZoneAttach": {
+			"attributes": {
+				"annotation": "orchestrator:terraform",
+				"dn": "%s/rszoneAttach",
+				"tDn": "%s"
+			}
+		}
+	}
+	`, parentDn, zoneDn))
+	zoneCon, err := container.ParseJSON(rsZoneAttachJSON)
+	if err != nil {
+		return nil, err
+	}
+
+	log.Printf("\n[DEBUG]asas %v", zoneCon.Data())
+	jsonPayload.Array(cloudSubnet.ClassName, "children")
+	jsonPayload.ArrayAppend(zoneCon.Data(), cloudSubnet.ClassName, "children")
+	log.Printf("\n\n[DEBUG]asas %s\n\n", jsonPayload.String())
+	jsonPayload.Set(ip, cloudSubnet.ClassName, "attributes", "ip")
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("/api/node/mo/%s/%s.json", parentDn, rn), jsonPayload, true)
+	if err != nil {
+		return nil, err
+	}
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	// err := sm.Save(cloudSubnet)
+	return cloudSubnet, CheckForErrors(cont, "POST", sm.client.skipLoggingPayload)
 
 }
 
