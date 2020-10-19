@@ -20,12 +20,12 @@ func (sm *ServiceManager) CreateCloudSubnet(ip string, cloud_cidr_pool_dn string
 		"cloudRsZoneAttach": {
 			"attributes": {
 				"annotation": "orchestrator:terraform",
-				"dn": "%s/rszoneAttach",
+				"dn": "%s/%s/rszoneAttach",
 				"tDn": "%s"
 			}
 		}
 	}
-	`, parentDn, zoneDn))
+	`, parentDn, rn, zoneDn))
 	zoneCon, err := container.ParseJSON(rsZoneAttachJSON)
 	if err != nil {
 		return nil, err
@@ -79,12 +79,12 @@ func (sm *ServiceManager) UpdateCloudSubnet(ip string, cloud_cidr_pool_dn string
 		"cloudRsZoneAttach": {
 			"attributes": {
 				"annotation": "orchestrator:terraform",
-				"dn": "%s/rszoneAttach",
+				"dn": "%s/%s/rszoneAttach",
 				"tDn": "%s"
 			}
 		}
 	}
-	`, parentDn, zoneDn))
+	`, parentDn, rn, zoneDn))
 	zoneCon, err := container.ParseJSON(rsZoneAttachJSON)
 	if err != nil {
 		return nil, err
