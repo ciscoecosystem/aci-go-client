@@ -8,9 +8,10 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateCloudSubnet(ip string, cloud_cidr_pool_addr string, cloud_context_profile string, tenant string, description string, cloudSubnetattr models.CloudSubnetAttributes, zoneDn string) (*models.CloudSubnet, error) {
+func (sm *ServiceManager) CreateCloudSubnet(ip string, cloud_cidr_pool_dn string, description string, cloudSubnetattr models.CloudSubnetAttributes, zoneDn string) (*models.CloudSubnet, error) {
 	rn := fmt.Sprintf("subnet-[%s]", ip)
-	parentDn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/cidr-[%s]", tenant, cloud_context_profile, cloud_cidr_pool_addr)
+	// parentDn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/cidr-[%s]", tenant, cloud_context_profile, cloud_cidr_pool_addr)
+	parentDn := cloud_cidr_pool_dn
 	cloudSubnet := models.NewCloudSubnet(rn, parentDn, description, cloudSubnetattr)
 	jsonPayload, _, err := sm.PrepareModel(cloudSubnet)
 
@@ -64,9 +65,10 @@ func (sm *ServiceManager) DeleteCloudSubnet(ip string, cloud_cidr_pool_addr stri
 	return sm.DeleteByDn(dn, models.CloudsubnetClassName)
 }
 
-func (sm *ServiceManager) UpdateCloudSubnet(ip string, cloud_cidr_pool_addr string, cloud_context_profile string, tenant string, description string, cloudSubnetattr models.CloudSubnetAttributes zoneDn string) (*models.CloudSubnet, error) {
+func (sm *ServiceManager) UpdateCloudSubnet(ip string, cloud_cidr_pool_dn string, description string, cloudSubnetattr models.CloudSubnetAttributes, zoneDn string) (*models.CloudSubnet, error) {
 	rn := fmt.Sprintf("subnet-[%s]", ip)
-	parentDn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/cidr-[%s]", tenant, cloud_context_profile, cloud_cidr_pool_addr)
+	// parentDn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/cidr-[%s]", tenant, cloud_context_profile, cloud_cidr_pool_addr)
+	parentDn := cloud_cidr_pool_dn
 	cloudSubnet := models.NewCloudSubnet(rn, parentDn, description, cloudSubnetattr)
 	cloudSubnet.Status = "modified"
 
