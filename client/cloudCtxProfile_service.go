@@ -263,3 +263,37 @@ func (sm *ServiceManager) DeleteRelationcloudRsCtxProfileToRegionFromCloudContex
 	dn := fmt.Sprintf("%s/rsctxProfileToRegion", parentDn)
 	return sm.DeleteByDn(dn, "cloudRsCtxProfileToRegion")
 }
+
+func (sm *ServiceManager) CreateRelationcloudRsCtxProfileTocloudRsCtxProfileToGatewayRouterP(parentDn, tDN string) error {
+	dn := fmt.Sprintf("%s/rsctxProfileToGatewayRouterP-[%s]", parentDn, tDN)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s","tDn": "%s","annotation":"orchestrator:terraform"
+								
+			}
+		}
+	}`, "cloudRsCtxProfileToGatewayRouterP", dn, tDN))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+
+	return CheckForErrors(cont, "POST", sm.client.skipLoggingPayload)
+}
+
+func (sm *ServiceManager) DeleteRelationcloudRsCtxProfileTocloudRsCtxProfileToGatewayRouterP(parentDn, tDN string) error {
+	dn := fmt.Sprintf("%s/rsctxProfileToGatewayRouterP-[%s]", parentDn, tDN)
+	return sm.DeleteByDn(dn, "cloudRsCtxProfileToGatewayRouterP")
+}
