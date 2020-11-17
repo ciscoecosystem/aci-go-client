@@ -68,7 +68,7 @@ func (client *Client) InjectAuthenticationHeader(req *http.Request, path string)
 				})
 				return req, nil
 			}
-        }
+		}
 
 		var bodyStr string
 		if req.Method != "GET" {
