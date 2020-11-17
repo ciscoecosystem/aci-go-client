@@ -26,6 +26,16 @@ const authPayload = `{
 	}
 }`
 
+// Used authAppPayload to authenticate against the APIC using:
+// AppName, App Certificate DN, Signed Request
+const authAppPayload = `{
+	"aaaAppToken" : {
+		"attributes" : {
+			"appName" : "%s"
+		}
+	}
+}`
+
 // Default timeout for NGINX in ACI is 90 Seconds.
 // Allow the client to set a shorter or longer time depending on their
 // environment
@@ -258,18 +268,24 @@ func (c *Client) MakeRestRequest(method string, path string, body *container.Con
 func (c *Client) Authenticate() error {
 	method := "POST"
 	path := "/api/aaaLogin.json"
+	authenticated := false
 
 	// Adding the follwing replace allows support for (1) Login Domains, where login is in the format of: apic#LOCAL\admin2
 	// (2) escapes out the password to support scenarios where the user password includes backslashes
 	escUserName := strings.ReplaceAll(c.username, `\`, `\\`)
 	escPwd := strings.ReplaceAll(c.password, `\`, `\\`)
 	body, err := container.ParseJSON([]byte(fmt.Sprintf(authPayload, escUserName, escPwd)))
+	if c.appUserName != "" {
+		path = "/api/requestAppToken.json"
+		body, err = container.ParseJSON([]byte(fmt.Sprintf(authAppPayload, c.appUserName)))
+		authenticated = true
+	}
 
 	if err != nil {
 		return err
 	}
 
-	req, err := c.MakeRestRequest(method, path, body, false)
+	req, err := c.MakeRestRequest(method, path, body, authenticated)
 	obj, _, err := c.Do(req)
 
 	if err != nil {

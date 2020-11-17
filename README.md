@@ -44,3 +44,20 @@ Example,
     client.CreateTenant("tenant_name","description",tenantAttributesStruct)
     # tenantAttributesStruct is struct present in models/fv_tenant.go
 ```
+
+aci-go-client supports concurrent connections to different targets by calling client.NewClient() instead of client.GetClient().
+
+```golang
+client.NewClient("URL", "Username", client.PrivateKey("PrivateKey path"),client.AdminCert("Certificate name"), client.Insecure(true/false))
+```
+
+When making PyQuery calls (API calls which start with /mqapi2/), ensure that the APIC-Cookie is populated in the Requests
+as PyQuery may not function using only the Certificate-Based Request.
+
+If using Username/Password, no extra steps are necessary, as the APIC-Cookie will be obtained at the time of the API call.
+If using Certificate based authentication, call client.Authenticate() first, to obtain a recent APIC-Cookie authorization token
+PyQuery APIs currently do not support Certificate + Username authentication.
+
+```golang
+client.NewClient("URL", "Username", client.AppUserName("AppUserName"), client.PrivateKey("PrivateKey path"), client.AdminCert("Certificate name"), client.Insecure(true/false))
+```
