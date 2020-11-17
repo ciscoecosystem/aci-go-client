@@ -53,7 +53,6 @@ func (client *Client) InjectAuthenticationHeader(req *http.Request, path string)
 			if err != nil {
 				return nil, err
 			}
-
 		}
 		req.AddCookie(&http.Cookie{
 			Name:  "APIC-Cookie",
@@ -61,6 +60,16 @@ func (client *Client) InjectAuthenticationHeader(req *http.Request, path string)
 		})
 		return req, nil
 	} else if client.privatekey != "" && client.adminCert != "" {
+		if client.appUserName != "" {
+			if client.AuthToken != nil && client.AuthToken.IsValid() {
+				req.AddCookie(&http.Cookie{
+					Name:  "APIC-Cookie",
+					Value: client.AuthToken.Token,
+				})
+				return req, nil
+			}
+		}
+
 		var bodyStr string
 		if req.Method != "GET" {
 			buffer, _ := ioutil.ReadAll(req.Body)
@@ -76,11 +85,11 @@ func (client *Client) InjectAuthenticationHeader(req *http.Request, path string)
 			contentStr = fmt.Sprintf("%s%s", req.Method, path)
 
 		}
-		log.Printf("Content %s", contentStr)
+		log.Printf("[DEBUG] Content %s", contentStr)
 		content := []byte(contentStr)
 
 		signature, err := createSignature(content, client.privatekey)
-		log.Printf("signature %s" + signature)
+		log.Printf("[DEBUG] Signature %s", signature)
 		if err != nil {
 			return req, err
 		}
@@ -92,24 +101,26 @@ func (client *Client) InjectAuthenticationHeader(req *http.Request, path string)
 			Name:  "APIC-Certificate-Algorithm",
 			Value: "v1.0",
 		})
+
+		// Actual certificate fingerprint/thumbprint generation is not required
+		// Simply setting cookie to fingerprint is sufficient for cert-based requests.
 		req.AddCookie(&http.Cookie{
 			Name:  "APIC-Certificate-Fingerprint",
 			Value: "fingerprint",
 		})
 		if client.appUserName != "" {
-		   req.AddCookie(&http.Cookie{
-			Name:  "APIC-Certificate-DN",
-			Value: fmt.Sprintf("uni/userext/appuser-%s/usercert-%s", client.appUserName, client.adminCert),
-		    })
+			req.AddCookie(&http.Cookie{
+				Name:  "APIC-Certificate-DN",
+				Value: fmt.Sprintf("uni/userext/appuser-%s/usercert-%s", client.appUserName, client.adminCert),
+			})
 		} else {
-		    req.AddCookie(&http.Cookie{
-			Name:  "APIC-Certificate-DN",
-			Value: fmt.Sprintf("uni/userext/user-%s/usercert-%s", client.username, client.adminCert),
-		    })
+			req.AddCookie(&http.Cookie{
+				Name:  "APIC-Certificate-DN",
+				Value: fmt.Sprintf("uni/userext/user-%s/usercert-%s", client.username, client.adminCert),
+			})
 		}
 		log.Printf("[DEBUG] finished signature creation")
 		return req, nil
-
 	} else {
 
 		return req, fmt.Errorf("Anyone of password or privatekey/certificate name is must.")
