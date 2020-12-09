@@ -14,6 +14,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -159,14 +160,23 @@ func createSignature(content []byte, keypath string) (string, error) {
 
 func loadPrivateKey(path string) (*rsa.PrivateKey, error) {
 	log.Printf("[DEBUG] Begin load private key inside loadPrivateKey")
-	isFile := fileExists(path)
 	var data []byte
 	var err error
-	if isFile {
-		data, err = ioutil.ReadFile(path)
-	} else {
+
+	// os.Stat may panic for certain RSA Keys due to character combinations in the
+	// key string.  To work around this, perform basic checks if the path is the
+	// key itself
+	if strings.HasPrefix(path, "-----BEGIN RSA PRIVATE KEY-----") || strings.Contains(path, "\n") {
 		data = []byte(path)
+	} else {
+		isFile := fileExists(path)
+		if isFile {
+			data, err = ioutil.ReadFile(path)
+		} else {
+			data = []byte(path)
+		}
 	}
+
 	log.Printf("[DEBUG] priavte key read finish  inside loadPrivateKey")
 
 	if err != nil {
