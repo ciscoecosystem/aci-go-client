@@ -3,7 +3,7 @@ package client
 import (
 	"errors"
 	"fmt"
-	"log"
+	"github.com/rs/zerolog/log"
 	"strconv"
 
 	"github.com/ciscoecosystem/aci-go-client/container"

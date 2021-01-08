@@ -5,8 +5,8 @@ import (
 	"crypto/tls"
 	"errors"
 	"fmt"
+	"github.com/rs/zerolog/log"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -134,7 +134,8 @@ func initClient(clientUrl, username string, options ...Option) *Client {
 	bUrl, err := url.Parse(clientUrl)
 	if err != nil {
 		// cannot move forward if url is undefined
-		log.Fatal(err)
+		log.Fatal().
+			Err(err)
 	}
 	client := &Client{
 		BaseURL:    bUrl,
@@ -177,7 +178,8 @@ func GetClient(clientUrl, username string, options ...Option) *Client {
 		bUrl, err := url.Parse(clientUrl)
 		if err != nil {
 			// cannot move forward if url is undefined
-			log.Fatal(err)
+			log.Fatal().
+				Err(err)
 		}
 		if bUrl != clientImpl.BaseURL {
 			clientImpl = initClient(clientUrl, username, options...)
@@ -192,7 +194,8 @@ func NewClient(clientUrl, username string, options ...Option) *Client {
 	_, err := url.Parse(clientUrl)
 	if err != nil {
 		// cannot move forward if url is undefined
-		log.Fatal(err)
+		log.Fatal().
+			Err(err)
 	}
 
 	// initClient always returns a new struct, so always create a new pointer to allow for
@@ -205,7 +208,8 @@ func NewClient(clientUrl, username string, options ...Option) *Client {
 func (c *Client) configProxy(transport *http.Transport) *http.Transport {
 	pUrl, err := url.Parse(c.proxyUrl)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().
+			Err(err)
 	}
 	transport.Proxy = http.ProxyURL(pUrl)
 	return transport
@@ -361,20 +365,20 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 		return nil, nil, err
 	}
 	if !c.skipLoggingPayload {
-		log.Printf("\n\n\n HTTP request: %v", req.Body)
+		log.Printf("HTTP request: %v", req.Body)
 	}
-	log.Printf("\nHTTP Request: %s %s", req.Method, req.URL.String())
+	log.Printf("HTTP Request: %s %s", req.Method, req.URL.String())
 	if !c.skipLoggingPayload {
-		log.Printf("\nHTTP Response: %d %s %v", resp.StatusCode, resp.Status, resp)
+		log.Printf("HTTP Response: %d %s %v", resp.StatusCode, resp.Status, resp)
 	} else {
-		log.Printf("\nHTTP Response: %d %s", resp.StatusCode, resp.Status)
+		log.Printf("HTTP Response: %d %s", resp.StatusCode, resp.Status)
 	}
 
 	bodyBytes, err := ioutil.ReadAll(resp.Body)
 	bodyStr := string(bodyBytes)
 	resp.Body.Close()
 	if !c.skipLoggingPayload {
-		log.Printf("\n HTTP response unique string %s %s %s", req.Method, req.URL.String(), bodyStr)
+		log.Printf("HTTP response unique string %s %s %s", req.Method, req.URL.String(), bodyStr)
 	}
 	obj, err := container.ParseJSON(bodyBytes)
 
@@ -396,13 +400,13 @@ func (c *Client) DoRaw(req *http.Request) (*http.Response, error) {
 	}
 
 	if !c.skipLoggingPayload {
-		log.Printf("\n\n\n HTTP request: %v", req.Body)
+		log.Printf("HTTP request: %v", req.Body)
 	}
-	log.Printf("\nHTTP Request: %s %s", req.Method, req.URL.String())
+	log.Printf("HTTP Request: %s %s", req.Method, req.URL.String())
 	if !c.skipLoggingPayload {
-		log.Printf("\nHTTP Response: %d %s %v", resp.StatusCode, resp.Status, resp)
+		log.Printf("HTTP Response: %d %s %v", resp.StatusCode, resp.Status, resp)
 	} else {
-		log.Printf("\nHTTP Response: %d %s", resp.StatusCode, resp.Status)
+		log.Printf("HTTP Response: %d %s", resp.StatusCode, resp.Status)
 	}
 
 	return resp, err

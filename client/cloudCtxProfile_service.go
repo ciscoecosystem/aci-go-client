@@ -2,7 +2,7 @@ package client
 
 import (
 	"fmt"
-	"log"
+	"github.com/rs/zerolog/log"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
@@ -57,14 +57,14 @@ func (sm *ServiceManager) CreateCloudContextProfile(name string, tenant string, 
 
 	}
 
-	log.Printf("\n\n\n[DEBUG]nknk %v", vrfCon.Data())
+	log.Printf("[DEBUG] vrfCon.Data(): %v", vrfCon.Data())
 	jsonPayload.Array(cloudCtxProfile.ClassName, "children")
 	jsonPayload.ArrayAppend(vrfCon.Data(), cloudCtxProfile.ClassName, "children")
 
 	jsonPayload.ArrayAppend(cidrCon.Data(), cloudCtxProfile.ClassName, "children")
 	jsonPayload.ArrayAppend(regionCon.Data(), cloudCtxProfile.ClassName, "children")
 
-	log.Printf("\n\n\n\n[DEBUG]nkdemo%s\n\n\n\n", jsonPayload.String())
+	log.Printf("[DEBUG] jsonPayload.String():  %s", jsonPayload.String())
 	jsonPayload.Set(name, cloudCtxProfile.ClassName, "attributes", "name")
 	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("/api/node/mo/%s/%s.json", parentDn, rn), jsonPayload, true)
 	if err != nil {
