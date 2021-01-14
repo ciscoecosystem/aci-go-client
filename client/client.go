@@ -110,6 +110,12 @@ func ProxyUrl(pUrl string) Option {
 	}
 }
 
+func HttpClient(httpcl *http.Client) Option {
+	return func(client *Client) {
+		client.httpClient = httpcl
+	}
+}
+
 func SkipLoggingPayload(skipLoggingPayload bool) Option {
 	return func(client *Client) {
 		client.skipLoggingPayload = skipLoggingPayload
@@ -139,7 +145,6 @@ func initClient(clientUrl, username string, options ...Option) *Client {
 	client := &Client{
 		BaseURL:    bUrl,
 		username:   username,
-		httpClient: http.DefaultClient,
 		MOURL:      DefaultMOURL,
 	}
 
@@ -147,13 +152,14 @@ func initClient(clientUrl, username string, options ...Option) *Client {
 		option(client)
 	}
 
-	transport = client.useInsecureHTTPClient(client.insecure)
-	if client.proxyUrl != "" {
-		transport = client.configProxy(transport)
+	if client.httpClient == nil {
+		transport = client.useInsecureHTTPClient(client.insecure)
+		client.httpClient = &http.Client{
+			Transport: transport,
+		}
 	}
-
-	client.httpClient = &http.Client{
-		Transport: transport,
+	if client.proxyUrl != "" {
+		client.configProxy(client.httpClient.transport)
 	}
 
 	var timeout time.Duration
