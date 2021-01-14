@@ -110,6 +110,8 @@ func ProxyUrl(pUrl string) Option {
 	}
 }
 
+// HttpClient option: allows for caller to set 'httpClient' with 'Transport'.
+// When this option is set 'client.proxyUrl' option is ignored.
 func HttpClient(httpcl *http.Client) Option {
 	return func(client *Client) {
 		client.httpClient = httpcl
