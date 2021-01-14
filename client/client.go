@@ -154,12 +154,12 @@ func initClient(clientUrl, username string, options ...Option) *Client {
 
 	if client.httpClient == nil {
 		transport = client.useInsecureHTTPClient(client.insecure)
+		if client.proxyUrl != "" {
+			transport = client.configProxy(transport)
+		}
 		client.httpClient = &http.Client{
 			Transport: transport,
 		}
-	}
-	if client.proxyUrl != "" {
-		client.configProxy(client.httpClient.transport)
 	}
 
 	var timeout time.Duration
