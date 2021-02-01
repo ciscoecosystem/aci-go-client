@@ -43,7 +43,7 @@ func (sm *ServiceManager) UpdateFabricVpcDomainPolicy(name string, description s
 
 func (sm *ServiceManager) ListFabricVpcDomainPolicy() ([]*models.FabricVpcDomainPolicy, error) {
 
-	baseurlStr := "/api/node/class"
+	baseurlStr := "/api/class"
 	dnUrl := fmt.Sprintf("%s/uni/vpcInstPol.json", baseurlStr)
 
 	cont, err := sm.GetViaURL(dnUrl)
