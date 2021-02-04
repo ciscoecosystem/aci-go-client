@@ -58,7 +58,7 @@ func (sm *ServiceManager) CreateRelationvnsRsLDevCtxToLDevFromLogicalDeviceConte
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tnVnsALDevIfName": "%s"
+				"dn": "%s","tDn": "%s","annotation":"orchestrator:terraform"
 								
 			}
 		}
@@ -108,7 +108,7 @@ func (sm *ServiceManager) CreateRelationvnsRsLDevCtxToRtrCfgFromLogicalDeviceCon
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tnVnsRtrCfgName": "%s"
+				"dn": "%s","tnVnsRtrCfgName": "%s","annotation":"orchestrator:terraform"
 								
 			}
 		}
