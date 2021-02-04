@@ -27,12 +27,11 @@ type RelationfromaAbsNodetoanLDevAttributes struct {
 }
    
 
-func NewRelationfromaAbsNodetoanLDev(vnsRsNodeToLDevRn, parentDn, description string, vnsRsNodeToLDevattr RelationfromaAbsNodetoanLDevAttributes) *RelationfromaAbsNodetoanLDev {
+func NewRelationfromaAbsNodetoanLDev(vnsRsNodeToLDevRn, parentDn string, vnsRsNodeToLDevattr RelationfromaAbsNodetoanLDevAttributes) *RelationfromaAbsNodetoanLDev {
 	dn := fmt.Sprintf("%s/%s", parentDn, vnsRsNodeToLDevRn)  
 	return &RelationfromaAbsNodetoanLDev{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
-			Description:       description,
 			Status:            "created, modified",
 			ClassName:         VnsrsnodetoldevClassName,
 			Rn:                vnsRsNodeToLDevRn,
@@ -68,7 +67,6 @@ func RelationfromaAbsNodetoanLDevFromContainerList(cont *container.Container, in
 	return &RelationfromaAbsNodetoanLDev{
 		BaseAttributes{
 			DistinguishedName: G(RelationfromaAbsNodetoanLDevCont, "dn"),
-			Description:       G(RelationfromaAbsNodetoanLDevCont, "descr"),
 			Status:            G(RelationfromaAbsNodetoanLDevCont, "status"),
 			ClassName:         VnsrsnodetoldevClassName,
 			Rn:                G(RelationfromaAbsNodetoanLDevCont, "rn"),

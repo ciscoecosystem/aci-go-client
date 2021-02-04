@@ -6,10 +6,10 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateRelationfromaAbsNodetoanLDev(function_node string, l4l7ServiceGraphTemplate string, tenant string, description string, vnsRsNodeToLDevattr models.RelationfromaAbsNodetoanLDevAttributes) (*models.RelationfromaAbsNodetoanLDev, error) {
+func (sm *ServiceManager) CreateRelationfromaAbsNodetoanLDev(function_node string, l4l7ServiceGraphTemplate string, tenant string, vnsRsNodeToLDevattr models.RelationfromaAbsNodetoanLDevAttributes) (*models.RelationfromaAbsNodetoanLDev, error) {
 	rn := fmt.Sprintf("rsNodeToLDev")
 	parentDn := fmt.Sprintf("uni/tn-%s/AbsGraph-%s/AbsNode-%s", tenant, l4l7ServiceGraphTemplate, function_node)
-	vnsRsNodeToLDev := models.NewRelationfromaAbsNodetoanLDev(rn, parentDn, description, vnsRsNodeToLDevattr)
+	vnsRsNodeToLDev := models.NewRelationfromaAbsNodetoanLDev(rn, parentDn, vnsRsNodeToLDevattr)
 	err := sm.Save(vnsRsNodeToLDev)
 	return vnsRsNodeToLDev, err
 }
@@ -30,10 +30,10 @@ func (sm *ServiceManager) DeleteRelationfromaAbsNodetoanLDev(function_node strin
 	return sm.DeleteByDn(dn, models.VnsrsnodetoldevClassName)
 }
 
-func (sm *ServiceManager) UpdateRelationfromaAbsNodetoanLDev(function_node string, l4l7ServiceGraphTemplate string, tenant string, description string, vnsRsNodeToLDevattr models.RelationfromaAbsNodetoanLDevAttributes) (*models.RelationfromaAbsNodetoanLDev, error) {
+func (sm *ServiceManager) UpdateRelationfromaAbsNodetoanLDev(function_node string, l4l7ServiceGraphTemplate string, tenant string, vnsRsNodeToLDevattr models.RelationfromaAbsNodetoanLDevAttributes) (*models.RelationfromaAbsNodetoanLDev, error) {
 	rn := fmt.Sprintf("rsNodeToLDev")
 	parentDn := fmt.Sprintf("uni/tn-%s/AbsGraph-%s/AbsNode-%s", tenant, l4l7ServiceGraphTemplate, function_node)
-	vnsRsNodeToLDev := models.NewRelationfromaAbsNodetoanLDev(rn, parentDn, description, vnsRsNodeToLDevattr)
+	vnsRsNodeToLDev := models.NewRelationfromaAbsNodetoanLDev(rn, parentDn, vnsRsNodeToLDevattr)
 
 	vnsRsNodeToLDev.Status = "modified"
 	err := sm.Save(vnsRsNodeToLDev)
