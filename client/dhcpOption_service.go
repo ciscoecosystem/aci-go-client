@@ -2,14 +2,13 @@ package client
 
 import (
 	"fmt"
-
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateDHCPOption(name string, dhcp_option_policy string, tenant string, description string, dhcpOptionattr models.DHCPOptionAttributes) (*models.DHCPOption, error) {
+func (sm *ServiceManager) CreateDHCPOption(name string, dhcp_option_policy string, tenant string, dhcpOptionattr models.DHCPOptionAttributes) (*models.DHCPOption, error) {
 	rn := fmt.Sprintf("opt-%s", name)
 	parentDn := fmt.Sprintf("uni/tn-%s/dhcpoptpol-%s", tenant, dhcp_option_policy)
-	dhcpOption := models.NewDHCPOption(rn, parentDn, description, dhcpOptionattr)
+	dhcpOption := models.NewDHCPOption(rn, parentDn, dhcpOptionattr)
 	err := sm.Save(dhcpOption)
 	return dhcpOption, err
 }
@@ -30,10 +29,10 @@ func (sm *ServiceManager) DeleteDHCPOption(name string, dhcp_option_policy strin
 	return sm.DeleteByDn(dn, models.DhcpoptionClassName)
 }
 
-func (sm *ServiceManager) UpdateDHCPOption(name string, dhcp_option_policy string, tenant string, description string, dhcpOptionattr models.DHCPOptionAttributes) (*models.DHCPOption, error) {
+func (sm *ServiceManager) UpdateDHCPOption(name string, dhcp_option_policy string, tenant string, dhcpOptionattr models.DHCPOptionAttributes) (*models.DHCPOption, error) {
 	rn := fmt.Sprintf("opt-%s", name)
 	parentDn := fmt.Sprintf("uni/tn-%s/dhcpoptpol-%s", tenant, dhcp_option_policy)
-	dhcpOption := models.NewDHCPOption(rn, parentDn, description, dhcpOptionattr)
+	dhcpOption := models.NewDHCPOption(rn, parentDn, dhcpOptionattr)
 
 	dhcpOption.Status = "modified"
 	err := sm.Save(dhcpOption)

@@ -26,12 +26,11 @@ type DHCPOptionAttributes struct {
 	NameAlias string `json:",omitempty"`
 }
 
-func NewDHCPOption(dhcpOptionRn, parentDn, description string, dhcpOptionattr DHCPOptionAttributes) *DHCPOption {
+func NewDHCPOption(dhcpOptionRn, parentDn string, dhcpOptionattr DHCPOptionAttributes) *DHCPOption {
 	dn := fmt.Sprintf("%s/%s", parentDn, dhcpOptionRn)
 	return &DHCPOption{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
-			Description:       description,
 			Status:            "created, modified",
 			ClassName:         DhcpoptionClassName,
 			Rn:                dhcpOptionRn,
@@ -66,7 +65,6 @@ func DHCPOptionFromContainerList(cont *container.Container, index int) *DHCPOpti
 	return &DHCPOption{
 		BaseAttributes{
 			DistinguishedName: G(DHCPOptionCont, "dn"),
-			Description:       G(DHCPOptionCont, "descr"),
 			Status:            G(DHCPOptionCont, "status"),
 			ClassName:         DhcpoptionClassName,
 			Rn:                G(DHCPOptionCont, "rn"),
