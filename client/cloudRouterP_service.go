@@ -7,34 +7,34 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateCloudRouterProfile(name string, cloudContextProfile string, tenant string, description string, cloudRouterPattr models.CloudRouterProfileAttributes) (*models.CloudRouterProfile, error) {
+func (sm *ServiceManager) CreateCloudVpnGateway(name string, cloudContextProfile string, tenant string, description string, cloudRouterPattr models.CloudVpnGatewayAttributes) (*models.CloudVpnGateway, error) {
 	rn := fmt.Sprintf("routerp-%s", name)
 	parentDn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s", tenant, cloudContextProfile)
-	cloudRouterP := models.NewCloudRouterProfile(rn, parentDn, description, cloudRouterPattr)
+	cloudRouterP := models.NewCloudVpnGateway(rn, parentDn, description, cloudRouterPattr)
 	err := sm.Save(cloudRouterP)
 	return cloudRouterP, err
 }
 
-func (sm *ServiceManager) ReadCloudRouterProfile(name string, cloudContextProfile string, tenant string) (*models.CloudRouterProfile, error) {
+func (sm *ServiceManager) ReadCloudVpnGateway(name string, cloudContextProfile string, tenant string) (*models.CloudVpnGateway, error) {
 	dn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/routerp-%s", tenant, cloudContextProfile, name)
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
 	}
 
-	cloudRouterP := models.CloudRouterProfileFromContainer(cont)
+	cloudRouterP := models.CloudVpnGatewayFromContainer(cont)
 	return cloudRouterP, nil
 }
 
-func (sm *ServiceManager) DeleteCloudRouterProfile(name string, cloudContextProfile string, tenant string) error {
+func (sm *ServiceManager) DeleteCloudVpnGateway(name string, cloudContextProfile string, tenant string) error {
 	dn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s/routerp-%s", tenant, cloudContextProfile, name)
 	return sm.DeleteByDn(dn, models.CloudrouterpClassName)
 }
 
-func (sm *ServiceManager) UpdateCloudRouterProfile(name string, cloudContextProfile string, tenant string, description string, cloudRouterPattr models.CloudRouterProfileAttributes) (*models.CloudRouterProfile, error) {
+func (sm *ServiceManager) UpdateCloudVpnGateway(name string, cloudContextProfile string, tenant string, description string, cloudRouterPattr models.CloudVpnGatewayAttributes) (*models.CloudVpnGateway, error) {
 	rn := fmt.Sprintf("routerp-%s", name)
 	parentDn := fmt.Sprintf("uni/tn-%s/ctxprofile-%s", tenant, cloudContextProfile)
-	cloudRouterP := models.NewCloudRouterProfile(rn, parentDn, description, cloudRouterPattr)
+	cloudRouterP := models.NewCloudVpnGateway(rn, parentDn, description, cloudRouterPattr)
 
 	cloudRouterP.Status = "modified"
 	err := sm.Save(cloudRouterP)
@@ -42,18 +42,18 @@ func (sm *ServiceManager) UpdateCloudRouterProfile(name string, cloudContextProf
 
 }
 
-func (sm *ServiceManager) ListCloudRouterProfile(cloudContextProfile string, tenant string) ([]*models.CloudRouterProfile, error) {
+func (sm *ServiceManager) ListCloudVpnGateway(cloudContextProfile string, tenant string) ([]*models.CloudVpnGateway, error) {
 
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ctxprofile-%s/cloudRouterP.json", baseurlStr, tenant, cloudContextProfile)
 
 	cont, err := sm.GetViaURL(dnUrl)
-	list := models.CloudRouterProfileListFromContainer(cont)
+	list := models.CloudVpnGatewayListFromContainer(cont)
 
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationcloudRsToVpnGwPolFromCloudRouterProfile(parentDn, tnCloudVpnGwPolName string) error {
+func (sm *ServiceManager) CreateRelationcloudRsToVpnGwPolFromCloudVpnGateway(parentDn, tnCloudVpnGwPolName string) error {
 	dn := fmt.Sprintf("%s/rstoVpnGwPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -83,7 +83,7 @@ func (sm *ServiceManager) CreateRelationcloudRsToVpnGwPolFromCloudRouterProfile(
 	return nil
 }
 
-func (sm *ServiceManager) ReadRelationcloudRsToVpnGwPolFromCloudRouterProfile(parentDn string) (interface{}, error) {
+func (sm *ServiceManager) ReadRelationcloudRsToVpnGwPolFromCloudVpnGateway(parentDn string) (interface{}, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", baseurlStr, parentDn, "cloudRsToVpnGwPol")
 	cont, err := sm.GetViaURL(dnUrl)
@@ -98,7 +98,7 @@ func (sm *ServiceManager) ReadRelationcloudRsToVpnGwPolFromCloudRouterProfile(pa
 	}
 
 }
-func (sm *ServiceManager) CreateRelationcloudRsToDirectConnPolFromCloudRouterProfile(parentDn, tnCloudDirectConnPolName string) error {
+func (sm *ServiceManager) CreateRelationcloudRsToDirectConnPolFromCloudVpnGateway(parentDn, tnCloudDirectConnPolName string) error {
 	dn := fmt.Sprintf("%s/rstoDirectConnPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -128,7 +128,7 @@ func (sm *ServiceManager) CreateRelationcloudRsToDirectConnPolFromCloudRouterPro
 	return nil
 }
 
-func (sm *ServiceManager) ReadRelationcloudRsToDirectConnPolFromCloudRouterProfile(parentDn string) (interface{}, error) {
+func (sm *ServiceManager) ReadRelationcloudRsToDirectConnPolFromCloudVpnGateway(parentDn string) (interface{}, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", baseurlStr, parentDn, "cloudRsToDirectConnPol")
 	cont, err := sm.GetViaURL(dnUrl)
@@ -143,7 +143,7 @@ func (sm *ServiceManager) ReadRelationcloudRsToDirectConnPolFromCloudRouterProfi
 	}
 
 }
-func (sm *ServiceManager) CreateRelationcloudRsToHostRouterPolFromCloudRouterProfile(parentDn, tnCloudHostRouterPolName string) error {
+func (sm *ServiceManager) CreateRelationcloudRsToHostRouterPolFromCloudVpnGateway(parentDn, tnCloudHostRouterPolName string) error {
 	dn := fmt.Sprintf("%s/rstoHostRouterPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -173,7 +173,7 @@ func (sm *ServiceManager) CreateRelationcloudRsToHostRouterPolFromCloudRouterPro
 	return nil
 }
 
-func (sm *ServiceManager) ReadRelationcloudRsToHostRouterPolFromCloudRouterProfile(parentDn string) (interface{}, error) {
+func (sm *ServiceManager) ReadRelationcloudRsToHostRouterPolFromCloudVpnGateway(parentDn string) (interface{}, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", baseurlStr, parentDn, "cloudRsToHostRouterPol")
 	cont, err := sm.GetViaURL(dnUrl)

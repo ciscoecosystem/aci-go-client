@@ -9,12 +9,12 @@ import (
 
 const CloudrouterpClassName = "cloudRouterP"
 
-type CloudRouterProfile struct {
+type CloudVpnGateway struct {
 	BaseAttributes
-	CloudRouterProfileAttributes
+	CloudVpnGatewayAttributes
 }
 
-type CloudRouterProfileAttributes struct {
+type CloudVpnGatewayAttributes struct {
 	Name string `json:",omitempty"`
 
 	Annotation string `json:",omitempty"`
@@ -23,12 +23,12 @@ type CloudRouterProfileAttributes struct {
 
 	NumInstances string `json:",omitempty"`
 
-	CloudRouterProfile_type string `json:",omitempty"`
+	CloudVpnGateway_type string `json:",omitempty"`
 }
 
-func NewCloudRouterProfile(cloudRouterPRn, parentDn, description string, cloudRouterPattr CloudRouterProfileAttributes) *CloudRouterProfile {
+func NewCloudVpnGateway(cloudRouterPRn, parentDn, description string, cloudRouterPattr CloudVpnGatewayAttributes) *CloudVpnGateway {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudRouterPRn)
-	return &CloudRouterProfile{
+	return &CloudVpnGateway{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -37,11 +37,11 @@ func NewCloudRouterProfile(cloudRouterPRn, parentDn, description string, cloudRo
 			Rn:                cloudRouterPRn,
 		},
 
-		CloudRouterProfileAttributes: cloudRouterPattr,
+		CloudVpnGatewayAttributes: cloudRouterPattr,
 	}
 }
 
-func (cloudRouterP *CloudRouterProfile) ToMap() (map[string]string, error) {
+func (cloudRouterP *CloudVpnGateway) ToMap() (map[string]string, error) {
 	cloudRouterPMap, err := cloudRouterP.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -55,51 +55,51 @@ func (cloudRouterP *CloudRouterProfile) ToMap() (map[string]string, error) {
 
 	A(cloudRouterPMap, "numInstances", cloudRouterP.NumInstances)
 
-	A(cloudRouterPMap, "type", cloudRouterP.CloudRouterProfile_type)
+	A(cloudRouterPMap, "type", cloudRouterP.CloudVpnGateway_type)
 
 	return cloudRouterPMap, err
 }
 
-func CloudRouterProfileFromContainerList(cont *container.Container, index int) *CloudRouterProfile {
+func CloudVpnGatewayFromContainerList(cont *container.Container, index int) *CloudVpnGateway {
 
-	CloudRouterProfileCont := cont.S("imdata").Index(index).S(CloudrouterpClassName, "attributes")
-	return &CloudRouterProfile{
+	CloudVpnGatewayCont := cont.S("imdata").Index(index).S(CloudrouterpClassName, "attributes")
+	return &CloudVpnGateway{
 		BaseAttributes{
-			DistinguishedName: G(CloudRouterProfileCont, "dn"),
-			Description:       G(CloudRouterProfileCont, "descr"),
-			Status:            G(CloudRouterProfileCont, "status"),
+			DistinguishedName: G(CloudVpnGatewayCont, "dn"),
+			Description:       G(CloudVpnGatewayCont, "descr"),
+			Status:            G(CloudVpnGatewayCont, "status"),
 			ClassName:         CloudrouterpClassName,
-			Rn:                G(CloudRouterProfileCont, "rn"),
+			Rn:                G(CloudVpnGatewayCont, "rn"),
 		},
 
-		CloudRouterProfileAttributes{
+		CloudVpnGatewayAttributes{
 
-			Name: G(CloudRouterProfileCont, "name"),
+			Name: G(CloudVpnGatewayCont, "name"),
 
-			Annotation: G(CloudRouterProfileCont, "annotation"),
+			Annotation: G(CloudVpnGatewayCont, "annotation"),
 
-			NameAlias: G(CloudRouterProfileCont, "nameAlias"),
+			NameAlias: G(CloudVpnGatewayCont, "nameAlias"),
 
-			NumInstances: G(CloudRouterProfileCont, "numInstances"),
+			NumInstances: G(CloudVpnGatewayCont, "numInstances"),
 
-			CloudRouterProfile_type: G(CloudRouterProfileCont, "type"),
+			CloudVpnGateway_type: G(CloudVpnGatewayCont, "type"),
 		},
 	}
 }
 
-func CloudRouterProfileFromContainer(cont *container.Container) *CloudRouterProfile {
+func CloudVpnGatewayFromContainer(cont *container.Container) *CloudVpnGateway {
 
-	return CloudRouterProfileFromContainerList(cont, 0)
+	return CloudVpnGatewayFromContainerList(cont, 0)
 }
 
-func CloudRouterProfileListFromContainer(cont *container.Container) []*CloudRouterProfile {
+func CloudVpnGatewayListFromContainer(cont *container.Container) []*CloudVpnGateway {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*CloudRouterProfile, length)
+	arr := make([]*CloudVpnGateway, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = CloudRouterProfileFromContainerList(cont, i)
+		arr[i] = CloudVpnGatewayFromContainerList(cont, i)
 	}
 
 	return arr
