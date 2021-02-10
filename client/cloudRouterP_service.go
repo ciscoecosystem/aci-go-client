@@ -58,7 +58,7 @@ func (sm *ServiceManager) CreateRelationcloudRsToVpnGwPolFromCloudVpnGateway(par
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tnCloudVpnGwPolName": "%s"
+				"dn": "%s","tnCloudVpnGwPolName": "%s","annotation": "orchestrator:terraform"
 								
 			}
 		}
@@ -103,7 +103,7 @@ func (sm *ServiceManager) CreateRelationcloudRsToDirectConnPolFromCloudVpnGatewa
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tnCloudDirectConnPolName": "%s"
+				"dn": "%s","tnCloudDirectConnPolName": "%s","annotation": "orchestrator:terraform"
 								
 			}
 		}
@@ -148,7 +148,7 @@ func (sm *ServiceManager) CreateRelationcloudRsToHostRouterPolFromCloudVpnGatewa
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tnCloudHostRouterPolName": "%s"
+				"dn": "%s","tnCloudHostRouterPolName": "%s","annotation": "orchestrator:terraform"
 								
 			}
 		}
