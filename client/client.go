@@ -145,9 +145,9 @@ func initClient(clientUrl, username string, options ...Option) *Client {
 		log.Fatal(err)
 	}
 	client := &Client{
-		BaseURL:    bUrl,
-		username:   username,
-		MOURL:      DefaultMOURL,
+		BaseURL:  bUrl,
+		username: username,
+		MOURL:    DefaultMOURL,
 	}
 
 	for _, option := range options {
@@ -277,10 +277,16 @@ func (c *Client) MakeRestRequest(method string, rpath string, body *container.Co
 		return nil, err
 	}
 
+	if !authenticated {
+		c.skipLoggingPayload = true
+	} else {
+		c.skipLoggingPayload = false
+	}
+
 	if c.skipLoggingPayload {
 		log.Printf("HTTP request %s %s", method, rpath)
 	} else {
-		log.Printf("HTTP request %s %s %v", method, rpath, req)
+		log.Printf("HTTP request %s %s %v", method, rpath, req.Body)
 	}
 	if authenticated {
 		req, err = c.InjectAuthenticationHeader(req, rpath)
@@ -290,7 +296,7 @@ func (c *Client) MakeRestRequest(method string, rpath string, body *container.Co
 	}
 
 	if !c.skipLoggingPayload {
-		log.Printf("HTTP request after injection %s %s %v", method, rpath, req)
+		log.Printf("HTTP request after injection %s %s %v", method, rpath, req.Body)
 	}
 
 	return req, nil
