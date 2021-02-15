@@ -286,7 +286,7 @@ func (c *Client) MakeRestRequest(method string, rpath string, body *container.Co
 	if c.skipLoggingPayload {
 		log.Printf("HTTP request %s %s", method, rpath)
 	} else {
-		log.Printf("HTTP request %s %s %v", method, rpath, req.Body)
+		log.Printf("HTTP request %s %s %v", method, rpath, req)
 	}
 	if authenticated {
 		req, err = c.InjectAuthenticationHeader(req, rpath)
@@ -296,7 +296,7 @@ func (c *Client) MakeRestRequest(method string, rpath string, body *container.Co
 	}
 
 	if !c.skipLoggingPayload {
-		log.Printf("HTTP request after injection %s %s %v", method, rpath, req.Body)
+		log.Printf("HTTP request after injection %s %s %v", method, rpath, req)
 	}
 
 	return req, nil
