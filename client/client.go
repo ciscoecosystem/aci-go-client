@@ -283,6 +283,8 @@ func (c *Client) MakeRestRequest(method string, rpath string, body *container.Co
 		c.skipLoggingPayload = false
 	}
 
+	log.Println("check .... : ", authenticated, c.skipLoggingPayload)
+
 	if c.skipLoggingPayload {
 		log.Printf("HTTP request %s %s", method, rpath)
 	} else {
