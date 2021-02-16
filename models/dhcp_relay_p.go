@@ -11,33 +11,44 @@ const DhcprelaypClassName = "dhcpRelayP"
 
 type DHCPRelayPolicy struct {
 	BaseAttributes
+<<<<<<< HEAD
 	DHCPRelayPolicyAttributes
 }
 
-type DHCPRelayPolicyAttributes struct {
+	
+	
 	Name string `json:",omitempty"`
-
-	Annotation string `json:",omitempty"`
-
-	Mode string `json:",omitempty"`
-
-	NameAlias string `json:",omitempty"`
-
-	Owner string `json:",omitempty"`
+	
+	
+    
+	Annotation       string `json:",omitempty"`
+	
+    
+	Mode       string `json:",omitempty"`
+	
+    
+	NameAlias       string `json:",omitempty"`
+	
+    
+	Owner       string `json:",omitempty"`
+	
+    
 }
+   
 
 func NewDHCPRelayPolicy(dhcpRelayPRn, parentDn, description string, dhcpRelayPattr DHCPRelayPolicyAttributes) *DHCPRelayPolicy {
-	dn := fmt.Sprintf("%s/%s", parentDn, dhcpRelayPRn)
+	dn := fmt.Sprintf("%s/%s", parentDn, dhcpRelayPRn)  
+>>>>>>> 7e10b109bc8aba7f7f9465696c99423a1cf5dd9a
 	return &DHCPRelayPolicy{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
-			Description:       description,
 			Status:            "created, modified",
 			ClassName:         DhcprelaypClassName,
 			Rn:                dhcpRelayPRn,
 		},
-
+        
 		DHCPRelayPolicyAttributes: dhcpRelayPattr,
+         
 	}
 }
 
@@ -47,15 +58,25 @@ func (dhcpRelayP *DHCPRelayPolicy) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-	A(dhcpRelayPMap, "name", dhcpRelayP.Name)
-
-	A(dhcpRelayPMap, "annotation", dhcpRelayP.Annotation)
-
-	A(dhcpRelayPMap, "mode", dhcpRelayP.Mode)
-
-	A(dhcpRelayPMap, "nameAlias", dhcpRelayP.NameAlias)
-
-	A(dhcpRelayPMap, "owner", dhcpRelayP.Owner)
+	
+	
+	A(dhcpRelayPMap, "name",dhcpRelayP.Name)
+	
+	
+    
+	A(dhcpRelayPMap, "annotation",dhcpRelayP.Annotation)
+	
+    
+	A(dhcpRelayPMap, "mode",dhcpRelayP.Mode)
+	
+    
+	A(dhcpRelayPMap, "nameAlias",dhcpRelayP.NameAlias)
+	
+    
+	A(dhcpRelayPMap, "owner",dhcpRelayP.Owner)
+	
+    
+	
 
 	return dhcpRelayPMap, err
 }
@@ -71,19 +92,28 @@ func DHCPRelayPolicyFromContainerList(cont *container.Container, index int) *DHC
 			ClassName:         DhcprelaypClassName,
 			Rn:                G(DHCPRelayPolicyCont, "rn"),
 		},
-
+        
 		DHCPRelayPolicyAttributes{
-
-			Name: G(DHCPRelayPolicyCont, "name"),
-
-			Annotation: G(DHCPRelayPolicyCont, "annotation"),
-
-			Mode: G(DHCPRelayPolicyCont, "mode"),
-
-			NameAlias: G(DHCPRelayPolicyCont, "nameAlias"),
-
-			Owner: G(DHCPRelayPolicyCont, "owner"),
-		},
+		
+		
+			Name : G(DHCPRelayPolicyCont, "name"),
+		
+		
+        
+	        Annotation : G(DHCPRelayPolicyCont, "annotation"),
+		
+        
+	        Mode : G(DHCPRelayPolicyCont, "mode"),
+		
+        
+	        NameAlias : G(DHCPRelayPolicyCont, "nameAlias"),
+		
+        
+	        Owner : G(DHCPRelayPolicyCont, "owner"),
+		
+        		
+        },
+        
 	}
 }
 
