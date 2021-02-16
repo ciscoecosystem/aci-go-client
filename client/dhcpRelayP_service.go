@@ -59,10 +59,10 @@ func (sm *ServiceManager) CreateRelationdhcpRsProvFromDHCPRelayPolicy(parentDn, 
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","annotation":"orchestrator:terraform","tDn": "%s"				
+				"dn": "%s", "annotation": "orchestrator:terraform", "tDn": "%s"				
 			}
 		}
-	}`, "dhcpRsProv", dn,tDn))
+	}`, "dhcpRsProv", dn, tDn))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
