@@ -8,10 +8,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
-func (sm *ServiceManager) CreateL2Domain(name string, description string, l2extDomPattr models.L2DomainAttributes) (*models.L2Domain, error) {
+func (sm *ServiceManager) CreateL2Domain(name string, l2extDomPattr models.L2DomainAttributes) (*models.L2Domain, error) {
 	rn := fmt.Sprintf("l2dom-%s", name)
 	parentDn := fmt.Sprintf("uni")
-	l2extDomP := models.NewL2Domain(rn, parentDn, description, l2extDomPattr)
+	l2extDomP := models.NewL2Domain(rn, parentDn, l2extDomPattr)
 	err := sm.Save(l2extDomP)
 	return l2extDomP, err
 }
@@ -32,10 +32,10 @@ func (sm *ServiceManager) DeleteL2Domain(name string) error {
 	return sm.DeleteByDn(dn, models.L2extdompClassName)
 }
 
-func (sm *ServiceManager) UpdateL2Domain(name string, description string, l2extDomPattr models.L2DomainAttributes) (*models.L2Domain, error) {
+func (sm *ServiceManager) UpdateL2Domain(name string, l2extDomPattr models.L2DomainAttributes) (*models.L2Domain, error) {
 	rn := fmt.Sprintf("l2dom-%s", name)
 	parentDn := fmt.Sprintf("uni")
-	l2extDomP := models.NewL2Domain(rn, parentDn, description, l2extDomPattr)
+	l2extDomP := models.NewL2Domain(rn, parentDn, l2extDomPattr)
 
 	l2extDomP.Status = "modified"
 	err := sm.Save(l2extDomP)
