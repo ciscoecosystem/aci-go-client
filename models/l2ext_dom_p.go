@@ -31,12 +31,11 @@ type L2DomainAttributes struct {
 }
    
 
-func NewL2Domain(l2extDomPRn, parentDn, description string, l2extDomPattr L2DomainAttributes) *L2Domain {
+func NewL2Domain(l2extDomPRn, parentDn string, l2extDomPattr L2DomainAttributes) *L2Domain {
 	dn := fmt.Sprintf("%s/%s", parentDn, l2extDomPRn)  
 	return &L2Domain{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
-			Description:       description,
 			Status:            "created, modified",
 			ClassName:         L2extdompClassName,
 			Rn:                l2extDomPRn,
@@ -76,7 +75,6 @@ func L2DomainFromContainerList(cont *container.Container, index int) *L2Domain {
 	return &L2Domain{
 		BaseAttributes{
 			DistinguishedName: G(L2DomainCont, "dn"),
-			Description:       G(L2DomainCont, "descr"),
 			Status:            G(L2DomainCont, "status"),
 			ClassName:         L2extdompClassName,
 			Rn:                G(L2DomainCont, "rn"),

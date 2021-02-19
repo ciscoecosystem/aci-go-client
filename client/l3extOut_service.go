@@ -8,10 +8,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
-func (sm *ServiceManager) CreateL3Outside(name string, tenant string, description string, l3extOutattr models.L3OutsideAttributes) (*models.L3Outside, error) {
+func (sm *ServiceManager) CreateL3Outside(name string, tenant string, l3extOutattr models.L3OutsideAttributes) (*models.L3Outside, error) {
 	rn := fmt.Sprintf("out-%s", name)
 	parentDn := fmt.Sprintf("uni/tn-%s", tenant)
-	l3extOut := models.NewL3Outside(rn, parentDn, description, l3extOutattr)
+	l3extOut := models.NewL3Outside(rn, parentDn, l3extOutattr)
 	err := sm.Save(l3extOut)
 	return l3extOut, err
 }
@@ -32,10 +32,10 @@ func (sm *ServiceManager) DeleteL3Outside(name string, tenant string) error {
 	return sm.DeleteByDn(dn, models.L3extoutClassName)
 }
 
-func (sm *ServiceManager) UpdateL3Outside(name string, tenant string, description string, l3extOutattr models.L3OutsideAttributes) (*models.L3Outside, error) {
+func (sm *ServiceManager) UpdateL3Outside(name string, tenant string, l3extOutattr models.L3OutsideAttributes) (*models.L3Outside, error) {
 	rn := fmt.Sprintf("out-%s", name)
 	parentDn := fmt.Sprintf("uni/tn-%s", tenant)
-	l3extOut := models.NewL3Outside(rn, parentDn, description, l3extOutattr)
+	l3extOut := models.NewL3Outside(rn, parentDn, l3extOutattr)
 
 	l3extOut.Status = "modified"
 	err := sm.Save(l3extOut)
