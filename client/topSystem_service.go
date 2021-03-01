@@ -10,14 +10,14 @@ import (
 
 func (sm *ServiceManager) CreateSystem(description string, topSystemattr models.SystemAttributes) (*models.System, error) {
 	rn := fmt.Sprintf("sys")
-	parentDn := fmt.Sprintf("uni")
+	parentDn := fmt.Sprintf("topology/pod-1/node-1")
 	topSystem := models.NewSystem(rn, parentDn, description, topSystemattr)
 	err := sm.Save(topSystem)
 	return topSystem, err
 }
 
 func (sm *ServiceManager) ReadSystem() (*models.System, error) {
-	dn := fmt.Sprintf("uni/sys")
+	dn := fmt.Sprintf("topology/pod-1/node-1/sys")
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
@@ -28,13 +28,13 @@ func (sm *ServiceManager) ReadSystem() (*models.System, error) {
 }
 
 func (sm *ServiceManager) DeleteSystem() error {
-	dn := fmt.Sprintf("uni/sys")
+	dn := fmt.Sprintf("topology/pod-1/node-1/sys")
 	return sm.DeleteByDn(dn, models.TopsystemClassName)
 }
 
 func (sm *ServiceManager) UpdateSystem(description string, topSystemattr models.SystemAttributes) (*models.System, error) {
 	rn := fmt.Sprintf("sys")
-	parentDn := fmt.Sprintf("uni")
+	parentDn := fmt.Sprintf("topology/pod-1/node-1")
 	topSystem := models.NewSystem(rn, parentDn, description, topSystemattr)
 
 	topSystem.Status = "modified"
@@ -46,7 +46,7 @@ func (sm *ServiceManager) UpdateSystem(description string, topSystemattr models.
 func (sm *ServiceManager) ListSystem() ([]*models.System, error) {
 
 	baseurlStr := "/api/node/class"
-	dnUrl := fmt.Sprintf("%s/uni/topSystem.json", baseurlStr)
+	dnUrl := fmt.Sprintf("%s/topology/pod-1/node-1/topSystem.json", baseurlStr)
 
 	cont, err := sm.GetViaURL(dnUrl)
 	list := models.SystemListFromContainer(cont)
