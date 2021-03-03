@@ -335,12 +335,6 @@ func (c *Client) MakeRestRequest(method string, rpath string, body *container.Co
 		return nil, err
 	}
 
-	if !authenticated {
-		c.skipLoggingPayload = true
-	} else {
-		c.skipLoggingPayload = false
-	}
-
 	if c.skipLoggingPayload {
 		log.Printf("HTTP request %s %s", method, rpath)
 	} else {
@@ -383,6 +377,10 @@ func (c *Client) Authenticate() error {
 	if err != nil {
 		return err
 	}
+
+	c.skipLoggingPayload = true
+
+	req, err := c.MakeRestRequest(method, path, body, authenticated)
 	obj, _, err := c.Do(req)
 
 	c.skipLoggingPayload = false
