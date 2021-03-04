@@ -59,10 +59,11 @@ func (sm *ServiceManager) CreateRelationfvRsSecInheritedFromExternalNetworkInsta
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","annotation":"orchestrator:terraform"				
-			}
+				"dn": "%s",
+				"tDn": "%s", 
+				"annotation":"orchestrator:terraform"}
 		}
-	}`, "fvRsSecInherited", dn))
+	}`, "fvRsSecInherited", dn, tDn))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -74,10 +75,11 @@ func (sm *ServiceManager) CreateRelationfvRsSecInheritedFromExternalNetworkInsta
 		return err
 	}
 
-	_, _, err = sm.client.Do(req)
+	cont, _, err := sm.client.Do(req)
 	if err != nil {
 		return err
 	}
+	fmt.Printf("%+v", cont)
 
 	return nil
 }
@@ -109,10 +111,11 @@ func (sm *ServiceManager) CreateRelationfvRsProvFromExternalNetworkInstanceProfi
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","annotation":"orchestrator:terraform"				
-			}
+				"dn": "%s",
+				"tnVzBrCPName": "%s", 
+				"annotation":"orchestrator:terraform"}
 		}
-	}`, "fvRsProv", dn))
+	}`, "fvRsProv", dn, tnVzBrCPName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -124,10 +127,11 @@ func (sm *ServiceManager) CreateRelationfvRsProvFromExternalNetworkInstanceProfi
 		return err
 	}
 
-	_, _, err = sm.client.Do(req)
+	cont, _, err := sm.client.Do(req)
 	if err != nil {
 		return err
 	}
+	fmt.Printf("%+v", cont)
 
 	return nil
 }
@@ -154,16 +158,15 @@ func (sm *ServiceManager) ReadRelationfvRsProvFromExternalNetworkInstanceProfile
 	return st, err
 
 }
-func (sm *ServiceManager) CreateRelationl3extRsL3InstPToDomPFromExternalNetworkInstanceProfile(parentDn, tnExtnwDomPName string) error {
+func (sm *ServiceManager) CreateRelationl3extRsL3InstPToDomPFromExternalNetworkInstanceProfile(parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsl3InstPToDomP", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tDn": "%s"
-								
-			}
+				"dn": "%s",
+				"tDn": "%s"}
 		}
-	}`, "l3extRsL3InstPToDomP", dn, tnExtnwDomPName))
+	}`, "l3extRsL3InstPToDomP", dn, tDn))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -175,10 +178,11 @@ func (sm *ServiceManager) CreateRelationl3extRsL3InstPToDomPFromExternalNetworkI
 		return err
 	}
 
-	_, _, err = sm.client.Do(req)
+	cont, _, err := sm.client.Do(req)
 	if err != nil {
 		return err
 	}
+	fmt.Printf("%+v", cont)
 
 	return nil
 }
@@ -198,16 +202,16 @@ func (sm *ServiceManager) ReadRelationl3extRsL3InstPToDomPFromExternalNetworkIns
 	}
 
 }
-func (sm *ServiceManager) CreateRelationl3extRsInstPToNatMappingEPgFromExternalNetworkInstanceProfile(parentDn, tnFvAEPgName string) error {
+func (sm *ServiceManager) CreateRelationl3extRsInstPToNatMappingEPgFromExternalNetworkInstanceProfile(parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsInstPToNatMappingEPg", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tDn": "%s","annotation":"orchestrator:terraform"
-								
-			}
+				"dn": "%s",
+				"tDn": "%s", 
+				"annotation":"orchestrator:terraform"}
 		}
-	}`, "l3extRsInstPToNatMappingEPg", dn, tnFvAEPgName))
+	}`, "l3extRsInstPToNatMappingEPg", dn, tDn))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -219,10 +223,11 @@ func (sm *ServiceManager) CreateRelationl3extRsInstPToNatMappingEPgFromExternalN
 		return err
 	}
 
-	_, _, err = sm.client.Do(req)
+	cont, _, err := sm.client.Do(req)
 	if err != nil {
 		return err
 	}
+	fmt.Printf("%+v", cont)
 
 	return nil
 }
@@ -252,10 +257,11 @@ func (sm *ServiceManager) CreateRelationfvRsConsIfFromExternalNetworkInstancePro
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","annotation":"orchestrator:terraform"				
-			}
+				"dn": "%s",
+				"tnVzCPIfName": "%s", 
+				"annotation":"orchestrator:terraform"}
 		}
-	}`, "fvRsConsIf", dn))
+	}`, "fvRsConsIf", dn, tnVzCPIfName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -267,10 +273,11 @@ func (sm *ServiceManager) CreateRelationfvRsConsIfFromExternalNetworkInstancePro
 		return err
 	}
 
-	_, _, err = sm.client.Do(req)
+	cont, _, err := sm.client.Do(req)
 	if err != nil {
 		return err
 	}
+	fmt.Printf("%+v", cont)
 
 	return nil
 }
@@ -302,9 +309,9 @@ func (sm *ServiceManager) CreateRelationfvRsCustQosPolFromExternalNetworkInstanc
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tnQosCustomPolName": "%s","annotation":"orchestrator:terraform"
-								
-			}
+				"dn": "%s",
+				"tnQosCustomPolName": "%s", 
+				"annotation":"orchestrator:terraform"}
 		}
 	}`, "fvRsCustQosPol", dn, tnQosCustomPolName))
 
@@ -318,10 +325,11 @@ func (sm *ServiceManager) CreateRelationfvRsCustQosPolFromExternalNetworkInstanc
 		return err
 	}
 
-	_, _, err = sm.client.Do(req)
+	cont, _, err := sm.client.Do(req)
 	if err != nil {
 		return err
 	}
+	fmt.Printf("%+v", cont)
 
 	return nil
 }
@@ -341,15 +349,16 @@ func (sm *ServiceManager) ReadRelationfvRsCustQosPolFromExternalNetworkInstanceP
 	}
 
 }
-func (sm *ServiceManager) CreateRelationl3extRsInstPToProfileFromExternalNetworkInstanceProfile(parentDn, tnRtctrlProfileName, direction string) error {
-	dn := fmt.Sprintf("%s/rsinstPToProfile-[%s]-%s", parentDn, tnRtctrlProfileName, direction)
+func (sm *ServiceManager) CreateRelationl3extRsInstPToProfileFromExternalNetworkInstanceProfile(parentDn, tnRtctrlProfileName string) error {
+	dn := fmt.Sprintf("%s/rsinstPToProfile-[%s]-%s", parentDn, tnRtctrlProfileName)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","annotation":"orchestrator:terraform"				
-			}
+				"dn": "%s",
+				"tnRtctrlProfileName": "%s", 
+				"annotation":"orchestrator:terraform"}
 		}
-	}`, "l3extRsInstPToProfile", dn))
+	}`, "l3extRsInstPToProfile", dn, tnRtctrlProfileName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -361,16 +370,17 @@ func (sm *ServiceManager) CreateRelationl3extRsInstPToProfileFromExternalNetwork
 		return err
 	}
 
-	_, _, err = sm.client.Do(req)
+	cont, _, err := sm.client.Do(req)
 	if err != nil {
 		return err
 	}
+	fmt.Printf("%+v", cont)
 
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationl3extRsInstPToProfileFromExternalNetworkInstanceProfile(parentDn, tnRtctrlProfileName, direction string) error {
-	dn := fmt.Sprintf("%s/rsinstPToProfile-[%s]-%s", parentDn, tnRtctrlProfileName, direction)
+func (sm *ServiceManager) DeleteRelationl3extRsInstPToProfileFromExternalNetworkInstanceProfile(parentDn, tnRtctrlProfileName string) error {
+	dn := fmt.Sprintf("%s/rsinstPToProfile-[%s]-%s", parentDn, tnRtctrlProfileName)
 	return sm.DeleteByDn(dn, "l3extRsInstPToProfile")
 }
 
@@ -400,10 +410,11 @@ func (sm *ServiceManager) CreateRelationfvRsConsFromExternalNetworkInstanceProfi
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","annotation":"orchestrator:terraform"				
-			}
+				"dn": "%s",
+				"tnVzBrCPName": "%s", 
+				"annotation":"orchestrator:terraform"}
 		}
-	}`, "fvRsCons", dn))
+	}`, "fvRsCons", dn, tnVzBrCPName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -415,10 +426,11 @@ func (sm *ServiceManager) CreateRelationfvRsConsFromExternalNetworkInstanceProfi
 		return err
 	}
 
-	_, _, err = sm.client.Do(req)
+	cont, _, err := sm.client.Do(req)
 	if err != nil {
 		return err
 	}
+	fmt.Printf("%+v", cont)
 
 	return nil
 }
@@ -450,10 +462,11 @@ func (sm *ServiceManager) CreateRelationfvRsProtByFromExternalNetworkInstancePro
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","annotation":"orchestrator:terraform"				
-			}
+				"dn": "%s",
+				"tnVzTabooName": "%s", 
+				"annotation":"orchestrator:terraform"}
 		}
-	}`, "fvRsProtBy", dn))
+	}`, "fvRsProtBy", dn, tnVzTabooName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -465,10 +478,11 @@ func (sm *ServiceManager) CreateRelationfvRsProtByFromExternalNetworkInstancePro
 		return err
 	}
 
-	_, _, err = sm.client.Do(req)
+	cont, _, err := sm.client.Do(req)
 	if err != nil {
 		return err
 	}
+	fmt.Printf("%+v", cont)
 
 	return nil
 }
@@ -500,10 +514,11 @@ func (sm *ServiceManager) CreateRelationfvRsIntraEpgFromExternalNetworkInstanceP
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","annotation":"orchestrator:terraform"				
-			}
+				"dn": "%s",
+				"tnVzBrCPName": "%s", 
+				"annotation":"orchestrator:terraform"}
 		}
-	}`, "fvRsIntraEpg", dn))
+	}`, "fvRsIntraEpg", dn, tnVzBrCPName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -515,10 +530,11 @@ func (sm *ServiceManager) CreateRelationfvRsIntraEpgFromExternalNetworkInstanceP
 		return err
 	}
 
-	_, _, err = sm.client.Do(req)
+	cont, _, err := sm.client.Do(req)
 	if err != nil {
 		return err
 	}
+	fmt.Printf("%+v", cont)
 
 	return nil
 }
