@@ -6,13 +6,17 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/container"
 )
 
-const baPayload = `
+const (
+	BaseurlStr = "/api/node/class"
+	baPayload  = `
 	"dn": "%s",
 	"name": "%s",
 	"descr": "%s",
 `
+)
 
 type BaseAttributes struct {
+	Annotation        string `json:",omitempty"`
 	DistinguishedName string `json:"dn"`
 	Status            string `json:"status"`
 	Description       string `json:"descr"`

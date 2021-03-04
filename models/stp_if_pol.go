@@ -7,24 +7,24 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/container"
 )
 
-const StpIfPolClassName = "stpIfPol"
+const (
+	DN                = "uni/infra/ifPol-%s"
+	StpIfPolClassName = "stpIfPol"
+)
 
 type SpanningTreeInterfacePolicy struct {
 	BaseAttributes
+	NameAliasAttribute
 	SpanningTreeInterfacePolicyAttributes
 }
 
 type SpanningTreeInterfacePolicyAttributes struct {
-	Name string `json:",omitempty"`
-
+	Name       string `json:",omitempty"`
 	Annotation string `json:",omitempty"`
-
-	Ctrl string `json:",omitempty"`
-
-	NameAlias string `json:",omitempty"`
+	Ctrl       string `json:",omitempty"`
 }
 
-func NewSpanningTreeInterfacePolicy(stpIfPolRn, parentDn, description string, stpIfPolattr SpanningTreeInterfacePolicyAttributes) *SpanningTreeInterfacePolicy {
+func NewSpanningTreeInterfacePolicy(stpIfPolRn, parentDn, description, nameAlias string, stpIfPolAttr SpanningTreeInterfacePolicyAttributes) *SpanningTreeInterfacePolicy {
 	dn := fmt.Sprintf("%s/%s", parentDn, stpIfPolRn)
 	return &SpanningTreeInterfacePolicy{
 		BaseAttributes: BaseAttributes{
@@ -34,8 +34,10 @@ func NewSpanningTreeInterfacePolicy(stpIfPolRn, parentDn, description string, st
 			ClassName:         StpIfPolClassName,
 			Rn:                stpIfPolRn,
 		},
-
-		SpanningTreeInterfacePolicyAttributes: stpIfPolattr,
+		NameAliasAttribute: NameAliasAttribute{
+			NameAlias: nameAlias,
+		},
+		SpanningTreeInterfacePolicyAttributes: stpIfPolAttr,
 	}
 }
 
@@ -44,20 +46,20 @@ func (stpIfPol *SpanningTreeInterfacePolicy) ToMap() (map[string]string, error) 
 	if err != nil {
 		return nil, err
 	}
-
+	alias, err := stpIfPol.NameAliasAttribute.ToMap()
+	if err != nil {
+		return nil, err
+	}
+	for key, value := range alias {
+		A(stpIfPolMap, key, value)
+	}
 	A(stpIfPolMap, "name", stpIfPol.Name)
-
-	A(stpIfPolMap, "annotation", stpIfPol.Annotation)
-
 	A(stpIfPolMap, "ctrl", stpIfPol.Ctrl)
-
-	A(stpIfPolMap, "nameAlias", stpIfPol.NameAlias)
-
+	A(stpIfPolMap, "annotation", stpIfPol.Annotation)
 	return stpIfPolMap, err
 }
 
 func SpanningTreeInterfacePolicyFromContainerList(cont *container.Container, index int) *SpanningTreeInterfacePolicy {
-
 	SpanningTreeInterfacePolicyCont := cont.S("imdata").Index(index).S(StpIfPolClassName, "attributes")
 	return &SpanningTreeInterfacePolicy{
 		BaseAttributes{
@@ -68,33 +70,27 @@ func SpanningTreeInterfacePolicyFromContainerList(cont *container.Container, ind
 			Rn:                G(SpanningTreeInterfacePolicyCont, "rn"),
 		},
 
-		SpanningTreeInterfacePolicyAttributes{
-
-			Name: G(SpanningTreeInterfacePolicyCont, "name"),
-
-			Annotation: G(SpanningTreeInterfacePolicyCont, "annotation"),
-
-			Ctrl: G(SpanningTreeInterfacePolicyCont, "ctrl"),
-
+		NameAliasAttribute{
 			NameAlias: G(SpanningTreeInterfacePolicyCont, "nameAlias"),
+		},
+
+		SpanningTreeInterfacePolicyAttributes{
+			Name:       G(SpanningTreeInterfacePolicyCont, "name"),
+			Annotation: G(SpanningTreeInterfacePolicyCont, "annotation"),
+			Ctrl:       G(SpanningTreeInterfacePolicyCont, "ctrl"),
 		},
 	}
 }
 
 func SpanningTreeInterfacePolicyFromContainer(cont *container.Container) *SpanningTreeInterfacePolicy {
-
 	return SpanningTreeInterfacePolicyFromContainerList(cont, 0)
 }
 
 func SpanningTreeInterfacePolicyListFromContainer(cont *container.Container) []*SpanningTreeInterfacePolicy {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-
 	arr := make([]*SpanningTreeInterfacePolicy, length)
-
 	for i := 0; i < length; i++ {
-
 		arr[i] = SpanningTreeInterfacePolicyFromContainerList(cont, i)
 	}
-
 	return arr
 }
