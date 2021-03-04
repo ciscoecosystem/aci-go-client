@@ -16,7 +16,6 @@ const (
 )
 
 type BaseAttributes struct {
-	Annotation        string `json:",omitempty"`
 	DistinguishedName string `json:"dn"`
 	Status            string `json:"status"`
 	Description       string `json:"descr"`
@@ -39,17 +38,12 @@ func (ba *BaseAttributes) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 	cont, err := container.ParseJSON([]byte(jsonData))
-
 	if err != nil {
 		return nil, err
 	}
-	//
-
 	cont.Set(ba.ClassName, "classname")
-
 	if err != nil {
 		return nil, err
 	}
-	//
 	return toStringMap(cont.Data()), nil
 }
