@@ -15,7 +15,7 @@ func (sm *ServiceManager) CreateSpanningTreeInterfacePolicy(name string, descrip
 }
 
 func (sm *ServiceManager) ReadSpanningTreeInterfacePolicy(name string) (*models.SpanningTreeInterfacePolicy, error) {
-	dn := fmt.Sprintf(DN, name)
+	dn := fmt.Sprintf(models.DN, name)
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
@@ -25,7 +25,7 @@ func (sm *ServiceManager) ReadSpanningTreeInterfacePolicy(name string) (*models.
 }
 
 func (sm *ServiceManager) DeleteSpanningTreeInterfacePolicy(name string) error {
-	dn := fmt.Sprintf(DN, name)
+	dn := fmt.Sprintf(models.DN, name)
 	return sm.DeleteByDn(dn, models.StpIfPolClassName)
 }
 
