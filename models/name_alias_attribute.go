@@ -6,7 +6,7 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/container"
 )
 
-const aaPayload = `
+const naPayload = `
 	"nameAlias": "%s",
 `
 
@@ -23,13 +23,11 @@ func (na *NameAliasAttribute) ToJson() (string, error) {
 }
 
 func (na *NameAliasAttribute) ToMap() (map[string]string, error) {
-
 	jsonData, err := na.ToJson()
 	if err != nil {
 		return nil, err
 	}
 	cont, err := container.ParseJSON([]byte(jsonData))
-
 	if err != nil {
 		return nil, err
 	}

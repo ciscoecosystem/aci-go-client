@@ -8,7 +8,9 @@ import (
 )
 
 const (
-	DN                = "uni/infra/ifPol-%s"
+	Dn                = "uni/infra/ifPol-%s"
+	Rn                = "ifPol-%s"
+	ParentDn          = "uni/infra"
 	StpIfPolClassName = "stpIfPol"
 )
 
