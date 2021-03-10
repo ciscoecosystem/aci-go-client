@@ -145,9 +145,9 @@ func initClient(clientUrl, username string, options ...Option) *Client {
 		log.Fatal(err)
 	}
 	client := &Client{
-		BaseURL:    bUrl,
-		username:   username,
-		MOURL:      DefaultMOURL,
+		BaseURL:  bUrl,
+		username: username,
+		MOURL:    DefaultMOURL,
 	}
 
 	for _, option := range options {
@@ -354,9 +354,15 @@ func (c *Client) Authenticate() error {
 		authenticated = true
 	}
 
+	c.skipLoggingPayload = true
+
 	req, err := c.MakeRestRequestRaw(method, path, body, authenticated)
+	if err != nil {
+		return err
+	}
 	obj, _, err := c.Do(req)
 
+	c.skipLoggingPayload = false
 	if err != nil {
 		return err
 	}
