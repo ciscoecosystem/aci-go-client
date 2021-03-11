@@ -2,7 +2,7 @@ package client
 
 import (
 	"fmt"
-	"log"
+	"github.com/rs/zerolog/log"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
@@ -31,10 +31,10 @@ func (sm *ServiceManager) CreateCloudSubnet(ip string, cloud_cidr_pool_dn string
 		return nil, err
 	}
 
-	log.Printf("\n[DEBUG]asas %v", zoneCon.Data())
+	log.Printf("[DEBUG] zoneCon.Data(): %v", zoneCon.Data())
 	jsonPayload.Array(cloudSubnet.ClassName, "children")
 	jsonPayload.ArrayAppend(zoneCon.Data(), cloudSubnet.ClassName, "children")
-	log.Printf("\n\n[DEBUG]asas %s\n\n", jsonPayload.String())
+	log.Printf("[DEBUG] jsonPayload.String(): %s", jsonPayload.String())
 	jsonPayload.Set(ip, cloudSubnet.ClassName, "attributes", "ip")
 
 	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("/api/node/mo/%s/%s.json", parentDn, rn), jsonPayload, true)
@@ -90,10 +90,10 @@ func (sm *ServiceManager) UpdateCloudSubnet(ip string, cloud_cidr_pool_dn string
 		return nil, err
 	}
 
-	log.Printf("\n[DEBUG]asas %v", zoneCon.Data())
+	log.Printf("[DEBUG] zoneCon.Data(): %v", zoneCon.Data())
 	jsonPayload.Array(cloudSubnet.ClassName, "children")
 	jsonPayload.ArrayAppend(zoneCon.Data(), cloudSubnet.ClassName, "children")
-	log.Printf("\n\n[DEBUG]asas %s\n\n", jsonPayload.String())
+	log.Printf("[DEBUG] jsonPayload.String(): %s", jsonPayload.String())
 	jsonPayload.Set(ip, cloudSubnet.ClassName, "attributes", "ip")
 
 	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("/api/node/mo/%s/%s.json", parentDn, rn), jsonPayload, true)

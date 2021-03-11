@@ -2,11 +2,13 @@ package client
 
 import (
 	"bytes"
+	"context"
 	"crypto/tls"
 	"errors"
 	"fmt"
+	"github.com/google/uuid"
+	"github.com/rs/zerolog/log"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -41,6 +43,7 @@ const authAppPayload = `{
 // environment
 const DefaultReqTimeoutVal uint32 = 100
 const DefaultMOURL = "/api/node/mo"
+const ContextTxIdKey = "txId"
 
 // Client is the main entry point
 type Client struct {
@@ -142,7 +145,8 @@ func initClient(clientUrl, username string, options ...Option) *Client {
 	bUrl, err := url.Parse(clientUrl)
 	if err != nil {
 		// cannot move forward if url is undefined
-		log.Fatal(err)
+		log.Fatal().
+			Err(err)
 	}
 	client := &Client{
 		BaseURL:  bUrl,
@@ -185,7 +189,8 @@ func GetClient(clientUrl, username string, options ...Option) *Client {
 		bUrl, err := url.Parse(clientUrl)
 		if err != nil {
 			// cannot move forward if url is undefined
-			log.Fatal(err)
+			log.Fatal().
+				Err(err)
 		}
 		if bUrl != clientImpl.BaseURL {
 			clientImpl = initClient(clientUrl, username, options...)
@@ -200,7 +205,8 @@ func NewClient(clientUrl, username string, options ...Option) *Client {
 	_, err := url.Parse(clientUrl)
 	if err != nil {
 		// cannot move forward if url is undefined
-		log.Fatal(err)
+		log.Fatal().
+			Err(err)
 	}
 
 	// initClient always returns a new struct, so always create a new pointer to allow for
@@ -213,7 +219,8 @@ func NewClient(clientUrl, username string, options ...Option) *Client {
 func (c *Client) configProxy(transport *http.Transport) *http.Transport {
 	pUrl, err := url.Parse(c.proxyUrl)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal().
+			Err(err)
 	}
 	transport.Proxy = http.ProxyURL(pUrl)
 	return transport
@@ -248,6 +255,14 @@ func (c *Client) useInsecureHTTPClient(insecure bool) *http.Transport {
 //  for encoding/decoding
 func (c *Client) MakeRestRequestRaw(method string, rpath string, payload []byte, authenticated bool) (*http.Request, error) {
 
+	// Add TransactionID to Context
+	txId := uuid.New().String()
+
+	// Create SubLogger containing TransactionID
+	// Context now contains SubLogger with TransactionID embedded
+	subLogger := log.With().Str(ContextTxIdKey, txId).Logger()
+	ctx := subLogger.WithContext(context.Background())
+
 	pathURL, err := url.Parse(rpath)
 	if err != nil {
 		return nil, err
@@ -271,20 +286,20 @@ func (c *Client) MakeRestRequestRaw(method string, rpath string, payload []byte,
 	}
 
 	var req *http.Request
-	log.Printf("[DEBUG] BaseURL: %s, pathURL: %s, fURL: %s", c.BaseURL.String(), pathURL.String(), fURL.String())
+	log.Ctx(ctx).Debug().Msgf("[DEBUG] BaseURL: %s, pathURL: %s, fURL: %s", c.BaseURL.String(), pathURL.String(), fURL.String())
 	if method == "GET" {
-		req, err = http.NewRequest(method, fURL.String(), nil)
+		req, err = http.NewRequestWithContext(ctx, method, fURL.String(), nil)
 	} else {
-		req, err = http.NewRequest(method, fURL.String(), bytes.NewBuffer(payload))
+		req, err = http.NewRequestWithContext(ctx, method, fURL.String(), bytes.NewBuffer(payload))
 	}
 	if err != nil {
 		return nil, err
 	}
 
 	if c.skipLoggingPayload {
-		log.Printf("HTTP request %s %s", method, rpath)
+		log.Ctx(ctx).Debug().Msgf("HTTP request %s %s", method, rpath)
 	} else {
-		log.Printf("HTTP request %s %s %v", method, rpath, req)
+		log.Ctx(ctx).Debug().Msgf("HTTP request %s %s %v", method, rpath, req)
 	}
 	if authenticated {
 		req, err = c.InjectAuthenticationHeader(req, rpath)
@@ -294,7 +309,7 @@ func (c *Client) MakeRestRequestRaw(method string, rpath string, payload []byte,
 	}
 
 	if !c.skipLoggingPayload {
-		log.Printf("HTTP request after injection %s %s %v", method, rpath, req)
+		log.Ctx(ctx).Debug().Msgf("HTTP request after injection %s %s %v", method, rpath, req)
 	}
 
 	return req, nil
@@ -302,6 +317,14 @@ func (c *Client) MakeRestRequestRaw(method string, rpath string, payload []byte,
 
 func (c *Client) MakeRestRequest(method string, rpath string, body *container.Container, authenticated bool) (*http.Request, error) {
 
+	// Add TransactionID to Context
+	txId := uuid.New().String()
+
+	// Create SubLogger containing TransactionID
+	// Context now contains SubLogger with TransactionID embedded
+	subLogger := log.With().Str(ContextTxIdKey, txId).Logger()
+	ctx := subLogger.WithContext(context.Background())
+
 	pathURL, err := url.Parse(rpath)
 	if err != nil {
 		return nil, err
@@ -325,20 +348,20 @@ func (c *Client) MakeRestRequest(method string, rpath string, body *container.Co
 	}
 
 	var req *http.Request
-	log.Printf("[DEBUG] BaseURL: %s, pathURL: %s, fURL: %s", c.BaseURL.String(), pathURL.String(), fURL.String())
+	log.Ctx(ctx).Debug().Msgf("[DEBUG] BaseURL: %s, pathURL: %s, fURL: %s", c.BaseURL.String(), pathURL.String(), fURL.String())
 	if method == "GET" {
-		req, err = http.NewRequest(method, fURL.String(), nil)
+		req, err = http.NewRequestWithContext(ctx, method, fURL.String(), nil)
 	} else {
-		req, err = http.NewRequest(method, fURL.String(), bytes.NewBuffer((body.Bytes())))
+		req, err = http.NewRequestWithContext(ctx, method, fURL.String(), bytes.NewBuffer((body.Bytes())))
 	}
 	if err != nil {
 		return nil, err
 	}
 
 	if c.skipLoggingPayload {
-		log.Printf("HTTP request %s %s", method, rpath)
+		log.Ctx(ctx).Debug().Msgf("HTTP request %s %s", method, rpath)
 	} else {
-		log.Printf("HTTP request %s %s %v", method, rpath, req)
+		log.Ctx(ctx).Debug().Msgf("HTTP request %s %s %v", method, rpath, req)
 	}
 	if authenticated {
 		req, err = c.InjectAuthenticationHeader(req, rpath)
@@ -348,7 +371,7 @@ func (c *Client) MakeRestRequest(method string, rpath string, body *container.Co
 	}
 
 	if !c.skipLoggingPayload {
-		log.Printf("HTTP request after injection %s %s %v", method, rpath, req)
+		log.Ctx(ctx).Debug().Msgf("HTTP request after injection %s %s %v", method, rpath, req)
 	}
 
 	return req, nil
@@ -371,6 +394,7 @@ func (c *Client) Authenticate() error {
 		authenticated = true
 	}
 
+	saveSkipLoggingPayload := c.skipLoggingPayload
 	c.skipLoggingPayload = true
 
 	req, err := c.MakeRestRequestRaw(method, path, body, authenticated)
@@ -379,7 +403,7 @@ func (c *Client) Authenticate() error {
 	}
 	obj, _, err := c.Do(req)
 
-	c.skipLoggingPayload = false
+	c.skipLoggingPayload = saveSkipLoggingPayload
 	if err != nil {
 		return err
 	}
@@ -423,40 +447,48 @@ func StrtoInt(s string, startIndex int, bitSize int) (int64, error) {
 
 }
 func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, error) {
-	log.Printf("[DEBUG] Begining DO method %s", req.URL.String())
+
+	// Context() is guaranteed to be non-nil, so if no Context was passed in, the default
+	// context.Background() will be present.
+	ctx := req.Context()
+
+	log.Ctx(ctx).Debug().Msgf("[DEBUG] Begining DO method %s", req.URL.String())
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return nil, nil, err
 	}
 	if !c.skipLoggingPayload {
-		log.Printf("\n\n\n HTTP request: %v", req.Body)
+		log.Ctx(ctx).Debug().Msgf("HTTP request: %v", req.Body)
 	}
-	log.Printf("\nHTTP Request: %s %s", req.Method, req.URL.String())
+	log.Ctx(ctx).Debug().Msgf("HTTP Request: %s %s", req.Method, req.URL.String())
 	if !c.skipLoggingPayload {
-		log.Printf("\nHTTP Response: %d %s %v", resp.StatusCode, resp.Status, resp)
+		log.Ctx(ctx).Debug().Msgf("HTTP Response: %d %s %v", resp.StatusCode, resp.Status, resp)
 	} else {
-		log.Printf("\nHTTP Response: %d %s", resp.StatusCode, resp.Status)
+		log.Ctx(ctx).Debug().Msgf("HTTP Response: %d %s", resp.StatusCode, resp.Status)
 	}
 
 	bodyBytes, err := ioutil.ReadAll(resp.Body)
 	bodyStr := string(bodyBytes)
 	resp.Body.Close()
 	if !c.skipLoggingPayload {
-		log.Printf("\n HTTP response unique string %s %s %s", req.Method, req.URL.String(), bodyStr)
+		log.Ctx(ctx).Debug().Msgf("HTTP response unique string %s %s %s", req.Method, req.URL.String(), bodyStr)
 	}
 	obj, err := container.ParseJSON(bodyBytes)
 
 	if err != nil {
 
-		log.Printf("Error occured while json parsing %+v", err)
+		log.Ctx(ctx).Debug().Msgf("Error occured while json parsing %+v", err)
 		return nil, resp, err
 	}
-	log.Printf("[DEBUG] Exit from do method")
+	log.Ctx(ctx).Debug().Msgf("[DEBUG] Exit from do method")
 	return obj, resp, err
 
 }
 
 func (c *Client) DoRaw(req *http.Request) (*http.Response, error) {
+	// Context() is guaranteed to be non-nil, so if no Context was passed in, the default
+	// context.Background() will be present.
+	ctx := req.Context()
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
@@ -464,13 +496,13 @@ func (c *Client) DoRaw(req *http.Request) (*http.Response, error) {
 	}
 
 	if !c.skipLoggingPayload {
-		log.Printf("\n\n\n HTTP request: %v", req.Body)
+		log.Ctx(ctx).Debug().Msgf("HTTP request: %v", req.Body)
 	}
-	log.Printf("\nHTTP Request: %s %s", req.Method, req.URL.String())
+	log.Ctx(ctx).Debug().Msgf("HTTP Request: %s %s", req.Method, req.URL.String())
 	if !c.skipLoggingPayload {
-		log.Printf("\nHTTP Response: %d %s %v", resp.StatusCode, resp.Status, resp)
+		log.Ctx(ctx).Debug().Msgf("HTTP Response: %d %s %v", resp.StatusCode, resp.Status, resp)
 	} else {
-		log.Printf("\nHTTP Response: %d %s", resp.StatusCode, resp.Status)
+		log.Ctx(ctx).Debug().Msgf("HTTP Response: %d %s", resp.StatusCode, resp.Status)
 	}
 
 	return resp, err

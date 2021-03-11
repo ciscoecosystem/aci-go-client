@@ -1,9 +1,10 @@
 package client
 
 import (
+	"context"
 	"errors"
 	"fmt"
-	"log"
+	"github.com/rs/zerolog/log"
 	"strconv"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
@@ -27,6 +28,7 @@ func NewServiceManager(moURL string, client *Client) *ServiceManager {
 func (sm *ServiceManager) Get(dn string) (*container.Container, error) {
 	finalURL := fmt.Sprintf("%s/%s.json", sm.MOURL, dn)
 	req, err := sm.client.MakeRestRequest("GET", finalURL, nil, true)
+	ctx := req.Context()
 
 	if err != nil {
 		return nil, err
@@ -40,7 +42,7 @@ func (sm *ServiceManager) Get(dn string) (*container.Container, error) {
 	if obj == nil {
 		return nil, errors.New("Empty response body")
 	}
-	log.Printf("[DEBUG] Exit from GET %s", finalURL)
+	log.Ctx(ctx).Debug().Msgf("[DEBUG] Exit from GET %s", finalURL)
 	return obj, CheckForErrors(obj, "GET", sm.client.skipLoggingPayload)
 }
 
@@ -78,12 +80,16 @@ func (sm *ServiceManager) Save(obj models.Model) error {
 
 // CheckForErrors parses the response and checks of there is an error attribute in the response
 func CheckForErrors(cont *container.Container, method string, skipLoggingPayload bool) error {
+	return CheckForErrorsWithContext(context.TODO(), cont, method, skipLoggingPayload)
+}
+
+func CheckForErrorsWithContext(ctx context.Context, cont *container.Container, method string, skipLoggingPayload bool) error {
 	number, err := strconv.Atoi(models.G(cont, "totalCount"))
 	if err != nil {
 		if !skipLoggingPayload {
-			log.Printf("[DEBUG] Exit from errors %v", cont)
+			log.Ctx(ctx).Debug().Msgf("[DEBUG] Exit from errors %v", cont)
 		} else {
-			log.Printf("[DEBUG] Exit from errors %s", err.Error())
+			log.Ctx(ctx).Debug().Msgf("[DEBUG] Exit from errors %s", err.Error())
 		}
 		return err
 	}
@@ -94,18 +100,18 @@ func CheckForErrors(cont *container.Container, method string, skipLoggingPayload
 
 			if models.StripQuotes(imdata.Path("error.attributes.code").String()) == "103" {
 				if !skipLoggingPayload {
-					log.Printf("[DEBUG] Exit from errors %v", cont)
+					log.Ctx(ctx).Debug().Msgf("[DEBUG] Exit from errors %v", cont)
 				}
 				return nil
 			} else {
 				if models.StripQuotes(imdata.Path("error.attributes.text").String()) == "" && models.StripQuotes(imdata.Path("error.attributes.code").String()) == "403" {
 					if !skipLoggingPayload {
-						log.Printf("[DEBUG] Exit from errors %v", cont)
+						log.Ctx(ctx).Debug().Msgf("[DEBUG] Exit from errors %v", cont)
 					}
 					return errors.New("Unable to authenticate. Please check your credentials")
 				}
 				if !skipLoggingPayload {
-					log.Printf("[DEBUG] Exit from errors %v", cont)
+					log.Ctx(ctx).Debug().Msgf("[DEBUG] Exit from errors %v", cont)
 				}
 
 				return errors.New(models.StripQuotes(imdata.Path("error.attributes.text").String()))
@@ -116,13 +122,13 @@ func CheckForErrors(cont *container.Container, method string, skipLoggingPayload
 
 	if imdata.String() == "{}" && method == "GET" {
 		if !skipLoggingPayload {
-			log.Printf("[DEBUG] Exit from errors %v", cont)
+			log.Ctx(ctx).Debug().Msgf("[DEBUG] Exit from errors %v", cont)
 		}
 
 		return errors.New("Error retriving Object: Object may not exists")
 	}
 	if !skipLoggingPayload {
-		log.Printf("[DEBUG] Exit from errors %v", cont)
+		log.Ctx(ctx).Debug().Msgf("[DEBUG] Exit from errors %v", cont)
 	}
 	return nil
 }
@@ -158,6 +164,7 @@ func (sm *ServiceManager) PostViaURL(url string, obj models.Model) (*container.C
 	}
 
 	req, err := sm.client.MakeRestRequest("POST", url, jsonPayload, true)
+	ctx := req.Context()
 
 	if err != nil {
 		return nil, err
@@ -165,7 +172,7 @@ func (sm *ServiceManager) PostViaURL(url string, obj models.Model) (*container.C
 
 	cont, _, err := sm.client.Do(req)
 	if !sm.client.skipLoggingPayload {
-		log.Printf("PostViaUrl %+v", obj)
+		log.Ctx(ctx).Debug().Msgf("PostViaUrl %+v", obj)
 	}
 	if err != nil {
 		return nil, err
@@ -180,6 +187,7 @@ func (sm *ServiceManager) PostViaURL(url string, obj models.Model) (*container.C
 
 func (sm *ServiceManager) GetViaURL(url string) (*container.Container, error) {
 	req, err := sm.client.MakeRestRequest("GET", url, nil, true)
+	ctx := req.Context()
 
 	if err != nil {
 		return nil, err
@@ -187,7 +195,7 @@ func (sm *ServiceManager) GetViaURL(url string) (*container.Container, error) {
 
 	obj, _, err := sm.client.Do(req)
 	if !sm.client.skipLoggingPayload {
-		log.Printf("Getvia url %+v", obj)
+		log.Ctx(ctx).Debug().Msgf("Getvia url %+v", obj)
 	}
 	if err != nil {
 		return nil, err
