@@ -9,12 +9,12 @@ import (
 
 const BgpaspClassName = "bgpAsP"
 
-type AutonomousSystemProfile struct {
+type BgpAutonomousSystemProfile struct {
 	BaseAttributes
-	AutonomousSystemProfileAttributes
+	BgpAutonomousSystemProfileAttributes
 }
 
-type AutonomousSystemProfileAttributes struct {
+type BgpAutonomousSystemProfileAttributes struct {
 	Annotation string `json:",omitempty"`
 
 	Asn string `json:",omitempty"`
@@ -22,9 +22,9 @@ type AutonomousSystemProfileAttributes struct {
 	NameAlias string `json:",omitempty"`
 }
 
-func NewAutonomousSystemProfile(bgpAsPRn, parentDn, description string, bgpAsPattr AutonomousSystemProfileAttributes) *AutonomousSystemProfile {
+func NewBgpAutonomousSystemProfile(bgpAsPRn, parentDn, description string, bgpAsPattr BgpAutonomousSystemProfileAttributes) *BgpAutonomousSystemProfile {
 	dn := fmt.Sprintf("%s/%s", parentDn, bgpAsPRn)
-	return &AutonomousSystemProfile{
+	return &BgpAutonomousSystemProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -33,11 +33,11 @@ func NewAutonomousSystemProfile(bgpAsPRn, parentDn, description string, bgpAsPat
 			Rn:                bgpAsPRn,
 		},
 
-		AutonomousSystemProfileAttributes: bgpAsPattr,
+		BgpAutonomousSystemProfileAttributes: bgpAsPattr,
 	}
 }
 
-func (bgpAsP *AutonomousSystemProfile) ToMap() (map[string]string, error) {
+func (bgpAsP *BgpAutonomousSystemProfile) ToMap() (map[string]string, error) {
 	bgpAsPMap, err := bgpAsP.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -52,42 +52,42 @@ func (bgpAsP *AutonomousSystemProfile) ToMap() (map[string]string, error) {
 	return bgpAsPMap, err
 }
 
-func AutonomousSystemProfileFromContainerList(cont *container.Container, index int) *AutonomousSystemProfile {
+func BgpAutonomousSystemProfileFromContainerList(cont *container.Container, index int) *BgpAutonomousSystemProfile {
 
-	AutonomousSystemProfileCont := cont.S("imdata").Index(index).S(BgpaspClassName, "attributes")
-	return &AutonomousSystemProfile{
+	BgpAutonomousSystemProfileCont := cont.S("imdata").Index(index).S(BgpaspClassName, "attributes")
+	return &BgpAutonomousSystemProfile{
 		BaseAttributes{
-			DistinguishedName: G(AutonomousSystemProfileCont, "dn"),
-			Description:       G(AutonomousSystemProfileCont, "descr"),
-			Status:            G(AutonomousSystemProfileCont, "status"),
+			DistinguishedName: G(BgpAutonomousSystemProfileCont, "dn"),
+			Description:       G(BgpAutonomousSystemProfileCont, "descr"),
+			Status:            G(BgpAutonomousSystemProfileCont, "status"),
 			ClassName:         BgpaspClassName,
-			Rn:                G(AutonomousSystemProfileCont, "rn"),
+			Rn:                G(BgpAutonomousSystemProfileCont, "rn"),
 		},
 
-		AutonomousSystemProfileAttributes{
+		BgpAutonomousSystemProfileAttributes{
 
-			Annotation: G(AutonomousSystemProfileCont, "annotation"),
+			Annotation: G(BgpAutonomousSystemProfileCont, "annotation"),
 
-			Asn: G(AutonomousSystemProfileCont, "asn"),
+			Asn: G(BgpAutonomousSystemProfileCont, "asn"),
 
-			NameAlias: G(AutonomousSystemProfileCont, "nameAlias"),
+			NameAlias: G(BgpAutonomousSystemProfileCont, "nameAlias"),
 		},
 	}
 }
 
-func AutonomousSystemProfileFromContainer(cont *container.Container) *AutonomousSystemProfile {
+func BgpAutonomousSystemProfileFromContainer(cont *container.Container) *BgpAutonomousSystemProfile {
 
-	return AutonomousSystemProfileFromContainerList(cont, 0)
+	return BgpAutonomousSystemProfileFromContainerList(cont, 0)
 }
 
-func AutonomousSystemProfileListFromContainer(cont *container.Container) []*AutonomousSystemProfile {
+func BgpAutonomousSystemProfileListFromContainer(cont *container.Container) []*BgpAutonomousSystemProfile {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
-	arr := make([]*AutonomousSystemProfile, length)
+	arr := make([]*BgpAutonomousSystemProfile, length)
 
 	for i := 0; i < length; i++ {
 
-		arr[i] = AutonomousSystemProfileFromContainerList(cont, i)
+		arr[i] = BgpAutonomousSystemProfileFromContainerList(cont, i)
 	}
 
 	return arr
