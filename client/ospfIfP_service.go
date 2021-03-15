@@ -54,15 +54,15 @@ func (sm *ServiceManager) ListOSPFInterfaceProfile(logical_interface_profile str
 }
 
 func (sm *ServiceManager) CreateRelationospfRsIfPolFromInterfaceProfile(parentDn, tnOspfIfPolName string) error {
-	dn := fmt.Sprintf("%s/ospfIfP/rsIfPol", parentDn)
+	// dn := fmt.Sprintf("%s/ospfIfP/rsIfPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tnOspfIfPolName": "%s","annotation":"orchestrator:terraform"
+				"tnOspfIfPolName": "%s","annotation":"orchestrator:terraform"
 								
 			}
 		}
-	}`, "ospfRsIfPol", dn, tnOspfIfPolName))
+	}`, "ospfRsIfPol", tnOspfIfPolName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
