@@ -80,7 +80,7 @@ func (sm *ServiceManager) CreateRelationospfRsIfPolFromInterfaceProfile(parentDn
 	}
 	fmt.Printf("%+v", cont)
 
-	return nil
+	return CheckForErrors(cont, "POST", sm.client.skipLoggingPayload)
 }
 
 func (sm *ServiceManager) ReadRelationospfRsIfPolFromInterfaceProfile(parentDn string) (interface{}, error) {
