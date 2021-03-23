@@ -1,6 +1,5 @@
 package models
 
-
 import (
 	"fmt"
 	"strconv"
@@ -12,20 +11,19 @@ const VmmusraccpClassName = "vmmUsrAccP"
 
 type VMMCredential struct {
 	BaseAttributes
-    VMMCredentialAttributes 
+	VMMCredentialAttributes
 }
-  
+
 type VMMCredentialAttributes struct {
-    Annotation       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    Pwd       string `json:",omitempty"`
-    Usr       string `json:",omitempty"`
-    
+	Name       string `json:",omitempty"`
+	Annotation string `json:",omitempty"`
+	NameAlias  string `json:",omitempty"`
+	Pwd        string `json:",omitempty"`
+	Usr        string `json:",omitempty"`
 }
-   
 
 func NewVMMCredential(vmmUsrAccPRn, parentDn, description string, vmmUsrAccPattr VMMCredentialAttributes) *VMMCredential {
-	dn := fmt.Sprintf("%s/%s", parentDn, vmmUsrAccPRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, vmmUsrAccPRn)
 	return &VMMCredential{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -34,9 +32,8 @@ func NewVMMCredential(vmmUsrAccPRn, parentDn, description string, vmmUsrAccPattr
 			ClassName:         VmmusraccpClassName,
 			Rn:                vmmUsrAccPRn,
 		},
-        
+
 		VMMCredentialAttributes: vmmUsrAccPattr,
-         
 	}
 }
 
@@ -46,12 +43,11 @@ func (vmmUsrAccP *VMMCredential) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(vmmUsrAccPMap, "annotation",vmmUsrAccP.Annotation)
-    A(vmmUsrAccPMap, "nameAlias",vmmUsrAccP.NameAlias)
-    A(vmmUsrAccPMap, "pwd",vmmUsrAccP.Pwd)
-    A(vmmUsrAccPMap, "usr",vmmUsrAccP.Usr)
-    
-	
+	A(vmmUsrAccPMap, "name", vmmUsrAccP.Name)
+	A(vmmUsrAccPMap, "annotation", vmmUsrAccP.Annotation)
+	A(vmmUsrAccPMap, "nameAlias", vmmUsrAccP.NameAlias)
+	A(vmmUsrAccPMap, "pwd", vmmUsrAccP.Pwd)
+	A(vmmUsrAccPMap, "usr", vmmUsrAccP.Usr)
 
 	return vmmUsrAccPMap, err
 }
@@ -67,15 +63,14 @@ func VMMCredentialFromContainerList(cont *container.Container, index int) *VMMCr
 			ClassName:         VmmusraccpClassName,
 			Rn:                G(VMMCredentialCont, "rn"),
 		},
-        
+
 		VMMCredentialAttributes{
-        Annotation : G(VMMCredentialCont, "annotation"),
-        NameAlias : G(VMMCredentialCont, "nameAlias"),
-        Pwd : G(VMMCredentialCont, "pwd"),
-        Usr : G(VMMCredentialCont, "usr"),
-        		
-        },
-        
+			Name:       G(VMMCredentialCont, "name"),
+			Annotation: G(VMMCredentialCont, "annotation"),
+			NameAlias:  G(VMMCredentialCont, "nameAlias"),
+			Pwd:        G(VMMCredentialCont, "pwd"),
+			Usr:        G(VMMCredentialCont, "usr"),
+		},
 	}
 }
 

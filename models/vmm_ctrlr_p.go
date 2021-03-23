@@ -1,6 +1,5 @@
 package models
 
-
 import (
 	"fmt"
 	"strconv"
@@ -12,31 +11,30 @@ const VmmctrlrpClassName = "vmmCtrlrP"
 
 type VMMController struct {
 	BaseAttributes
-    VMMControllerAttributes 
+	VMMControllerAttributes
 }
-  
+
 type VMMControllerAttributes struct {
-    Annotation       string `json:",omitempty"`
-    DvsVersion       string `json:",omitempty"`
-    HostOrIp       string `json:",omitempty"`
-    InventoryTrigSt       string `json:",omitempty"`
-    Mode       string `json:",omitempty"`
-    MsftConfigErrMsg       string `json:",omitempty"`
-    MsftConfigIssues       string `json:",omitempty"`
-    N1kvStatsMode       string `json:",omitempty"`
-    NameAlias       string `json:",omitempty"`
-    Port       string `json:",omitempty"`
-    RootContName       string `json:",omitempty"`
-    Scope       string `json:",omitempty"`
-    SeqNum       string `json:",omitempty"`
-    StatsMode       string `json:",omitempty"`
-    VxlanDeplPref       string `json:",omitempty"`
-    
+	Name             string `json:",omitempty"`
+	Annotation       string `json:",omitempty"`
+	DvsVersion       string `json:",omitempty"`
+	HostOrIp         string `json:",omitempty"`
+	InventoryTrigSt  string `json:",omitempty"`
+	Mode             string `json:",omitempty"`
+	MsftConfigErrMsg string `json:",omitempty"`
+	MsftConfigIssues string `json:",omitempty"`
+	N1kvStatsMode    string `json:",omitempty"`
+	NameAlias        string `json:",omitempty"`
+	Port             string `json:",omitempty"`
+	RootContName     string `json:",omitempty"`
+	Scope            string `json:",omitempty"`
+	SeqNum           string `json:",omitempty"`
+	StatsMode        string `json:",omitempty"`
+	VxlanDeplPref    string `json:",omitempty"`
 }
-   
 
 func NewVMMController(vmmCtrlrPRn, parentDn, description string, vmmCtrlrPattr VMMControllerAttributes) *VMMController {
-	dn := fmt.Sprintf("%s/%s", parentDn, vmmCtrlrPRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, vmmCtrlrPRn)
 	return &VMMController{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -45,9 +43,8 @@ func NewVMMController(vmmCtrlrPRn, parentDn, description string, vmmCtrlrPattr V
 			ClassName:         VmmctrlrpClassName,
 			Rn:                vmmCtrlrPRn,
 		},
-        
+
 		VMMControllerAttributes: vmmCtrlrPattr,
-         
 	}
 }
 
@@ -57,23 +54,22 @@ func (vmmCtrlrP *VMMController) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
-    A(vmmCtrlrPMap, "annotation",vmmCtrlrP.Annotation)
-    A(vmmCtrlrPMap, "dvsVersion",vmmCtrlrP.DvsVersion)
-    A(vmmCtrlrPMap, "hostOrIp",vmmCtrlrP.HostOrIp)
-    A(vmmCtrlrPMap, "inventoryTrigSt",vmmCtrlrP.InventoryTrigSt)
-    A(vmmCtrlrPMap, "mode",vmmCtrlrP.Mode)
-    A(vmmCtrlrPMap, "msftConfigErrMsg",vmmCtrlrP.MsftConfigErrMsg)
-    A(vmmCtrlrPMap, "msftConfigIssues",vmmCtrlrP.MsftConfigIssues)
-    A(vmmCtrlrPMap, "n1kvStatsMode",vmmCtrlrP.N1kvStatsMode)
-    A(vmmCtrlrPMap, "nameAlias",vmmCtrlrP.NameAlias)
-    A(vmmCtrlrPMap, "port",vmmCtrlrP.Port)
-    A(vmmCtrlrPMap, "rootContName",vmmCtrlrP.RootContName)
-    A(vmmCtrlrPMap, "scope",vmmCtrlrP.Scope)
-    A(vmmCtrlrPMap, "seqNum",vmmCtrlrP.SeqNum)
-    A(vmmCtrlrPMap, "statsMode",vmmCtrlrP.StatsMode)
-    A(vmmCtrlrPMap, "vxlanDeplPref",vmmCtrlrP.VxlanDeplPref)
-    
-	
+	A(vmmCtrlrPMap, "name", vmmCtrlrP.Name)
+	A(vmmCtrlrPMap, "annotation", vmmCtrlrP.Annotation)
+	A(vmmCtrlrPMap, "dvsVersion", vmmCtrlrP.DvsVersion)
+	A(vmmCtrlrPMap, "hostOrIp", vmmCtrlrP.HostOrIp)
+	A(vmmCtrlrPMap, "inventoryTrigSt", vmmCtrlrP.InventoryTrigSt)
+	A(vmmCtrlrPMap, "mode", vmmCtrlrP.Mode)
+	A(vmmCtrlrPMap, "msftConfigErrMsg", vmmCtrlrP.MsftConfigErrMsg)
+	A(vmmCtrlrPMap, "msftConfigIssues", vmmCtrlrP.MsftConfigIssues)
+	A(vmmCtrlrPMap, "n1kvStatsMode", vmmCtrlrP.N1kvStatsMode)
+	A(vmmCtrlrPMap, "nameAlias", vmmCtrlrP.NameAlias)
+	A(vmmCtrlrPMap, "port", vmmCtrlrP.Port)
+	A(vmmCtrlrPMap, "rootContName", vmmCtrlrP.RootContName)
+	A(vmmCtrlrPMap, "scope", vmmCtrlrP.Scope)
+	A(vmmCtrlrPMap, "seqNum", vmmCtrlrP.SeqNum)
+	A(vmmCtrlrPMap, "statsMode", vmmCtrlrP.StatsMode)
+	A(vmmCtrlrPMap, "vxlanDeplPref", vmmCtrlrP.VxlanDeplPref)
 
 	return vmmCtrlrPMap, err
 }
@@ -89,26 +85,25 @@ func VMMControllerFromContainerList(cont *container.Container, index int) *VMMCo
 			ClassName:         VmmctrlrpClassName,
 			Rn:                G(VMMControllerCont, "rn"),
 		},
-        
+
 		VMMControllerAttributes{
-        Annotation : G(VMMControllerCont, "annotation"),
-        DvsVersion : G(VMMControllerCont, "dvsVersion"),
-        HostOrIp : G(VMMControllerCont, "hostOrIp"),
-        InventoryTrigSt : G(VMMControllerCont, "inventoryTrigSt"),
-        Mode : G(VMMControllerCont, "mode"),
-        MsftConfigErrMsg : G(VMMControllerCont, "msftConfigErrMsg"),
-        MsftConfigIssues : G(VMMControllerCont, "msftConfigIssues"),
-        N1kvStatsMode : G(VMMControllerCont, "n1kvStatsMode"),
-        NameAlias : G(VMMControllerCont, "nameAlias"),
-        Port : G(VMMControllerCont, "port"),
-        RootContName : G(VMMControllerCont, "rootContName"),
-        Scope : G(VMMControllerCont, "scope"),
-        SeqNum : G(VMMControllerCont, "seqNum"),
-        StatsMode : G(VMMControllerCont, "statsMode"),
-        VxlanDeplPref : G(VMMControllerCont, "vxlanDeplPref"),
-        		
-        },
-        
+			Name:             G(VMMControllerCont, "name"),
+			Annotation:       G(VMMControllerCont, "annotation"),
+			DvsVersion:       G(VMMControllerCont, "dvsVersion"),
+			HostOrIp:         G(VMMControllerCont, "hostOrIp"),
+			InventoryTrigSt:  G(VMMControllerCont, "inventoryTrigSt"),
+			Mode:             G(VMMControllerCont, "mode"),
+			MsftConfigErrMsg: G(VMMControllerCont, "msftConfigErrMsg"),
+			MsftConfigIssues: G(VMMControllerCont, "msftConfigIssues"),
+			N1kvStatsMode:    G(VMMControllerCont, "n1kvStatsMode"),
+			NameAlias:        G(VMMControllerCont, "nameAlias"),
+			Port:             G(VMMControllerCont, "port"),
+			RootContName:     G(VMMControllerCont, "rootContName"),
+			Scope:            G(VMMControllerCont, "scope"),
+			SeqNum:           G(VMMControllerCont, "seqNum"),
+			StatsMode:        G(VMMControllerCont, "statsMode"),
+			VxlanDeplPref:    G(VMMControllerCont, "vxlanDeplPref"),
+		},
 	}
 }
 
