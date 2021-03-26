@@ -90,16 +90,16 @@ func (sm *ServiceManager) DeleteRelationvmmRsVswitchExporterPol(parentDn, tDn st
 	return sm.DeleteByDn(dn, "vmmRsVswitchExporterPol")
 }
 
-func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideFwPol(parentDn, tnNwsFwPolName string) error {
+func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideFwPol(parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsvswitchOverrideFwPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
 				"dn": "%s",
-				"tnNwsFwPolName": "%s"
+				"tDn": "%s"
 			}
 		}
-	}`, "vmmRsVswitchOverrideFwPol", dn, tnNwsFwPolName))
+	}`, "vmmRsVswitchOverrideFwPol", dn, tDn))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -124,16 +124,16 @@ func (sm *ServiceManager) DeleteRelationvmmRsVswitchOverrideFwPol(parentDn strin
 	dn := fmt.Sprintf("%s/rsvswitchOverrideFwPol", parentDn)
 	return sm.DeleteByDn(dn, "vmmRsVswitchOverrideFwPol")
 }
-func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideStpPol(parentDn, tnStpIfPolName string) error {
+func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideStpPol(parentDn, StpIfPolName string) error {
 	dn := fmt.Sprintf("%s/rsvswitchOverrideStpPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
 				"dn": "%s",
-				"tnStpIfPolName": "%s"
+				"tDn": "%s"
 			}
 		}
-	}`, "vmmRsVswitchOverrideStpPol", dn, tnStpIfPolName))
+	}`, "vmmRsVswitchOverrideStpPol", dn, StpIfPolName))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
@@ -198,7 +198,7 @@ func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideMcpIfPol(parentDn, t
 		"%s": {
 			"attributes": {
 				"dn": "%s",
-				"tnMcpIfPolName": "%s"
+				"tDn": "%s"
 			}
 		}
 	}`, "vmmRsVswitchOverrideMcpIfPol", dn, tnMcpIfPolName))
