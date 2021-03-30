@@ -378,9 +378,6 @@ func (c *Client) Authenticate() error {
 		return err
 	}
 
-	c.skipLoggingPayload = true
-
-	req, err := c.MakeRestRequest(method, path, body, authenticated)
 	obj, _, err := c.Do(req)
 
 	c.skipLoggingPayload = false
