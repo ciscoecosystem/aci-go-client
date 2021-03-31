@@ -7,10 +7,10 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateL3outBGPProtocolProfile(logical_node_profile string, l3_outside string, tenant string, description string, bgpProtPattr models.L3outBGPProtocolProfileAttributes) (*models.L3outBGPProtocolProfile, error) {
+func (sm *ServiceManager) CreateL3outBGPProtocolProfile(logical_node_profile string, l3_outside string, tenant string, bgpProtPattr models.L3outBGPProtocolProfileAttributes) (*models.L3outBGPProtocolProfile, error) {
 	rn := fmt.Sprintf("protp")
 	parentDn := fmt.Sprintf("uni/tn-%s/out-%s/lnodep-%s", tenant, l3_outside, logical_node_profile)
-	bgpProtP := models.NewL3outBGPProtocolProfile(rn, parentDn, description, bgpProtPattr)
+	bgpProtP := models.NewL3outBGPProtocolProfile(rn, parentDn, bgpProtPattr)
 	err := sm.Save(bgpProtP)
 	return bgpProtP, err
 }
@@ -31,10 +31,10 @@ func (sm *ServiceManager) DeleteL3outBGPProtocolProfile(logical_node_profile str
 	return sm.DeleteByDn(dn, models.BgpprotpClassName)
 }
 
-func (sm *ServiceManager) UpdateL3outBGPProtocolProfile(logical_node_profile string, l3_outside string, tenant string, description string, bgpProtPattr models.L3outBGPProtocolProfileAttributes) (*models.L3outBGPProtocolProfile, error) {
+func (sm *ServiceManager) UpdateL3outBGPProtocolProfile(logical_node_profile string, l3_outside string, tenant string, bgpProtPattr models.L3outBGPProtocolProfileAttributes) (*models.L3outBGPProtocolProfile, error) {
 	rn := fmt.Sprintf("protp")
 	parentDn := fmt.Sprintf("uni/tn-%s/out-%s/lnodep-%s", tenant, l3_outside, logical_node_profile)
-	bgpProtP := models.NewL3outBGPProtocolProfile(rn, parentDn, description, bgpProtPattr)
+	bgpProtP := models.NewL3outBGPProtocolProfile(rn, parentDn, bgpProtPattr)
 
 	bgpProtP.Status = "modified"
 	err := sm.Save(bgpProtP)

@@ -20,12 +20,11 @@ type L3outBGPProtocolProfileAttributes struct {
 	NameAlias string `json:",omitempty"`
 }
 
-func NewL3outBGPProtocolProfile(bgpProtPRn, parentDn, description string, bgpProtPattr L3outBGPProtocolProfileAttributes) *L3outBGPProtocolProfile {
+func NewL3outBGPProtocolProfile(bgpProtPRn, parentDn string, bgpProtPattr L3outBGPProtocolProfileAttributes) *L3outBGPProtocolProfile {
 	dn := fmt.Sprintf("%s/%s", parentDn, bgpProtPRn)
 	return &L3outBGPProtocolProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
-			Description:       description,
 			Status:            "created, modified",
 			ClassName:         BgpprotpClassName,
 			Rn:                bgpProtPRn,
@@ -54,7 +53,6 @@ func L3outBGPProtocolProfileFromContainerList(cont *container.Container, index i
 	return &L3outBGPProtocolProfile{
 		BaseAttributes{
 			DistinguishedName: G(L3outBGPProtocolProfileCont, "dn"),
-			Description:       G(L3outBGPProtocolProfileCont, "descr"),
 			Status:            G(L3outBGPProtocolProfileCont, "status"),
 			ClassName:         BgpprotpClassName,
 			Rn:                G(L3outBGPProtocolProfileCont, "rn"),
