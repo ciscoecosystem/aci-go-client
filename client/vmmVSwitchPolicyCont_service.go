@@ -1,88 +1,109 @@
 package client
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
-func (sm *ServiceManager) CreateVSwitchPolicyGroup(vmm_domain string, provider_profile_vendor string, description string, vmmVSwitchPolicyContattr models.VSwitchPolicyGroupAttributes) (*models.VSwitchPolicyGroup, error) {
-	rn := fmt.Sprintf("vswitchpolcont")
-	parentDn := fmt.Sprintf("uni/vmmp-%s/dom-%s", provider_profile_vendor, vmm_domain)
-	vmmVSwitchPolicyCont := models.NewVSwitchPolicyGroup(rn, parentDn, description, vmmVSwitchPolicyContattr)
+func (sm *ServiceManager) CreateVSwitchPolicyGroup(vmm_domain string, provider_profile_vendor string, description string, nameAlias string, vmmVSwitchPolicyContAttr models.VSwitchPolicyGroupAttributes) (*models.VSwitchPolicyGroup, error) {
+	rn := fmt.Sprintf(models.RnvmmVSwitchPolicyCont)
+	parentDn := fmt.Sprintf(models.ParentDnvmmVSwitchPolicyCont, provider_profile_vendor, vmm_domain)
+	vmmVSwitchPolicyCont := models.NewVSwitchPolicyGroup(rn, parentDn, description, nameAlias, vmmVSwitchPolicyContAttr)
 	err := sm.Save(vmmVSwitchPolicyCont)
 	return vmmVSwitchPolicyCont, err
 }
 
 func (sm *ServiceManager) ReadVSwitchPolicyGroup(vmm_domain string, provider_profile_vendor string) (*models.VSwitchPolicyGroup, error) {
-	dn := fmt.Sprintf("uni/vmmp-%s/dom-%s/vswitchpolcont", provider_profile_vendor, vmm_domain)
+	dn := fmt.Sprintf(models.DnvmmVSwitchPolicyCont, provider_profile_vendor, vmm_domain)
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
 	}
-
 	vmmVSwitchPolicyCont := models.VSwitchPolicyGroupFromContainer(cont)
 	return vmmVSwitchPolicyCont, nil
 }
 
 func (sm *ServiceManager) DeleteVSwitchPolicyGroup(vmm_domain string, provider_profile_vendor string) error {
-	dn := fmt.Sprintf("uni/vmmp-%s/dom-%s/vswitchpolcont", provider_profile_vendor, vmm_domain)
+	dn := fmt.Sprintf(models.DnvmmVSwitchPolicyCont, provider_profile_vendor, vmm_domain)
 	return sm.DeleteByDn(dn, models.VmmvswitchpolicycontClassName)
 }
 
-func (sm *ServiceManager) UpdateVSwitchPolicyGroup(vmm_domain string, provider_profile_vendor string, description string, vmmVSwitchPolicyContattr models.VSwitchPolicyGroupAttributes) (*models.VSwitchPolicyGroup, error) {
-	rn := fmt.Sprintf("vswitchpolcont")
-	parentDn := fmt.Sprintf("uni/vmmp-%s/dom-%s", provider_profile_vendor, vmm_domain)
-	vmmVSwitchPolicyCont := models.NewVSwitchPolicyGroup(rn, parentDn, description, vmmVSwitchPolicyContattr)
-
+func (sm *ServiceManager) UpdateVSwitchPolicyGroup(vmm_domain string, provider_profile_vendor string, description string, nameAlias string, vmmVSwitchPolicyContAttr models.VSwitchPolicyGroupAttributes) (*models.VSwitchPolicyGroup, error) {
+	rn := fmt.Sprintf(models.RnvmmVSwitchPolicyCont)
+	parentDn := fmt.Sprintf(models.ParentDnvmmVSwitchPolicyCont, provider_profile_vendor, vmm_domain)
+	vmmVSwitchPolicyCont := models.NewVSwitchPolicyGroup(rn, parentDn, description, nameAlias, vmmVSwitchPolicyContAttr)
 	vmmVSwitchPolicyCont.Status = "modified"
 	err := sm.Save(vmmVSwitchPolicyCont)
 	return vmmVSwitchPolicyCont, err
-
 }
 
 func (sm *ServiceManager) ListVSwitchPolicyGroup(vmm_domain string, provider_profile_vendor string) ([]*models.VSwitchPolicyGroup, error) {
-
-	baseurlStr := "/api/node/class"
-	dnUrl := fmt.Sprintf("%s/uni/vmmp-%s/dom-%s/vmmVSwitchPolicyCont.json", baseurlStr, provider_profile_vendor, vmm_domain)
-
+	dnUrl := fmt.Sprintf("%s/uni/vmmp-%s/dom-%s/vmmVSwitchPolicyCont.json", models.BaseurlStr, provider_profile_vendor, vmm_domain)
 	cont, err := sm.GetViaURL(dnUrl)
 	list := models.VSwitchPolicyGroupListFromContainer(cont)
-
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationvmmRsVswitchExporterPol(parentDn, tDn, activeFlowTimeout, idleFlowTimeout, samplingRate string) (string, error) {
+func (sm *ServiceManager) CreateRelationvmmRsVswitchExporterPol(parentDn, annotation, activeFlowTimeOut string, idleFlowTimeOut string, samplingRate string, tDn string) error {
 	dn := fmt.Sprintf("%s/rsvswitchExporterPol-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
 				"dn": "%s",
-				"activeFlowTimeOut": "%s",
-				"idleFlowTimeOut": "%s",
-				"samplingRate": "%s"
+				"annotation": "%s",
+				"tDn": "%s"
 			}
 		}
-	}`, "vmmRsVswitchExporterPol", dn, activeFlowTimeout, idleFlowTimeout, samplingRate))
+	}`, "vmmRsVswitchExporterPol", dn, annotation, tDn))
 
-	jsonPayload, err := container.ParseJSON(containerJSON)
+	attributes := map[string]interface{}{
+		"activeFlowTimeOut": activeFlowTimeOut,
+		"idleFlowTimeOut":   idleFlowTimeOut,
+		"samplingRate":      samplingRate,
+	}
+	var output map[string]interface{}
+	err_output := json.Unmarshal([]byte(containerJSON), &output)
+	if err_output != nil {
+		return err_output
+	}
+	for _, value := range output {
+		if rec, ok := value.(map[string]interface{}); ok {
+			for _, val2 := range rec {
+				if rec2, ok := val2.(map[string]interface{}); ok {
+					for key, value := range attributes {
+						if value != "" {
+							rec2[key] = value
+						}
+					}
+
+				}
+			}
+		}
+
+	}
+	input, out_err := json.Marshal(output)
+	if out_err != nil {
+		return out_err
+	}
+	jsonPayload, err := container.ParseJSON(input)
 	if err != nil {
-		return dn, err
+		return err
 	}
 
 	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
 	if err != nil {
-		return dn, err
+		return err
 	}
-
 	cont, _, err := sm.client.Do(req)
 	if err != nil {
-		return dn, err
+		return err
 	}
 	fmt.Printf("%+v", cont)
-
-	return dn, nil
+	return nil
 }
 
 func (sm *ServiceManager) DeleteRelationvmmRsVswitchExporterPol(parentDn, tDn string) error {
@@ -90,169 +111,46 @@ func (sm *ServiceManager) DeleteRelationvmmRsVswitchExporterPol(parentDn, tDn st
 	return sm.DeleteByDn(dn, "vmmRsVswitchExporterPol")
 }
 
-func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideFwPol(parentDn, tDn string) error {
-	dn := fmt.Sprintf("%s/rsvswitchOverrideFwPol", parentDn)
-	containerJSON := []byte(fmt.Sprintf(`{
-		"%s": {
-			"attributes": {
-				"dn": "%s",
-				"tDn": "%s"
-			}
-		}
-	}`, "vmmRsVswitchOverrideFwPol", dn, tDn))
+func (sm *ServiceManager) ReadRelationvmmRsVswitchExporterPol(parentDn string) (interface{}, error) {
+	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "vmmRsVswitchExporterPol")
+	cont, err := sm.GetViaURL(dnUrl)
+	contList := models.ListFromContainer(cont, "vmmRsVswitchExporterPol")
 
-	jsonPayload, err := container.ParseJSON(containerJSON)
-	if err != nil {
-		return err
+	st := &schema.Set{
+		F: schema.HashString,
 	}
-
-	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
-	if err != nil {
-		return err
+	for _, contItem := range contList {
+		dat := models.G(contItem, "tDn")
+		st.Add(dat)
 	}
-
-	cont, _, err := sm.client.Do(req)
-	if err != nil {
-		return err
-	}
-	fmt.Printf("%+v", cont)
-
-	return nil
+	return st, err
 }
 
-func (sm *ServiceManager) DeleteRelationvmmRsVswitchOverrideFwPol(parentDn string) error {
-	dn := fmt.Sprintf("%s/rsvswitchOverrideFwPol", parentDn)
-	return sm.DeleteByDn(dn, "vmmRsVswitchOverrideFwPol")
-}
-func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideStpPol(parentDn, StpIfPolName string) error {
-	dn := fmt.Sprintf("%s/rsvswitchOverrideStpPol", parentDn)
-	containerJSON := []byte(fmt.Sprintf(`{
-		"%s": {
-			"attributes": {
-				"dn": "%s",
-				"tDn": "%s"
-			}
-		}
-	}`, "vmmRsVswitchOverrideStpPol", dn, StpIfPolName))
-
-	jsonPayload, err := container.ParseJSON(containerJSON)
-	if err != nil {
-		return err
-	}
-
-	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
-	if err != nil {
-		return err
-	}
-
-	cont, _, err := sm.client.Do(req)
-	if err != nil {
-		return err
-	}
-	fmt.Printf("%+v", cont)
-
-	return nil
-}
-
-func (sm *ServiceManager) DeleteRelationvmmRsVswitchOverrideStpPol(parentDn string) error {
-	dn := fmt.Sprintf("%s/rsvswitchOverrideStpPol", parentDn)
-	return sm.DeleteByDn(dn, "vmmRsVswitchOverrideStpPol")
-}
-func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideLldpIfPol(parentDn, LldpIfPolName string) error {
-	dn := fmt.Sprintf("%s/rsvswitchOverrideLldpIfPol", parentDn)
-	containerJSON := []byte(fmt.Sprintf(`{
-		"%s": {
-			"attributes": {
-				"dn": "%s",
-				"tDn": "%s"
-			}
-		}
-	}`, "vmmRsVswitchOverrideLldpIfPol", dn, LldpIfPolName))
-
-	jsonPayload, err := container.ParseJSON(containerJSON)
-	if err != nil {
-		return err
-	}
-
-	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
-	if err != nil {
-		return err
-	}
-
-	cont, _, err := sm.client.Do(req)
-	if err != nil {
-		return err
-	}
-	fmt.Printf("%+v", cont)
-
-	return nil
-}
-
-func (sm *ServiceManager) DeleteRelationvmmRsVswitchOverrideLldpIfPol(parentDn string) error {
-	dn := fmt.Sprintf("%s/rsvswitchOverrideLldpIfPol", parentDn)
-	return sm.DeleteByDn(dn, "vmmRsVswitchOverrideLldpIfPol")
-}
-func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideMcpIfPol(parentDn, tnMcpIfPolName string) error {
-	dn := fmt.Sprintf("%s/rsvswitchOverrideMcpIfPol", parentDn)
-	containerJSON := []byte(fmt.Sprintf(`{
-		"%s": {
-			"attributes": {
-				"dn": "%s",
-				"tDn": "%s"
-			}
-		}
-	}`, "vmmRsVswitchOverrideMcpIfPol", dn, tnMcpIfPolName))
-
-	jsonPayload, err := container.ParseJSON(containerJSON)
-	if err != nil {
-		return err
-	}
-
-	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
-	if err != nil {
-		return err
-	}
-
-	cont, _, err := sm.client.Do(req)
-	if err != nil {
-		return err
-	}
-	fmt.Printf("%+v", cont)
-
-	return nil
-}
-
-func (sm *ServiceManager) DeleteRelationvmmRsVswitchOverrideMcpIfPol(parentDn string) error {
-	dn := fmt.Sprintf("%s/rsvswitchOverrideMcpIfPol", parentDn)
-	return sm.DeleteByDn(dn, "vmmRsVswitchOverrideMcpIfPol")
-}
-func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideCdpIfPol(parentDn, CdpIfPolName string) error {
+func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideCdpIfPol(parentDn, annotation, tDn string) error {
 	dn := fmt.Sprintf("%s/rsvswitchOverrideCdpIfPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
 				"dn": "%s",
+				"annotation": "%s",
 				"tDn": "%s"
 			}
 		}
-	}`, "vmmRsVswitchOverrideCdpIfPol", dn, CdpIfPolName))
+	}`, "vmmRsVswitchOverrideCdpIfPol", dn, annotation, tDn))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
 		return err
 	}
-
 	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
 	if err != nil {
 		return err
 	}
-
 	cont, _, err := sm.client.Do(req)
 	if err != nil {
 		return err
 	}
 	fmt.Printf("%+v", cont)
-
 	return nil
 }
 
@@ -260,33 +158,91 @@ func (sm *ServiceManager) DeleteRelationvmmRsVswitchOverrideCdpIfPol(parentDn st
 	dn := fmt.Sprintf("%s/rsvswitchOverrideCdpIfPol", parentDn)
 	return sm.DeleteByDn(dn, "vmmRsVswitchOverrideCdpIfPol")
 }
-func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideLacpPol(parentDn, LacpLagPolName string) error {
-	dn := fmt.Sprintf("%s/rsvswitchOverrideLacpPol", parentDn)
+
+func (sm *ServiceManager) ReadRelationvmmRsVswitchOverrideCdpIfPol(parentDn string) (interface{}, error) {
+	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "vmmRsVswitchOverrideCdpIfPol")
+	cont, err := sm.GetViaURL(dnUrl)
+	contList := models.ListFromContainer(cont, "vmmRsVswitchOverrideCdpIfPol")
+
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tDn")
+		return dat, err
+	} else {
+		return nil, err
+	}
+}
+
+func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideFwPol(parentDn, annotation, tDn string) error {
+	dn := fmt.Sprintf("%s/rsvswitchOverrideFwPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
 				"dn": "%s",
+				"annotation": "%s",
 				"tDn": "%s"
 			}
 		}
-	}`, "vmmRsVswitchOverrideLacpPol", dn, LacpLagPolName))
+	}`, "vmmRsVswitchOverrideFwPol", dn, annotation, tDn))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
 		return err
 	}
-
 	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
 	if err != nil {
 		return err
 	}
-
 	cont, _, err := sm.client.Do(req)
 	if err != nil {
 		return err
 	}
 	fmt.Printf("%+v", cont)
+	return nil
+}
 
+func (sm *ServiceManager) DeleteRelationvmmRsVswitchOverrideFwPol(parentDn string) error {
+	dn := fmt.Sprintf("%s/rsvswitchOverrideFwPol", parentDn)
+	return sm.DeleteByDn(dn, "vmmRsVswitchOverrideFwPol")
+}
+
+func (sm *ServiceManager) ReadRelationvmmRsVswitchOverrideFwPol(parentDn string) (interface{}, error) {
+	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "vmmRsVswitchOverrideFwPol")
+	cont, err := sm.GetViaURL(dnUrl)
+	contList := models.ListFromContainer(cont, "vmmRsVswitchOverrideFwPol")
+
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tDn")
+		return dat, err
+	} else {
+		return nil, err
+	}
+}
+
+func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideLacpPol(parentDn, annotation, tDn string) error {
+	dn := fmt.Sprintf("%s/rsvswitchOverrideLacpPol", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s",
+				"annotation": "%s",
+				"tDn": "%s"
+			}
+		}
+	}`, "vmmRsVswitchOverrideLacpPol", dn, annotation, tDn))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
 	return nil
 }
 
@@ -295,37 +251,199 @@ func (sm *ServiceManager) DeleteRelationvmmRsVswitchOverrideLacpPol(parentDn str
 	return sm.DeleteByDn(dn, "vmmRsVswitchOverrideLacpPol")
 }
 
-func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideMtuPol(parentDn, tDn string) error {
-	dn := fmt.Sprintf("%s/rsvswitchOverrideMtuPol", parentDn)
+func (sm *ServiceManager) ReadRelationvmmRsVswitchOverrideLacpPol(parentDn string) (interface{}, error) {
+	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "vmmRsVswitchOverrideLacpPol")
+	cont, err := sm.GetViaURL(dnUrl)
+	contList := models.ListFromContainer(cont, "vmmRsVswitchOverrideLacpPol")
+
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tDn")
+		return dat, err
+	} else {
+		return nil, err
+	}
+}
+
+func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideLldpIfPol(parentDn, annotation, tDn string) error {
+	dn := fmt.Sprintf("%s/rsvswitchOverrideLldpIfPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
 				"dn": "%s",
+				"annotation": "%s",
 				"tDn": "%s"
 			}
 		}
-	}`, "vmmRsVswitchOverrideMtuPol", dn, tDn))
+	}`, "vmmRsVswitchOverrideLldpIfPol", dn, annotation, tDn))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
 		return err
 	}
-
 	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
 	if err != nil {
 		return err
 	}
-
 	cont, _, err := sm.client.Do(req)
 	if err != nil {
 		return err
 	}
 	fmt.Printf("%+v", cont)
+	return nil
+}
 
+func (sm *ServiceManager) DeleteRelationvmmRsVswitchOverrideLldpIfPol(parentDn string) error {
+	dn := fmt.Sprintf("%s/rsvswitchOverrideLldpIfPol", parentDn)
+	return sm.DeleteByDn(dn, "vmmRsVswitchOverrideLldpIfPol")
+}
+
+func (sm *ServiceManager) ReadRelationvmmRsVswitchOverrideLldpIfPol(parentDn string) (interface{}, error) {
+	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "vmmRsVswitchOverrideLldpIfPol")
+	cont, err := sm.GetViaURL(dnUrl)
+	contList := models.ListFromContainer(cont, "vmmRsVswitchOverrideLldpIfPol")
+
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tDn")
+		return dat, err
+	} else {
+		return nil, err
+	}
+}
+
+func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideMcpIfPol(parentDn, annotation, tDn string) error {
+	dn := fmt.Sprintf("%s/rsvswitchOverrideMcpIfPol", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s",
+				"annotation": "%s",
+				"tDn": "%s"
+			}
+		}
+	}`, "vmmRsVswitchOverrideMcpIfPol", dn, annotation, tDn))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+	return nil
+}
+
+func (sm *ServiceManager) DeleteRelationvmmRsVswitchOverrideMcpIfPol(parentDn string) error {
+	dn := fmt.Sprintf("%s/rsvswitchOverrideMcpIfPol", parentDn)
+	return sm.DeleteByDn(dn, "vmmRsVswitchOverrideMcpIfPol")
+}
+
+func (sm *ServiceManager) ReadRelationvmmRsVswitchOverrideMcpIfPol(parentDn string) (interface{}, error) {
+	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "vmmRsVswitchOverrideMcpIfPol")
+	cont, err := sm.GetViaURL(dnUrl)
+	contList := models.ListFromContainer(cont, "vmmRsVswitchOverrideMcpIfPol")
+
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tDn")
+		return dat, err
+	} else {
+		return nil, err
+	}
+}
+
+func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideMtuPol(parentDn, annotation, tDn string) error {
+	dn := fmt.Sprintf("%s/rsvswitchOverrideMtuPol", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s",
+				"annotation": "%s",
+				"tDn": "%s"
+			}
+		}
+	}`, "vmmRsVswitchOverrideMtuPol", dn, annotation, tDn))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
 	return nil
 }
 
 func (sm *ServiceManager) DeleteRelationvmmRsVswitchOverrideMtuPol(parentDn string) error {
 	dn := fmt.Sprintf("%s/rsvswitchOverrideMtuPol", parentDn)
 	return sm.DeleteByDn(dn, "vmmRsVswitchOverrideMtuPol")
+}
+
+func (sm *ServiceManager) ReadRelationvmmRsVswitchOverrideMtuPol(parentDn string) (interface{}, error) {
+	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "vmmRsVswitchOverrideMtuPol")
+	cont, err := sm.GetViaURL(dnUrl)
+	contList := models.ListFromContainer(cont, "vmmRsVswitchOverrideMtuPol")
+
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tDn")
+		return dat, err
+	} else {
+		return nil, err
+	}
+}
+
+func (sm *ServiceManager) CreateRelationvmmRsVswitchOverrideStpPol(parentDn, annotation, tDn string) error {
+	dn := fmt.Sprintf("%s/rsvswitchOverrideStpPol", parentDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s",
+				"annotation": "%s",
+				"tDn": "%s"
+			}
+		}
+	}`, "vmmRsVswitchOverrideStpPol", dn, annotation, tDn))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+	return nil
+}
+
+func (sm *ServiceManager) DeleteRelationvmmRsVswitchOverrideStpPol(parentDn string) error {
+	dn := fmt.Sprintf("%s/rsvswitchOverrideStpPol", parentDn)
+	return sm.DeleteByDn(dn, "vmmRsVswitchOverrideStpPol")
+}
+
+func (sm *ServiceManager) ReadRelationvmmRsVswitchOverrideStpPol(parentDn string) (interface{}, error) {
+	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "vmmRsVswitchOverrideStpPol")
+	cont, err := sm.GetViaURL(dnUrl)
+	contList := models.ListFromContainer(cont, "vmmRsVswitchOverrideStpPol")
+
+	if len(contList) > 0 {
+		dat := models.G(contList[0], "tDn")
+		return dat, err
+	} else {
+		return nil, err
+	}
 }
