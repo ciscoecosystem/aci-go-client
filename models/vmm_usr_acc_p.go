@@ -7,22 +7,27 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/container"
 )
 
-const VmmusraccpClassName = "vmmUsrAccP"
+const (
+	DnvmmUsrAccP        = "uni/vmmp-%s/dom-%s/usracc-%s"
+	RnvmmUsrAccP        = "usracc-%s"
+	ParentDnvmmUsrAccP  = "uni/vmmp-%s/dom-%s"
+	VmmusraccpClassName = "vmmUsrAccP"
+)
 
 type VMMCredential struct {
 	BaseAttributes
+	NameAliasAttribute
 	VMMCredentialAttributes
 }
 
 type VMMCredentialAttributes struct {
-	Name       string `json:",omitempty"`
 	Annotation string `json:",omitempty"`
-	NameAlias  string `json:",omitempty"`
+	Name       string `json:",omitempty"`
 	Pwd        string `json:",omitempty"`
 	Usr        string `json:",omitempty"`
 }
 
-func NewVMMCredential(vmmUsrAccPRn, parentDn, description string, vmmUsrAccPattr VMMCredentialAttributes) *VMMCredential {
+func NewVMMCredential(vmmUsrAccPRn, parentDn, description, nameAlias string, vmmUsrAccPAttr VMMCredentialAttributes) *VMMCredential {
 	dn := fmt.Sprintf("%s/%s", parentDn, vmmUsrAccPRn)
 	return &VMMCredential{
 		BaseAttributes: BaseAttributes{
@@ -32,8 +37,10 @@ func NewVMMCredential(vmmUsrAccPRn, parentDn, description string, vmmUsrAccPattr
 			ClassName:         VmmusraccpClassName,
 			Rn:                vmmUsrAccPRn,
 		},
-
-		VMMCredentialAttributes: vmmUsrAccPattr,
+		NameAliasAttribute: NameAliasAttribute{
+			NameAlias: nameAlias,
+		},
+		VMMCredentialAttributes: vmmUsrAccPAttr,
 	}
 }
 
@@ -42,18 +49,21 @@ func (vmmUsrAccP *VMMCredential) ToMap() (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	A(vmmUsrAccPMap, "name", vmmUsrAccP.Name)
+	alias, err := vmmUsrAccP.NameAliasAttribute.ToMap()
+	if err != nil {
+		return nil, err
+	}
+	for key, value := range alias {
+		A(vmmUsrAccPMap, key, value)
+	}
 	A(vmmUsrAccPMap, "annotation", vmmUsrAccP.Annotation)
-	A(vmmUsrAccPMap, "nameAlias", vmmUsrAccP.NameAlias)
+	A(vmmUsrAccPMap, "name", vmmUsrAccP.Name)
 	A(vmmUsrAccPMap, "pwd", vmmUsrAccP.Pwd)
 	A(vmmUsrAccPMap, "usr", vmmUsrAccP.Usr)
-
 	return vmmUsrAccPMap, err
 }
 
 func VMMCredentialFromContainerList(cont *container.Container, index int) *VMMCredential {
-
 	VMMCredentialCont := cont.S("imdata").Index(index).S(VmmusraccpClassName, "attributes")
 	return &VMMCredential{
 		BaseAttributes{
@@ -63,11 +73,12 @@ func VMMCredentialFromContainerList(cont *container.Container, index int) *VMMCr
 			ClassName:         VmmusraccpClassName,
 			Rn:                G(VMMCredentialCont, "rn"),
 		},
-
+		NameAliasAttribute{
+			NameAlias: G(VMMCredentialCont, "nameAlias"),
+		},
 		VMMCredentialAttributes{
-			Name:       G(VMMCredentialCont, "name"),
 			Annotation: G(VMMCredentialCont, "annotation"),
-			NameAlias:  G(VMMCredentialCont, "nameAlias"),
+			Name:       G(VMMCredentialCont, "name"),
 			Pwd:        G(VMMCredentialCont, "pwd"),
 			Usr:        G(VMMCredentialCont, "usr"),
 		},
@@ -75,19 +86,14 @@ func VMMCredentialFromContainerList(cont *container.Container, index int) *VMMCr
 }
 
 func VMMCredentialFromContainer(cont *container.Container) *VMMCredential {
-
 	return VMMCredentialFromContainerList(cont, 0)
 }
 
 func VMMCredentialListFromContainer(cont *container.Container) []*VMMCredential {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-
 	arr := make([]*VMMCredential, length)
-
 	for i := 0; i < length; i++ {
-
 		arr[i] = VMMCredentialFromContainerList(cont, i)
 	}
-
 	return arr
 }
