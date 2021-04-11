@@ -145,9 +145,9 @@ func initClient(clientUrl, username string, options ...Option) *Client {
 		log.Fatal(err)
 	}
 	client := &Client{
-		BaseURL:    bUrl,
-		username:   username,
-		MOURL:      DefaultMOURL,
+		BaseURL:  bUrl,
+		username: username,
+		MOURL:    DefaultMOURL,
 	}
 
 	for _, option := range options {
@@ -242,6 +242,64 @@ func (c *Client) useInsecureHTTPClient(insecure bool) *http.Transport {
 
 }
 
+// Takes raw payload and does the http request
+//  Used for login request
+//  passwords with special chars have issues when using container
+//  for encoding/decoding
+func (c *Client) MakeRestRequestRaw(method string, rpath string, payload []byte, authenticated bool) (*http.Request, error) {
+
+	pathURL, err := url.Parse(rpath)
+	if err != nil {
+		return nil, err
+	}
+
+	fURL, err := url.Parse(c.BaseURL.String())
+	if err != nil {
+		return nil, err
+	}
+
+	if c.preserveBaseUrlRef {
+		// Default is false for preserveBaseUrlRef - matching original behavior to strip out BaseURL
+		fURLStr := fURL.String() + pathURL.String()
+		fURL, err = url.Parse(fURLStr)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		// Original behavior to strip down BaseURL
+		fURL = fURL.ResolveReference(pathURL)
+	}
+
+	var req *http.Request
+	log.Printf("[DEBUG] BaseURL: %s, pathURL: %s, fURL: %s", c.BaseURL.String(), pathURL.String(), fURL.String())
+	if method == "GET" {
+		req, err = http.NewRequest(method, fURL.String(), nil)
+	} else {
+		req, err = http.NewRequest(method, fURL.String(), bytes.NewBuffer(payload))
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	if c.skipLoggingPayload {
+		log.Printf("HTTP request %s %s", method, rpath)
+	} else {
+		log.Printf("HTTP request %s %s %v", method, rpath, req)
+	}
+	if authenticated {
+		req, err = c.InjectAuthenticationHeader(req, rpath)
+		if err != nil {
+			return req, err
+		}
+	}
+
+	if !c.skipLoggingPayload {
+		log.Printf("HTTP request after injection %s %s %v", method, rpath, req)
+	}
+
+	return req, nil
+}
+
 func (c *Client) MakeRestRequest(method string, rpath string, body *container.Container, authenticated bool) (*http.Request, error) {
 
 	pathURL, err := url.Parse(rpath)
@@ -306,20 +364,23 @@ func (c *Client) Authenticate() error {
 	// (2) escapes out the password to support scenarios where the user password includes backslashes
 	escUserName := strings.ReplaceAll(c.username, `\`, `\\`)
 	escPwd := strings.ReplaceAll(c.password, `\`, `\\`)
-	body, err := container.ParseJSON([]byte(fmt.Sprintf(authPayload, escUserName, escPwd)))
+	body := []byte(fmt.Sprintf(authPayload, escUserName, escPwd))
 	if c.appUserName != "" {
 		path = "/api/requestAppToken.json"
-		body, err = container.ParseJSON([]byte(fmt.Sprintf(authAppPayload, c.appUserName)))
+		body = []byte(fmt.Sprintf(authAppPayload, c.appUserName))
 		authenticated = true
 	}
 
+	c.skipLoggingPayload = true
+
+	req, err := c.MakeRestRequestRaw(method, path, body, authenticated)
 	if err != nil {
 		return err
 	}
 
-	req, err := c.MakeRestRequest(method, path, body, authenticated)
 	obj, _, err := c.Do(req)
 
+	c.skipLoggingPayload = false
 	if err != nil {
 		return err
 	}
