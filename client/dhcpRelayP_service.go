@@ -54,15 +54,15 @@ func (sm *ServiceManager) ListDHCPRelayPolicy(tenant string) ([]*models.DHCPRela
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationdhcpRsProvFromDHCPRelayPolicy(parentDn, tDn string) error {
+func (sm *ServiceManager) CreateRelationdhcpRsProvFromDHCPRelayPolicy(parentDn, tDn, addr string) error {
 	dn := fmt.Sprintf("%s/rsprov-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s", "annotation": "orchestrator:terraform", "tDn": "%s"				
+				"dn": "%s", "annotation": "orchestrator:terraform", "tDn": "%s", "addr": "%s"				
 			}
 		}
-	}`, "dhcpRsProv", dn, tDn))
+	}`, "dhcpRsProv", dn, tDn, addr))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
