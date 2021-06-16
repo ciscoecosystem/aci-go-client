@@ -219,6 +219,7 @@ func NewClient(clientUrl, username string, options ...Option) *Client {
 }
 
 func (c *Client) configProxy(transport *http.Transport) *http.Transport {
+	log.Printf("[DEBUG] %s: Using Proxy Server ", c.proxyUrl)
 	pUrl, err := url.Parse(c.proxyUrl)
 	if err != nil {
 		log.Fatal(err)
