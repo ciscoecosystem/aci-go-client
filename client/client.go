@@ -411,9 +411,9 @@ func (c *Client) Authenticate() error {
 	}
 
 	obj, _, err := c.Do(req)
-
 	c.skipLoggingPayload = false
 	if err != nil {
+		log.Printf("[DEBUG] %s: Fatal", err)
 		return err
 	}
 	if obj == nil {
