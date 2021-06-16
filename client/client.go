@@ -219,7 +219,7 @@ func NewClient(clientUrl, username string, options ...Option) *Client {
 }
 
 func (c *Client) configProxy(transport *http.Transport) *http.Transport {
-	log.Printf("[DEBUG] %s: Using Proxy Server ", c.proxyUrl)
+	log.Printf("[DEBUG]: Using Proxy Server: %s ", c.proxyUrl)
 	pUrl, err := url.Parse(c.proxyUrl)
 	if err != nil {
 		log.Fatal(err)
@@ -413,7 +413,7 @@ func (c *Client) Authenticate() error {
 	obj, _, err := c.Do(req)
 	c.skipLoggingPayload = false
 	if err != nil {
-		log.Printf("[DEBUG] %s: Fatal", err)
+		log.Printf("[DEBUG]: ERROR %s", err)
 		return err
 	}
 	if obj == nil {
