@@ -87,7 +87,7 @@ func TestTenantCreation(t *testing.T) {
 
 func TestDomCreate(t *testing.T) {
 	c := GetTestClient()
-	dom := models.NewVMMDomain(fmt.Sprintf("dom-%s", "test"), "uni/vmmp-VMware", "", models.VMMDomainAttributes{})
+	dom := models.NewVMMDomain(fmt.Sprintf("dom-%s", "test"), "uni/vmmp-VMware", models.VMMDomainAttributes{})
 	err := c.Save(dom)
 	t.Error(err)
 }
@@ -96,7 +96,7 @@ func TestGetDN(t *testing.T) {
 	path := "api/node/mo/uni/tn-tenant_for_bd/out-testext.json"
 	className := "l3extOut"
 	cont, err := c.GetViaURL(path)
-	dn := cont.Search("imdata", className, "attributes", "dn").String()
+	//dn := cont.Search("imdata", className, "attributes", "dn").String()
 
 	t.Error(err)
 
