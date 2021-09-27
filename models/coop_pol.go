@@ -21,9 +21,9 @@ type COOPGroupPolicy struct {
 }
 
 type COOPGroupPolicyAttributes struct {
-	Annotation           string `json:",omitempty"`
-	Name                 string `json:",omitempty"`
-	COOPGroupPolicy_type string `json:",omitempty"`
+	Annotation string `json:",omitempty"`
+	Name       string `json:",omitempty"`
+	Type       string `json:",omitempty"`
 }
 
 func NewCOOPGroupPolicy(coopPolRn, parentDn, description, nameAlias string, coopPolAttr COOPGroupPolicyAttributes) *COOPGroupPolicy {
@@ -57,7 +57,7 @@ func (coopPol *COOPGroupPolicy) ToMap() (map[string]string, error) {
 	}
 	A(coopPolMap, "annotation", coopPol.Annotation)
 	A(coopPolMap, "name", coopPol.Name)
-	A(coopPolMap, "COOPGroupPolicy_type", coopPol.COOPGroupPolicy_type)
+	A(coopPolMap, "type", coopPol.Type)
 	return coopPolMap, err
 }
 
@@ -75,9 +75,9 @@ func COOPGroupPolicyFromContainerList(cont *container.Container, index int) *COO
 			NameAlias: G(COOPGroupPolicyCont, "nameAlias"),
 		},
 		COOPGroupPolicyAttributes{
-			Annotation:           G(COOPGroupPolicyCont, "annotation"),
-			Name:                 G(COOPGroupPolicyCont, "name"),
-			COOPGroupPolicy_type: G(COOPGroupPolicyCont, "COOPGroupPolicy_type"),
+			Annotation: G(COOPGroupPolicyCont, "annotation"),
+			Name:       G(COOPGroupPolicyCont, "name"),
+			Type:       G(COOPGroupPolicyCont, "type"),
 		},
 	}
 }
