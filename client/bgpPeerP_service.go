@@ -1,6 +1,7 @@
 package client
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
@@ -97,4 +98,84 @@ func (sm *ServiceManager) ReadRelationbgpRsPeerPfxPolFromBgpPeerConnectivityProf
 		return nil, err
 	}
 
+}
+
+func (sm *ServiceManager) CreateRelationbgpRsPeerToProfile(parentDn, annotation, direction string, tDn string) error {
+	dn := fmt.Sprintf("%s/rspeerToProfile-[%s]-%s", parentDn, tDn, direction)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s",
+				"annotation": "%s",
+				"tDn": "%s",
+				"direction": "%s"
+			}
+		}
+	}`, "bgpRsPeerToProfile", dn, annotation, tDn, direction))
+
+	attributes := map[string]interface{}{
+		"direction": direction,
+	}
+
+	var output map[string]interface{}
+	err_output := json.Unmarshal([]byte(containerJSON), &output)
+
+	if err_output != nil {
+		return err_output
+	}
+	for _, value := range output {
+		if rec, ok := value.(map[string]interface{}); ok {
+			for _, val2 := range rec {
+				if rec2, ok := val2.(map[string]interface{}); ok {
+					for key, value := range attributes {
+						if value != "" {
+							rec2[key] = value
+						}
+					}
+
+				}
+			}
+		}
+
+	}
+	input, out_err := json.Marshal(output)
+	if out_err != nil {
+		return out_err
+	}
+	jsonPayload, err := container.ParseJSON(input)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+	cont, _, err := sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%+v", cont)
+	return nil
+}
+
+func (sm *ServiceManager) DeleteRelationbgpRsPeerToProfile(parentDn, tDn, direction string) error {
+	dn := fmt.Sprintf("%s/rspeerToProfile-[%s]-%s", parentDn, tDn, direction)
+	return sm.DeleteByDn(dn, "bgpRsPeerToProfile")
+}
+
+func (sm *ServiceManager) ReadRelationbgpRsPeerToProfile(parentDn string) (interface{}, error) {
+	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "bgpRsPeerToProfile")
+	cont, err := sm.GetViaURL(dnUrl)
+	contList := models.ListFromContainer(cont, "bgpRsPeerToProfile")
+
+	st := make([]map[string]string, 0)
+	for _, contItem := range contList {
+		paramMap := make(map[string]string)
+		paramMap["tDn"] = models.G(contItem, "tDn")
+		paramMap["direction"] = models.G(contItem, "direction")
+
+		st = append(st, paramMap)
+	}
+	return st, err
 }
