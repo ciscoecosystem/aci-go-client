@@ -6,26 +6,27 @@ import (
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 )
+
 const (
-	DnaaaSamlProviderGroup                = "uni/userext/samlext/samlprovidergroup-%s"
-	RnaaaSamlProviderGroup                = "samlprovidergroup-%s"
-	ParentDnaaaSamlProviderGroup          = "uni/userext/samlext"
+	DnaaaSamlProviderGroup        = "uni/userext/samlext/samlprovidergroup-%s"
+	RnaaaSamlProviderGroup        = "samlprovidergroup-%s"
+	ParentDnaaaSamlProviderGroup  = "uni/userext/samlext"
 	AaasamlprovidergroupClassName = "aaaSamlProviderGroup"
 )
 
 type SAMLProviderGroup struct {
 	BaseAttributes
 	NameAliasAttribute
-    SAMLProviderGroupAttributes 
+	SAMLProviderGroupAttributes
 }
-  
+
 type SAMLProviderGroupAttributes struct {
-    Annotation       string `json:",omitempty"`
-    Name       string `json:",omitempty"`
-    } 
+	Annotation string `json:",omitempty"`
+	Name       string `json:",omitempty"`
+}
 
 func NewSAMLProviderGroup(aaaSamlProviderGroupRn, parentDn, description, nameAlias string, aaaSamlProviderGroupAttr SAMLProviderGroupAttributes) *SAMLProviderGroup {
-	dn := fmt.Sprintf("%s/%s", parentDn, aaaSamlProviderGroupRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, aaaSamlProviderGroupRn)
 	return &SAMLProviderGroup{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -37,7 +38,7 @@ func NewSAMLProviderGroup(aaaSamlProviderGroupRn, parentDn, description, nameAli
 		NameAliasAttribute: NameAliasAttribute{
 			NameAlias: nameAlias,
 		},
-        SAMLProviderGroupAttributes: aaaSamlProviderGroupAttr, 
+		SAMLProviderGroupAttributes: aaaSamlProviderGroupAttr,
 	}
 }
 
@@ -53,9 +54,9 @@ func (aaaSamlProviderGroup *SAMLProviderGroup) ToMap() (map[string]string, error
 	for key, value := range alias {
 		A(aaaSamlProviderGroupMap, key, value)
 	}
-    A(aaaSamlProviderGroupMap, "annotation",aaaSamlProviderGroup.Annotation)
-    A(aaaSamlProviderGroupMap, "name",aaaSamlProviderGroup.Name)
-    return aaaSamlProviderGroupMap, err
+	A(aaaSamlProviderGroupMap, "annotation", aaaSamlProviderGroup.Annotation)
+	A(aaaSamlProviderGroupMap, "name", aaaSamlProviderGroup.Name)
+	return aaaSamlProviderGroupMap, err
 }
 
 func SAMLProviderGroupFromContainerList(cont *container.Container, index int) *SAMLProviderGroup {
@@ -71,10 +72,10 @@ func SAMLProviderGroupFromContainerList(cont *container.Container, index int) *S
 		NameAliasAttribute{
 			NameAlias: G(SAMLProviderGroupCont, "nameAlias"),
 		},
-        SAMLProviderGroupAttributes{
-        Annotation : G(SAMLProviderGroupCont, "annotation"),
-        Name : G(SAMLProviderGroupCont, "name"),
-        },
+		SAMLProviderGroupAttributes{
+			Annotation: G(SAMLProviderGroupCont, "annotation"),
+			Name:       G(SAMLProviderGroupCont, "name"),
+		},
 	}
 }
 
