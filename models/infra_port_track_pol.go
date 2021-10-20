@@ -6,31 +6,30 @@ import (
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 )
-
 const (
-	DninfraPortTrackPol        = "uni/infra/trackEqptFabP-%s"
-	RninfraPortTrackPol        = "trackEqptFabP-%s"
-	ParentDninfraPortTrackPol  = "uni/infra"
+	DninfraPortTrackPol                = "uni/infra/trackEqptFabP-%s"
+	RninfraPortTrackPol                = "trackEqptFabP-%s"
+	ParentDninfraPortTrackPol          = "uni/infra"
 	InfraporttrackpolClassName = "infraPortTrackPol"
 )
 
 type PortTracking struct {
 	BaseAttributes
 	NameAliasAttribute
-	PortTrackingAttributes
+    PortTrackingAttributes 
 }
-
+  
 type PortTrackingAttributes struct {
-	AdminSt          string `json:",omitempty"`
-	Annotation       string `json:",omitempty"`
-	Delay            string `json:",omitempty"`
-	IncludeApicPorts string `json:",omitempty"`
-	Minlinks         string `json:",omitempty"`
-	Name             string `json:",omitempty"`
-}
+    AdminSt       string `json:",omitempty"`
+    Annotation       string `json:",omitempty"`
+    Delay       string `json:",omitempty"`
+    IncludeApicPorts       string `json:",omitempty"`
+    Minlinks       string `json:",omitempty"`
+    Name       string `json:",omitempty"`
+    } 
 
 func NewPortTracking(infraPortTrackPolRn, parentDn, description, nameAlias string, infraPortTrackPolAttr PortTrackingAttributes) *PortTracking {
-	dn := fmt.Sprintf("%s/%s", parentDn, infraPortTrackPolRn)
+	dn := fmt.Sprintf("%s/%s", parentDn, infraPortTrackPolRn)  
 	return &PortTracking{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -42,7 +41,7 @@ func NewPortTracking(infraPortTrackPolRn, parentDn, description, nameAlias strin
 		NameAliasAttribute: NameAliasAttribute{
 			NameAlias: nameAlias,
 		},
-		PortTrackingAttributes: infraPortTrackPolAttr,
+        PortTrackingAttributes: infraPortTrackPolAttr, 
 	}
 }
 
@@ -58,13 +57,13 @@ func (infraPortTrackPol *PortTracking) ToMap() (map[string]string, error) {
 	for key, value := range alias {
 		A(infraPortTrackPolMap, key, value)
 	}
-	A(infraPortTrackPolMap, "adminSt", infraPortTrackPol.AdminSt)
-	A(infraPortTrackPolMap, "annotation", infraPortTrackPol.Annotation)
-	A(infraPortTrackPolMap, "delay", infraPortTrackPol.Delay)
-	A(infraPortTrackPolMap, "includeApicPorts", infraPortTrackPol.IncludeApicPorts)
-	A(infraPortTrackPolMap, "minlinks", infraPortTrackPol.Minlinks)
-	A(infraPortTrackPolMap, "name", infraPortTrackPol.Name)
-	return infraPortTrackPolMap, err
+    A(infraPortTrackPolMap, "adminSt",infraPortTrackPol.AdminSt)
+    A(infraPortTrackPolMap, "annotation",infraPortTrackPol.Annotation)
+    A(infraPortTrackPolMap, "delay",infraPortTrackPol.Delay)
+    A(infraPortTrackPolMap, "includeApicPorts",infraPortTrackPol.IncludeApicPorts)
+    A(infraPortTrackPolMap, "minlinks",infraPortTrackPol.Minlinks)
+    A(infraPortTrackPolMap, "name",infraPortTrackPol.Name)
+    return infraPortTrackPolMap, err
 }
 
 func PortTrackingFromContainerList(cont *container.Container, index int) *PortTracking {
@@ -80,14 +79,14 @@ func PortTrackingFromContainerList(cont *container.Container, index int) *PortTr
 		NameAliasAttribute{
 			NameAlias: G(PortTrackingCont, "nameAlias"),
 		},
-		PortTrackingAttributes{
-			AdminSt:          G(PortTrackingCont, "adminSt"),
-			Annotation:       G(PortTrackingCont, "annotation"),
-			Delay:            G(PortTrackingCont, "delay"),
-			IncludeApicPorts: G(PortTrackingCont, "includeApicPorts"),
-			Minlinks:         G(PortTrackingCont, "minlinks"),
-			Name:             G(PortTrackingCont, "name"),
-		},
+        PortTrackingAttributes{
+        AdminSt : G(PortTrackingCont, "adminSt"),
+        Annotation : G(PortTrackingCont, "annotation"),
+        Delay : G(PortTrackingCont, "delay"),
+        IncludeApicPorts : G(PortTrackingCont, "includeApicPorts"),
+        Minlinks : G(PortTrackingCont, "minlinks"),
+        Name : G(PortTrackingCont, "name"),
+        },
 	}
 }
 
