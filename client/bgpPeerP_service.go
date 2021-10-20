@@ -1,7 +1,6 @@
 package client
 
 import (
-	"encoding/json"
 	"fmt"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
@@ -113,36 +112,7 @@ func (sm *ServiceManager) CreateRelationbgpRsPeerToProfile(parentDn, annotation,
 		}
 	}`, "bgpRsPeerToProfile", dn, annotation, tDn, direction))
 
-	attributes := map[string]interface{}{
-		"direction": direction,
-	}
-
-	var output map[string]interface{}
-	err_output := json.Unmarshal([]byte(containerJSON), &output)
-
-	if err_output != nil {
-		return err_output
-	}
-	for _, value := range output {
-		if rec, ok := value.(map[string]interface{}); ok {
-			for _, val2 := range rec {
-				if rec2, ok := val2.(map[string]interface{}); ok {
-					for key, value := range attributes {
-						if value != "" {
-							rec2[key] = value
-						}
-					}
-
-				}
-			}
-		}
-
-	}
-	input, out_err := json.Marshal(output)
-	if out_err != nil {
-		return out_err
-	}
-	jsonPayload, err := container.ParseJSON(input)
+	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
 		return err
 	}
