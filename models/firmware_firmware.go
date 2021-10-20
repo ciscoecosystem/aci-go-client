@@ -2,8 +2,8 @@ package models
 
 import (
 	"fmt"
-	"github.com/ciscoecosystem/aci-go-client/container"
 	"strconv"
+	"github.com/ciscoecosystem/aci-go-client/container"
 )
 
 const FirmwareFirmwareClassName = "firmwareFirmware"
