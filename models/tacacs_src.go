@@ -6,28 +6,29 @@ import (
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 )
+
 const (
-	DntacacsSrc                = "uni/tn-%s/monepg-%s/tarepg-%s/tacacssrc-%s"
-	RntacacsSrc                = "tacacssrc-%s"
-	ParentDntacacsSrc          = "uni/tn-%s/monepg-%s/tarepg-%s"
+	DntacacsSrc        = "uni/tn-%s/monepg-%s/tarepg-%s/tacacssrc-%s"
+	RntacacsSrc        = "tacacssrc-%s"
+	ParentDntacacsSrc  = "uni/tn-%s/monepg-%s/tarepg-%s"
 	TacacssrcClassName = "tacacsSrc"
 )
 
 type TACACSSource struct {
 	BaseAttributes
 	NameAliasAttribute
-    TACACSSourceAttributes 
+	TACACSSourceAttributes
 }
-  
+
 type TACACSSourceAttributes struct {
-    Annotation       string `json:",omitempty"`
-    Incl       string `json:",omitempty"`
-    MinSev       string `json:",omitempty"`
-    Name       string `json:",omitempty"`
-    } 
+	Annotation string `json:",omitempty"`
+	Incl       string `json:",omitempty"`
+	MinSev     string `json:",omitempty"`
+	Name       string `json:",omitempty"`
+}
 
 func NewTACACSSource(tacacsSrcRn, parentDn, description, nameAlias string, tacacsSrcAttr TACACSSourceAttributes) *TACACSSource {
-	dn := fmt.Sprintf("%s/%s", parentDn, tacacsSrcRn)  
+	dn := fmt.Sprintf("%s/%s", parentDn, tacacsSrcRn)
 	return &TACACSSource{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -39,7 +40,7 @@ func NewTACACSSource(tacacsSrcRn, parentDn, description, nameAlias string, tacac
 		NameAliasAttribute: NameAliasAttribute{
 			NameAlias: nameAlias,
 		},
-        TACACSSourceAttributes: tacacsSrcAttr, 
+		TACACSSourceAttributes: tacacsSrcAttr,
 	}
 }
 
@@ -55,11 +56,11 @@ func (tacacsSrc *TACACSSource) ToMap() (map[string]string, error) {
 	for key, value := range alias {
 		A(tacacsSrcMap, key, value)
 	}
-    A(tacacsSrcMap, "annotation",tacacsSrc.Annotation)
-    A(tacacsSrcMap, "incl",tacacsSrc.Incl)
-    A(tacacsSrcMap, "minSev",tacacsSrc.MinSev)
-    A(tacacsSrcMap, "name",tacacsSrc.Name)
-    return tacacsSrcMap, err
+	A(tacacsSrcMap, "annotation", tacacsSrc.Annotation)
+	A(tacacsSrcMap, "incl", tacacsSrc.Incl)
+	A(tacacsSrcMap, "minSev", tacacsSrc.MinSev)
+	A(tacacsSrcMap, "name", tacacsSrc.Name)
+	return tacacsSrcMap, err
 }
 
 func TACACSSourceFromContainerList(cont *container.Container, index int) *TACACSSource {
@@ -75,12 +76,12 @@ func TACACSSourceFromContainerList(cont *container.Container, index int) *TACACS
 		NameAliasAttribute{
 			NameAlias: G(TACACSSourceCont, "nameAlias"),
 		},
-        TACACSSourceAttributes{
-        Annotation : G(TACACSSourceCont, "annotation"),
-        Incl : G(TACACSSourceCont, "incl"),
-        MinSev : G(TACACSSourceCont, "minSev"),
-        Name : G(TACACSSourceCont, "name"),
-        },
+		TACACSSourceAttributes{
+			Annotation: G(TACACSSourceCont, "annotation"),
+			Incl:       G(TACACSSourceCont, "incl"),
+			MinSev:     G(TACACSSourceCont, "minSev"),
+			Name:       G(TACACSSourceCont, "name"),
+		},
 	}
 }
 
