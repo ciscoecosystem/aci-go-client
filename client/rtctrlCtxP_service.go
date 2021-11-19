@@ -8,16 +8,26 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-func (sm *ServiceManager) CreateRouteControlContext(name string, route_control_profile string, tenant string, description string, nameAlias string, rtctrlCtxPAttr models.RouteControlContextAttributes) (*models.RouteControlContext, error) {
+func (sm *ServiceManager) CreateRouteControlContext(name string, route_control_profile string, tenant string, l3_outside string, description string, nameAlias string, rtctrlCtxPAttr models.RouteControlContextAttributes) (*models.RouteControlContext, error) {
 	rn := fmt.Sprintf(models.RnrtctrlCtxP, name)
-	parentDn := fmt.Sprintf(models.ParentDnrtctrlCtxP, tenant, route_control_profile)
+	var parentDn string
+	if l3_outside != "nil" {
+		parentDn = fmt.Sprintf(models.ParentDnrtctrlCtxP()[1], tenant, l3_outside, route_control_profile)
+	} else {
+		parentDn = fmt.Sprintf(models.ParentDnrtctrlCtxP()[0], tenant, route_control_profile)
+	}
 	rtctrlCtxP := models.NewRouteControlContext(rn, parentDn, description, nameAlias, rtctrlCtxPAttr)
 	err := sm.Save(rtctrlCtxP)
 	return rtctrlCtxP, err
 }
 
-func (sm *ServiceManager) ReadRouteControlContext(name string, route_control_profile string, tenant string) (*models.RouteControlContext, error) {
-	dn := fmt.Sprintf(models.DnrtctrlCtxP, tenant, route_control_profile, name)
+func (sm *ServiceManager) ReadRouteControlContext(name string, route_control_profile string, tenant string, l3_outside string) (*models.RouteControlContext, error) {
+	var dn string
+	if l3_outside != "nil" {
+		dn = fmt.Sprintf(models.DnrtctrlCtxP()[1], tenant, l3_outside, route_control_profile, name)
+	} else {
+		dn = fmt.Sprintf(models.DnrtctrlCtxP()[0], tenant, route_control_profile, name)
+	}
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
@@ -26,22 +36,37 @@ func (sm *ServiceManager) ReadRouteControlContext(name string, route_control_pro
 	return rtctrlCtxP, nil
 }
 
-func (sm *ServiceManager) DeleteRouteControlContext(name string, route_control_profile string, tenant string) error {
-	dn := fmt.Sprintf(models.DnrtctrlCtxP, tenant, route_control_profile, name)
+func (sm *ServiceManager) DeleteRouteControlContext(name string, route_control_profile string, tenant string, l3_outside string) error {
+	var dn string
+	if l3_outside != "nil" {
+		dn = fmt.Sprintf(models.DnrtctrlCtxP()[1], tenant, l3_outside, route_control_profile, name)
+	} else {
+		dn = fmt.Sprintf(models.DnrtctrlCtxP()[0], tenant, route_control_profile, name)
+	}
 	return sm.DeleteByDn(dn, models.RtctrlctxpClassName)
 }
 
-func (sm *ServiceManager) UpdateRouteControlContext(name string, route_control_profile string, tenant string, description string, nameAlias string, rtctrlCtxPAttr models.RouteControlContextAttributes) (*models.RouteControlContext, error) {
+func (sm *ServiceManager) UpdateRouteControlContext(name string, route_control_profile string, tenant string, l3_outside string, description string, nameAlias string, rtctrlCtxPAttr models.RouteControlContextAttributes) (*models.RouteControlContext, error) {
 	rn := fmt.Sprintf(models.RnrtctrlCtxP, name)
-	parentDn := fmt.Sprintf(models.ParentDnrtctrlCtxP, tenant, route_control_profile)
+	var parentDn string
+	if l3_outside != "nil" {
+		parentDn = fmt.Sprintf(models.ParentDnrtctrlCtxP()[1], tenant, l3_outside, route_control_profile)
+	} else {
+		parentDn = fmt.Sprintf(models.ParentDnrtctrlCtxP()[0], tenant, route_control_profile)
+	}
 	rtctrlCtxP := models.NewRouteControlContext(rn, parentDn, description, nameAlias, rtctrlCtxPAttr)
 	rtctrlCtxP.Status = "modified"
 	err := sm.Save(rtctrlCtxP)
 	return rtctrlCtxP, err
 }
 
-func (sm *ServiceManager) ListRouteControlContext(route_control_profile string, tenant string) ([]*models.RouteControlContext, error) {
-	dnUrl := fmt.Sprintf("%s/uni/tn-%s/prof-%s/rtctrlCtxP.json", models.BaseurlStr, tenant, route_control_profile)
+func (sm *ServiceManager) ListRouteControlContext(route_control_profile string, tenant string, l3_outside string) ([]*models.RouteControlContext, error) {
+	var dnUrl string
+	if l3_outside != "nil" {
+		dnUrl = fmt.Sprintf("%s/uni/tn-%s/out-%s/prof-%s/rtctrlCtxP.json", models.BaseurlStr, tenant, l3_outside, route_control_profile)
+	} else {
+		dnUrl = fmt.Sprintf("%s/uni/tn-%s/prof-%s/rtctrlCtxP.json", models.BaseurlStr, tenant, route_control_profile)
+	}
 	cont, err := sm.GetViaURL(dnUrl)
 	list := models.RouteControlContextListFromContainer(cont)
 	return list, err
