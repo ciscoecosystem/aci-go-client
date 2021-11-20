@@ -8,17 +8,13 @@ import (
 )
 
 const (
-	RnrtctrlCtxP        = "ctx-%s"
-	RtctrlctxpClassName = "rtctrlCtxP"
+	DnrtctrlCtxP          = "uni/tn-%s/prof-%s/ctx-%s"
+	DnrtctrlCtxPOut       = "uni/tn-%s/out-%s/prof-%s/ctx-%s"
+	RnrtctrlCtxP          = "ctx-%s"
+	ParentDnrtctrlCtxP    = "uni/tn-%s/prof-%s"
+	ParentDnrtctrlCtxPOut = "uni/tn-%s/out-%s/prof-%s"
+	RtctrlctxpClassName   = "rtctrlCtxP"
 )
-
-func DnrtctrlCtxP() []string {
-	return []string{"uni/tn-%s/prof-%s/ctx-%s", "uni/tn-%s/out-%s/prof-%s/ctx-%s"}
-}
-
-func ParentDnrtctrlCtxP() []string {
-	return []string{"uni/tn-%s/prof-%s", "uni/tn-%s/out-%s/prof-%s"}
-}
 
 type RouteControlContext struct {
 	BaseAttributes
