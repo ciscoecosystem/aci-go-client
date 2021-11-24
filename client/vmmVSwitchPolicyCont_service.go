@@ -6,7 +6,6 @@ import (
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 func (sm *ServiceManager) CreateVSwitchPolicyGroup(vmm_domain string, provider_profile_vendor string, description string, nameAlias string, vmmVSwitchPolicyContAttr models.VSwitchPolicyGroupAttributes) (*models.VSwitchPolicyGroup, error) {
@@ -115,7 +114,7 @@ func (sm *ServiceManager) ReadRelationvmmRsVswitchExporterPol(parentDn string) (
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "vmmRsVswitchExporterPol")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "vmmRsVswitchExporterPol")
-	
+
 	st := make([]map[string]string, 0, 1)
 	for _, contItem := range contList {
 		paramMap := make(map[string]string)
