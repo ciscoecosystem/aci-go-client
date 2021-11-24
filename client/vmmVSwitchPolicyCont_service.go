@@ -115,13 +115,15 @@ func (sm *ServiceManager) ReadRelationvmmRsVswitchExporterPol(parentDn string) (
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "vmmRsVswitchExporterPol")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "vmmRsVswitchExporterPol")
-
-	st := &schema.Set{
-		F: schema.HashString,
-	}
+	
+	st := make([]map[string]string, 0, 1)
 	for _, contItem := range contList {
-		dat := models.G(contItem, "tDn")
-		st.Add(dat)
+		paramMap := make(map[string]string)
+		paramMap["activeFlowTimeOut"] = models.G(contItem, "activeFlowTimeOut")
+		paramMap["idleFlowTimeOut"] = models.G(contItem, "idleFlowTimeOut")
+		paramMap["samplingRate"] = models.G(contItem, "samplingRate")
+		paramMap["tDn"] = models.G(contItem, "tDn")
+		st = append(st, paramMap)
 	}
 	return st, err
 }
