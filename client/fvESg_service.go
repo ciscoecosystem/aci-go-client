@@ -414,7 +414,7 @@ func (sm *ServiceManager) ReadRelationfvRsProv(parentDn string) (interface{}, er
 		paramMap := make(map[string]string)
 		paramMap["prio"] = models.G(contItem, "prio")
 		paramMap["tDn"] = models.G(contItem, "tDn")
-		paramMap["matchT"] = models.G(contItem, "match_t")
+		paramMap["matchT"] = models.G(contItem, "matchT")
 		st = append(st, paramMap)
 	}
 	return st, err
