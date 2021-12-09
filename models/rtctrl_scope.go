@@ -23,7 +23,6 @@ type RouteContextScope struct {
 type RouteContextScopeAttributes struct {
 	Annotation string `json:",omitempty"`
 	Name       string `json:",omitempty"`
-	SetRule    string `json:",omitempty"`
 }
 
 func NewRouteContextScope(rtctrlScopeRn, parentDn, description, nameAlias string, rtctrlScopeAttr RouteContextScopeAttributes) *RouteContextScope {
@@ -58,8 +57,6 @@ func (rtctrlScope *RouteContextScope) ToMap() (map[string]string, error) {
 
 	A(rtctrlScopeMap, "annotation", rtctrlScope.Annotation)
 	A(rtctrlScopeMap, "name", rtctrlScope.Name)
-
-	A(rtctrlScopeMap, "set_rule", rtctrlScope.SetRule)
 	return rtctrlScopeMap, err
 }
 
@@ -80,8 +77,6 @@ func RouteContextScopeFromContainerList(cont *container.Container, index int) *R
 
 			Annotation: G(RouteContextScopeCont, "annotation"),
 			Name:       G(RouteContextScopeCont, "name"),
-
-			SetRule: G(RouteContextScopeCont, "set_rule"),
 		},
 	}
 }
