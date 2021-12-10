@@ -4,45 +4,41 @@ import (
 	"fmt"
 
 	"github.com/ciscoecosystem/aci-go-client/models"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-func (sm *ServiceManager) CreateAnnotation(annotationObject string, fvAnnotationattr models.AnnotationAttributes) (*models.Annotation, error) {
-	tagAnnotation := models.NewAnnotation(annotationObject, fvAnnotationattr)
+func (sm *ServiceManager) CreateAnnotation(key string, parentDn string, tagAnnotationAttr models.AnnotationAttributes) (*models.Annotation, error) {
+	rn := fmt.Sprintf(models.RnTagAnnotation, key)
+	tagAnnotation := models.NewAnnotation(rn, parentDn, tagAnnotationAttr)
 	err := sm.Save(tagAnnotation)
 	return tagAnnotation, err
 }
 
-func (sm *ServiceManager) UpdateAnnotation(annotationObject string, fvAnnotationattr models.AnnotationAttributes) (*models.Annotation, error) {
-	tagAnnotation := models.NewAnnotation(annotationObject, fvAnnotationattr)
-  tagAnnotation.Status = "modified"
-  err := sm.Save(tagAnnotation)
-	return tagAnnotation, err
-}
-
-func (sm *ServiceManager) ReadAnnotation(objectName string, key string) (*models.Annotation, error) {
-  dn := fmt.Sprintf("%s/annotationKey-[%s]", objectName, key)
+func (sm *ServiceManager) ReadAnnotation(key string, parentDn string) (*models.Annotation, error) {
+	dn := fmt.Sprintf(models.DnTagAnnotation, parentDn, key)
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
 	}
-
 	tagAnnotation := models.AnnotationFromContainer(cont)
 	return tagAnnotation, nil
 }
 
-func (sm *ServiceManager) DeleteAnnotation(objectName string, key string) error {
-  dn := fmt.Sprintf("%s/annotationKey-[%s]", objectName, key)
+func (sm *ServiceManager) DeleteAnnotation(key string, parentDn string) error {
+	dn := fmt.Sprintf(models.DnTagAnnotation, parentDn, key)
 	return sm.DeleteByDn(dn, models.TagAnnotationClassName)
 }
 
+func (sm *ServiceManager) UpdateAnnotation(key string, parentDn string, tagAnnotationAttr models.AnnotationAttributes) (*models.Annotation, error) {
+	rn := fmt.Sprintf(models.RnTagAnnotation, key)
+	tagAnnotation := models.NewAnnotation(rn, parentDn, tagAnnotationAttr)
+	tagAnnotation.Status = "modified"
+	err := sm.Save(tagAnnotation)
+	return tagAnnotation, err
+}
+
 func (sm *ServiceManager) ListAnnotation() ([]*models.Annotation, error) {
-
-  baseurlStr := "/api/node/class"
-  dnUrl := fmt.Sprintf("%s/tagAnnotation.json", baseurlStr)
-
+	dnUrl := fmt.Sprintf("%s/tagAnnotation.json", models.BaseurlStr)
 	cont, err := sm.GetViaURL(dnUrl)
 	list := models.AnnotationListFromContainer(cont)
-
 	return list, err
 }
