@@ -25,12 +25,11 @@ type OutofServiceFabricPathAttributes struct {
 	TDn        string `json:",omitempty"`
 }
 
-func NewOutofServiceFabricPath(fabricRsOosPathRn, parentDn, description string, fabricRsOosPathAttr OutofServiceFabricPathAttributes) *OutofServiceFabricPath {
+func NewOutofServiceFabricPath(fabricRsOosPathRn, parentDn string, fabricRsOosPathAttr OutofServiceFabricPathAttributes) *OutofServiceFabricPath {
 	dn := fmt.Sprintf("%s/%s", parentDn, fabricRsOosPathRn)
 	return &OutofServiceFabricPath{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
-			Description:       description,
 			Status:            "created, modified",
 			ClassName:         FabricrsoospathClassName,
 			Rn:                fabricRsOosPathRn,
@@ -58,7 +57,6 @@ func OutofServiceFabricPathFromContainerList(cont *container.Container, index in
 	return &OutofServiceFabricPath{
 		BaseAttributes{
 			DistinguishedName: G(OutofServiceFabricPathCont, "dn"),
-			Description:       G(OutofServiceFabricPathCont, "descr"),
 			Status:            G(OutofServiceFabricPathCont, "status"),
 			ClassName:         FabricrsoospathClassName,
 			Rn:                G(OutofServiceFabricPathCont, "rn"),
