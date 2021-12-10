@@ -7,7 +7,11 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/container"
 )
 
-const TagAnnotationClassName = "tagAnnotation"
+const (
+	DnTagAnnotation        = "%s/annotationKey-[%s]"
+	RnTagAnnotation        = "annotationKey-[%s]"
+	TagAnnotationClassName = "tagAnnotation"
+)
 
 type Annotation struct {
 	BaseAttributes
@@ -19,8 +23,8 @@ type AnnotationAttributes struct {
 	Value string `json:",omitempty"`
 }
 
-func NewAnnotation(dnVar string, fvAnnotationattr AnnotationAttributes) *Annotation {
-	dn := fmt.Sprintf("%s/annotationKey-[%s]", dnVar,fvAnnotationattr.Key)
+func NewAnnotation(tagAnnotationRn, parentDn, tagAnnotationAttr AnnotationAttributes) *Annotation {
+	dn := fmt.Sprintf("%s/%s", parentDn, tagAnnotationRn)
 	return &Annotation{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
@@ -28,7 +32,7 @@ func NewAnnotation(dnVar string, fvAnnotationattr AnnotationAttributes) *Annotat
 			ClassName:         TagAnnotationClassName,
 		},
 
-		AnnotationAttributes: fvAnnotationattr,
+		AnnotationAttributes: tagAnnotationAttr,
 	}
 }
 
@@ -39,14 +43,12 @@ func (tagAnnotation *Annotation) ToMap() (map[string]string, error) {
 	}
 
 	A(tagAnnotationMap, "key", tagAnnotation.Key)
-
 	A(tagAnnotationMap, "value", tagAnnotation.Value)
 
 	return tagAnnotationMap, err
 }
 
 func AnnotationFromContainerList(cont *container.Container, index int) *Annotation {
-
 	AnnotationCont := cont.S("imdata").Index(index).S(TagAnnotationClassName, "attributes")
 	return &Annotation{
 		BaseAttributes{
@@ -54,9 +56,7 @@ func AnnotationFromContainerList(cont *container.Container, index int) *Annotati
 			Status:            G(AnnotationCont, "status"),
 			ClassName:         TagAnnotationClassName,
 		},
-
 		AnnotationAttributes{
-
 			Key: G(AnnotationCont, "key"),
 			Value: G(AnnotationCont, "value"),
 		},
@@ -68,12 +68,10 @@ func AnnotationFromContainer(cont *container.Container) *Annotation {
 }
 
 func AnnotationListFromContainer(cont *container.Container) []*Annotation {
-
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 	arr := make([]*Annotation, length)
 
 	for i := 0; i < length; i++ {
-
 		arr[i] = AnnotationFromContainerList(cont, i)
 	}
 
