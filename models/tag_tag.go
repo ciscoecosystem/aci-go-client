@@ -23,7 +23,7 @@ type TagAttributes struct {
 	Value string `json:",omitempty"`
 }
 
-func NewTag(tagTagRn, parentDn, tagTagAttr TagAttributes) *Tag {
+func NewTag(tagTagRn, parentDn string, tagTagAttr TagAttributes) *Tag {
 	dn := fmt.Sprintf("%s/%s", parentDn, tagTagRn)
 	return &Tag{
 		BaseAttributes: BaseAttributes{

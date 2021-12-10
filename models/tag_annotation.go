@@ -23,13 +23,14 @@ type AnnotationAttributes struct {
 	Value string `json:",omitempty"`
 }
 
-func NewAnnotation(tagAnnotationRn, parentDn, tagAnnotationAttr AnnotationAttributes) *Annotation {
+func NewAnnotation(tagAnnotationRn, parentDn string, tagAnnotationAttr AnnotationAttributes) *Annotation {
 	dn := fmt.Sprintf("%s/%s", parentDn, tagAnnotationRn)
 	return &Annotation{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Status:            "created, modified",
 			ClassName:         TagAnnotationClassName,
+			Rn:                tagAnnotationRn,
 		},
 
 		AnnotationAttributes: tagAnnotationAttr,
