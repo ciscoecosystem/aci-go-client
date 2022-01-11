@@ -2,6 +2,7 @@ package client
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
@@ -78,7 +79,7 @@ func (sm *ServiceManager) CreateRelationl2extRsEBdFromL2Outside(parentDn, tnFvBD
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -91,7 +92,7 @@ func (sm *ServiceManager) ReadRelationl2extRsEBdFromL2Outside(parentDn string) (
 	contList := models.ListFromContainer(cont, "l2extRsEBd")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnFvBDName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
@@ -123,7 +124,7 @@ func (sm *ServiceManager) CreateRelationl2extRsL2DomAttFromL2Outside(parentDn, t
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }

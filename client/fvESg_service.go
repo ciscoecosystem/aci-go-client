@@ -3,6 +3,7 @@ package client
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
@@ -100,7 +101,7 @@ func (sm *ServiceManager) CreateRelationfvRsCons(parentDn, annotation, prio stri
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 	return nil
 }
 
@@ -114,12 +115,12 @@ func (sm *ServiceManager) ReadRelationfvRsCons(parentDn string) (interface{}, er
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "fvRsCons")
 
-	st := &schema.Set{
-		F: schema.HashString,
-	}
+	st := make([]map[string]string, 0, 1)
 	for _, contItem := range contList {
-		dat := models.G(contItem, "tnVzBrCPName")
-		st.Add(dat)
+		paramMap := make(map[string]string)
+		paramMap["prio"] = models.G(contItem, "prio")
+		paramMap["tDn"] = models.G(contItem, "tDn")
+		st = append(st, paramMap)
 	}
 	return st, err
 }
@@ -176,7 +177,7 @@ func (sm *ServiceManager) CreateRelationfvRsConsIf(parentDn, annotation, prio st
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 	return nil
 }
 
@@ -190,12 +191,12 @@ func (sm *ServiceManager) ReadRelationfvRsConsIf(parentDn string) (interface{}, 
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "fvRsConsIf")
 
-	st := &schema.Set{
-		F: schema.HashString,
-	}
+	st := make([]map[string]string, 0, 1)
 	for _, contItem := range contList {
-		dat := models.G(contItem, "tnVzCPIfName")
-		st.Add(dat)
+		paramMap := make(map[string]string)
+		paramMap["prio"] = models.G(contItem, "prio")
+		paramMap["tDn"] = models.G(contItem, "tDn")
+		st = append(st, paramMap)
 	}
 	return st, err
 }
@@ -224,7 +225,7 @@ func (sm *ServiceManager) CreateRelationfvRsCustQosPol(parentDn, annotation, tnQ
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 	return nil
 }
 
@@ -239,7 +240,7 @@ func (sm *ServiceManager) ReadRelationfvRsCustQosPol(parentDn string) (interface
 	contList := models.ListFromContainer(cont, "fvRsCustQosPol")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnQosCustomPolName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
@@ -270,7 +271,7 @@ func (sm *ServiceManager) CreateRelationfvRsIntraEpg(parentDn, annotation, tnVzB
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 	return nil
 }
 
@@ -288,7 +289,7 @@ func (sm *ServiceManager) ReadRelationfvRsIntraEpg(parentDn string) (interface{}
 		F: schema.HashString,
 	}
 	for _, contItem := range contList {
-		dat := models.G(contItem, "tnVzBrCPName")
+		dat := models.G(contItem, "tDn")
 		st.Add(dat)
 	}
 	return st, err
@@ -318,7 +319,7 @@ func (sm *ServiceManager) CreateRelationfvRsProtBy(parentDn, annotation, tnVzTab
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 	return nil
 }
 
@@ -336,7 +337,7 @@ func (sm *ServiceManager) ReadRelationfvRsProtBy(parentDn string) (interface{}, 
 		F: schema.HashString,
 	}
 	for _, contItem := range contList {
-		dat := models.G(contItem, "tnVzTabooName")
+		dat := models.G(contItem, "tDn")
 		st.Add(dat)
 	}
 	return st, err
@@ -395,7 +396,7 @@ func (sm *ServiceManager) CreateRelationfvRsProv(parentDn, annotation, matchT st
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 	return nil
 }
 
@@ -409,12 +410,13 @@ func (sm *ServiceManager) ReadRelationfvRsProv(parentDn string) (interface{}, er
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "fvRsProv")
 
-	st := &schema.Set{
-		F: schema.HashString,
-	}
+	st := make([]map[string]string, 0, 1)
 	for _, contItem := range contList {
-		dat := models.G(contItem, "tnVzBrCPName")
-		st.Add(dat)
+		paramMap := make(map[string]string)
+		paramMap["prio"] = models.G(contItem, "prio")
+		paramMap["tDn"] = models.G(contItem, "tDn")
+		paramMap["matchT"] = models.G(contItem, "matchT")
+		st = append(st, paramMap)
 	}
 	return st, err
 }
@@ -443,7 +445,7 @@ func (sm *ServiceManager) CreateRelationfvRsScope(parentDn, annotation, tnFvCtxN
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 	return nil
 }
 
@@ -458,7 +460,7 @@ func (sm *ServiceManager) ReadRelationfvRsScope(parentDn string) (interface{}, e
 	contList := models.ListFromContainer(cont, "fvRsScope")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnFvCtxName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
@@ -489,7 +491,7 @@ func (sm *ServiceManager) CreateRelationfvRsSecInherited(parentDn, annotation, t
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 	return nil
 }
 

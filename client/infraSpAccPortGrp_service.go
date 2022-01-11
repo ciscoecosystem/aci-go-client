@@ -2,6 +2,7 @@ package client
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
@@ -78,7 +79,7 @@ func (sm *ServiceManager) CreateRelationinfraRsHIfPolFromSpineAccessPortPolicyGr
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -91,7 +92,7 @@ func (sm *ServiceManager) ReadRelationinfraRsHIfPolFromSpineAccessPortPolicyGrou
 	contList := models.ListFromContainer(cont, "infraRsHIfPol")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnFabricHIfPolName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
@@ -123,7 +124,7 @@ func (sm *ServiceManager) CreateRelationinfraRsCdpIfPolFromSpineAccessPortPolicy
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -136,7 +137,7 @@ func (sm *ServiceManager) ReadRelationinfraRsCdpIfPolFromSpineAccessPortPolicyGr
 	contList := models.ListFromContainer(cont, "infraRsCdpIfPol")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnCdpIfPolName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
@@ -168,7 +169,7 @@ func (sm *ServiceManager) CreateRelationinfraRsCoppIfPolFromSpineAccessPortPolic
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -181,7 +182,7 @@ func (sm *ServiceManager) ReadRelationinfraRsCoppIfPolFromSpineAccessPortPolicyG
 	contList := models.ListFromContainer(cont, "infraRsCoppIfPol")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnCoppIfPolName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
@@ -213,7 +214,7 @@ func (sm *ServiceManager) CreateRelationinfraRsAttEntPFromSpineAccessPortPolicyG
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -263,7 +264,7 @@ func (sm *ServiceManager) CreateRelationinfraRsMacsecIfPolFromSpineAccessPortPol
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -276,7 +277,7 @@ func (sm *ServiceManager) ReadRelationinfraRsMacsecIfPolFromSpineAccessPortPolic
 	contList := models.ListFromContainer(cont, "infraRsMacsecIfPol")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnMacsecIfPolName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err

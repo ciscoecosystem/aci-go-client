@@ -2,6 +2,7 @@ package client
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
@@ -78,7 +79,7 @@ func (sm *ServiceManager) CreateRelationvnsRsLIfCtxToCustQosPolFromLogicalInterf
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -91,7 +92,7 @@ func (sm *ServiceManager) ReadRelationvnsRsLIfCtxToCustQosPolFromLogicalInterfac
 	contList := models.ListFromContainer(cont, "vnsRsLIfCtxToCustQosPol")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnQosCustomPolName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
@@ -123,7 +124,7 @@ func (sm *ServiceManager) CreateRelationvnsRsLIfCtxToSvcEPgPolFromLogicalInterfa
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -173,7 +174,7 @@ func (sm *ServiceManager) CreateRelationvnsRsLIfCtxToSvcRedirectPolFromLogicalIn
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -223,7 +224,7 @@ func (sm *ServiceManager) CreateRelationvnsRsLIfCtxToLIfFromLogicalInterfaceCont
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -253,7 +254,7 @@ func (sm *ServiceManager) CreateRelationvnsRsLIfCtxToOutDefFromLogicalInterfaceC
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tnL3extOutDefName": "%s"
+				"dn": "%s","tDn": "%s"
 								
 			}
 		}
@@ -273,7 +274,7 @@ func (sm *ServiceManager) CreateRelationvnsRsLIfCtxToOutDefFromLogicalInterfaceC
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -286,7 +287,7 @@ func (sm *ServiceManager) ReadRelationvnsRsLIfCtxToOutDefFromLogicalInterfaceCon
 	contList := models.ListFromContainer(cont, "vnsRsLIfCtxToOutDef")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnL3extOutDefName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
@@ -298,7 +299,7 @@ func (sm *ServiceManager) CreateRelationvnsRsLIfCtxToInstPFromLogicalInterfaceCo
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tnFvEPgName": "%s"
+				"dn": "%s","tDn": "%s"
 								
 			}
 		}
@@ -318,7 +319,7 @@ func (sm *ServiceManager) CreateRelationvnsRsLIfCtxToInstPFromLogicalInterfaceCo
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -336,7 +337,7 @@ func (sm *ServiceManager) ReadRelationvnsRsLIfCtxToInstPFromLogicalInterfaceCont
 	contList := models.ListFromContainer(cont, "vnsRsLIfCtxToInstP")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnFvEPgName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
@@ -368,7 +369,7 @@ func (sm *ServiceManager) CreateRelationvnsRsLIfCtxToBDFromLogicalInterfaceConte
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -418,7 +419,7 @@ func (sm *ServiceManager) CreateRelationvnsRsLIfCtxToOutFromLogicalInterfaceCont
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }

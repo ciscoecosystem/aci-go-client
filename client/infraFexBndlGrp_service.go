@@ -2,6 +2,7 @@ package client
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
@@ -79,7 +80,7 @@ func (sm *ServiceManager) CreateRelationinfraRsMonFexInfraPolFromFexBundleGroup(
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -92,7 +93,7 @@ func (sm *ServiceManager) ReadRelationinfraRsMonFexInfraPolFromFexBundleGroup(pa
 	contList := models.ListFromContainer(cont, "infraRsMonFexInfraPol")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnMonInfraPolName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
@@ -123,7 +124,7 @@ func (sm *ServiceManager) CreateRelationinfraRsFexBndlGrpToAggrIfFromFexBundleGr
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }

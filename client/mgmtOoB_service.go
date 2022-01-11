@@ -2,6 +2,7 @@ package client
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
@@ -79,7 +80,7 @@ func (sm *ServiceManager) CreateRelationmgmtRsOoBProvFromOutOfBandManagementEPg(
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -100,7 +101,7 @@ func (sm *ServiceManager) ReadRelationmgmtRsOoBProvFromOutOfBandManagementEPg(pa
 		F: schema.HashString,
 	}
 	for _, contItem := range contList {
-		dat := models.G(contItem, "tnVzOOBBrCPName")
+		dat := models.G(contItem, "tDn")
 		st.Add(dat)
 	}
 	return st, err
@@ -131,7 +132,7 @@ func (sm *ServiceManager) CreateRelationmgmtRsOoBStNodeFromOutOfBandManagementEP
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -182,7 +183,7 @@ func (sm *ServiceManager) CreateRelationmgmtRsOoBCtxFromOutOfBandManagementEPg(p
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -195,7 +196,7 @@ func (sm *ServiceManager) ReadRelationmgmtRsOoBCtxFromOutOfBandManagementEPg(par
 	contList := models.ListFromContainer(cont, "mgmtRsOoBCtx")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnFvCtxName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err

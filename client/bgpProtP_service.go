@@ -2,6 +2,7 @@ package client
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
@@ -78,7 +79,7 @@ func (sm *ServiceManager) CreateRelationbgpRsBgpNodeCtxPolFromL3outBGPProtocolPr
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -91,7 +92,7 @@ func (sm *ServiceManager) ReadRelationbgpRsBgpNodeCtxPolFromL3outBGPProtocolProf
 	contList := models.ListFromContainer(cont, "bgpRsBgpNodeCtxPol")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnBgpCtxPolName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err

@@ -2,6 +2,7 @@ package client
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
@@ -78,7 +79,7 @@ func (sm *ServiceManager) CreateRelationospfRsIfPolFromInterfaceProfile(parentDn
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return CheckForErrors(cont, "POST", sm.client.skipLoggingPayload)
 }
@@ -91,7 +92,7 @@ func (sm *ServiceManager) ReadRelationospfRsIfPolFromInterfaceProfile(parentDn s
 	contList := models.ListFromContainer(cont, "ospfRsIfPol")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnOspfIfPolName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err

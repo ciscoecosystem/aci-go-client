@@ -2,6 +2,7 @@ package client
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
@@ -90,7 +91,7 @@ func (sm *ServiceManager) ReadRelationmaintRsMgrppFromPODMaintenanceGroup(parent
 	contList := models.ListFromContainer(cont, "maintRsMgrpp")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnMaintMaintPName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
@@ -165,7 +166,7 @@ func (sm *ServiceManager) CreateRelationmaintRsMgrppFromMaintGrp(parentDn, tnMai
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }

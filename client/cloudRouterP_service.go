@@ -2,6 +2,7 @@ package client
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
@@ -78,7 +79,7 @@ func (sm *ServiceManager) CreateRelationcloudRsToVpnGwPolFromCloudVpnGateway(par
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -91,7 +92,7 @@ func (sm *ServiceManager) ReadRelationcloudRsToVpnGwPolFromCloudVpnGateway(paren
 	contList := models.ListFromContainer(cont, "cloudRsToVpnGwPol")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnCloudVpnGwPolName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
@@ -123,7 +124,7 @@ func (sm *ServiceManager) CreateRelationcloudRsToDirectConnPolFromCloudVpnGatewa
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -136,7 +137,7 @@ func (sm *ServiceManager) ReadRelationcloudRsToDirectConnPolFromCloudVpnGateway(
 	contList := models.ListFromContainer(cont, "cloudRsToDirectConnPol")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnCloudDirectConnPolName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
@@ -168,7 +169,7 @@ func (sm *ServiceManager) CreateRelationcloudRsToHostRouterPolFromCloudVpnGatewa
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%+v", cont)
+	log.Printf("%+v", cont)
 
 	return nil
 }
@@ -181,7 +182,7 @@ func (sm *ServiceManager) ReadRelationcloudRsToHostRouterPolFromCloudVpnGateway(
 	contList := models.ListFromContainer(cont, "cloudRsToHostRouterPol")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnCloudHostRouterPolName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
