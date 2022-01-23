@@ -23,7 +23,7 @@ type SpineAccessPortSelector struct {
 type SpineAccessPortSelectorAttributes struct {
 	Annotation                   string `json:",omitempty"`
 	Name                         string `json:",omitempty"`
-	SpineAccessPortSelector_type      string `json:",omitempty"`
+	SpineAccessPortSelector_type string `json:",omitempty"`
 }
 
 func NewSpineAccessPortSelector(infraSHPortSRn, parentDn, description, nameAlias string, infraSHPortSAttr SpineAccessPortSelectorAttributes) *SpineAccessPortSelector {
