@@ -106,6 +106,9 @@ func (sm *ServiceManager) ReadRelationl3extRsDynPathAttFromLogicalInterfaceProfi
 		paramMap := make(map[string]string)
 		paramMap["tDn"] = models.G(contItem, "tDn")
 		paramMap["floatingAddr"] = models.G(contItem, "floatingAddr")
+		paramMap["forgedTransmit"] = models.G(contItem, "forgedTransmit")
+		paramMap["macChange"] = models.G(contItem, "macChange")
+		paramMap["promMode"] = models.G(contItem, "promMode")
 
 		st = append(st, paramMap)
 	}
