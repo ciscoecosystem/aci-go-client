@@ -14,20 +14,20 @@ const (
 	AaadomainrefClassName = "aaaDomainRef"
 )
 
-type TenantSecurityDomain struct {
+type AaaDomainRef struct {
 	BaseAttributes
 	NameAliasAttribute
-	TenantSecurityDomainAttributes
+	AaaDomainRefAttributes
 }
 
-type TenantSecurityDomainAttributes struct {
+type AaaDomainRefAttributes struct {
 	Annotation string `json:",omitempty"`
 	Name       string `json:",omitempty"`
 }
 
-func NewTenantSecurityDomain(aaaDomainRefRn, parentDn, description, nameAlias string, aaaDomainRefAttr TenantSecurityDomainAttributes) *TenantSecurityDomain {
+func NewAaaDomainRef(aaaDomainRefRn, parentDn, description, nameAlias string, aaaDomainRefAttr AaaDomainRefAttributes) *AaaDomainRef {
 	dn := fmt.Sprintf("%s/%s", parentDn, aaaDomainRefRn)
-	return &TenantSecurityDomain{
+	return &AaaDomainRef{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -38,11 +38,11 @@ func NewTenantSecurityDomain(aaaDomainRefRn, parentDn, description, nameAlias st
 		NameAliasAttribute: NameAliasAttribute{
 			NameAlias: nameAlias,
 		},
-		TenantSecurityDomainAttributes: aaaDomainRefAttr,
+		AaaDomainRefAttributes: aaaDomainRefAttr,
 	}
 }
 
-func (aaaDomainRef *TenantSecurityDomain) ToMap() (map[string]string, error) {
+func (aaaDomainRef *AaaDomainRef) ToMap() (map[string]string, error) {
 	aaaDomainRefMap, err := aaaDomainRef.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -61,35 +61,35 @@ func (aaaDomainRef *TenantSecurityDomain) ToMap() (map[string]string, error) {
 	return aaaDomainRefMap, err
 }
 
-func TenantSecurityDomainFromContainerList(cont *container.Container, index int) *TenantSecurityDomain {
-	TenantSecurityDomainCont := cont.S("imdata").Index(index).S(AaadomainrefClassName, "attributes")
-	return &TenantSecurityDomain{
+func AaaDomainRefFromContainerList(cont *container.Container, index int) *AaaDomainRef {
+	AaaDomainRefCont := cont.S("imdata").Index(index).S(AaadomainrefClassName, "attributes")
+	return &AaaDomainRef{
 		BaseAttributes{
-			DistinguishedName: G(TenantSecurityDomainCont, "dn"),
-			Description:       G(TenantSecurityDomainCont, "descr"),
-			Status:            G(TenantSecurityDomainCont, "status"),
+			DistinguishedName: G(AaaDomainRefCont, "dn"),
+			Description:       G(AaaDomainRefCont, "descr"),
+			Status:            G(AaaDomainRefCont, "status"),
 			ClassName:         AaadomainrefClassName,
-			Rn:                G(TenantSecurityDomainCont, "rn"),
+			Rn:                G(AaaDomainRefCont, "rn"),
 		},
 		NameAliasAttribute{
-			NameAlias: G(TenantSecurityDomainCont, "nameAlias"),
+			NameAlias: G(AaaDomainRefCont, "nameAlias"),
 		},
-		TenantSecurityDomainAttributes{
-			Name: G(TenantSecurityDomainCont, "name"),
+		AaaDomainRefAttributes{
+			Name: G(AaaDomainRefCont, "name"),
 		},
 	}
 }
 
-func TenantSecurityDomainFromContainer(cont *container.Container) *TenantSecurityDomain {
-	return TenantSecurityDomainFromContainerList(cont, 0)
+func AaaDomainRefFromContainer(cont *container.Container) *AaaDomainRef {
+	return AaaDomainRefFromContainerList(cont, 0)
 }
 
-func TenantSecurityDomainListFromContainer(cont *container.Container) []*TenantSecurityDomain {
+func AaaDomainRefListFromContainer(cont *container.Container) []*AaaDomainRef {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*TenantSecurityDomain, length)
+	arr := make([]*AaaDomainRef, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = TenantSecurityDomainFromContainerList(cont, i)
+		arr[i] = AaaDomainRefFromContainerList(cont, i)
 	}
 
 	return arr
