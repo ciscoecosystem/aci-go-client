@@ -8,9 +8,8 @@ import (
 )
 
 const (
-	DnaaaDomainRef        = "uni/tn-%s/domain-%s"
+	DnaaaDomainRef        = "%s/domain-%s"
 	RnaaaDomainRef        = "domain-%s"
-	ParentDnaaaDomainRef  = "uni/tn-%s"
 	AaadomainrefClassName = "aaaDomainRef"
 )
 
