@@ -6,9 +6,9 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateAaaDomainRef(name string, parentDn string, description string, nameAlias string, aaaDomainRefAttr models.AaaDomainRefAttributes) (*models.AaaDomainRef, error) {
+func (sm *ServiceManager) CreateAaaDomainRef(name string, parentDn string, nameAlias string, aaaDomainRefAttr models.AaaDomainRefAttributes) (*models.AaaDomainRef, error) {
 	rn := fmt.Sprintf(models.RnaaaDomainRef, name)
-	aaaDomainRef := models.NewAaaDomainRef(rn, parentDn, description, nameAlias, aaaDomainRefAttr)
+	aaaDomainRef := models.NewAaaDomainRef(rn, parentDn, nameAlias, aaaDomainRefAttr)
 	err := sm.Save(aaaDomainRef)
 	return aaaDomainRef, err
 }
@@ -30,9 +30,9 @@ func (sm *ServiceManager) DeleteAaaDomainRef(name string, parentDn string) error
 	return sm.DeleteByDn(dn, models.AaadomainrefClassName)
 }
 
-func (sm *ServiceManager) UpdateAaaDomainRef(name string, parentDn string, description string, nameAlias string, aaaDomainRefAttr models.AaaDomainRefAttributes) (*models.AaaDomainRef, error) {
+func (sm *ServiceManager) UpdateAaaDomainRef(name string, parentDn string, nameAlias string, aaaDomainRefAttr models.AaaDomainRefAttributes) (*models.AaaDomainRef, error) {
 	rn := fmt.Sprintf(models.RnaaaDomainRef, name)
-	aaaDomainRef := models.NewAaaDomainRef(rn, parentDn, description, nameAlias, aaaDomainRefAttr)
+	aaaDomainRef := models.NewAaaDomainRef(rn, parentDn, nameAlias, aaaDomainRefAttr)
 	aaaDomainRef.Status = "modified"
 	err := sm.Save(aaaDomainRef)
 	return aaaDomainRef, err
