@@ -24,12 +24,11 @@ type AaaDomainRefAttributes struct {
 	Name       string `json:",omitempty"`
 }
 
-func NewAaaDomainRef(aaaDomainRefRn, parentDn, description, nameAlias string, aaaDomainRefAttr AaaDomainRefAttributes) *AaaDomainRef {
+func NewAaaDomainRef(aaaDomainRefRn, parentDn, nameAlias string, aaaDomainRefAttr AaaDomainRefAttributes) *AaaDomainRef {
 	dn := fmt.Sprintf("%s/%s", parentDn, aaaDomainRefRn)
 	return &AaaDomainRef{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
-			Description:       description,
 			Status:            "created, modified",
 			ClassName:         AaadomainrefClassName,
 			Rn:                aaaDomainRefRn,
@@ -65,7 +64,6 @@ func AaaDomainRefFromContainerList(cont *container.Container, index int) *AaaDom
 	return &AaaDomainRef{
 		BaseAttributes{
 			DistinguishedName: G(AaaDomainRefCont, "dn"),
-			Description:       G(AaaDomainRefCont, "descr"),
 			Status:            G(AaaDomainRefCont, "status"),
 			ClassName:         AaadomainrefClassName,
 			Rn:                G(AaaDomainRefCont, "rn"),
