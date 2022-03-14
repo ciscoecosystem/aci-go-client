@@ -6,10 +6,10 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateInfraRsDomP(tDn string, attachable_access_entity_profile string, nameAlias string, infraRsDomPAttr models.InfraRsDomPAttributes) (*models.InfraRsDomP, error) {
+func (sm *ServiceManager) CreateInfraRsDomP(tDn string, attachable_access_entity_profile string, infraRsDomPAttr models.InfraRsDomPAttributes) (*models.InfraRsDomP, error) {
 	rn := fmt.Sprintf(models.RninfraRsDomP, tDn)
 	parentDn := fmt.Sprintf(models.ParentDninfraRsDomP, attachable_access_entity_profile)
-	infraRsDomP := models.NewInfraRsDomP(rn, parentDn, nameAlias, infraRsDomPAttr)
+	infraRsDomP := models.NewInfraRsDomP(rn, parentDn, infraRsDomPAttr)
 	err := sm.Save(infraRsDomP)
 	return infraRsDomP, err
 }

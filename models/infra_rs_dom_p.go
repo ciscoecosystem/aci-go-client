@@ -16,7 +16,6 @@ const (
 
 type InfraRsDomP struct {
 	BaseAttributes
-	NameAliasAttribute
 	InfraRsDomPAttributes
 }
 
@@ -25,7 +24,7 @@ type InfraRsDomPAttributes struct {
 	TDn        string `json:",omitempty"`
 }
 
-func NewInfraRsDomP(infraRsDomPRn, parentDn, nameAlias string, infraRsDomPAttr InfraRsDomPAttributes) *InfraRsDomP {
+func NewInfraRsDomP(infraRsDomPRn string, parentDn string, infraRsDomPAttr InfraRsDomPAttributes) *InfraRsDomP {
 	dn := fmt.Sprintf("%s/%s", parentDn, infraRsDomPRn)
 	return &InfraRsDomP{
 		BaseAttributes: BaseAttributes{
@@ -34,9 +33,7 @@ func NewInfraRsDomP(infraRsDomPRn, parentDn, nameAlias string, infraRsDomPAttr I
 			ClassName:         InfrarsdompClassName,
 			Rn:                infraRsDomPRn,
 		},
-		NameAliasAttribute: NameAliasAttribute{
-			NameAlias: nameAlias,
-		},
+
 		InfraRsDomPAttributes: infraRsDomPAttr,
 	}
 }
@@ -45,15 +42,6 @@ func (infraRsDomP *InfraRsDomP) ToMap() (map[string]string, error) {
 	infraRsDomPMap, err := infraRsDomP.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
-	}
-
-	alias, err := infraRsDomP.NameAliasAttribute.ToMap()
-	if err != nil {
-		return nil, err
-	}
-
-	for key, value := range alias {
-		A(infraRsDomPMap, key, value)
 	}
 
 	A(infraRsDomPMap, "annotation", infraRsDomP.Annotation)
@@ -70,9 +58,7 @@ func InfraRsDomPFromContainerList(cont *container.Container, index int) *InfraRs
 			ClassName:         InfrarsdompClassName,
 			Rn:                G(InfraRsDomPCont, "rn"),
 		},
-		NameAliasAttribute{
-			NameAlias: G(InfraRsDomPCont, "nameAlias"),
-		},
+
 		InfraRsDomPAttributes{
 			Annotation: G(InfraRsDomPCont, "annotation"),
 			TDn:        G(InfraRsDomPCont, "tDn"),
