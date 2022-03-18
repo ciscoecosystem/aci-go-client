@@ -23,6 +23,7 @@ type ContractInterfaceRelationshipAttributes struct {
 	Annotation   string `json:",omitempty"`
 	Prio         string `json:",omitempty"`
 	TnVzCPIfName string `json:",omitempty"`
+	tDn          string `json:",omitempty"`
 }
 
 func NewContractInterfaceRelationship(fvRsConsIfRn, parentDn string, fvRsConsIfAttr ContractInterfaceRelationshipAttributes) *ContractInterfaceRelationship {
@@ -46,6 +47,7 @@ func (fvRsConsIf *ContractInterfaceRelationship) ToMap() (map[string]string, err
 
 	A(fvRsConsIfMap, "prio", fvRsConsIf.Prio)
 	A(fvRsConsIfMap, "tnVzCPIfName", fvRsConsIf.TnVzCPIfName)
+	A(fvRsConsIfMap, "tDn", fvRsConsIf.tDn)
 	return fvRsConsIfMap, err
 }
 
@@ -61,6 +63,7 @@ func ContractInterfaceRelationshipFromContainerList(cont *container.Container, i
 		ContractInterfaceRelationshipAttributes{
 			Prio:         G(ContractInterfaceRelationshipCont, "prio"),
 			TnVzCPIfName: G(ContractInterfaceRelationshipCont, "tnVzCPIfName"),
+			tDn:          G(ContractInterfaceRelationshipCont, "tDn"),
 		},
 	}
 }
