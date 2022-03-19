@@ -14,48 +14,34 @@ const (
 	FvrsconsifClassName = "fvRsConsIf"
 )
 
-type ContractInterface struct {
+type ContractInterfaceRelationship struct {
 	BaseAttributes
-	NameAliasAttribute
-	ContractInterfaceAttributes
+	ContractInterfaceRelationshipAttributes
 }
 
-type ContractInterfaceAttributes struct {
+type ContractInterfaceRelationshipAttributes struct {
 	Annotation   string `json:",omitempty"`
 	Prio         string `json:",omitempty"`
 	TnVzCPIfName string `json:",omitempty"`
 }
 
-func NewContractInterface(fvRsConsIfRn, parentDn, description, nameAlias string, fvRsConsIfAttr ContractInterfaceAttributes) *ContractInterface {
+func NewContractInterfaceRelationship(fvRsConsIfRn, parentDn, fvRsConsIfAttr ContractInterfaceRelationshipAttributes) *ContractInterfaceRelationship {
 	dn := fmt.Sprintf("%s/%s", parentDn, fvRsConsIfRn)
-	return &ContractInterface{
+	return &ContractInterfaceRelationship{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
-			Description:       description,
 			Status:            "created, modified",
 			ClassName:         FvrsconsifClassName,
 			Rn:                fvRsConsIfRn,
 		},
-		NameAliasAttribute: NameAliasAttribute{
-			NameAlias: nameAlias,
-		},
-		ContractInterfaceAttributes: fvRsConsIfAttr,
+		ContractInterfaceRelationshipAttributes: fvRsConsIfAttr,
 	}
 }
 
-func (fvRsConsIf *ContractInterface) ToMap() (map[string]string, error) {
+func (fvRsConsIf *ContractInterfaceRelationship) ToMap() (map[string]string, error) {
 	fvRsConsIfMap, err := fvRsConsIf.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
-	}
-
-	alias, err := fvRsConsIf.NameAliasAttribute.ToMap()
-	if err != nil {
-		return nil, err
-	}
-
-	for key, value := range alias {
-		A(fvRsConsIfMap, key, value)
 	}
 
 	A(fvRsConsIfMap, "prio", fvRsConsIf.Prio)
@@ -63,36 +49,32 @@ func (fvRsConsIf *ContractInterface) ToMap() (map[string]string, error) {
 	return fvRsConsIfMap, err
 }
 
-func ContractInterfaceFromContainerList(cont *container.Container, index int) *ContractInterface {
-	ContractInterfaceCont := cont.S("imdata").Index(index).S(FvrsconsifClassName, "attributes")
-	return &ContractInterface{
+func ContractInterfaceRelationshipFromContainerList(cont *container.Container, index int) *ContractInterfaceRelationship {
+	ContractInterfaceRelationshipCont := cont.S("imdata").Index(index).S(FvrsconsifClassName, "attributes")
+	return &ContractInterfaceRelationship{
 		BaseAttributes{
-			DistinguishedName: G(ContractInterfaceCont, "dn"),
-			Description:       G(ContractInterfaceCont, "descr"),
-			Status:            G(ContractInterfaceCont, "status"),
+			DistinguishedName: G(ContractInterfaceRelationshipCont, "dn"),
+			Status:            G(ContractInterfaceRelationshipCont, "status"),
 			ClassName:         FvrsconsifClassName,
-			Rn:                G(ContractInterfaceCont, "rn"),
+			Rn:                G(ContractInterfaceRelationshipCont, "rn"),
 		},
-		NameAliasAttribute{
-			NameAlias: G(ContractInterfaceCont, "nameAlias"),
-		},
-		ContractInterfaceAttributes{
-			Prio:         G(ContractInterfaceCont, "prio"),
-			TnVzCPIfName: G(ContractInterfaceCont, "tnVzCPIfName"),
+		ContractInterfaceRelationshipAttributes{
+			Prio:         G(ContractInterfaceRelationshipCont, "prio"),
+			TnVzCPIfName: G(ContractInterfaceRelationshipCont, "tnVzCPIfName"),
 		},
 	}
 }
 
-func ContractInterfaceFromContainer(cont *container.Container) *ContractInterface {
-	return ContractInterfaceFromContainerList(cont, 0)
+func ContractInterfaceRelationshipFromContainer(cont *container.Container) *ContractInterfaceRelationship {
+	return ContractInterfaceRelationshipFromContainerList(cont, 0)
 }
 
-func ContractInterfaceListFromContainer(cont *container.Container) []*ContractInterface {
+func ContractInterfaceRelationshipListFromContainer(cont *container.Container) []*ContractInterfaceRelationship {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*ContractInterface, length)
+	arr := make([]*ContractInterfaceRelationship, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = ContractInterfaceFromContainerList(cont, i)
+		arr[i] = ContractInterfaceRelationshipFromContainerList(cont, i)
 	}
 
 	return arr
