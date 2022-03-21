@@ -6,7 +6,7 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateContractInterfaceRelationship(tnVzCPIfName string, application_epg string, application_profile string, tenant string, fvRsConsIfAttr models.ContractInterfaceAttributes) (*models.ContractInterface, error) {
+func (sm *ServiceManager) CreateContractInterfaceRelationship(tnVzCPIfName string, application_epg string, application_profile string, tenant string, fvRsConsIfAttr models.ContractInterfaceRelationshipAttributes) (*models.ContractInterfaceRelationship, error) {
 	rn := fmt.Sprintf(models.RnfvRsConsIf, tnVzCPIfName)
 	parentDn := fmt.Sprintf(models.ParentDnfvRsConsIf, tenant, application_profile, application_epg)
 	fvRsConsIf := models.NewContractInterfaceRelationship(rn, parentDn, fvRsConsIfAttr)
@@ -14,7 +14,7 @@ func (sm *ServiceManager) CreateContractInterfaceRelationship(tnVzCPIfName strin
 	return fvRsConsIf, err
 }
 
-func (sm *ServiceManager) ReadContractInterfaceRelationship(tnVzCPIfName string, application_epg string, application_profile string, tenant string) (*models.ContractInterface, error) {
+func (sm *ServiceManager) ReadContractInterfaceRelationship(tnVzCPIfName string, application_epg string, application_profile string, tenant string) (*models.ContractInterfaceRelationship, error) {
 	dn := fmt.Sprintf(models.DnfvRsConsIf, tenant, application_profile, application_epg, tnVzCPIfName)
 
 	cont, err := sm.Get(dn)
@@ -31,7 +31,7 @@ func (sm *ServiceManager) DeleteContractInterfaceRelationship(tnVzCPIfName strin
 	return sm.DeleteByDn(dn, models.FvrsconsifClassName)
 }
 
-func (sm *ServiceManager) UpdateContractInterfaceRelationship(tnVzCPIfName string, application_epg string, application_profile string, tenant string, fvRsConsIfAttr models.ContractInterfaceAttributes) (*models.ContractInterface, error) {
+func (sm *ServiceManager) UpdateContractInterfaceRelationship(tnVzCPIfName string, application_epg string, application_profile string, tenant string, fvRsConsIfAttr models.ContractInterfaceRelationshipAttributes) (*models.ContractInterfaceRelationship, error) {
 	rn := fmt.Sprintf(models.RnfvRsConsIf, tnVzCPIfName)
 	parentDn := fmt.Sprintf(models.ParentDnfvRsConsIf, tenant, application_profile, application_epg)
 	fvRsConsIf := models.NewContractInterfaceRelationship(rn, parentDn, fvRsConsIfAttr)
@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateContractInterfaceRelationship(tnVzCPIfName strin
 	return fvRsConsIf, err
 }
 
-func (sm *ServiceManager) ListContractInterfaceRelationship(application_epg string, application_profile string, tenant string) ([]*models.ContractInterface, error) {
+func (sm *ServiceManager) ListContractInterfaceRelationship(application_epg string, application_profile string, tenant string) ([]*models.ContractInterfaceRelationship, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ap-%s/epg-%s/fvRsConsIf.json", models.BaseurlStr, tenant, application_profile, application_epg)
 	cont, err := sm.GetViaURL(dnUrl)
 	list := models.ContractInterfaceRelationshipListFromContainer(cont)

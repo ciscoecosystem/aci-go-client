@@ -25,7 +25,7 @@ type ContractInterfaceRelationshipAttributes struct {
 	TnVzCPIfName string `json:",omitempty"`
 }
 
-func NewContractInterfaceRelationship(fvRsConsIfRn, parentDn, fvRsConsIfAttr ContractInterfaceRelationshipAttributes) *ContractInterfaceRelationship {
+func NewContractInterfaceRelationship(fvRsConsIfRn, parentDn string, fvRsConsIfAttr ContractInterfaceRelationshipAttributes) *ContractInterfaceRelationship {
 	dn := fmt.Sprintf("%s/%s", parentDn, fvRsConsIfRn)
 	return &ContractInterfaceRelationship{
 		BaseAttributes: BaseAttributes{
