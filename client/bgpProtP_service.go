@@ -93,7 +93,7 @@ func (sm *ServiceManager) ReadRelationbgpRsBestPathCtrlPol(parentDn string) (int
 	contList := models.ListFromContainer(cont, "bgpRsBestPathCtrlPol")
 
 	if len(contList) > 0 {
-		dat := models.G(contList[0], "tnBgpBestPathCtrlPolName")
+		dat := models.G(contList[0], "tDn")
 		return dat, err
 	} else {
 		return nil, err
