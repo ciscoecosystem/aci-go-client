@@ -21,13 +21,13 @@ type RtctrlSetDamp struct {
 }
 
 type RtctrlSetDampAttributes struct {
-	Annotation         string `json:",omitempty"`
-	HalfLife           string `json:",omitempty"`
-	MaxSuppressTime    string `json:",omitempty"`
-	Name               string `json:",omitempty"`
-	Reuse              string `json:",omitempty"`
-	Suppress           string `json:",omitempty"`
-	RtctrlSetDamp_type string `json:",omitempty"`
+	Annotation      string `json:",omitempty"`
+	HalfLife        string `json:",omitempty"`
+	MaxSuppressTime string `json:",omitempty"`
+	Name            string `json:",omitempty"`
+	Reuse           string `json:",omitempty"`
+	Suppress        string `json:",omitempty"`
+	Type            string `json:",omitempty"`
 }
 
 func NewRtctrlSetDamp(rtctrlSetDampRn, parentDn, description, nameAlias string, rtctrlSetDampAttr RtctrlSetDampAttributes) *RtctrlSetDamp {
@@ -68,7 +68,7 @@ func (rtctrlSetDamp *RtctrlSetDamp) ToMap() (map[string]string, error) {
 	A(rtctrlSetDampMap, "name", rtctrlSetDamp.Name)
 	A(rtctrlSetDampMap, "reuse", rtctrlSetDamp.Reuse)
 	A(rtctrlSetDampMap, "suppress", rtctrlSetDamp.Suppress)
-	A(rtctrlSetDampMap, "type", rtctrlSetDamp.RtctrlSetDamp_type)
+	A(rtctrlSetDampMap, "type", rtctrlSetDamp.Type)
 	return rtctrlSetDampMap, err
 }
 
@@ -86,13 +86,13 @@ func RtctrlSetDampFromContainerList(cont *container.Container, index int) *Rtctr
 			NameAlias: G(RtctrlSetDampCont, "nameAlias"),
 		},
 		RtctrlSetDampAttributes{
-			Annotation:         G(RtctrlSetDampCont, "annotation"),
-			HalfLife:           G(RtctrlSetDampCont, "halfLife"),
-			MaxSuppressTime:    G(RtctrlSetDampCont, "maxSuppressTime"),
-			Name:               G(RtctrlSetDampCont, "name"),
-			Reuse:              G(RtctrlSetDampCont, "reuse"),
-			Suppress:           G(RtctrlSetDampCont, "suppress"),
-			RtctrlSetDamp_type: G(RtctrlSetDampCont, "type"),
+			Annotation:      G(RtctrlSetDampCont, "annotation"),
+			HalfLife:        G(RtctrlSetDampCont, "halfLife"),
+			MaxSuppressTime: G(RtctrlSetDampCont, "maxSuppressTime"),
+			Name:            G(RtctrlSetDampCont, "name"),
+			Reuse:           G(RtctrlSetDampCont, "reuse"),
+			Suppress:        G(RtctrlSetDampCont, "suppress"),
+			Type:            G(RtctrlSetDampCont, "type"),
 		},
 	}
 }
