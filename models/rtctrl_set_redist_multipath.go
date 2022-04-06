@@ -21,9 +21,9 @@ type RedistributeMultipathAction struct {
 }
 
 type RedistributeMultipathActionAttributes struct {
-	Annotation                       string `json:",omitempty"`
-	Name                             string `json:",omitempty"`
-	RedistributeMultipathAction_type string `json:",omitempty"`
+	Annotation string `json:",omitempty"`
+	Name       string `json:",omitempty"`
+	Type       string `json:",omitempty"`
 }
 
 func NewRedistributeMultipathAction(rtctrlSetRedistMultipathRn, parentDn, description, nameAlias string, rtctrlSetRedistMultipathAttr RedistributeMultipathActionAttributes) *RedistributeMultipathAction {
@@ -60,7 +60,7 @@ func (rtctrlSetRedistMultipath *RedistributeMultipathAction) ToMap() (map[string
 
 	A(rtctrlSetRedistMultipathMap, "annotation", rtctrlSetRedistMultipath.Annotation)
 	A(rtctrlSetRedistMultipathMap, "name", rtctrlSetRedistMultipath.Name)
-	A(rtctrlSetRedistMultipathMap, "type", rtctrlSetRedistMultipath.RedistributeMultipathAction_type)
+	A(rtctrlSetRedistMultipathMap, "type", rtctrlSetRedistMultipath.Type)
 	return rtctrlSetRedistMultipathMap, err
 }
 
@@ -78,9 +78,9 @@ func RedistributeMultipathActionFromContainerList(cont *container.Container, ind
 			NameAlias: G(RedistributeMultipathActionCont, "nameAlias"),
 		},
 		RedistributeMultipathActionAttributes{
-			Annotation:                       G(RedistributeMultipathActionCont, "annotation"),
-			Name:                             G(RedistributeMultipathActionCont, "name"),
-			RedistributeMultipathAction_type: G(RedistributeMultipathActionCont, "type"),
+			Annotation: G(RedistributeMultipathActionCont, "annotation"),
+			Name:       G(RedistributeMultipathActionCont, "name"),
+			Type:       G(RedistributeMultipathActionCont, "type"),
 		},
 	}
 }
