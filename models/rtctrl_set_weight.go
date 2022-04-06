@@ -21,10 +21,10 @@ type RtctrlSetWeight struct {
 }
 
 type RtctrlSetWeightAttributes struct {
-	Annotation           string `json:",omitempty"`
-	Name                 string `json:",omitempty"`
-	RtctrlSetWeight_type string `json:",omitempty"`
-	Weight               string `json:",omitempty"`
+	Annotation string `json:",omitempty"`
+	Name       string `json:",omitempty"`
+	Type       string `json:",omitempty"`
+	Weight     string `json:",omitempty"`
 }
 
 func NewRtctrlSetWeight(rtctrlSetWeightRn, parentDn, description, nameAlias string, rtctrlSetWeightAttr RtctrlSetWeightAttributes) *RtctrlSetWeight {
@@ -61,7 +61,7 @@ func (rtctrlSetWeight *RtctrlSetWeight) ToMap() (map[string]string, error) {
 
 	A(rtctrlSetWeightMap, "annotation", rtctrlSetWeight.Annotation)
 	A(rtctrlSetWeightMap, "name", rtctrlSetWeight.Name)
-	A(rtctrlSetWeightMap, "type", rtctrlSetWeight.RtctrlSetWeight_type)
+	A(rtctrlSetWeightMap, "type", rtctrlSetWeight.Type)
 	A(rtctrlSetWeightMap, "weight", rtctrlSetWeight.Weight)
 	return rtctrlSetWeightMap, err
 }
@@ -80,10 +80,10 @@ func RtctrlSetWeightFromContainerList(cont *container.Container, index int) *Rtc
 			NameAlias: G(RtctrlSetWeightCont, "nameAlias"),
 		},
 		RtctrlSetWeightAttributes{
-			Annotation:           G(RtctrlSetWeightCont, "annotation"),
-			Name:                 G(RtctrlSetWeightCont, "name"),
-			RtctrlSetWeight_type: G(RtctrlSetWeightCont, "type"),
-			Weight:               G(RtctrlSetWeightCont, "weight"),
+			Annotation: G(RtctrlSetWeightCont, "annotation"),
+			Name:       G(RtctrlSetWeightCont, "name"),
+			Type:       G(RtctrlSetWeightCont, "type"),
+			Weight:     G(RtctrlSetWeightCont, "weight"),
 		},
 	}
 }

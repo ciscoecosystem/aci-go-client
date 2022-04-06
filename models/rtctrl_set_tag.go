@@ -21,10 +21,10 @@ type RtctrlSetTag struct {
 }
 
 type RtctrlSetTagAttributes struct {
-	Annotation        string `json:",omitempty"`
-	Name              string `json:",omitempty"`
-	Tag               string `json:",omitempty"`
-	RtctrlSetTag_type string `json:",omitempty"`
+	Annotation string `json:",omitempty"`
+	Name       string `json:",omitempty"`
+	Tag        string `json:",omitempty"`
+	Type       string `json:",omitempty"`
 }
 
 func NewRtctrlSetTag(rtctrlSetTagRn, parentDn, description, nameAlias string, rtctrlSetTagAttr RtctrlSetTagAttributes) *RtctrlSetTag {
@@ -62,7 +62,7 @@ func (rtctrlSetTag *RtctrlSetTag) ToMap() (map[string]string, error) {
 	A(rtctrlSetTagMap, "annotation", rtctrlSetTag.Annotation)
 	A(rtctrlSetTagMap, "name", rtctrlSetTag.Name)
 	A(rtctrlSetTagMap, "tag", rtctrlSetTag.Tag)
-	A(rtctrlSetTagMap, "type", rtctrlSetTag.RtctrlSetTag_type)
+	A(rtctrlSetTagMap, "type", rtctrlSetTag.Type)
 	return rtctrlSetTagMap, err
 }
 
@@ -80,10 +80,10 @@ func RtctrlSetTagFromContainerList(cont *container.Container, index int) *Rtctrl
 			NameAlias: G(RtctrlSetTagCont, "nameAlias"),
 		},
 		RtctrlSetTagAttributes{
-			Annotation:        G(RtctrlSetTagCont, "annotation"),
-			Name:              G(RtctrlSetTagCont, "name"),
-			Tag:               G(RtctrlSetTagCont, "tag"),
-			RtctrlSetTag_type: G(RtctrlSetTagCont, "type"),
+			Annotation: G(RtctrlSetTagCont, "annotation"),
+			Name:       G(RtctrlSetTagCont, "name"),
+			Tag:        G(RtctrlSetTagCont, "tag"),
+			Type:       G(RtctrlSetTagCont, "type"),
 		},
 	}
 }
