@@ -21,10 +21,10 @@ type RtctrlSetNh struct {
 }
 
 type RtctrlSetNhAttributes struct {
-	Annotation       string `json:",omitempty"`
-	Addr             string `json:",omitempty"`
-	Name             string `json:",omitempty"`
-	RtctrlSetNh_type string `json:",omitempty"`
+	Annotation string `json:",omitempty"`
+	Addr       string `json:",omitempty"`
+	Name       string `json:",omitempty"`
+	Type       string `json:",omitempty"`
 }
 
 func NewRtctrlSetNh(rtctrlSetNhRn, parentDn, description, nameAlias string, rtctrlSetNhAttr RtctrlSetNhAttributes) *RtctrlSetNh {
@@ -62,7 +62,7 @@ func (rtctrlSetNh *RtctrlSetNh) ToMap() (map[string]string, error) {
 	A(rtctrlSetNhMap, "addr", rtctrlSetNh.Addr)
 	A(rtctrlSetNhMap, "annotation", rtctrlSetNh.Annotation)
 	A(rtctrlSetNhMap, "name", rtctrlSetNh.Name)
-	A(rtctrlSetNhMap, "type", rtctrlSetNh.RtctrlSetNh_type)
+	A(rtctrlSetNhMap, "type", rtctrlSetNh.Type)
 	return rtctrlSetNhMap, err
 }
 
@@ -80,10 +80,10 @@ func RtctrlSetNhFromContainerList(cont *container.Container, index int) *RtctrlS
 			NameAlias: G(RtctrlSetNhCont, "nameAlias"),
 		},
 		RtctrlSetNhAttributes{
-			Addr:             G(RtctrlSetNhCont, "addr"),
-			Annotation:       G(RtctrlSetNhCont, "annotation"),
-			Name:             G(RtctrlSetNhCont, "name"),
-			RtctrlSetNh_type: G(RtctrlSetNhCont, "type"),
+			Addr:       G(RtctrlSetNhCont, "addr"),
+			Annotation: G(RtctrlSetNhCont, "annotation"),
+			Name:       G(RtctrlSetNhCont, "name"),
+			Type:       G(RtctrlSetNhCont, "type"),
 		},
 	}
 }
