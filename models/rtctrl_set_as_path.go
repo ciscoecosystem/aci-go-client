@@ -21,11 +21,11 @@ type SetASPath struct {
 }
 
 type SetASPathAttributes struct {
-	Annotation     string `json:",omitempty"`
-	Criteria       string `json:",omitempty"`
-	Lastnum        string `json:",omitempty"`
-	Name           string `json:",omitempty"`
-	SetASPath_type string `json:",omitempty"`
+	Annotation string `json:",omitempty"`
+	Criteria   string `json:",omitempty"`
+	Lastnum    string `json:",omitempty"`
+	Name       string `json:",omitempty"`
+	Type       string `json:",omitempty"`
 }
 
 func NewSetASPath(rtctrlSetASPathRn, parentDn, description, nameAlias string, rtctrlSetASPathAttr SetASPathAttributes) *SetASPath {
@@ -64,7 +64,7 @@ func (rtctrlSetASPath *SetASPath) ToMap() (map[string]string, error) {
 	A(rtctrlSetASPathMap, "criteria", rtctrlSetASPath.Criteria)
 	A(rtctrlSetASPathMap, "lastnum", rtctrlSetASPath.Lastnum)
 	A(rtctrlSetASPathMap, "name", rtctrlSetASPath.Name)
-	A(rtctrlSetASPathMap, "type", rtctrlSetASPath.SetASPath_type)
+	A(rtctrlSetASPathMap, "type", rtctrlSetASPath.Type)
 	return rtctrlSetASPathMap, err
 }
 
@@ -82,11 +82,11 @@ func SetASPathFromContainerList(cont *container.Container, index int) *SetASPath
 			NameAlias: G(SetASPathCont, "nameAlias"),
 		},
 		SetASPathAttributes{
-			Annotation:     G(SetASPathCont, "annotation"),
-			Criteria:       G(SetASPathCont, "criteria"),
-			Lastnum:        G(SetASPathCont, "lastnum"),
-			Name:           G(SetASPathCont, "name"),
-			SetASPath_type: G(SetASPathCont, "type"),
+			Annotation: G(SetASPathCont, "annotation"),
+			Criteria:   G(SetASPathCont, "criteria"),
+			Lastnum:    G(SetASPathCont, "lastnum"),
+			Name:       G(SetASPathCont, "name"),
+			Type:       G(SetASPathCont, "type"),
 		},
 	}
 }
