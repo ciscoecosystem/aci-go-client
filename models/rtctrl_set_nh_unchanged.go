@@ -21,9 +21,9 @@ type NexthopUnchangedAction struct {
 }
 
 type NexthopUnchangedActionAttributes struct {
-	Annotation                  string `json:",omitempty"`
-	Name                        string `json:",omitempty"`
-	NexthopUnchangedAction_type string `json:",omitempty"`
+	Annotation string `json:",omitempty"`
+	Name       string `json:",omitempty"`
+	Type       string `json:",omitempty"`
 }
 
 func NewNexthopUnchangedAction(rtctrlSetNhUnchangedRn, parentDn, description, nameAlias string, rtctrlSetNhUnchangedAttr NexthopUnchangedActionAttributes) *NexthopUnchangedAction {
@@ -60,7 +60,7 @@ func (rtctrlSetNhUnchanged *NexthopUnchangedAction) ToMap() (map[string]string, 
 
 	A(rtctrlSetNhUnchangedMap, "annotation", rtctrlSetNhUnchanged.Annotation)
 	A(rtctrlSetNhUnchangedMap, "name", rtctrlSetNhUnchanged.Name)
-	A(rtctrlSetNhUnchangedMap, "type", rtctrlSetNhUnchanged.NexthopUnchangedAction_type)
+	A(rtctrlSetNhUnchangedMap, "type", rtctrlSetNhUnchanged.Type)
 	return rtctrlSetNhUnchangedMap, err
 }
 
@@ -78,9 +78,9 @@ func NexthopUnchangedActionFromContainerList(cont *container.Container, index in
 			NameAlias: G(NexthopUnchangedActionCont, "nameAlias"),
 		},
 		NexthopUnchangedActionAttributes{
-			Annotation:                  G(NexthopUnchangedActionCont, "annotation"),
-			Name:                        G(NexthopUnchangedActionCont, "name"),
-			NexthopUnchangedAction_type: G(NexthopUnchangedActionCont, "type"),
+			Annotation: G(NexthopUnchangedActionCont, "annotation"),
+			Name:       G(NexthopUnchangedActionCont, "name"),
+			Type:       G(NexthopUnchangedActionCont, "type"),
 		},
 	}
 }
