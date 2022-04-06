@@ -21,10 +21,10 @@ type RtctrlSetRtMetricType struct {
 }
 
 type RtctrlSetRtMetricTypeAttributes struct {
-	Annotation                 string `json:",omitempty"`
-	MetricType                 string `json:",omitempty"`
-	Name                       string `json:",omitempty"`
-	RtctrlSetRtMetricType_type string `json:",omitempty"`
+	Annotation string `json:",omitempty"`
+	MetricType string `json:",omitempty"`
+	Name       string `json:",omitempty"`
+	Type       string `json:",omitempty"`
 }
 
 func NewRtctrlSetRtMetricType(rtctrlSetRtMetricTypeRn, parentDn, description, nameAlias string, rtctrlSetRtMetricTypeAttr RtctrlSetRtMetricTypeAttributes) *RtctrlSetRtMetricType {
@@ -62,7 +62,7 @@ func (rtctrlSetRtMetricType *RtctrlSetRtMetricType) ToMap() (map[string]string, 
 	A(rtctrlSetRtMetricTypeMap, "annotation", rtctrlSetRtMetricType.Annotation)
 	A(rtctrlSetRtMetricTypeMap, "metricType", rtctrlSetRtMetricType.MetricType)
 	A(rtctrlSetRtMetricTypeMap, "name", rtctrlSetRtMetricType.Name)
-	A(rtctrlSetRtMetricTypeMap, "type", rtctrlSetRtMetricType.RtctrlSetRtMetricType_type)
+	A(rtctrlSetRtMetricTypeMap, "type", rtctrlSetRtMetricType.Type)
 	return rtctrlSetRtMetricTypeMap, err
 }
 
@@ -80,10 +80,10 @@ func RtctrlSetRtMetricTypeFromContainerList(cont *container.Container, index int
 			NameAlias: G(RtctrlSetRtMetricTypeCont, "nameAlias"),
 		},
 		RtctrlSetRtMetricTypeAttributes{
-			Annotation:                 G(RtctrlSetRtMetricTypeCont, "annotation"),
-			MetricType:                 G(RtctrlSetRtMetricTypeCont, "metricType"),
-			Name:                       G(RtctrlSetRtMetricTypeCont, "name"),
-			RtctrlSetRtMetricType_type: G(RtctrlSetRtMetricTypeCont, "type"),
+			Annotation: G(RtctrlSetRtMetricTypeCont, "annotation"),
+			MetricType: G(RtctrlSetRtMetricTypeCont, "metricType"),
+			Name:       G(RtctrlSetRtMetricTypeCont, "name"),
+			Type:       G(RtctrlSetRtMetricTypeCont, "type"),
 		},
 	}
 }
