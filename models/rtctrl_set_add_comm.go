@@ -21,11 +21,11 @@ type RtctrlSetAddComm struct {
 }
 
 type RtctrlSetAddCommAttributes struct {
-	Annotation            string `json:",omitempty"`
-	Community             string `json:",omitempty"`
-	Name                  string `json:",omitempty"`
-	SetCriteria           string `json:",omitempty"`
-	RtctrlSetAddComm_type string `json:",omitempty"`
+	Annotation  string `json:",omitempty"`
+	Community   string `json:",omitempty"`
+	Name        string `json:",omitempty"`
+	SetCriteria string `json:",omitempty"`
+	Type        string `json:",omitempty"`
 }
 
 func NewRtctrlSetAddComm(rtctrlSetAddCommRn, parentDn, description, nameAlias string, rtctrlSetAddCommAttr RtctrlSetAddCommAttributes) *RtctrlSetAddComm {
@@ -64,7 +64,7 @@ func (rtctrlSetAddComm *RtctrlSetAddComm) ToMap() (map[string]string, error) {
 	A(rtctrlSetAddCommMap, "community", rtctrlSetAddComm.Community)
 	A(rtctrlSetAddCommMap, "name", rtctrlSetAddComm.Name)
 	A(rtctrlSetAddCommMap, "setCriteria", rtctrlSetAddComm.SetCriteria)
-	A(rtctrlSetAddCommMap, "type", rtctrlSetAddComm.RtctrlSetAddComm_type)
+	A(rtctrlSetAddCommMap, "type", rtctrlSetAddComm.Type)
 	return rtctrlSetAddCommMap, err
 }
 
@@ -82,11 +82,11 @@ func RtctrlSetAddCommFromContainerList(cont *container.Container, index int) *Rt
 			NameAlias: G(RtctrlSetAddCommCont, "nameAlias"),
 		},
 		RtctrlSetAddCommAttributes{
-			Annotation:            G(RtctrlSetAddCommCont, "annotation"),
-			Community:             G(RtctrlSetAddCommCont, "community"),
-			Name:                  G(RtctrlSetAddCommCont, "name"),
-			SetCriteria:           G(RtctrlSetAddCommCont, "setCriteria"),
-			RtctrlSetAddComm_type: G(RtctrlSetAddCommCont, "type"),
+			Annotation:  G(RtctrlSetAddCommCont, "annotation"),
+			Community:   G(RtctrlSetAddCommCont, "community"),
+			Name:        G(RtctrlSetAddCommCont, "name"),
+			SetCriteria: G(RtctrlSetAddCommCont, "setCriteria"),
+			Type:        G(RtctrlSetAddCommCont, "type"),
 		},
 	}
 }
