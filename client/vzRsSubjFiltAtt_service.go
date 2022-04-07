@@ -6,10 +6,10 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateSubjectFilter(tnVzFilterName string, contract_subject string, contract string, tenant string, description string, nameAlias string, vzRsSubjFiltAttAttr models.SubjectFilterAttributes) (*models.SubjectFilter, error) {
+func (sm *ServiceManager) CreateSubjectFilter(tnVzFilterName string, contract_subject string, contract string, tenant string, vzRsSubjFiltAttAttr models.SubjectFilterAttributes) (*models.SubjectFilter, error) {
 	rn := fmt.Sprintf(models.RnvzRsSubjFiltAtt, tnVzFilterName)
 	parentDn := fmt.Sprintf(models.ParentDnvzRsSubjFiltAtt, tenant, contract, contract_subject)
-	vzRsSubjFiltAtt := models.NewSubjectFilter(rn, parentDn, description, nameAlias, vzRsSubjFiltAttAttr)
+	vzRsSubjFiltAtt := models.NewSubjectFilter(rn, parentDn, vzRsSubjFiltAttAttr)
 	err := sm.Save(vzRsSubjFiltAtt)
 	return vzRsSubjFiltAtt, err
 }
@@ -31,10 +31,10 @@ func (sm *ServiceManager) DeleteSubjectFilter(tnVzFilterName string, contract_su
 	return sm.DeleteByDn(dn, models.VzrssubjfiltattClassName)
 }
 
-func (sm *ServiceManager) UpdateSubjectFilter(tnVzFilterName string, contract_subject string, contract string, tenant string, description string, nameAlias string, vzRsSubjFiltAttAttr models.SubjectFilterAttributes) (*models.SubjectFilter, error) {
+func (sm *ServiceManager) UpdateSubjectFilter(tnVzFilterName string, contract_subject string, contract string, tenant string, vzRsSubjFiltAttAttr models.SubjectFilterAttributes) (*models.SubjectFilter, error) {
 	rn := fmt.Sprintf(models.RnvzRsSubjFiltAtt, tnVzFilterName)
 	parentDn := fmt.Sprintf(models.ParentDnvzRsSubjFiltAtt, tenant, contract, contract_subject)
-	vzRsSubjFiltAtt := models.NewSubjectFilter(rn, parentDn, description, nameAlias, vzRsSubjFiltAttAttr)
+	vzRsSubjFiltAtt := models.NewSubjectFilter(rn, parentDn, vzRsSubjFiltAttAttr)
 	vzRsSubjFiltAtt.Status = "modified"
 	err := sm.Save(vzRsSubjFiltAtt)
 	return vzRsSubjFiltAtt, err

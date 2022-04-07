@@ -16,7 +16,6 @@ const (
 
 type SubjectFilter struct {
 	BaseAttributes
-	NameAliasAttribute
 	SubjectFilterAttributes
 }
 
@@ -28,18 +27,14 @@ type SubjectFilterAttributes struct {
 	TnVzFilterName   string `json:",omitempty"`
 }
 
-func NewSubjectFilter(vzRsSubjFiltAttRn, parentDn, description, nameAlias string, vzRsSubjFiltAttAttr SubjectFilterAttributes) *SubjectFilter {
+func NewSubjectFilter(vzRsSubjFiltAttRn, parentDn string, vzRsSubjFiltAttAttr SubjectFilterAttributes) *SubjectFilter {
 	dn := fmt.Sprintf("%s/%s", parentDn, vzRsSubjFiltAttRn)
 	return &SubjectFilter{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
-			Description:       description,
 			Status:            "created, modified",
 			ClassName:         VzrssubjfiltattClassName,
 			Rn:                vzRsSubjFiltAttRn,
-		},
-		NameAliasAttribute: NameAliasAttribute{
-			NameAlias: nameAlias,
 		},
 		SubjectFilterAttributes: vzRsSubjFiltAttAttr,
 	}
@@ -49,15 +44,6 @@ func (vzRsSubjFiltAtt *SubjectFilter) ToMap() (map[string]string, error) {
 	vzRsSubjFiltAttMap, err := vzRsSubjFiltAtt.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
-	}
-
-	alias, err := vzRsSubjFiltAtt.NameAliasAttribute.ToMap()
-	if err != nil {
-		return nil, err
-	}
-
-	for key, value := range alias {
-		A(vzRsSubjFiltAttMap, key, value)
 	}
 
 	A(vzRsSubjFiltAttMap, "action", vzRsSubjFiltAtt.Action)
@@ -72,13 +58,9 @@ func SubjectFilterFromContainerList(cont *container.Container, index int) *Subje
 	return &SubjectFilter{
 		BaseAttributes{
 			DistinguishedName: G(SubjectFilterCont, "dn"),
-			Description:       G(SubjectFilterCont, "descr"),
 			Status:            G(SubjectFilterCont, "status"),
 			ClassName:         VzrssubjfiltattClassName,
 			Rn:                G(SubjectFilterCont, "rn"),
-		},
-		NameAliasAttribute{
-			NameAlias: G(SubjectFilterCont, "nameAlias"),
 		},
 		SubjectFilterAttributes{
 			Action:           G(SubjectFilterCont, "action"),
