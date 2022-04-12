@@ -6,7 +6,6 @@ import (
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 func (sm *ServiceManager) CreateVirtualLogicalInterfaceProfile(encap string, nodeDn string, logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string, description string, l3extVirtualLIfPattr models.VirtualLogicalInterfaceProfileAttributes) (*models.VirtualLogicalInterfaceProfile, error) {
@@ -55,19 +54,37 @@ func (sm *ServiceManager) ListVirtualLogicalInterfaceProfile(logical_interface_p
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationl3extRsDynPathAttFromLogicalInterfaceProfile(parentDn, tDn string) error {
+func (sm *ServiceManager) CreateRelationl3extRsDynPathAttFromLogicalInterfaceProfile(parentDn, tDn, addr, forgedTransmit, macChange, promMode string) error {
 	dn := fmt.Sprintf("%s/rsdynPathAtt-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s", "annotation":"orchestrator:terraform"				
+				"dn": "%s",
+				"annotation":"orchestrator:terraform",
+				"tDn":"%s"
 			}
 		}
-	}`, "l3extRsDynPathAtt", dn))
+	}`, "l3extRsDynPathAtt", dn, tDn))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
 		return err
+	}
+
+	if addr != "" {
+		jsonPayload.Set(addr, "l3extRsDynPathAtt", "attributes", "floatingAddr")
+	}
+
+	if forgedTransmit != "" {
+		jsonPayload.Set(forgedTransmit, "l3extRsDynPathAtt", "attributes", "forgedTransmit")
+	}
+
+	if macChange != "" {
+		jsonPayload.Set(macChange, "l3extRsDynPathAtt", "attributes", "macChange")
+	}
+
+	if promMode != "" {
+		jsonPayload.Set(promMode, "l3extRsDynPathAtt", "attributes", "promMode")
 	}
 
 	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
@@ -79,9 +96,10 @@ func (sm *ServiceManager) CreateRelationl3extRsDynPathAttFromLogicalInterfacePro
 	if err != nil {
 		return err
 	}
+
 	log.Printf("%+v", cont)
 
-	return nil
+	return CheckForErrors(cont, "POST", sm.client.skipLoggingPayload)
 }
 
 func (sm *ServiceManager) DeleteRelationl3extRsDynPathAttFromLogicalInterfaceProfile(parentDn, tDn string) error {
@@ -96,12 +114,16 @@ func (sm *ServiceManager) ReadRelationl3extRsDynPathAttFromLogicalInterfaceProfi
 
 	contList := models.ListFromContainer(cont, "l3extRsDynPathAtt")
 
-	st := &schema.Set{
-		F: schema.HashString,
-	}
+	st := make([]map[string]string, 0)
 	for _, contItem := range contList {
-		dat := models.G(contItem, "tDn")
-		st.Add(dat)
+		paramMap := make(map[string]string)
+		paramMap["tDn"] = models.G(contItem, "tDn")
+		paramMap["floatingAddr"] = models.G(contItem, "floatingAddr")
+		paramMap["forgedTransmit"] = models.G(contItem, "forgedTransmit")
+		paramMap["macChange"] = models.G(contItem, "macChange")
+		paramMap["promMode"] = models.G(contItem, "promMode")
+
+		st = append(st, paramMap)
 	}
 	return st, err
 
