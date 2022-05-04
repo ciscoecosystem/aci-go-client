@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListASNumber(set_as_path_criteria string, action_rule_
 	return list, err
 }
 
-func (sm *ServiceManager) ReadRelationASNumber(parentDn string) ([]*container.Container, error) {
+func (sm *ServiceManager) ReadRelationSetASPathASN(parentDn string) ([]*container.Container, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", baseurlStr, parentDn, "rtctrlSetASPathASN")
 	cont, err := sm.GetViaURL(dnUrl)
