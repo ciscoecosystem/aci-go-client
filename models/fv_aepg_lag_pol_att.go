@@ -51,7 +51,6 @@ func ApplicationEPGLagPolicyFromContainerList(cont *container.Container, index i
 	return &ApplicationEPGLagPolicy{
 		BaseAttributes{
 			DistinguishedName: G(ApplicationEPGLagPolicyCont, "dn"),
-			Description:       G(ApplicationEPGLagPolicyCont, "descr"),
 			Status:            G(ApplicationEPGLagPolicyCont, "status"),
 			ClassName:         FvAEPgLagPolAttClassName,
 			Rn:                G(ApplicationEPGLagPolicyCont, "rn"),
