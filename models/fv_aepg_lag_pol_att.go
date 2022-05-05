@@ -16,7 +16,6 @@ const (
 
 type ApplicationEPGLagPolicy struct {
 	BaseAttributes
-	NameAliasAttribute
 	ApplicationEPGLagPolicyAttributes
 }
 
@@ -24,18 +23,14 @@ type ApplicationEPGLagPolicyAttributes struct {
 	Annotation string `json:",omitempty"`
 }
 
-func NewApplicationEPGLagPolicy(fvAEPgLagPolAttRn, parentDn, description, nameAlias string, fvAEPgLagPolAttAttr ApplicationEPGLagPolicyAttributes) *ApplicationEPGLagPolicy {
+func NewApplicationEPGLagPolicy(fvAEPgLagPolAttRn, parentDn string, fvAEPgLagPolAttAttr ApplicationEPGLagPolicyAttributes) *ApplicationEPGLagPolicy {
 	dn := fmt.Sprintf("%s/%s", parentDn, fvAEPgLagPolAttRn)
 	return &ApplicationEPGLagPolicy{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
-			Description:       description,
 			Status:            "created, modified",
 			ClassName:         FvAEPgLagPolAttClassName,
 			Rn:                fvAEPgLagPolAttRn,
-		},
-		NameAliasAttribute: NameAliasAttribute{
-			NameAlias: nameAlias,
 		},
 		ApplicationEPGLagPolicyAttributes: fvAEPgLagPolAttAttr,
 	}
@@ -45,15 +40,6 @@ func (fvAEPgLagPolAtt *ApplicationEPGLagPolicy) ToMap() (map[string]string, erro
 	fvAEPgLagPolAttMap, err := fvAEPgLagPolAtt.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
-	}
-
-	alias, err := fvAEPgLagPolAtt.NameAliasAttribute.ToMap()
-	if err != nil {
-		return nil, err
-	}
-
-	for key, value := range alias {
-		A(fvAEPgLagPolAttMap, key, value)
 	}
 
 	A(fvAEPgLagPolAttMap, "annotation", fvAEPgLagPolAtt.Annotation)
@@ -69,9 +55,6 @@ func ApplicationEPGLagPolicyFromContainerList(cont *container.Container, index i
 			Status:            G(ApplicationEPGLagPolicyCont, "status"),
 			ClassName:         FvAEPgLagPolAttClassName,
 			Rn:                G(ApplicationEPGLagPolicyCont, "rn"),
-		},
-		NameAliasAttribute{
-			NameAlias: G(ApplicationEPGLagPolicyCont, "nameAlias"),
 		},
 		ApplicationEPGLagPolicyAttributes{
 			Annotation: G(ApplicationEPGLagPolicyCont, "annotation"),

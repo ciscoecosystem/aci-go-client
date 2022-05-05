@@ -7,16 +7,16 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateApplicationEPGLagPolicy(domain_tDn string, application_epg string, application_profile string, tenant string, description string, nameAlias string, fvAEPgLagPolAttAttr models.ApplicationEPGLagPolicyAttributes) (*models.ApplicationEPGLagPolicy, error) {
+func (sm *ServiceManager) CreateApplicationEPGLagPolicy(domain_dn string, application_epg string, application_profile string, tenant string, fvAEPgLagPolAttAttr models.ApplicationEPGLagPolicyAttributes) (*models.ApplicationEPGLagPolicy, error) {
 	rn := fmt.Sprintf(models.RnfvAEPgLagPolAtt)
-	parentDn := fmt.Sprintf(models.ParentDnfvAEPgLagPolAtt, tenant, application_profile, application_epg, domain_tDn)
-	fvAEPgLagPolAtt := models.NewApplicationEPGLagPolicy(rn, parentDn, description, nameAlias, fvAEPgLagPolAttAttr)
+	parentDn := fmt.Sprintf(models.ParentDnfvAEPgLagPolAtt, tenant, application_profile, application_epg, domain_dn)
+	fvAEPgLagPolAtt := models.NewApplicationEPGLagPolicy(rn, parentDn, fvAEPgLagPolAttAttr)
 	err := sm.Save(fvAEPgLagPolAtt)
 	return fvAEPgLagPolAtt, err
 }
 
-func (sm *ServiceManager) ReadApplicationEPGLagPolicy(domain_tDn string, application_epg string, application_profile string, tenant string) (*models.ApplicationEPGLagPolicy, error) {
-	dn := fmt.Sprintf(models.DnfvAEPgLagPolAtt, tenant, application_profile, application_epg, domain_tDn)
+func (sm *ServiceManager) ReadApplicationEPGLagPolicy(domain_dn string, application_epg string, application_profile string, tenant string) (*models.ApplicationEPGLagPolicy, error) {
+	dn := fmt.Sprintf(models.DnfvAEPgLagPolAtt, tenant, application_profile, application_epg, domain_dn)
 
 	cont, err := sm.Get(dn)
 	if err != nil {
@@ -27,22 +27,22 @@ func (sm *ServiceManager) ReadApplicationEPGLagPolicy(domain_tDn string, applica
 	return fvAEPgLagPolAtt, nil
 }
 
-func (sm *ServiceManager) DeleteApplicationEPGLagPolicy(domain_tDn string, application_epg string, application_profile string, tenant string) error {
-	dn := fmt.Sprintf(models.DnfvAEPgLagPolAtt, tenant, application_profile, application_epg, domain_tDn)
-	return sm.DeleteByDn(dn, models.FvaepglagpolattClassName)
+func (sm *ServiceManager) DeleteApplicationEPGLagPolicy(domain_dn string, application_epg string, application_profile string, tenant string) error {
+	dn := fmt.Sprintf(models.DnfvAEPgLagPolAtt, tenant, application_profile, application_epg, domain_dn)
+	return sm.DeleteByDn(dn, models.FvAEPgLagPolAttClassName)
 }
 
-func (sm *ServiceManager) UpdateApplicationEPGLagPolicy(domain_tDn string, application_epg string, application_profile string, tenant string, description string, nameAlias string, fvAEPgLagPolAttAttr models.ApplicationEPGLagPolicyAttributes) (*models.ApplicationEPGLagPolicy, error) {
+func (sm *ServiceManager) UpdateApplicationEPGLagPolicy(domain_dn string, application_epg string, application_profile string, tenant string, fvAEPgLagPolAttAttr models.ApplicationEPGLagPolicyAttributes) (*models.ApplicationEPGLagPolicy, error) {
 	rn := fmt.Sprintf(models.RnfvAEPgLagPolAtt)
-	parentDn := fmt.Sprintf(models.ParentDnfvAEPgLagPolAtt, tenant, application_profile, application_epg, domain_tDn)
-	fvAEPgLagPolAtt := models.NewApplicationEPGLagPolicy(rn, parentDn, description, nameAlias, fvAEPgLagPolAttAttr)
+	parentDn := fmt.Sprintf(models.ParentDnfvAEPgLagPolAtt, tenant, application_profile, application_epg, domain_dn)
+	fvAEPgLagPolAtt := models.NewApplicationEPGLagPolicy(rn, parentDn, fvAEPgLagPolAttAttr)
 	fvAEPgLagPolAtt.Status = "modified"
 	err := sm.Save(fvAEPgLagPolAtt)
 	return fvAEPgLagPolAtt, err
 }
 
-func (sm *ServiceManager) ListApplicationEPGLagPolicy(domain_tDn string, application_epg string, application_profile string, tenant string) ([]*models.ApplicationEPGLagPolicy, error) {
-	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ap-%s/epg-%s/rsdomAtt-[%s]/fvAEPgLagPolAtt.json", models.BaseurlStr, tenant, application_profile, application_epg, domain_tDn)
+func (sm *ServiceManager) ListApplicationEPGLagPolicy(domain_dn string, application_epg string, application_profile string, tenant string) ([]*models.ApplicationEPGLagPolicy, error) {
+	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ap-%s/epg-%s/rsdomAtt-[%s]/fvAEPgLagPolAtt.json", models.BaseurlStr, tenant, application_profile, application_epg, domain_dn)
 	cont, err := sm.GetViaURL(dnUrl)
 	list := models.ApplicationEPGLagPolicyListFromContainer(cont)
 	return list, err
