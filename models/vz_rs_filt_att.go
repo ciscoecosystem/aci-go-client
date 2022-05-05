@@ -2,7 +2,6 @@ package models
 
 import (
 	"fmt"
-	"log"
 	"strconv"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
@@ -11,7 +10,6 @@ import (
 const (
 	DnvzRsFiltAtt        = "%s/rsfiltAtt-%s"
 	RnvzRsFiltAtt        = "rsfiltAtt-%s"
-	ParentDnvzRsFiltAtt  = "uni/tn-%s/brc-%s/subj-%s"
 	VzrsfiltattClassName = "vzRsFiltAtt"
 )
 
@@ -31,7 +29,6 @@ type FilterRelationshipAttributes struct {
 
 func NewFilterRelationship(vzRsFiltAttRn, parentDn string, vzRsFiltAttAttr FilterRelationshipAttributes) *FilterRelationship {
 	dn := fmt.Sprintf("%s/%s", parentDn, vzRsFiltAttRn)
-	log.Printf("[TEST] models NewFilterRelationship dn : %v ", dn)
 	return &FilterRelationship{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
