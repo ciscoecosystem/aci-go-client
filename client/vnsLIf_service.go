@@ -8,16 +8,15 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-func (sm *ServiceManager) CreateLogicalInterface(name string, l4_l7_devices string, tenant string, nameAlias string, vnsLIfAttr models.LogicalInterfaceAttributes) (*models.LogicalInterface, error) {
+func (sm *ServiceManager) CreateLogicalInterface(name string, parent_dn string, nameAlias string, vnsLIfAttr models.LogicalInterfaceAttributes) (*models.LogicalInterface, error) {
 	rn := fmt.Sprintf(models.RnvnsLIf, name)
-	parentDn := fmt.Sprintf(models.ParentDnvnsLIf, tenant, l4_l7_devices)
-	vnsLIf := models.NewLogicalInterface(rn, parentDn, nameAlias, vnsLIfAttr)
+	vnsLIf := models.NewLogicalInterface(rn, parent_dn, nameAlias, vnsLIfAttr)
 	err := sm.Save(vnsLIf)
 	return vnsLIf, err
 }
 
-func (sm *ServiceManager) ReadLogicalInterface(name string, l4_l7_devices string, tenant string) (*models.LogicalInterface, error) {
-	dn := fmt.Sprintf(models.DnvnsLIf, tenant, l4_l7_devices, name)
+func (sm *ServiceManager) ReadLogicalInterface(name string, parent_dn string) (*models.LogicalInterface, error) {
+	dn := fmt.Sprintf(parent_dn+"/"+RnvnsLIf, name)
 
 	cont, err := sm.Get(dn)
 	if err != nil {
@@ -28,22 +27,21 @@ func (sm *ServiceManager) ReadLogicalInterface(name string, l4_l7_devices string
 	return vnsLIf, nil
 }
 
-func (sm *ServiceManager) DeleteLogicalInterface(name string, l4_l7_devices string, tenant string) error {
-	dn := fmt.Sprintf(models.DnvnsLIf, tenant, l4_l7_devices, name)
+func (sm *ServiceManager) DeleteLogicalInterface(name string, parent_dn string) error {
+	dn := fmt.Sprintf(parent_dn+"/"+RnvnsLIf, name)
 	return sm.DeleteByDn(dn, models.VnslifClassName)
 }
 
-func (sm *ServiceManager) UpdateLogicalInterface(name string, l4_l7_devices string, tenant string, nameAlias string, vnsLIfAttr models.LogicalInterfaceAttributes) (*models.LogicalInterface, error) {
+func (sm *ServiceManager) UpdateLogicalInterface(name string, parent_dn string, nameAlias string, vnsLIfAttr models.LogicalInterfaceAttributes) (*models.LogicalInterface, error) {
 	rn := fmt.Sprintf(models.RnvnsLIf, name)
-	parentDn := fmt.Sprintf(models.ParentDnvnsLIf, tenant, l4_l7_devices)
-	vnsLIf := models.NewLogicalInterface(rn, parentDn, nameAlias, vnsLIfAttr)
+	vnsLIf := models.NewLogicalInterface(rn, parent_dn, nameAlias, vnsLIfAttr)
 	vnsLIf.Status = "modified"
 	err := sm.Save(vnsLIf)
 	return vnsLIf, err
 }
 
-func (sm *ServiceManager) ListLogicalInterface(l4_l7_devices string, tenant string) ([]*models.LogicalInterface, error) {
-	dnUrl := fmt.Sprintf("%s/uni/tn-%s/lDevVip-%s/vnsLIf.json", models.BaseurlStr, tenant, l4_l7_devices)
+func (sm *ServiceManager) ListLogicalInterface(parent_dn string) ([]*models.LogicalInterface, error) {
+	dnUrl := fmt.Sprintf(models.BaseurlStr + "/" + parent_dn + "/vnsLIf.json")
 	cont, err := sm.GetViaURL(dnUrl)
 	list := models.LogicalInterfaceListFromContainer(cont)
 	return list, err
