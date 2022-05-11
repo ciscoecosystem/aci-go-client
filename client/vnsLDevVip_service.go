@@ -69,13 +69,13 @@ func (sm *ServiceManager) CreateRelationvnsRsALDevToDomP(parentDn, annotation, s
 	if err_output != nil {
 		return err_output
 	}
-	for _, value := range output {
-		if rec, ok := value.(map[string]interface{}); ok {
-			for _, val2 := range rec {
-				if rec2, ok := val2.(map[string]interface{}); ok {
+	for _, mo := range output {
+		if mo_map, ok := mo.(map[string]interface{}); ok {
+			for _, mo_attributes := range mo_map {
+				if mo_attributes_map, ok := mo_attributes.(map[string]interface{}); ok {
 					for key, value := range attributes {
 						if value != "" {
-							rec2[key] = value
+							mo_attributes_map[key] = value
 						}
 					}
 
