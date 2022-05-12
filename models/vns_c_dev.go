@@ -8,9 +8,8 @@ import (
 )
 
 const (
-	DnvnsCDev        = "uni/tn-%s/lDevVip-%s/cDev-%s"
+	DnvnsCDev        = "%s/cDev-%s"
 	RnvnsCDev        = "cDev-%s"
-	ParentDnvnsCDev  = "uni/tn-%s/lDevVip-%s"
 	VnscdevClassName = "vnsCDev"
 )
 
