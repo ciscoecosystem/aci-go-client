@@ -8,14 +8,8 @@ import (
 )
 
 const (
-<<<<<<< HEAD
-	DnvnsLIf        = "uni/tn-%s/lDevVip-%s/lIf-%s"
-	RnvnsLIf        = "lIf-%s"
-	ParentDnvnsLIf  = "uni/tn-%s/lDevVip-%s"
-=======
 	DnvnsLIf        = "%s/lIf-%s"
 	RnvnsLIf        = "lIf-%s"
->>>>>>> [ignore] Change constant value of DnvnsLIf
 	VnslifClassName = "vnsLIf"
 )
 
