@@ -8,9 +8,8 @@ import (
 )
 
 const (
-	DnvnsLIf        = "uni/tn-%s/lDevVip-%s/lIf-%s"
+	DnvnsLIf        = "%s/lIf-%s"
 	RnvnsLIf        = "lIf-%s"
-	ParentDnvnsLIf  = "uni/tn-%s/lDevVip-%s"
 	VnslifClassName = "vnsLIf"
 )
 
