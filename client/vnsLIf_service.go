@@ -16,7 +16,7 @@ func (sm *ServiceManager) CreateLogicalInterface(name string, parent_dn string, 
 }
 
 func (sm *ServiceManager) ReadLogicalInterface(name string, parent_dn string) (*models.LogicalInterface, error) {
-	dn := fmt.Sprintf(parent_dn+"/"+RnvnsLIf, name)
+	dn := fmt.Sprintf(parent_dn+"/"+models.RnvnsLIf, name)
 
 	cont, err := sm.Get(dn)
 	if err != nil {
@@ -28,7 +28,7 @@ func (sm *ServiceManager) ReadLogicalInterface(name string, parent_dn string) (*
 }
 
 func (sm *ServiceManager) DeleteLogicalInterface(name string, parent_dn string) error {
-	dn := fmt.Sprintf(parent_dn+"/"+RnvnsLIf, name)
+	dn := fmt.Sprintf(parent_dn+"/"+models.RnvnsLIf, name)
 	return sm.DeleteByDn(dn, models.VnslifClassName)
 }
 
