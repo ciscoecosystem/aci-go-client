@@ -20,9 +20,10 @@ type ConcreteInterface struct {
 }
 
 type ConcreteInterfaceAttributes struct {
-	Encap    string `json:",omitempty"`
-	Name     string `json:",omitempty"`
-	VnicName string `json:",omitempty"`
+	Encap      string `json:",omitempty"`
+	Name       string `json:",omitempty"`
+	VnicName   string `json:",omitempty"`
+	Annotation string `json:",omitempty"`
 }
 
 func NewConcreteInterface(vnsCIfRn, parentDn, nameAlias string, vnsCIfAttr ConcreteInterfaceAttributes) *ConcreteInterface {
@@ -59,6 +60,7 @@ func (vnsCIf *ConcreteInterface) ToMap() (map[string]string, error) {
 	A(vnsCIfMap, "encap", vnsCIf.Encap)
 	A(vnsCIfMap, "name", vnsCIf.Name)
 	A(vnsCIfMap, "vnicName", vnsCIf.VnicName)
+	A(vnsCIfMap, "annotation", vnsCIf.Annotation)
 	return vnsCIfMap, err
 }
 
@@ -75,9 +77,10 @@ func ConcreteInterfaceFromContainerList(cont *container.Container, index int) *C
 			NameAlias: G(ConcreteInterfaceCont, "nameAlias"),
 		},
 		ConcreteInterfaceAttributes{
-			Encap:    G(ConcreteInterfaceCont, "encap"),
-			Name:     G(ConcreteInterfaceCont, "name"),
-			VnicName: G(ConcreteInterfaceCont, "vnicName"),
+			Encap:      G(ConcreteInterfaceCont, "encap"),
+			Name:       G(ConcreteInterfaceCont, "name"),
+			VnicName:   G(ConcreteInterfaceCont, "vnicName"),
+			Annotation: G(ConcreteInterfaceCont, "annotation"),
 		},
 	}
 }
