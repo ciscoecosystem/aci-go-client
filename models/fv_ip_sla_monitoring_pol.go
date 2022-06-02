@@ -22,7 +22,6 @@ type IPSLAMonitoringPolicy struct {
 
 type IPSLAMonitoringPolicyAttributes struct {
 	Annotation          string `json:",omitempty"`
-	HttpMethod          string `json:",omitempty"`
 	HttpUri             string `json:",omitempty"`
 	HttpVersion         string `json:",omitempty"`
 	Ipv4Tos             string `json:",omitempty"`
@@ -70,7 +69,6 @@ func (fvIPSLAMonitoringPol *IPSLAMonitoringPolicy) ToMap() (map[string]string, e
 	}
 
 	A(fvIPSLAMonitoringPolMap, "annotation", fvIPSLAMonitoringPol.Annotation)
-	A(fvIPSLAMonitoringPolMap, "httpMethod", fvIPSLAMonitoringPol.HttpMethod)
 	A(fvIPSLAMonitoringPolMap, "httpUri", fvIPSLAMonitoringPol.HttpUri)
 	A(fvIPSLAMonitoringPolMap, "httpVersion", fvIPSLAMonitoringPol.HttpVersion)
 	A(fvIPSLAMonitoringPolMap, "ipv4Tos", fvIPSLAMonitoringPol.Ipv4Tos)
@@ -101,7 +99,6 @@ func IPSLAMonitoringPolicyFromContainerList(cont *container.Container, index int
 		},
 		IPSLAMonitoringPolicyAttributes{
 			Annotation:          G(IPSLAMonitoringPolicyCont, "annotation"),
-			HttpMethod:          G(IPSLAMonitoringPolicyCont, "httpMethod"),
 			HttpUri:             G(IPSLAMonitoringPolicyCont, "httpUri"),
 			HttpVersion:         G(IPSLAMonitoringPolicyCont, "httpVersion"),
 			Ipv4Tos:             G(IPSLAMonitoringPolicyCont, "ipv4Tos"),
