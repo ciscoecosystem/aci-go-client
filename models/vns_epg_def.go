@@ -8,9 +8,8 @@ import (
 )
 
 const (
-	DnvnsEPgDef        = "uni/tn-%s/GraphInst_C-[%s]-G-[%s]-S-[%s]/NodeInst-%s/LegVNode-%s/EPgDef-%s"
+	DnvnsEPgDef        = "%s/EPgDef-%s"
 	RnvnsEPgDef        = "EPgDef-%s"
-	ParentDnvnsEPgDef  = "uni/tn-%s/GraphInst_C-[%s]-G-[%s]-S-[%s]/NodeInst-%s/LegVNode-%s"
 	VnsepgdefClassName = "vnsEPgDef"
 )
 

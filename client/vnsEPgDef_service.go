@@ -7,16 +7,15 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateEPgDef(name string, legvnode string, node_instance string, l4l7_service_graph_instance_scopeDn string, l4l7_service_graph_instance_graphDn string, l4l7_service_graph_instance_ctrctDn string, tenant string, description string, nameAlias string, vnsEPgDefAttr models.EPgDefAttributes) (*models.EPgDef, error) {
+func (sm *ServiceManager) CreateEPgDef(name string, parent_dn string, description string, nameAlias string, vnsEPgDefAttr models.EPgDefAttributes) (*models.EPgDef, error) {
 	rn := fmt.Sprintf(models.RnvnsEPgDef, name)
-	parentDn := fmt.Sprintf(models.ParentDnvnsEPgDef, tenant, l4l7_service_graph_instance_ctrctDn, l4l7_service_graph_instance_graphDn, l4l7_service_graph_instance_scopeDn, node_instance, legvnode)
-	vnsEPgDef := models.NewEPgDef(rn, parentDn, description, nameAlias, vnsEPgDefAttr)
+	vnsEPgDef := models.NewEPgDef(rn, parent_dn, description, nameAlias, vnsEPgDefAttr)
 	err := sm.Save(vnsEPgDef)
 	return vnsEPgDef, err
 }
 
-func (sm *ServiceManager) ReadEPgDef(name string, legvnode string, node_instance string, l4l7_service_graph_instance_scopeDn string, l4l7_service_graph_instance_graphDn string, l4l7_service_graph_instance_ctrctDn string, tenant string) (*models.EPgDef, error) {
-	dn := fmt.Sprintf(models.DnvnsEPgDef, tenant, l4l7_service_graph_instance_ctrctDn, l4l7_service_graph_instance_graphDn, l4l7_service_graph_instance_scopeDn, node_instance, legvnode, name)
+func (sm *ServiceManager) ReadEPgDef(name string, parent_dn string) (*models.EPgDef, error) {
+	dn := fmt.Sprintf(models.DnvnsEPgDef, parent_dn, name)
 
 	cont, err := sm.Get(dn)
 	if err != nil {
@@ -27,22 +26,21 @@ func (sm *ServiceManager) ReadEPgDef(name string, legvnode string, node_instance
 	return vnsEPgDef, nil
 }
 
-func (sm *ServiceManager) DeleteEPgDef(name string, legvnode string, node_instance string, l4l7_service_graph_instance_scopeDn string, l4l7_service_graph_instance_graphDn string, l4l7_service_graph_instance_ctrctDn string, tenant string) error {
-	dn := fmt.Sprintf(models.DnvnsEPgDef, tenant, l4l7_service_graph_instance_ctrctDn, l4l7_service_graph_instance_graphDn, l4l7_service_graph_instance_scopeDn, node_instance, legvnode, name)
+func (sm *ServiceManager) DeleteEPgDef(name string, parent_dn string) error {
+	dn := fmt.Sprintf(models.DnvnsEPgDef, parent_dn, name)
 	return sm.DeleteByDn(dn, models.VnsepgdefClassName)
 }
 
-func (sm *ServiceManager) UpdateEPgDef(name string, legvnode string, node_instance string, l4l7_service_graph_instance_scopeDn string, l4l7_service_graph_instance_graphDn string, l4l7_service_graph_instance_ctrctDn string, tenant string, description string, nameAlias string, vnsEPgDefAttr models.EPgDefAttributes) (*models.EPgDef, error) {
+func (sm *ServiceManager) UpdateEPgDef(name string, parent_dn string, description string, nameAlias string, vnsEPgDefAttr models.EPgDefAttributes) (*models.EPgDef, error) {
 	rn := fmt.Sprintf(models.RnvnsEPgDef, name)
-	parentDn := fmt.Sprintf(models.ParentDnvnsEPgDef, tenant, l4l7_service_graph_instance_ctrctDn, l4l7_service_graph_instance_graphDn, l4l7_service_graph_instance_scopeDn, node_instance, legvnode)
-	vnsEPgDef := models.NewEPgDef(rn, parentDn, description, nameAlias, vnsEPgDefAttr)
+	vnsEPgDef := models.NewEPgDef(rn, parent_dn, description, nameAlias, vnsEPgDefAttr)
 	vnsEPgDef.Status = "modified"
 	err := sm.Save(vnsEPgDef)
 	return vnsEPgDef, err
 }
 
-func (sm *ServiceManager) ListEPgDef(legvnode string, node_instance string, l4l7_service_graph_instance_scopeDn string, l4l7_service_graph_instance_graphDn string, l4l7_service_graph_instance_ctrctDn string, tenant string) ([]*models.EPgDef, error) {
-	dnUrl := fmt.Sprintf("%s/uni/tn-%s/GraphInst_C-[%s]-G-[%s]-S-[%s]/NodeInst-%s/LegVNode-%s/vnsEPgDef.json", models.BaseurlStr, tenant, l4l7_service_graph_instance_ctrctDn, l4l7_service_graph_instance_graphDn, l4l7_service_graph_instance_scopeDn, node_instance, legvnode)
+func (sm *ServiceManager) ListEPgDef(parent_dn string) ([]*models.EPgDef, error) {
+	dnUrl := fmt.Sprintf("%s/%s/vnsEPgDef.json", models.BaseurlStr, parent_dn)
 	cont, err := sm.GetViaURL(dnUrl)
 	list := models.EPgDefListFromContainer(cont)
 	return list, err
