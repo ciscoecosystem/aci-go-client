@@ -8,8 +8,7 @@ import (
 
 func (sm *ServiceManager) CreateEpReachability(parent_dn string, fvEpReachabilityAttr models.EpReachabilityAttributes) (*models.EpReachability, error) {
 	rn := fmt.Sprintf(models.RnfvEpReachability)
-	parentDn := parent_dn
-	fvEpReachability := models.NewEpReachability(rn, parentDn, fvEpReachabilityAttr)
+	fvEpReachability := models.NewEpReachability(rn, parent_dn, fvEpReachabilityAttr)
 	err := sm.Save(fvEpReachability)
 	return fvEpReachability, err
 }
@@ -33,8 +32,7 @@ func (sm *ServiceManager) DeleteEpReachability(parent_dn string) error {
 
 func (sm *ServiceManager) UpdateEpReachability(parent_dn string, fvEpReachabilityAttr models.EpReachabilityAttributes) (*models.EpReachability, error) {
 	rn := fmt.Sprintf(models.RnfvEpReachability)
-	parentDn := parent_dn
-	fvEpReachability := models.NewEpReachability(rn, parentDn, fvEpReachabilityAttr)
+	fvEpReachability := models.NewEpReachability(rn, parent_dn, fvEpReachabilityAttr)
 	fvEpReachability.Status = "modified"
 	err := sm.Save(fvEpReachability)
 	return fvEpReachability, err

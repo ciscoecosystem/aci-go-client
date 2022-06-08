@@ -8,8 +8,7 @@ import (
 
 func (sm *ServiceManager) CreateNexthopEpPReachability(nhAddr string, parent_dn string, description string, nameAlias string, ipNexthopEpPAttr models.NexthopEpPReachabilityAttributes) (*models.NexthopEpPReachability, error) {
 	rn := fmt.Sprintf(models.RnipNexthopEpP, nhAddr)
-	parentDn := parent_dn
-	ipNexthopEpP := models.NewNexthopEpPReachability(rn, parentDn, description, nameAlias, ipNexthopEpPAttr)
+	ipNexthopEpP := models.NewNexthopEpPReachability(rn, parent_dn, description, nameAlias, ipNexthopEpPAttr)
 	err := sm.Save(ipNexthopEpP)
 	return ipNexthopEpP, err
 }
@@ -33,8 +32,7 @@ func (sm *ServiceManager) DeleteNexthopEpPReachability(nhAddr string, parent_dn 
 
 func (sm *ServiceManager) UpdateNexthopEpPReachability(nhAddr string, parent_dn string, description string, nameAlias string, ipNexthopEpPAttr models.NexthopEpPReachabilityAttributes) (*models.NexthopEpPReachability, error) {
 	rn := fmt.Sprintf(models.RnipNexthopEpP, nhAddr)
-	parentDn := parent_dn
-	ipNexthopEpP := models.NewNexthopEpPReachability(rn, parentDn, description, nameAlias, ipNexthopEpPAttr)
+	ipNexthopEpP := models.NewNexthopEpPReachability(rn, parent_dn, description, nameAlias, ipNexthopEpPAttr)
 	ipNexthopEpP.Status = "modified"
 	err := sm.Save(ipNexthopEpP)
 	return ipNexthopEpP, err
