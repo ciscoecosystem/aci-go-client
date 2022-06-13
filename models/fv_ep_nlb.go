@@ -12,13 +12,13 @@ const (
 	FvepnlbClassName = "fvEpNlb"
 )
 
-type NLBendpoint struct {
+type NlbEndpoint struct {
 	BaseAttributes
 	NameAliasAttribute
-	NLBendpointAttributes
+	NlbEndpointAttributes
 }
 
-type NLBendpointAttributes struct {
+type NlbEndpointAttributes struct {
 	Annotation string `json:",omitempty"`
 	Group      string `json:",omitempty"`
 	Mac        string `json:",omitempty"`
@@ -26,9 +26,9 @@ type NLBendpointAttributes struct {
 	Name       string `json:",omitempty"`
 }
 
-func NewNLBendpoint(fvEpNlbRn, parentDn, description, nameAlias string, fvEpNlbAttr NLBendpointAttributes) *NLBendpoint {
+func NewNlbEndpoint(fvEpNlbRn, parentDn, description, nameAlias string, fvEpNlbAttr NlbEndpointAttributes) *NlbEndpoint {
 	dn := fmt.Sprintf("%s/%s", parentDn, fvEpNlbRn)
-	return &NLBendpoint{
+	return &NlbEndpoint{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -39,11 +39,11 @@ func NewNLBendpoint(fvEpNlbRn, parentDn, description, nameAlias string, fvEpNlbA
 		NameAliasAttribute: NameAliasAttribute{
 			NameAlias: nameAlias,
 		},
-		NLBendpointAttributes: fvEpNlbAttr,
+		NlbEndpointAttributes: fvEpNlbAttr,
 	}
 }
 
-func (fvEpNlb *NLBendpoint) ToMap() (map[string]string, error) {
+func (fvEpNlb *NlbEndpoint) ToMap() (map[string]string, error) {
 	fvEpNlbMap, err := fvEpNlb.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -65,38 +65,38 @@ func (fvEpNlb *NLBendpoint) ToMap() (map[string]string, error) {
 	return fvEpNlbMap, err
 }
 
-func NLBendpointFromContainerList(cont *container.Container, index int) *NLBendpoint {
-	NLBendpointCont := cont.S("imdata").Index(index).S(FvepnlbClassName, "attributes")
-	return &NLBendpoint{
+func NlbEndpointFromContainerList(cont *container.Container, index int) *NlbEndpoint {
+	NlbEndpointCont := cont.S("imdata").Index(index).S(FvepnlbClassName, "attributes")
+	return &NlbEndpoint{
 		BaseAttributes{
-			DistinguishedName: G(NLBendpointCont, "dn"),
-			Description:       G(NLBendpointCont, "descr"),
-			Status:            G(NLBendpointCont, "status"),
+			DistinguishedName: G(NlbEndpointCont, "dn"),
+			Description:       G(NlbEndpointCont, "descr"),
+			Status:            G(NlbEndpointCont, "status"),
 			ClassName:         FvepnlbClassName,
-			Rn:                G(NLBendpointCont, "rn"),
+			Rn:                G(NlbEndpointCont, "rn"),
 		},
 		NameAliasAttribute{
-			NameAlias: G(NLBendpointCont, "nameAlias"),
+			NameAlias: G(NlbEndpointCont, "nameAlias"),
 		},
-		NLBendpointAttributes{
-			Group: G(NLBendpointCont, "group"),
-			Mac:   G(NLBendpointCont, "mac"),
-			Mode:  G(NLBendpointCont, "mode"),
-			Name:  G(NLBendpointCont, "name"),
+		NlbEndpointAttributes{
+			Group: G(NlbEndpointCont, "group"),
+			Mac:   G(NlbEndpointCont, "mac"),
+			Mode:  G(NlbEndpointCont, "mode"),
+			Name:  G(NlbEndpointCont, "name"),
 		},
 	}
 }
 
-func NLBendpointFromContainer(cont *container.Container) *NLBendpoint {
-	return NLBendpointFromContainerList(cont, 0)
+func NlbEndpointFromContainer(cont *container.Container) *NlbEndpoint {
+	return NlbEndpointFromContainerList(cont, 0)
 }
 
-func NLBendpointListFromContainer(cont *container.Container) []*NLBendpoint {
+func NlbEndpointListFromContainer(cont *container.Container) []*NlbEndpoint {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*NLBendpoint, length)
+	arr := make([]*NlbEndpoint, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = NLBendpointFromContainerList(cont, i)
+		arr[i] = NlbEndpointFromContainerList(cont, i)
 	}
 
 	return arr
