@@ -565,6 +565,57 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 	}
 }
 
+
+func (c *Client) DoBig(req *http.Request) (*http.Response, error) {
+        // or go home (?)
+        // 
+	log.Printf("[DEBUG] Begining DoBig method %s", req.URL.String())
+
+	// retain the request body across multiple attempts
+	for attempts := 0; ; attempts++ {
+		log.Printf("[TRACE] HTTP Request Method and URL: %s %s", req.Method, req.URL.String())
+		resp, err := c.httpClient.Do(req)
+		if err != nil {
+			if ok := c.backoff(attempts); !ok {
+				log.Printf("[ERROR] HTTP Connection error occured: %+v", err)
+				log.Printf("[DEBUG] Exit from Do method")
+				return nil, errors.New(fmt.Sprintf("Failed to connect to APIC. Verify that you are connecting to an APIC.\nError message: %+v", err))
+			} else {
+				log.Printf("[ERROR] HTTP Connection failed: %s, retries: %v", err, attempts)
+				continue
+			}
+                }
+
+		bodyBytes, err := ioutil.ReadAll(resp.Body) //this should be fine tho lol
+		bodyStr := string(bodyBytes)
+                fmt.Println("big req resp" , bodyStr)
+		resp.Body.Close()
+		if (resp.StatusCode < 500 || resp.StatusCode > 504) && resp.StatusCode != 405 {
+			//obj, err := container.ParseJSON(bodyBytes)
+			if err != nil {
+				log.Printf("[ERROR] Error occured while json parsing %+v", err)
+				log.Printf("[DEBUG] Exit from Do method")
+				return resp, errors.New(fmt.Sprintf("Failed to parse JSON response from %s. Verify that you are connecting to an APIC.\nHTTP response status: %s\nMessage: %+v", req.URL.String(), resp.Status, err))
+			}
+
+			log.Printf("[DEBUG] Exit from Do method")
+			return resp, nil
+		} else {
+			if ok := c.backoff(attempts); !ok {
+				//obj, err := container.ParseJSON(bodyBytes)
+				if err != nil {
+					log.Printf("[ERROR] Error occured while json parsing %+v with HTTP StatusCode 405, 500-504", err)
+					log.Printf("[DEBUG] Exit from Do method")
+					return resp, errors.New(fmt.Sprintf("Failed to parse JSON response from %s. Verify that you are connecting to an APIC.\nHTTP response status: %s\nMessage: %+v", req.URL.String(), resp.Status, err))
+				}
+
+				log.Printf("[DEBUG] Exit from Do method")
+				return resp, nil
+			} else {
+				log.Printf("[ERROR] HTTP Request failed: StatusCode %v, Retries: %v", resp.StatusCode, attempts)
+				continue
+			}
+
 func (c *Client) DoRaw(req *http.Request) (*http.Response, error) {
 	log.Printf("[DEBUG] Begining DoRaw method %s", req.URL.String())
 
