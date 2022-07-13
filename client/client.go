@@ -586,9 +586,7 @@ func (c *Client) DoBig(req *http.Request) (*http.Response, error) {
 			}
                 }
 
-		bodyBytes, err := ioutil.ReadAll(resp.Body) //this should be fine tho lol
-		bodyStr := string(bodyBytes)
-                fmt.Println("big req resp" , bodyStr)
+		bodyBytes, err := ioutil.ReadAll(resp.Body) 
 		resp.Body.Close()
 		if (resp.StatusCode < 500 || resp.StatusCode > 504) && resp.StatusCode != 405 {
 			//obj, err := container.ParseJSON(bodyBytes)
