@@ -582,9 +582,6 @@ func (c *Client) DoBig(req *http.Request) (*http.Response, error) {
 				continue
 			}
 		}
-
-		bodyBytes, err := ioutil.ReadAll(resp.Body)
-		resp.Body.Close()
 		if (resp.StatusCode < 500 || resp.StatusCode > 504) && resp.StatusCode != 405 {
 			if err != nil {
 				log.Printf("[ERROR] Error occured while json parsing %+v", err)
