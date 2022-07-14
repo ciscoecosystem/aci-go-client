@@ -565,10 +565,9 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 	}
 }
 
-
 func (c *Client) DoBig(req *http.Request) (*http.Response, error) {
-        // or go home (?)
-        // 
+	// or go home (?)
+	//
 	log.Printf("[DEBUG] Begining DoBig method %s", req.URL.String())
 
 	// retain the request body across multiple attempts
@@ -584,9 +583,9 @@ func (c *Client) DoBig(req *http.Request) (*http.Response, error) {
 				log.Printf("[ERROR] HTTP Connection failed: %s, retries: %v", err, attempts)
 				continue
 			}
-                }
+		}
 
-		bodyBytes, err := ioutil.ReadAll(resp.Body) 
+		bodyBytes, err := ioutil.ReadAll(resp.Body)
 		resp.Body.Close()
 		if (resp.StatusCode < 500 || resp.StatusCode > 504) && resp.StatusCode != 405 {
 			//obj, err := container.ParseJSON(bodyBytes)
@@ -613,7 +612,9 @@ func (c *Client) DoBig(req *http.Request) (*http.Response, error) {
 				log.Printf("[ERROR] HTTP Request failed: StatusCode %v, Retries: %v", resp.StatusCode, attempts)
 				continue
 			}
-
+		}
+	}
+}
 func (c *Client) DoRaw(req *http.Request) (*http.Response, error) {
 	log.Printf("[DEBUG] Begining DoRaw method %s", req.URL.String())
 
