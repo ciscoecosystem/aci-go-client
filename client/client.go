@@ -565,10 +565,8 @@ func (c *Client) Do(req *http.Request) (*container.Container, *http.Response, er
 	}
 }
 
-func (c *Client) DoBig(req *http.Request) (*http.Response, error) {
+func (c *Client) DoChunk(req *http.Request) (*http.Response, error) {
 	log.Printf("[DEBUG] Begining DoBig method %s", req.URL.String())
-
-	// retain the request body across multiple attempts
 	for attempts := 0; ; attempts++ {
 		log.Printf("[TRACE] HTTP Request Method and URL: %s %s", req.Method, req.URL.String())
 		resp, err := c.httpClient.Do(req)
@@ -583,12 +581,6 @@ func (c *Client) DoBig(req *http.Request) (*http.Response, error) {
 			}
 		}
 		if (resp.StatusCode < 500 || resp.StatusCode > 504) && resp.StatusCode != 405 {
-			if err != nil {
-				log.Printf("[ERROR] Error occured while json parsing %+v", err)
-				log.Printf("[DEBUG] Exit from DoBig method")
-				return resp, errors.New(fmt.Sprintf("Failed to parse JSON response from %s. Verify that you are connecting to an APIC.\nHTTP response status: %s\nMessage: %+v", req.URL.String(), resp.Status, err))
-			}
-
 			log.Printf("[DEBUG] Exit from DoBig method")
 			return resp, nil
 		} else {
