@@ -61,3 +61,6 @@ PyQuery APIs currently do not support Certificate + Username authentication.
 ```golang
 client.NewClient("URL", "Username", client.AppUserName("AppUserName"), client.PrivateKey("PrivateKey path"), client.AdminCert("Certificate name"), client.Insecure(true/false))
 ```
+
+When using client.Do() or client.DoRaw() with large payloads (like files), set the client.MaxRetries to 0 (if configured to another value) to avoid reading the complete payload into memory. 
+You might also want to set client.SkipLoggingPayload(true) before executing the client.Do() or client.DoRaw().
