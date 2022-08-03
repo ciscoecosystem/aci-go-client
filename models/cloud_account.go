@@ -14,13 +14,13 @@ const (
 	CloudaccountClassName = "cloudAccount"
 )
 
-type Account struct {
+type CloudAccount struct {
 	BaseAttributes
 	NameAliasAttribute
-	AccountAttributes
+	CloudAccountAttributes
 }
 
-type AccountAttributes struct {
+type CloudAccountAttributes struct {
 	Annotation string `json:",omitempty"`
 	AccessType string `json:",omitempty"`
 	Account_id string `json:",omitempty"`
@@ -28,9 +28,9 @@ type AccountAttributes struct {
 	Vendor     string `json:",omitempty"`
 }
 
-func NewAccount(cloudAccountRn, parentDn, nameAlias string, cloudAccountAttr AccountAttributes) *Account {
+func NewCloudAccount(cloudAccountRn, parentDn, nameAlias string, cloudAccountAttr CloudAccountAttributes) *CloudAccount {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudAccountRn)
-	return &Account{
+	return &CloudAccount{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Status:            "created, modified",
@@ -40,11 +40,11 @@ func NewAccount(cloudAccountRn, parentDn, nameAlias string, cloudAccountAttr Acc
 		NameAliasAttribute: NameAliasAttribute{
 			NameAlias: nameAlias,
 		},
-		AccountAttributes: cloudAccountAttr,
+		CloudAccountAttributes: cloudAccountAttr,
 	}
 }
 
-func (cloudAccount *Account) ToMap() (map[string]string, error) {
+func (cloudAccount *CloudAccount) ToMap() (map[string]string, error) {
 	cloudAccountMap, err := cloudAccount.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -66,9 +66,9 @@ func (cloudAccount *Account) ToMap() (map[string]string, error) {
 	return cloudAccountMap, err
 }
 
-func AccountFromContainerList(cont *container.Container, index int) *Account {
+func CloudAccountFromContainerList(cont *container.Container, index int) *CloudAccount {
 	AccountCont := cont.S("imdata").Index(index).S(CloudaccountClassName, "attributes")
-	return &Account{
+	return &CloudAccount{
 		BaseAttributes{
 			DistinguishedName: G(AccountCont, "dn"),
 			Status:            G(AccountCont, "status"),
@@ -78,7 +78,7 @@ func AccountFromContainerList(cont *container.Container, index int) *Account {
 		NameAliasAttribute{
 			NameAlias: G(AccountCont, "nameAlias"),
 		},
-		AccountAttributes{
+		CloudAccountAttributes{
 			AccessType: G(AccountCont, "accessType"),
 			Account_id: G(AccountCont, "id"),
 			Name:       G(AccountCont, "name"),
@@ -87,16 +87,16 @@ func AccountFromContainerList(cont *container.Container, index int) *Account {
 	}
 }
 
-func AccountFromContainer(cont *container.Container) *Account {
-	return AccountFromContainerList(cont, 0)
+func CloudAccountFromContainer(cont *container.Container) *CloudAccount {
+	return CloudAccountFromContainerList(cont, 0)
 }
 
-func AccountListFromContainer(cont *container.Container) []*Account {
+func CloudAccountListFromContainer(cont *container.Container) []*CloudAccount {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*Account, length)
+	arr := make([]*CloudAccount, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = AccountFromContainerList(cont, i)
+		arr[i] = CloudAccountFromContainerList(cont, i)
 	}
 
 	return arr

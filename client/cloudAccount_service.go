@@ -7,15 +7,15 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateAccount(vendor string, account_id string, tenant string, nameAlias string, cloudAccountAttr models.AccountAttributes) (*models.Account, error) {
+func (sm *ServiceManager) CreateCloudAccount(vendor string, account_id string, tenant string, nameAlias string, cloudAccountAttr models.CloudAccountAttributes) (*models.CloudAccount, error) {
 	rn := fmt.Sprintf(models.RncloudAccount, account_id, vendor)
 	parentDn := fmt.Sprintf(models.ParentDncloudAccount, tenant)
-	cloudAccount := models.NewAccount(rn, parentDn, nameAlias, cloudAccountAttr)
+	cloudAccount := models.NewCloudAccount(rn, parentDn, nameAlias, cloudAccountAttr)
 	err := sm.Save(cloudAccount)
 	return cloudAccount, err
 }
 
-func (sm *ServiceManager) ReadAccount(vendor string, account_id string, tenant string) (*models.Account, error) {
+func (sm *ServiceManager) ReadCloudAccount(vendor string, account_id string, tenant string) (*models.CloudAccount, error) {
 	dn := fmt.Sprintf(models.DncloudAccount, tenant, account_id, vendor)
 
 	cont, err := sm.Get(dn)
@@ -23,28 +23,28 @@ func (sm *ServiceManager) ReadAccount(vendor string, account_id string, tenant s
 		return nil, err
 	}
 
-	cloudAccount := models.AccountFromContainer(cont)
+	cloudAccount := models.CloudAccountFromContainer(cont)
 	return cloudAccount, nil
 }
 
-func (sm *ServiceManager) DeleteAccount(vendor string, account_id string, tenant string) error {
+func (sm *ServiceManager) DeleteCloudAccount(vendor string, account_id string, tenant string) error {
 	dn := fmt.Sprintf(models.DncloudAccount, tenant, account_id, vendor)
 	return sm.DeleteByDn(dn, models.CloudaccountClassName)
 }
 
-func (sm *ServiceManager) UpdateAccount(vendor string, account_id string, tenant string, nameAlias string, cloudAccountAttr models.AccountAttributes) (*models.Account, error) {
+func (sm *ServiceManager) UpdateCloudAccount(vendor string, account_id string, tenant string, nameAlias string, cloudAccountAttr models.CloudAccountAttributes) (*models.CloudAccount, error) {
 	rn := fmt.Sprintf(models.RncloudAccount, account_id, vendor)
 	parentDn := fmt.Sprintf(models.ParentDncloudAccount, tenant)
-	cloudAccount := models.NewAccount(rn, parentDn, nameAlias, cloudAccountAttr)
+	cloudAccount := models.NewCloudAccount(rn, parentDn, nameAlias, cloudAccountAttr)
 	cloudAccount.Status = "modified"
 	err := sm.Save(cloudAccount)
 	return cloudAccount, err
 }
 
-func (sm *ServiceManager) ListAccount(tenant string) ([]*models.Account, error) {
+func (sm *ServiceManager) ListCloudAccount(tenant string) ([]*models.CloudAccount, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/cloudAccount.json", models.BaseurlStr, tenant)
 	cont, err := sm.GetViaURL(dnUrl)
-	list := models.AccountListFromContainer(cont)
+	list := models.CloudAccountListFromContainer(cont)
 	return list, err
 }
 
