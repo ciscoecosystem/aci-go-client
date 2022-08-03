@@ -14,23 +14,22 @@ const (
 	FvrscloudaccountClassName = "fvRsCloudAccount"
 )
 
-type Tenanttoaccountassociation struct {
+type TenanttoCloudAccountAssociation struct {
 	BaseAttributes
 	NameAliasAttribute
-	TenanttoaccountassociationAttributes
+	TenanttoCloudAccountAssociationAttributes
 }
 
-type TenanttoaccountassociationAttributes struct {
+type TenanttoCloudAccountAssociationAttributes struct {
 	Annotation string `json:",omitempty"`
 	TDn        string `json:",omitempty"`
 }
 
-func NewTenanttoaccountassociation(fvRsCloudAccountRn, parentDn, description, nameAlias string, fvRsCloudAccountAttr TenanttoaccountassociationAttributes) *Tenanttoaccountassociation {
+func NewTenanttoCloudAccountAssociation(fvRsCloudAccountRn, parentDn, nameAlias string, fvRsCloudAccountAttr TenanttoCloudAccountAssociationAttributes) *TenanttoCloudAccountAssociation {
 	dn := fmt.Sprintf("%s/%s", parentDn, fvRsCloudAccountRn)
-	return &Tenanttoaccountassociation{
+	return &TenanttoCloudAccountAssociation{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
-			Description:       description,
 			Status:            "created, modified",
 			ClassName:         FvrscloudaccountClassName,
 			Rn:                fvRsCloudAccountRn,
@@ -38,11 +37,11 @@ func NewTenanttoaccountassociation(fvRsCloudAccountRn, parentDn, description, na
 		NameAliasAttribute: NameAliasAttribute{
 			NameAlias: nameAlias,
 		},
-		TenanttoaccountassociationAttributes: fvRsCloudAccountAttr,
+		TenanttoCloudAccountAssociationAttributes: fvRsCloudAccountAttr,
 	}
 }
 
-func (fvRsCloudAccount *Tenanttoaccountassociation) ToMap() (map[string]string, error) {
+func (fvRsCloudAccount *TenanttoCloudAccountAssociation) ToMap() (map[string]string, error) {
 	fvRsCloudAccountMap, err := fvRsCloudAccount.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -62,36 +61,35 @@ func (fvRsCloudAccount *Tenanttoaccountassociation) ToMap() (map[string]string, 
 	return fvRsCloudAccountMap, err
 }
 
-func TenanttoaccountassociationFromContainerList(cont *container.Container, index int) *Tenanttoaccountassociation {
-	TenanttoaccountassociationCont := cont.S("imdata").Index(index).S(FvrscloudaccountClassName, "attributes")
-	return &Tenanttoaccountassociation{
+func TenanttoCloudAccountAssociationFromContainerList(cont *container.Container, index int) *TenanttoCloudAccountAssociation {
+	TenanttoCloudAccountAssociationCont := cont.S("imdata").Index(index).S(FvrscloudaccountClassName, "attributes")
+	return &TenanttoCloudAccountAssociation{
 		BaseAttributes{
-			DistinguishedName: G(TenanttoaccountassociationCont, "dn"),
-			Description:       G(TenanttoaccountassociationCont, "descr"),
-			Status:            G(TenanttoaccountassociationCont, "status"),
+			DistinguishedName: G(TenanttoCloudAccountAssociationCont, "dn"),
+			Status:            G(TenanttoCloudAccountAssociationCont, "status"),
 			ClassName:         FvrscloudaccountClassName,
-			Rn:                G(TenanttoaccountassociationCont, "rn"),
+			Rn:                G(TenanttoCloudAccountAssociationCont, "rn"),
 		},
 		NameAliasAttribute{
-			NameAlias: G(TenanttoaccountassociationCont, "nameAlias"),
+			NameAlias: G(TenanttoCloudAccountAssociationCont, "nameAlias"),
 		},
-		TenanttoaccountassociationAttributes{
-			Annotation: G(TenanttoaccountassociationCont, "annotation"),
-			TDn:        G(TenanttoaccountassociationCont, "tDn"),
+		TenanttoCloudAccountAssociationAttributes{
+			Annotation: G(TenanttoCloudAccountAssociationCont, "annotation"),
+			TDn:        G(TenanttoCloudAccountAssociationCont, "tDn"),
 		},
 	}
 }
 
-func TenanttoaccountassociationFromContainer(cont *container.Container) *Tenanttoaccountassociation {
-	return TenanttoaccountassociationFromContainerList(cont, 0)
+func TenanttoCloudAccountAssociationFromContainer(cont *container.Container) *TenanttoCloudAccountAssociation {
+	return TenanttoCloudAccountAssociationFromContainerList(cont, 0)
 }
 
-func TenanttoaccountassociationListFromContainer(cont *container.Container) []*Tenanttoaccountassociation {
+func TenanttoCloudAccountAssociationListFromContainer(cont *container.Container) []*TenanttoCloudAccountAssociation {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*Tenanttoaccountassociation, length)
+	arr := make([]*TenanttoCloudAccountAssociation, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = TenanttoaccountassociationFromContainerList(cont, i)
+		arr[i] = TenanttoCloudAccountAssociationFromContainerList(cont, i)
 	}
 
 	return arr
