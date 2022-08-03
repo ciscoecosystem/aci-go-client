@@ -14,12 +14,12 @@ const (
 	FvnsmcastaddrblkClassName = "fvnsMcastAddrBlk"
 )
 
-type AbstractionofIPAddressBlock struct {
+type MulticastAddressBlock struct {
 	BaseAttributes
-	AbstractionofIPAddressBlockAttributes
+	MulticastAddressBlockAttributes
 }
 
-type AbstractionofIPAddressBlockAttributes struct {
+type MulticastAddressBlockAttributes struct {
 	Annotation string `json:",omitempty"`
 	From       string `json:",omitempty"`
 	Name       string `json:",omitempty"`
@@ -27,9 +27,9 @@ type AbstractionofIPAddressBlockAttributes struct {
 	To         string `json:",omitempty"`
 }
 
-func NewAbstractionofIPAddressBlock(fvnsMcastAddrBlkRn, parentDn, description string, fvnsMcastAddrBlkAttr AbstractionofIPAddressBlockAttributes) *AbstractionofIPAddressBlock {
+func NewMulticastAddressBlock(fvnsMcastAddrBlkRn, parentDn, description string, fvnsMcastAddrBlkAttr MulticastAddressBlockAttributes) *MulticastAddressBlock {
 	dn := fmt.Sprintf("%s/%s", parentDn, fvnsMcastAddrBlkRn)
-	return &AbstractionofIPAddressBlock{
+	return &MulticastAddressBlock{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -37,11 +37,11 @@ func NewAbstractionofIPAddressBlock(fvnsMcastAddrBlkRn, parentDn, description st
 			ClassName:         FvnsmcastaddrblkClassName,
 			Rn:                fvnsMcastAddrBlkRn,
 		},
-		AbstractionofIPAddressBlockAttributes: fvnsMcastAddrBlkAttr,
+		MulticastAddressBlockAttributes: fvnsMcastAddrBlkAttr,
 	}
 }
 
-func (fvnsMcastAddrBlk *AbstractionofIPAddressBlock) ToMap() (map[string]string, error) {
+func (fvnsMcastAddrBlk *MulticastAddressBlock) ToMap() (map[string]string, error) {
 	fvnsMcastAddrBlkMap, err := fvnsMcastAddrBlk.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -55,36 +55,36 @@ func (fvnsMcastAddrBlk *AbstractionofIPAddressBlock) ToMap() (map[string]string,
 	return fvnsMcastAddrBlkMap, err
 }
 
-func AbstractionofIPAddressBlockFromContainerList(cont *container.Container, index int) *AbstractionofIPAddressBlock {
-	AbstractionofIPAddressBlockCont := cont.S("imdata").Index(index).S(FvnsmcastaddrblkClassName, "attributes")
-	return &AbstractionofIPAddressBlock{
+func MulticastAddressBlockFromContainerList(cont *container.Container, index int) *MulticastAddressBlock {
+	MulticastAddressBlockCont := cont.S("imdata").Index(index).S(FvnsmcastaddrblkClassName, "attributes")
+	return &MulticastAddressBlock{
 		BaseAttributes{
-			DistinguishedName: G(AbstractionofIPAddressBlockCont, "dn"),
-			Description:       G(AbstractionofIPAddressBlockCont, "descr"),
-			Status:            G(AbstractionofIPAddressBlockCont, "status"),
+			DistinguishedName: G(MulticastAddressBlockCont, "dn"),
+			Description:       G(MulticastAddressBlockCont, "descr"),
+			Status:            G(MulticastAddressBlockCont, "status"),
 			ClassName:         FvnsmcastaddrblkClassName,
-			Rn:                G(AbstractionofIPAddressBlockCont, "rn"),
+			Rn:                G(MulticastAddressBlockCont, "rn"),
 		},
-		AbstractionofIPAddressBlockAttributes{
-			Annotation: G(AbstractionofIPAddressBlockCont, "annotation"),
-			From:       G(AbstractionofIPAddressBlockCont, "from"),
-			Name:       G(AbstractionofIPAddressBlockCont, "name"),
-			NameAlias:  G(AbstractionofIPAddressBlockCont, "nameAlias"),
-			To:         G(AbstractionofIPAddressBlockCont, "to"),
+		MulticastAddressBlockAttributes{
+			Annotation: G(MulticastAddressBlockCont, "annotation"),
+			From:       G(MulticastAddressBlockCont, "from"),
+			Name:       G(MulticastAddressBlockCont, "name"),
+			NameAlias:  G(MulticastAddressBlockCont, "nameAlias"),
+			To:         G(MulticastAddressBlockCont, "to"),
 		},
 	}
 }
 
-func AbstractionofIPAddressBlockFromContainer(cont *container.Container) *AbstractionofIPAddressBlock {
-	return AbstractionofIPAddressBlockFromContainerList(cont, 0)
+func MulticastAddressBlockFromContainer(cont *container.Container) *MulticastAddressBlock {
+	return MulticastAddressBlockFromContainerList(cont, 0)
 }
 
-func AbstractionofIPAddressBlockListFromContainer(cont *container.Container) []*AbstractionofIPAddressBlock {
+func MulticastAddressBlockListFromContainer(cont *container.Container) []*MulticastAddressBlock {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*AbstractionofIPAddressBlock, length)
+	arr := make([]*MulticastAddressBlock, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = AbstractionofIPAddressBlockFromContainerList(cont, i)
+		arr[i] = MulticastAddressBlockFromContainerList(cont, i)
 	}
 
 	return arr
