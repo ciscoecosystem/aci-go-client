@@ -413,8 +413,8 @@ func (sm *ServiceManager) ReadRelationinfraRsNetflowMonitorPolFromPCVPCInterface
 
 	for _, contItem := range contList {
 		paramMap := make(map[string]string)
-		paramMap["target_dn"] = models.G(contItem, "tDn")
-		paramMap["flt_type"] = models.G(contItem, "fltType")
+		paramMap["tDn"] = models.G(contItem, "tDn")
+		paramMap["fltType"] = models.G(contItem, "fltType")
 
 		st = append(st, paramMap)
 
