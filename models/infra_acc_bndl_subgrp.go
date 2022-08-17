@@ -14,20 +14,20 @@ const (
 	InfraaccbndlsubgrpClassName = "infraAccBndlSubgrp"
 )
 
-type OverridePolicyGroup struct {
+type OverridePCVPCPolicyGroup struct {
 	BaseAttributes
-	OverridePolicyGroupAttributes
+	OverridePCVPCPolicyGroupAttributes
 }
 
-type OverridePolicyGroupAttributes struct {
+type OverridePCVPCPolicyGroupAttributes struct {
 	Annotation string `json:",omitempty"`
 	Name       string `json:",omitempty"`
 	NameAlias  string `json:",omitempty"`
 }
 
-func NewOverridePolicyGroup(infraAccBndlSubgrpRn, parentDn, description string, infraAccBndlSubgrpAttr OverridePolicyGroupAttributes) *OverridePolicyGroup {
+func NewOverridePCVPCPolicyGroup(infraAccBndlSubgrpRn, parentDn, description string, infraAccBndlSubgrpAttr OverridePCVPCPolicyGroupAttributes) *OverridePCVPCPolicyGroup {
 	dn := fmt.Sprintf("%s/%s", parentDn, infraAccBndlSubgrpRn)
-	return &OverridePolicyGroup{
+	return &OverridePCVPCPolicyGroup{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -35,11 +35,11 @@ func NewOverridePolicyGroup(infraAccBndlSubgrpRn, parentDn, description string, 
 			ClassName:         InfraaccbndlsubgrpClassName,
 			Rn:                infraAccBndlSubgrpRn,
 		},
-		OverridePolicyGroupAttributes: infraAccBndlSubgrpAttr,
+		OverridePCVPCPolicyGroupAttributes: infraAccBndlSubgrpAttr,
 	}
 }
 
-func (infraAccBndlSubgrp *OverridePolicyGroup) ToMap() (map[string]string, error) {
+func (infraAccBndlSubgrp *OverridePCVPCPolicyGroup) ToMap() (map[string]string, error) {
 	infraAccBndlSubgrpMap, err := infraAccBndlSubgrp.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -51,34 +51,34 @@ func (infraAccBndlSubgrp *OverridePolicyGroup) ToMap() (map[string]string, error
 	return infraAccBndlSubgrpMap, err
 }
 
-func OverridePolicyGroupFromContainerList(cont *container.Container, index int) *OverridePolicyGroup {
-	OverridePolicyGroupCont := cont.S("imdata").Index(index).S(InfraaccbndlsubgrpClassName, "attributes")
-	return &OverridePolicyGroup{
+func OverridePCVPCPolicyGroupFromContainerList(cont *container.Container, index int) *OverridePCVPCPolicyGroup {
+	OverridePCVPCPolicyGroupCont := cont.S("imdata").Index(index).S(InfraaccbndlsubgrpClassName, "attributes")
+	return &OverridePCVPCPolicyGroup{
 		BaseAttributes{
-			DistinguishedName: G(OverridePolicyGroupCont, "dn"),
-			Description:       G(OverridePolicyGroupCont, "descr"),
-			Status:            G(OverridePolicyGroupCont, "status"),
+			DistinguishedName: G(OverridePCVPCPolicyGroupCont, "dn"),
+			Description:       G(OverridePCVPCPolicyGroupCont, "descr"),
+			Status:            G(OverridePCVPCPolicyGroupCont, "status"),
 			ClassName:         InfraaccbndlsubgrpClassName,
-			Rn:                G(OverridePolicyGroupCont, "rn"),
+			Rn:                G(OverridePCVPCPolicyGroupCont, "rn"),
 		},
-		OverridePolicyGroupAttributes{
-			Annotation: G(OverridePolicyGroupCont, "annotation"),
-			Name:       G(OverridePolicyGroupCont, "name"),
-			NameAlias:  G(OverridePolicyGroupCont, "nameAlias"),
+		OverridePCVPCPolicyGroupAttributes{
+			Annotation: G(OverridePCVPCPolicyGroupCont, "annotation"),
+			Name:       G(OverridePCVPCPolicyGroupCont, "name"),
+			NameAlias:  G(OverridePCVPCPolicyGroupCont, "nameAlias"),
 		},
 	}
 }
 
-func OverridePolicyGroupFromContainer(cont *container.Container) *OverridePolicyGroup {
-	return OverridePolicyGroupFromContainerList(cont, 0)
+func OverridePCVPCPolicyGroupFromContainer(cont *container.Container) *OverridePCVPCPolicyGroup {
+	return OverridePCVPCPolicyGroupFromContainerList(cont, 0)
 }
 
-func OverridePolicyGroupListFromContainer(cont *container.Container) []*OverridePolicyGroup {
+func OverridePCVPCPolicyGroupListFromContainer(cont *container.Container) []*OverridePCVPCPolicyGroup {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*OverridePolicyGroup, length)
+	arr := make([]*OverridePCVPCPolicyGroup, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = OverridePolicyGroupFromContainerList(cont, i)
+		arr[i] = OverridePCVPCPolicyGroupFromContainerList(cont, i)
 	}
 
 	return arr

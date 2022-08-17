@@ -12,15 +12,15 @@ import (
 )
 
 
-func (sm *ServiceManager) CreateOverridePolicyGroup(name string, leaf_access_bundle_policy_group string, description string, infraAccBndlSubgrpAttr models.OverridePolicyGroupAttributes) (*models.OverridePolicyGroup, error) {	
+func (sm *ServiceManager) CreateOverridePCVPCPolicyGroup(name string, leaf_access_bundle_policy_group string, description string, infraAccBndlSubgrpAttr models.OverridePCVPCPolicyGroupAttributes) (*models.OverridePCVPCPolicyGroup, error) {	
 	rn := fmt.Sprintf(models.RninfraAccBndlSubgrp , name)
 	parentDn := fmt.Sprintf(models.ParentDninfraAccBndlSubgrp, leaf_access_bundle_policy_group )
-	infraAccBndlSubgrp := models.NewOverridePolicyGroup(rn, parentDn, description, infraAccBndlSubgrpAttr)
+	infraAccBndlSubgrp := models.NewOverridePCVPCPolicyGroup(rn, parentDn, description, infraAccBndlSubgrpAttr)
 	err := sm.Save(infraAccBndlSubgrp)
 	return infraAccBndlSubgrp, err
 }
 
-func (sm *ServiceManager) ReadOverridePolicyGroup(name string, leaf_access_bundle_policy_group string, ) (*models.OverridePolicyGroup, error) {
+func (sm *ServiceManager) ReadOverridePCVPCPolicyGroup(name string, leaf_access_bundle_policy_group string, ) (*models.OverridePCVPCPolicyGroup, error) {
 	dn := fmt.Sprintf(models.DninfraAccBndlSubgrp, leaf_access_bundle_policy_group,name)
 
 	cont, err := sm.Get(dn)
@@ -28,28 +28,28 @@ func (sm *ServiceManager) ReadOverridePolicyGroup(name string, leaf_access_bundl
 		return nil, err
 	}
 
-	infraAccBndlSubgrp := models.OverridePolicyGroupFromContainer(cont)
+	infraAccBndlSubgrp := models.OverridePCVPCPolicyGroupFromContainer(cont)
 	return infraAccBndlSubgrp, nil
 }
 
-func (sm *ServiceManager) DeleteOverridePolicyGroup(name string, leaf_access_bundle_policy_group string, ) error {
+func (sm *ServiceManager) DeleteOverridePCVPCPolicyGroup(name string, leaf_access_bundle_policy_group string, ) error {
 	dn := fmt.Sprintf(models.DninfraAccBndlSubgrp, leaf_access_bundle_policy_group,name)
 	return sm.DeleteByDn(dn, models.InfraaccbndlsubgrpClassName)
 }
 
-func (sm *ServiceManager) UpdateOverridePolicyGroup(name string, leaf_access_bundle_policy_group string, description string, infraAccBndlSubgrpAttr models.OverridePolicyGroupAttributes) (*models.OverridePolicyGroup, error) {
+func (sm *ServiceManager) UpdateOverridePCVPCPolicyGroup(name string, leaf_access_bundle_policy_group string, description string, infraAccBndlSubgrpAttr models.OverridePCVPCPolicyGroupAttributes) (*models.OverridePCVPCPolicyGroup, error) {
 	rn := fmt.Sprintf(models.RninfraAccBndlSubgrp , name)
 	parentDn := fmt.Sprintf(models.ParentDninfraAccBndlSubgrp, leaf_access_bundle_policy_group )
-	infraAccBndlSubgrp := models.NewOverridePolicyGroup(rn, parentDn, description, infraAccBndlSubgrpAttr)
+	infraAccBndlSubgrp := models.NewOverridePCVPCPolicyGroup(rn, parentDn, description, infraAccBndlSubgrpAttr)
     infraAccBndlSubgrp.Status = "modified"
 	err := sm.Save(infraAccBndlSubgrp)
 	return infraAccBndlSubgrp, err
 }
 
-func (sm *ServiceManager) ListOverridePolicyGroup(leaf_access_bundle_policy_group string ) ([]*models.OverridePolicyGroup, error) {	
+func (sm *ServiceManager) ListOverridePCVPCPolicyGroup(leaf_access_bundle_policy_group string ) ([]*models.OverridePCVPCPolicyGroup, error) {	
 	dnUrl := fmt.Sprintf("%s/uni/infra/funcprof/accbundle-%s/infraAccBndlSubgrp.json", models.BaseurlStr, leaf_access_bundle_policy_group )
     cont, err := sm.GetViaURL(dnUrl)
-	list := models.OverridePolicyGroupListFromContainer(cont)
+	list := models.OverridePCVPCPolicyGroupListFromContainer(cont)
 	return list, err
 }
 
