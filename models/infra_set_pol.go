@@ -21,23 +21,23 @@ type FabricWideSettingsPolicy struct {
 }
 
 type FabricWideSettingsPolicyAttributes struct {
-	Annotation                      string `json:",omitempty"`
-	DisableEpDampening              string `json:",omitempty"`
-	DomainValidation                string `json:",omitempty"`
-	EnableMoStreaming               string `json:",omitempty"`
-	EnableRemoteLeafDirect          string `json:",omitempty"`
-	EnforceSubnetCheck              string `json:",omitempty"`
-	LeafOpflexpAuthenticateClients  string `json:",omitempty"`
-	LeafOpflexpUseSsl               string `json:",omitempty"`
-	Name                            string `json:",omitempty"`
-	OpflexpAuthenticateClients      string `json:",omitempty"`
-	OpflexpSslProtocols             string `json:",omitempty"`
-	OpflexpUseSsl                   string `json:",omitempty"`
-	ReallocateGipo                  string `json:",omitempty"`
-	PolicySyncNodeBringup           string `json:",omitempty"`
-	RestrictInfraVLANTraffic        string `json:",omitempty"`
-	UnicastXrEpLearnDisable         string `json:",omitempty"`
-	ValidateOverlappingVlans        string `json:",omitempty"`
+	Annotation                     string `json:",omitempty"`
+	DisableEpDampening             string `json:",omitempty"`
+	DomainValidation               string `json:",omitempty"`
+	EnableMoStreaming              string `json:",omitempty"`
+	EnableRemoteLeafDirect         string `json:",omitempty"`
+	EnforceSubnetCheck             string `json:",omitempty"`
+	LeafOpflexpAuthenticateClients string `json:",omitempty"`
+	LeafOpflexpUseSsl              string `json:",omitempty"`
+	Name                           string `json:",omitempty"`
+	OpflexpAuthenticateClients     string `json:",omitempty"`
+	OpflexpSslProtocols            string `json:",omitempty"`
+	OpflexpUseSsl                  string `json:",omitempty"`
+	ReallocateGipo                 string `json:",omitempty"`
+	PolicySyncNodeBringup          string `json:",omitempty"`
+	RestrictInfraVLANTraffic       string `json:",omitempty"`
+	UnicastXrEpLearnDisable        string `json:",omitempty"`
+	ValidateOverlappingVlans       string `json:",omitempty"`
 }
 
 func NewFabricWideSettingsPolicy(infraSetPolRn, parentDn, description, nameAlias string, infraSetPolAttr FabricWideSettingsPolicyAttributes) *FabricWideSettingsPolicy {
@@ -81,7 +81,7 @@ func (infraSetPol *FabricWideSettingsPolicy) ToMap() (map[string]string, error) 
 	A(infraSetPolMap, "opflexpAuthenticateClients", infraSetPol.OpflexpAuthenticateClients)
 	A(infraSetPolMap, "opflexpSslProtocols", infraSetPol.OpflexpSslProtocols)
 	A(infraSetPolMap, "opflexpUseSsl", infraSetPol.OpflexpUseSsl)
-    A(infraSetPolMap, "policySyncNodeBringup", infraSetPol.PolicySyncNodeBringup)
+	A(infraSetPolMap, "policySyncNodeBringup", infraSetPol.PolicySyncNodeBringup)
 	A(infraSetPolMap, "reallocateGipo", infraSetPol.ReallocateGipo)
 	A(infraSetPolMap, "restrictInfraVLANTraffic", infraSetPol.RestrictInfraVLANTraffic)
 	A(infraSetPolMap, "unicastXrEpLearnDisable", infraSetPol.UnicastXrEpLearnDisable)
@@ -109,8 +109,8 @@ func FabricWideSettingsPolicyFromContainerList(cont *container.Container, index 
 			EnableMoStreaming:              G(FabricWideSettingsPolicyCont, "enableMoStreaming"),
 			EnableRemoteLeafDirect:         G(FabricWideSettingsPolicyCont, "enableRemoteLeafDirect"),
 			EnforceSubnetCheck:             G(FabricWideSettingsPolicyCont, "enforceSubnetCheck"),
-	        LeafOpflexpAuthenticateClients: G(FabricWideSettingsPolicyCont, "leafOpflexpAuthenticateClients"),
-	        LeafOpflexpUseSsl:              G(FabricWideSettingsPolicyCont, "leafOpflexpUseSsl"),
+			LeafOpflexpAuthenticateClients: G(FabricWideSettingsPolicyCont, "leafOpflexpAuthenticateClients"),
+			LeafOpflexpUseSsl:              G(FabricWideSettingsPolicyCont, "leafOpflexpUseSsl"),
 			Name:                           G(FabricWideSettingsPolicyCont, "name"),
 			OpflexpAuthenticateClients:     G(FabricWideSettingsPolicyCont, "opflexpAuthenticateClients"),
 			OpflexpSslProtocols:            G(FabricWideSettingsPolicyCont, "opflexpSslProtocols"),
