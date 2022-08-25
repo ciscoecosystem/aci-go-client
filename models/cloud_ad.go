@@ -26,12 +26,11 @@ type ActiveDirectoryAttributes struct {
 	Name               string `json:",omitempty"`
 }
 
-func NewActiveDirectory(cloudADRn, parentDn, description, nameAlias string, cloudADAttr ActiveDirectoryAttributes) *ActiveDirectory {
+func NewActiveDirectory(cloudADRn, parentDn, nameAlias string, cloudADAttr ActiveDirectoryAttributes) *ActiveDirectory {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudADRn)
 	return &ActiveDirectory{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
-			Description:       description,
 			Status:            "created, modified",
 			ClassName:         CloudadClassName,
 			Rn:                cloudADRn,
@@ -58,7 +57,7 @@ func (cloudAD *ActiveDirectory) ToMap() (map[string]string, error) {
 		A(cloudADMap, key, value)
 	}
 
-	A(cloudADMap, "ActiveDirectory_id", cloudAD.ActiveDirectory_id)
+	A(cloudADMap, "id", cloudAD.ActiveDirectory_id)
 	A(cloudADMap, "name", cloudAD.Name)
 	return cloudADMap, err
 }
@@ -68,7 +67,6 @@ func ActiveDirectoryFromContainerList(cont *container.Container, index int) *Act
 	return &ActiveDirectory{
 		BaseAttributes{
 			DistinguishedName: G(ActiveDirectoryCont, "dn"),
-			Description:       G(ActiveDirectoryCont, "descr"),
 			Status:            G(ActiveDirectoryCont, "status"),
 			ClassName:         CloudadClassName,
 			Rn:                G(ActiveDirectoryCont, "rn"),
@@ -77,7 +75,7 @@ func ActiveDirectoryFromContainerList(cont *container.Container, index int) *Act
 			NameAlias: G(ActiveDirectoryCont, "nameAlias"),
 		},
 		ActiveDirectoryAttributes{
-			ActiveDirectory_id: G(ActiveDirectoryCont, "ActiveDirectory_id"),
+			ActiveDirectory_id: G(ActiveDirectoryCont, "id"),
 			Name:               G(ActiveDirectoryCont, "name"),
 		},
 	}

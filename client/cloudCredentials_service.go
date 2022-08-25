@@ -7,10 +7,10 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateAccessCredentialtomanagethecloudresources(name string, tenant string, description string, nameAlias string, cloudCredentialsAttr models.AccessCredentialtomanagethecloudresourcesAttributes) (*models.AccessCredentialtomanagethecloudresources, error) {
+func (sm *ServiceManager) CreateAccessCredentialtomanagethecloudresources(name string, tenant string, nameAlias string, cloudCredentialsAttr models.AccessCredentialtomanagethecloudresourcesAttributes) (*models.AccessCredentialtomanagethecloudresources, error) {
 	rn := fmt.Sprintf(models.RncloudCredentials, name)
 	parentDn := fmt.Sprintf(models.ParentDncloudCredentials, tenant)
-	cloudCredentials := models.NewAccessCredentialtomanagethecloudresources(rn, parentDn, description, nameAlias, cloudCredentialsAttr)
+	cloudCredentials := models.NewAccessCredentialtomanagethecloudresources(rn, parentDn, nameAlias, cloudCredentialsAttr)
 	err := sm.Save(cloudCredentials)
 	return cloudCredentials, err
 }
@@ -32,10 +32,10 @@ func (sm *ServiceManager) DeleteAccessCredentialtomanagethecloudresources(name s
 	return sm.DeleteByDn(dn, models.CloudcredentialsClassName)
 }
 
-func (sm *ServiceManager) UpdateAccessCredentialtomanagethecloudresources(name string, tenant string, description string, nameAlias string, cloudCredentialsAttr models.AccessCredentialtomanagethecloudresourcesAttributes) (*models.AccessCredentialtomanagethecloudresources, error) {
+func (sm *ServiceManager) UpdateAccessCredentialtomanagethecloudresources(name string, tenant string, nameAlias string, cloudCredentialsAttr models.AccessCredentialtomanagethecloudresourcesAttributes) (*models.AccessCredentialtomanagethecloudresources, error) {
 	rn := fmt.Sprintf(models.RncloudCredentials, name)
 	parentDn := fmt.Sprintf(models.ParentDncloudCredentials, tenant)
-	cloudCredentials := models.NewAccessCredentialtomanagethecloudresources(rn, parentDn, description, nameAlias, cloudCredentialsAttr)
+	cloudCredentials := models.NewAccessCredentialtomanagethecloudresources(rn, parentDn, nameAlias, cloudCredentialsAttr)
 	cloudCredentials.Status = "modified"
 	err := sm.Save(cloudCredentials)
 	return cloudCredentials, err

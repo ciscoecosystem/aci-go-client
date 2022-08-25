@@ -31,12 +31,11 @@ type AccessCredentialtomanagethecloudresourcesAttributes struct {
 	RsaPrivateKey string `json:",omitempty"`
 }
 
-func NewAccessCredentialtomanagethecloudresources(cloudCredentialsRn, parentDn, description, nameAlias string, cloudCredentialsAttr AccessCredentialtomanagethecloudresourcesAttributes) *AccessCredentialtomanagethecloudresources {
+func NewAccessCredentialtomanagethecloudresources(cloudCredentialsRn, parentDn, nameAlias string, cloudCredentialsAttr AccessCredentialtomanagethecloudresourcesAttributes) *AccessCredentialtomanagethecloudresources {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudCredentialsRn)
 	return &AccessCredentialtomanagethecloudresources{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
-			Description:       description,
 			Status:            "created, modified",
 			ClassName:         CloudcredentialsClassName,
 			Rn:                cloudCredentialsRn,
@@ -78,7 +77,6 @@ func AccessCredentialtomanagethecloudresourcesFromContainerList(cont *container.
 	return &AccessCredentialtomanagethecloudresources{
 		BaseAttributes{
 			DistinguishedName: G(AccessCredentialtomanagethecloudresourcesCont, "dn"),
-			Description:       G(AccessCredentialtomanagethecloudresourcesCont, "descr"),
 			Status:            G(AccessCredentialtomanagethecloudresourcesCont, "status"),
 			ClassName:         CloudcredentialsClassName,
 			Rn:                G(AccessCredentialtomanagethecloudresourcesCont, "rn"),

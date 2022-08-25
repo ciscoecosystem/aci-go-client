@@ -6,10 +6,10 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateActiveDirectory(active_directory_id string, tenant string, description string, nameAlias string, cloudADAttr models.ActiveDirectoryAttributes) (*models.ActiveDirectory, error) {
+func (sm *ServiceManager) CreateActiveDirectory(active_directory_id string, tenant string, nameAlias string, cloudADAttr models.ActiveDirectoryAttributes) (*models.ActiveDirectory, error) {
 	rn := fmt.Sprintf(models.RncloudAD, active_directory_id)
 	parentDn := fmt.Sprintf(models.ParentDncloudAD, tenant)
-	cloudAD := models.NewActiveDirectory(rn, parentDn, description, nameAlias, cloudADAttr)
+	cloudAD := models.NewActiveDirectory(rn, parentDn, nameAlias, cloudADAttr)
 	err := sm.Save(cloudAD)
 	return cloudAD, err
 }
@@ -31,10 +31,10 @@ func (sm *ServiceManager) DeleteActiveDirectory(active_directory_id string, tena
 	return sm.DeleteByDn(dn, models.CloudadClassName)
 }
 
-func (sm *ServiceManager) UpdateActiveDirectory(active_directory_id string, tenant string, description string, nameAlias string, cloudADAttr models.ActiveDirectoryAttributes) (*models.ActiveDirectory, error) {
+func (sm *ServiceManager) UpdateActiveDirectory(active_directory_id string, tenant string, nameAlias string, cloudADAttr models.ActiveDirectoryAttributes) (*models.ActiveDirectory, error) {
 	rn := fmt.Sprintf(models.RncloudAD, active_directory_id)
 	parentDn := fmt.Sprintf(models.ParentDncloudAD, tenant)
-	cloudAD := models.NewActiveDirectory(rn, parentDn, description, nameAlias, cloudADAttr)
+	cloudAD := models.NewActiveDirectory(rn, parentDn, nameAlias, cloudADAttr)
 	cloudAD.Status = "modified"
 	err := sm.Save(cloudAD)
 	return cloudAD, err
