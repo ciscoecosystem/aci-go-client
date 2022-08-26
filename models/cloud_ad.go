@@ -14,21 +14,21 @@ const (
 	CloudadClassName = "cloudAD"
 )
 
-type ActiveDirectory struct {
+type CloudActiveDirectory struct {
 	BaseAttributes
 	NameAliasAttribute
-	ActiveDirectoryAttributes
+	CloudActiveDirectoryAttributes
 }
 
-type ActiveDirectoryAttributes struct {
+type CloudActiveDirectoryAttributes struct {
 	Annotation         string `json:",omitempty"`
 	ActiveDirectory_id string `json:",omitempty"`
 	Name               string `json:",omitempty"`
 }
 
-func NewActiveDirectory(cloudADRn, parentDn, nameAlias string, cloudADAttr ActiveDirectoryAttributes) *ActiveDirectory {
+func NewCloudActiveDirectory(cloudADRn, parentDn, nameAlias string, cloudADAttr CloudActiveDirectoryAttributes) *CloudActiveDirectory {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudADRn)
-	return &ActiveDirectory{
+	return &CloudActiveDirectory{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Status:            "created, modified",
@@ -38,11 +38,11 @@ func NewActiveDirectory(cloudADRn, parentDn, nameAlias string, cloudADAttr Activ
 		NameAliasAttribute: NameAliasAttribute{
 			NameAlias: nameAlias,
 		},
-		ActiveDirectoryAttributes: cloudADAttr,
+		CloudActiveDirectoryAttributes: cloudADAttr,
 	}
 }
 
-func (cloudAD *ActiveDirectory) ToMap() (map[string]string, error) {
+func (cloudAD *CloudActiveDirectory) ToMap() (map[string]string, error) {
 	cloudADMap, err := cloudAD.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -62,35 +62,35 @@ func (cloudAD *ActiveDirectory) ToMap() (map[string]string, error) {
 	return cloudADMap, err
 }
 
-func ActiveDirectoryFromContainerList(cont *container.Container, index int) *ActiveDirectory {
-	ActiveDirectoryCont := cont.S("imdata").Index(index).S(CloudadClassName, "attributes")
-	return &ActiveDirectory{
+func CloudActiveDirectoryFromContainerList(cont *container.Container, index int) *CloudActiveDirectory {
+	CloudActiveDirectoryCont := cont.S("imdata").Index(index).S(CloudadClassName, "attributes")
+	return &CloudActiveDirectory{
 		BaseAttributes{
-			DistinguishedName: G(ActiveDirectoryCont, "dn"),
-			Status:            G(ActiveDirectoryCont, "status"),
+			DistinguishedName: G(CloudActiveDirectoryCont, "dn"),
+			Status:            G(CloudActiveDirectoryCont, "status"),
 			ClassName:         CloudadClassName,
-			Rn:                G(ActiveDirectoryCont, "rn"),
+			Rn:                G(CloudActiveDirectoryCont, "rn"),
 		},
 		NameAliasAttribute{
-			NameAlias: G(ActiveDirectoryCont, "nameAlias"),
+			NameAlias: G(CloudActiveDirectoryCont, "nameAlias"),
 		},
-		ActiveDirectoryAttributes{
-			ActiveDirectory_id: G(ActiveDirectoryCont, "id"),
-			Name:               G(ActiveDirectoryCont, "name"),
+		CloudActiveDirectoryAttributes{
+			ActiveDirectory_id: G(CloudActiveDirectoryCont, "id"),
+			Name:               G(CloudActiveDirectoryCont, "name"),
 		},
 	}
 }
 
-func ActiveDirectoryFromContainer(cont *container.Container) *ActiveDirectory {
-	return ActiveDirectoryFromContainerList(cont, 0)
+func CloudActiveDirectoryFromContainer(cont *container.Container) *CloudActiveDirectory {
+	return CloudActiveDirectoryFromContainerList(cont, 0)
 }
 
-func ActiveDirectoryListFromContainer(cont *container.Container) []*ActiveDirectory {
+func CloudActiveDirectoryListFromContainer(cont *container.Container) []*CloudActiveDirectory {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*ActiveDirectory, length)
+	arr := make([]*CloudActiveDirectory, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = ActiveDirectoryFromContainerList(cont, i)
+		arr[i] = CloudActiveDirectoryFromContainerList(cont, i)
 	}
 
 	return arr

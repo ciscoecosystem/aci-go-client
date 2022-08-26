@@ -7,15 +7,15 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateAccessCredentialtomanagethecloudresources(name string, tenant string, nameAlias string, cloudCredentialsAttr models.AccessCredentialtomanagethecloudresourcesAttributes) (*models.AccessCredentialtomanagethecloudresources, error) {
+func (sm *ServiceManager) CreateCloudCredentials(name string, tenant string, nameAlias string, cloudCredentialsAttr models.CloudCredentialsAttributes) (*models.CloudCredentials, error) {
 	rn := fmt.Sprintf(models.RncloudCredentials, name)
 	parentDn := fmt.Sprintf(models.ParentDncloudCredentials, tenant)
-	cloudCredentials := models.NewAccessCredentialtomanagethecloudresources(rn, parentDn, nameAlias, cloudCredentialsAttr)
+	cloudCredentials := models.NewCloudCredentials(rn, parentDn, nameAlias, cloudCredentialsAttr)
 	err := sm.Save(cloudCredentials)
 	return cloudCredentials, err
 }
 
-func (sm *ServiceManager) ReadAccessCredentialtomanagethecloudresources(name string, tenant string) (*models.AccessCredentialtomanagethecloudresources, error) {
+func (sm *ServiceManager) ReadCloudCredentials(name string, tenant string) (*models.CloudCredentials, error) {
 	dn := fmt.Sprintf(models.DncloudCredentials, tenant, name)
 
 	cont, err := sm.Get(dn)
@@ -23,28 +23,28 @@ func (sm *ServiceManager) ReadAccessCredentialtomanagethecloudresources(name str
 		return nil, err
 	}
 
-	cloudCredentials := models.AccessCredentialtomanagethecloudresourcesFromContainer(cont)
+	cloudCredentials := models.CloudCredentialsFromContainer(cont)
 	return cloudCredentials, nil
 }
 
-func (sm *ServiceManager) DeleteAccessCredentialtomanagethecloudresources(name string, tenant string) error {
+func (sm *ServiceManager) DeleteCloudCredentials(name string, tenant string) error {
 	dn := fmt.Sprintf(models.DncloudCredentials, tenant, name)
 	return sm.DeleteByDn(dn, models.CloudcredentialsClassName)
 }
 
-func (sm *ServiceManager) UpdateAccessCredentialtomanagethecloudresources(name string, tenant string, nameAlias string, cloudCredentialsAttr models.AccessCredentialtomanagethecloudresourcesAttributes) (*models.AccessCredentialtomanagethecloudresources, error) {
+func (sm *ServiceManager) UpdateCloudCredentials(name string, tenant string, nameAlias string, cloudCredentialsAttr models.CloudCredentialsAttributes) (*models.CloudCredentials, error) {
 	rn := fmt.Sprintf(models.RncloudCredentials, name)
 	parentDn := fmt.Sprintf(models.ParentDncloudCredentials, tenant)
-	cloudCredentials := models.NewAccessCredentialtomanagethecloudresources(rn, parentDn, nameAlias, cloudCredentialsAttr)
+	cloudCredentials := models.NewCloudCredentials(rn, parentDn, nameAlias, cloudCredentialsAttr)
 	cloudCredentials.Status = "modified"
 	err := sm.Save(cloudCredentials)
 	return cloudCredentials, err
 }
 
-func (sm *ServiceManager) ListAccessCredentialtomanagethecloudresources(tenant string) ([]*models.AccessCredentialtomanagethecloudresources, error) {
+func (sm *ServiceManager) ListCloudCredentials(tenant string) ([]*models.CloudCredentials, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/cloudCredentials.json", models.BaseurlStr, tenant)
 	cont, err := sm.GetViaURL(dnUrl)
-	list := models.AccessCredentialtomanagethecloudresourcesListFromContainer(cont)
+	list := models.CloudCredentialsListFromContainer(cont)
 	return list, err
 }
 

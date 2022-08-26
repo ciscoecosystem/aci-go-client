@@ -14,13 +14,13 @@ const (
 	CloudcredentialsClassName = "cloudCredentials"
 )
 
-type AccessCredentialtomanagethecloudresources struct {
+type CloudCredentials struct {
 	BaseAttributes
 	NameAliasAttribute
-	AccessCredentialtomanagethecloudresourcesAttributes
+	CloudCredentialsAttributes
 }
 
-type AccessCredentialtomanagethecloudresourcesAttributes struct {
+type CloudCredentialsAttributes struct {
 	Annotation    string `json:",omitempty"`
 	ClientId      string `json:",omitempty"`
 	Email         string `json:",omitempty"`
@@ -31,9 +31,9 @@ type AccessCredentialtomanagethecloudresourcesAttributes struct {
 	RsaPrivateKey string `json:",omitempty"`
 }
 
-func NewAccessCredentialtomanagethecloudresources(cloudCredentialsRn, parentDn, nameAlias string, cloudCredentialsAttr AccessCredentialtomanagethecloudresourcesAttributes) *AccessCredentialtomanagethecloudresources {
+func NewCloudCredentials(cloudCredentialsRn, parentDn, nameAlias string, cloudCredentialsAttr CloudCredentialsAttributes) *CloudCredentials {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudCredentialsRn)
-	return &AccessCredentialtomanagethecloudresources{
+	return &CloudCredentials{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Status:            "created, modified",
@@ -43,11 +43,11 @@ func NewAccessCredentialtomanagethecloudresources(cloudCredentialsRn, parentDn, 
 		NameAliasAttribute: NameAliasAttribute{
 			NameAlias: nameAlias,
 		},
-		AccessCredentialtomanagethecloudresourcesAttributes: cloudCredentialsAttr,
+		CloudCredentialsAttributes: cloudCredentialsAttr,
 	}
 }
 
-func (cloudCredentials *AccessCredentialtomanagethecloudresources) ToMap() (map[string]string, error) {
+func (cloudCredentials *CloudCredentials) ToMap() (map[string]string, error) {
 	cloudCredentialsMap, err := cloudCredentials.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -72,40 +72,40 @@ func (cloudCredentials *AccessCredentialtomanagethecloudresources) ToMap() (map[
 	return cloudCredentialsMap, err
 }
 
-func AccessCredentialtomanagethecloudresourcesFromContainerList(cont *container.Container, index int) *AccessCredentialtomanagethecloudresources {
-	AccessCredentialtomanagethecloudresourcesCont := cont.S("imdata").Index(index).S(CloudcredentialsClassName, "attributes")
-	return &AccessCredentialtomanagethecloudresources{
+func CloudCredentialsFromContainerList(cont *container.Container, index int) *CloudCredentials {
+	CloudCredentialsCont := cont.S("imdata").Index(index).S(CloudcredentialsClassName, "attributes")
+	return &CloudCredentials{
 		BaseAttributes{
-			DistinguishedName: G(AccessCredentialtomanagethecloudresourcesCont, "dn"),
-			Status:            G(AccessCredentialtomanagethecloudresourcesCont, "status"),
+			DistinguishedName: G(CloudCredentialsCont, "dn"),
+			Status:            G(CloudCredentialsCont, "status"),
 			ClassName:         CloudcredentialsClassName,
-			Rn:                G(AccessCredentialtomanagethecloudresourcesCont, "rn"),
+			Rn:                G(CloudCredentialsCont, "rn"),
 		},
 		NameAliasAttribute{
-			NameAlias: G(AccessCredentialtomanagethecloudresourcesCont, "nameAlias"),
+			NameAlias: G(CloudCredentialsCont, "nameAlias"),
 		},
-		AccessCredentialtomanagethecloudresourcesAttributes{
-			ClientId:      G(AccessCredentialtomanagethecloudresourcesCont, "clientId"),
-			Email:         G(AccessCredentialtomanagethecloudresourcesCont, "email"),
-			HttpProxy:     G(AccessCredentialtomanagethecloudresourcesCont, "httpProxy"),
-			Key:           G(AccessCredentialtomanagethecloudresourcesCont, "key"),
-			KeyId:         G(AccessCredentialtomanagethecloudresourcesCont, "keyId"),
-			Name:          G(AccessCredentialtomanagethecloudresourcesCont, "name"),
-			RsaPrivateKey: G(AccessCredentialtomanagethecloudresourcesCont, "rsaPrivateKey"),
+		CloudCredentialsAttributes{
+			ClientId:      G(CloudCredentialsCont, "clientId"),
+			Email:         G(CloudCredentialsCont, "email"),
+			HttpProxy:     G(CloudCredentialsCont, "httpProxy"),
+			Key:           G(CloudCredentialsCont, "key"),
+			KeyId:         G(CloudCredentialsCont, "keyId"),
+			Name:          G(CloudCredentialsCont, "name"),
+			RsaPrivateKey: G(CloudCredentialsCont, "rsaPrivateKey"),
 		},
 	}
 }
 
-func AccessCredentialtomanagethecloudresourcesFromContainer(cont *container.Container) *AccessCredentialtomanagethecloudresources {
-	return AccessCredentialtomanagethecloudresourcesFromContainerList(cont, 0)
+func CloudCredentialsFromContainer(cont *container.Container) *CloudCredentials {
+	return CloudCredentialsFromContainerList(cont, 0)
 }
 
-func AccessCredentialtomanagethecloudresourcesListFromContainer(cont *container.Container) []*AccessCredentialtomanagethecloudresources {
+func CloudCredentialsListFromContainer(cont *container.Container) []*CloudCredentials {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*AccessCredentialtomanagethecloudresources, length)
+	arr := make([]*CloudCredentials, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = AccessCredentialtomanagethecloudresourcesFromContainerList(cont, i)
+		arr[i] = CloudCredentialsFromContainerList(cont, i)
 	}
 
 	return arr
