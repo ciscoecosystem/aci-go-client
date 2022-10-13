@@ -56,8 +56,7 @@ func (sm *ServiceManager) CreateCloudContextProfile(name string, tenant string, 
 					"cloudIDMapping": {
 						"attributes": {
 							"cloudProviderId": "%s"
-						},
-						"children": []
+						}
 					}
 				}
 			]
@@ -70,8 +69,7 @@ func (sm *ServiceManager) CreateCloudContextProfile(name string, tenant string, 
 		"cloudRsCtxProfileToAccessPolicy": {
 			"attributes": {
 				"tDn": "uni/tn-infra/accesspolicy-%s"
-			},
-			"children": []
+			}
 		}
 	}
 	`, accessPolicy))
@@ -184,8 +182,7 @@ func (sm *ServiceManager) UpdateCloudContextProfile(name string, tenant string, 
 					"cloudIDMapping": {
 						"attributes": {
 							"cloudProviderId": "%s"
-						},
-						"children": []
+						}
 					}
 				}
 			]
@@ -198,8 +195,7 @@ func (sm *ServiceManager) UpdateCloudContextProfile(name string, tenant string, 
 		"cloudRsCtxProfileToAccessPolicy": {
 			"attributes": {
 				"tDn": "uni/tn-infra/accesspolicy-%s"
-			},
-			"children": []
+			}
 		}
 	}
 	`, accessPolicy))
