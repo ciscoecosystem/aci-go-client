@@ -15,13 +15,12 @@ type CloudSubnet struct {
 }
 
 type CloudSubnetAttributes struct {
-	Ip         string `json:",omitempty"`
-	Name       string `json:",omitempty"`
-	Annotation string `json:",omitempty"`
-	NameAlias  string `json:",omitempty"`
-	Scope      string `json:",omitempty"`
-	Usage      string `json:",omitempty"`
-	//Zone        string `json:",omitempty"`
+	Ip          string `json:",omitempty"`
+	Name        string `json:",omitempty"`
+	Annotation  string `json:",omitempty"`
+	NameAlias   string `json:",omitempty"`
+	Scope       string `json:",omitempty"`
+	Usage       string `json:",omitempty"`
 	SubnetGroup string `json:",omitempty"`
 }
 
