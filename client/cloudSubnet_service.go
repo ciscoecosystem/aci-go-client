@@ -15,7 +15,8 @@ func (sm *ServiceManager) CreateCloudSubnet(ip string, cloud_cidr_pool_dn string
 	cloudSubnet := models.NewCloudSubnet(rn, parentDn, description, cloudSubnetattr)
 	jsonPayload, _, err := sm.PrepareModel(cloudSubnet)
 
-	rsZoneAttachJSON := []byte(fmt.Sprintf(`
+	if zoneDn != "" {
+		rsZoneAttachJSON := []byte(fmt.Sprintf(`
 	{
 		"cloudRsZoneAttach": {
 			"attributes": {
@@ -26,15 +27,16 @@ func (sm *ServiceManager) CreateCloudSubnet(ip string, cloud_cidr_pool_dn string
 		}
 	}
 	`, parentDn, rn, zoneDn))
-	zoneCon, err := container.ParseJSON(rsZoneAttachJSON)
-	if err != nil {
-		return nil, err
-	}
+		zoneCon, err := container.ParseJSON(rsZoneAttachJSON)
+		if err != nil {
+			return nil, err
+		}
 
-	log.Printf("\n[DEBUG]asas %v", zoneCon.Data())
-	jsonPayload.Array(cloudSubnet.ClassName, "children")
-	jsonPayload.ArrayAppend(zoneCon.Data(), cloudSubnet.ClassName, "children")
-	log.Printf("\n\n[DEBUG]asas %s\n\n", jsonPayload.String())
+		log.Printf("\n[DEBUG]asas %v", zoneCon.Data())
+		jsonPayload.Array(cloudSubnet.ClassName, "children")
+		jsonPayload.ArrayAppend(zoneCon.Data(), cloudSubnet.ClassName, "children")
+		log.Printf("\n\n[DEBUG]asas %s\n\n", jsonPayload.String())
+	}
 	jsonPayload.Set(ip, cloudSubnet.ClassName, "attributes", "ip")
 
 	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("/api/node/mo/%s/%s.json", parentDn, rn), jsonPayload, true)
