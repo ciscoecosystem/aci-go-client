@@ -21,6 +21,7 @@ type CloudSubnetAttributes struct {
 	NameAlias   string `json:",omitempty"`
 	Scope       string `json:",omitempty"`
 	Usage       string `json:",omitempty"`
+	Zone        string `json:",omitempty"`
 	SubnetGroup string `json:",omitempty"`
 }
 
@@ -51,6 +52,7 @@ func (cloudSubnet *CloudSubnet) ToMap() (map[string]string, error) {
 	A(cloudSubnetMap, "nameAlias", cloudSubnet.NameAlias)
 	A(cloudSubnetMap, "scope", cloudSubnet.Scope)
 	A(cloudSubnetMap, "usage", cloudSubnet.Usage)
+	A(cloudSubnetMap, "zone", cloudSubnet.Zone)
 	A(cloudSubnetMap, "subnetGroup", cloudSubnet.SubnetGroup)
 
 	return cloudSubnetMap, err
@@ -75,6 +77,7 @@ func CloudSubnetFromContainerList(cont *container.Container, index int) *CloudSu
 			NameAlias:   G(CloudSubnetCont, "nameAlias"),
 			Scope:       G(CloudSubnetCont, "scope"),
 			Usage:       G(CloudSubnetCont, "usage"),
+			Zone:        G(CloudSubnetCont, "zone"),
 			SubnetGroup: G(CloudSubnetCont, "subnetGroup"),
 		},
 	}
