@@ -26,7 +26,7 @@ func (sm *ServiceManager) CreateCloudSubnet(ip string, cloud_cidr_pool_dn string
 				}
 			}
 		}
-	`, parentDn, rn, zoneDn))
+		`, parentDn, rn, zoneDn))
 		zoneCon, err := container.ParseJSON(rsZoneAttachJSON)
 		if err != nil {
 			return nil, err
