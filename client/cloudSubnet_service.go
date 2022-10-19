@@ -32,10 +32,10 @@ func (sm *ServiceManager) CreateCloudSubnet(ip string, cloud_cidr_pool_dn string
 			return nil, err
 		}
 
-		log.Printf("\n[DEBUG]asas %v", zoneCon.Data())
+		log.Printf("\n[DEBUG] %v", zoneCon.Data())
 		jsonPayload.Array(cloudSubnet.ClassName, "children")
 		jsonPayload.ArrayAppend(zoneCon.Data(), cloudSubnet.ClassName, "children")
-		log.Printf("\n\n[DEBUG]asas %s\n\n", jsonPayload.String())
+		log.Printf("\n\n[DEBUG] %s\n\n", jsonPayload.String())
 	}
 	jsonPayload.Set(ip, cloudSubnet.ClassName, "attributes", "ip")
 
@@ -92,10 +92,10 @@ func (sm *ServiceManager) UpdateCloudSubnet(ip string, cloud_cidr_pool_dn string
 		return nil, err
 	}
 
-	log.Printf("\n[DEBUG]asas %v", zoneCon.Data())
+	log.Printf("\n[DEBUG] %v", zoneCon.Data())
 	jsonPayload.Array(cloudSubnet.ClassName, "children")
 	jsonPayload.ArrayAppend(zoneCon.Data(), cloudSubnet.ClassName, "children")
-	log.Printf("\n\n[DEBUG]asas %s\n\n", jsonPayload.String())
+	log.Printf("\n\n[DEBUG] %s\n\n", jsonPayload.String())
 	jsonPayload.Set(ip, cloudSubnet.ClassName, "attributes", "ip")
 
 	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("/api/node/mo/%s/%s.json", parentDn, rn), jsonPayload, true)
