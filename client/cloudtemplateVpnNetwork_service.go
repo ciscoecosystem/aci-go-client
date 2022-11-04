@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateTemplateforVPNNetwork(name string, template_for_external_network string, infra_network_template string, tenant string, nameAlias string, cloudtemplateVpnNetworkAttr models.TemplateforVPNNetworkAttributes) (*models.TemplateforVPNNetwork, error) {

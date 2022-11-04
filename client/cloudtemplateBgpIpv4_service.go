@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateBGPIPv4Peer(peeraddr string, template_for_ipsec_tunnel_peeraddr string, template_for_vpn_network string, template_for_external_network string, infra_network_template string, tenant string, cloudtemplateBgpIpv4Attr models.BGPIPv4PeerAttributes) (*models.BGPIPv4Peer, error) {
