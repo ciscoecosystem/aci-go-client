@@ -2,22 +2,21 @@ package client
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/ciscoecosystem/aci-go-client/container"
 	"github.com/ciscoecosystem/aci-go-client/models"
 )
 
-func (sm *ServiceManager) CreateDestinationofredirectedtraffic(ip string, service_redirect_policy string, tenant string, description string, vnsRedirectDestattr models.DestinationofredirectedtrafficAttributes) (*models.Destinationofredirectedtraffic, error) {
-	rn := fmt.Sprintf("RedirectDest_ip-[%s]", ip)
-	parentDn := fmt.Sprintf("uni/tn-%s/svcCont/svcRedirectPol-%s", tenant, service_redirect_policy)
-	vnsRedirectDest := models.NewDestinationofredirectedtraffic(rn, parentDn, description, vnsRedirectDestattr)
+func (sm *ServiceManager) CreateDestinationofredirectedtraffic(ip string, parentDn string, description string, nameAlias string, vnsRedirectDestAttr models.DestinationofredirectedtrafficAttributes) (*models.Destinationofredirectedtraffic, error) {
+	rn := fmt.Sprintf(models.RnvnsRedirectDest, ip)
+	vnsRedirectDest := models.NewDestinationofredirectedtraffic(rn, parentDn, description, nameAlias, vnsRedirectDestAttr)
 	err := sm.Save(vnsRedirectDest)
 	return vnsRedirectDest, err
 }
 
-func (sm *ServiceManager) ReadDestinationofredirectedtraffic(ip string, service_redirect_policy string, tenant string) (*models.Destinationofredirectedtraffic, error) {
-	dn := fmt.Sprintf("uni/tn-%s/svcCont/svcRedirectPol-%s/RedirectDest_ip-[%s]", tenant, service_redirect_policy, ip)
+func (sm *ServiceManager) ReadDestinationofredirectedtraffic(ip string, parentDn string) (*models.Destinationofredirectedtraffic, error) {
+	dn := fmt.Sprintf("%s/%s", parentDn, fmt.Sprintf(models.RnvnsRedirectDest, ip))
+
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
@@ -27,73 +26,62 @@ func (sm *ServiceManager) ReadDestinationofredirectedtraffic(ip string, service_
 	return vnsRedirectDest, nil
 }
 
-func (sm *ServiceManager) DeleteDestinationofredirectedtraffic(ip string, service_redirect_policy string, tenant string) error {
-	dn := fmt.Sprintf("uni/tn-%s/svcCont/svcRedirectPol-%s/RedirectDest_ip-[%s]", tenant, service_redirect_policy, ip)
+func (sm *ServiceManager) DeleteDestinationofredirectedtraffic(ip string, parentDn string) error {
+	dn := fmt.Sprintf("%s/%s", parentDn, fmt.Sprintf(models.RnvnsRedirectDest, ip))
 	return sm.DeleteByDn(dn, models.VnsredirectdestClassName)
 }
 
-func (sm *ServiceManager) UpdateDestinationofredirectedtraffic(ip string, service_redirect_policy string, tenant string, description string, vnsRedirectDestattr models.DestinationofredirectedtrafficAttributes) (*models.Destinationofredirectedtraffic, error) {
-	rn := fmt.Sprintf("RedirectDest_ip-[%s]", ip)
-	parentDn := fmt.Sprintf("uni/tn-%s/svcCont/svcRedirectPol-%s", tenant, service_redirect_policy)
-	vnsRedirectDest := models.NewDestinationofredirectedtraffic(rn, parentDn, description, vnsRedirectDestattr)
-
+func (sm *ServiceManager) UpdateDestinationofredirectedtraffic(ip string, parentDn string, description string, nameAlias string, vnsRedirectDestAttr models.DestinationofredirectedtrafficAttributes) (*models.Destinationofredirectedtraffic, error) {
+	rn := fmt.Sprintf(models.RnvnsRedirectDest, ip)
+	vnsRedirectDest := models.NewDestinationofredirectedtraffic(rn, parentDn, description, nameAlias, vnsRedirectDestAttr)
 	vnsRedirectDest.Status = "modified"
 	err := sm.Save(vnsRedirectDest)
 	return vnsRedirectDest, err
-
 }
 
-func (sm *ServiceManager) ListDestinationofredirectedtraffic(service_redirect_policy string, tenant string) ([]*models.Destinationofredirectedtraffic, error) {
-
-	baseurlStr := "/api/node/class"
-	dnUrl := fmt.Sprintf("%s/uni/tn-%s/svcCont/svcRedirectPol-%s/vnsRedirectDest.json", baseurlStr, tenant, service_redirect_policy)
-
+func (sm *ServiceManager) ListDestinationofredirectedtraffic(parentDn string) ([]*models.Destinationofredirectedtraffic, error) {
+	dnUrl := fmt.Sprintf("%s/%s/vnsRedirectDest.json", models.BaseurlStr, parentDn)
 	cont, err := sm.GetViaURL(dnUrl)
 	list := models.DestinationofredirectedtrafficListFromContainer(cont)
-
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationvnsRsRedirectHealthGroupFromDestinationofredirectedtraffic(parentDn, tnVnsRedirectHealthGroupName string) error {
+func (sm *ServiceManager) CreateRelationvnsRsRedirectHealthGroup(parentDn, annotation, tDn string) error {
 	dn := fmt.Sprintf("%s/rsRedirectHealthGroup", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
 			"attributes": {
-				"dn": "%s","tDn": "%s","annotation":"orchestrator:terraform"
-								
+				"dn": "%s",
+				"annotation": "%s",
+				"tDn": "%s"
 			}
 		}
-	}`, "vnsRsRedirectHealthGroup", dn, tnVnsRedirectHealthGroupName))
+	}`, "vnsRsRedirectHealthGroup", dn, annotation, tDn))
 
 	jsonPayload, err := container.ParseJSON(containerJSON)
 	if err != nil {
 		return err
 	}
-
 	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
 	if err != nil {
 		return err
 	}
-
 	cont, _, err := sm.client.Do(req)
 	if err != nil {
 		return err
 	}
-	log.Printf("%+v", cont)
-
+	fmt.Printf("%+v", cont)
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationvnsRsRedirectHealthGroupFromDestinationofredirectedtraffic(parentDn string) error {
+func (sm *ServiceManager) DeleteRelationvnsRsRedirectHealthGroup(parentDn string) error {
 	dn := fmt.Sprintf("%s/rsRedirectHealthGroup", parentDn)
 	return sm.DeleteByDn(dn, "vnsRsRedirectHealthGroup")
 }
 
-func (sm *ServiceManager) ReadRelationvnsRsRedirectHealthGroupFromDestinationofredirectedtraffic(parentDn string) (interface{}, error) {
-	baseurlStr := "/api/node/class"
-	dnUrl := fmt.Sprintf("%s/%s/%s.json", baseurlStr, parentDn, "vnsRsRedirectHealthGroup")
+func (sm *ServiceManager) ReadRelationvnsRsRedirectHealthGroup(parentDn string) (interface{}, error) {
+	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "vnsRsRedirectHealthGroup")
 	cont, err := sm.GetViaURL(dnUrl)
-
 	contList := models.ListFromContainer(cont, "vnsRsRedirectHealthGroup")
 
 	if len(contList) > 0 {
@@ -102,5 +90,4 @@ func (sm *ServiceManager) ReadRelationvnsRsRedirectHealthGroupFromDestinationofr
 	} else {
 		return nil, err
 	}
-
 }
