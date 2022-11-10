@@ -11,7 +11,9 @@ const (
 	DnvnsBackupPol        = "uni/tn-%s/svcCont/backupPol-%s"
 	RnvnsBackupPol        = "backupPol-%s"
 	ParentDnvnsBackupPol  = "uni/tn-%s/svcCont"
-	VnsbackuppolClassName = "vnsBackupPol"
+	VnsbackuppolClassName = "vnsBackupPol" // PBR Backup Policy ClassName
+	RnvnsSvcCont          = "svcCont"      // Service Container RN
+	VnsSvcContClassName   = "vnsSvcCont"   // Service Container ClassName
 )
 
 type PBRBackupPolicy struct {
