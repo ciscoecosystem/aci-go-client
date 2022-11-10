@@ -1,4 +1,4 @@
-module github.com/ciscoecosystem/aci-go-client
+module github.com/ciscoecosystem/aci-go-client/v2
 
 go 1.12
 
