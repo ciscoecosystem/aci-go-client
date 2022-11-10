@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateHSRPInterfacePolicy(name string, tenant string, description string, hsrpIfPolattr models.HSRPInterfacePolicyAttributes) (*models.HSRPInterfacePolicy, error) {

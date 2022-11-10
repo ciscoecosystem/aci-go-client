@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
 )
 
 func toStringMap(intf interface{}) map[string]string {

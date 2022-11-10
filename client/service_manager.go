@@ -6,8 +6,8 @@ import (
 	"log"
 	"strconv"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 type ServiceManager struct {

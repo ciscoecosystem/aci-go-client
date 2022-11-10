@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateUserManagement(description string, nameAlias string, aaaUserEpAttr models.UserManagementAttributes) (*models.UserManagement, error) {

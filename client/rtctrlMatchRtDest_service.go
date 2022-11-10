@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateMatchRouteDestinationRule(ip string, match_rule string, tenant string, description string, nameAlias string, rtctrlMatchRtDestAttr models.MatchRouteDestinationRuleAttributes) (*models.MatchRouteDestinationRule, error) {

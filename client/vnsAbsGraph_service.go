@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateL4L7ServiceGraphTemplate(name string, tenant string, description string, vnsAbsGraphattr models.L4L7ServiceGraphTemplateAttributes) (*models.L4L7ServiceGraphTemplate, error) {

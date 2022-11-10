@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateL3outPathAttachmentSecondaryIp(addr string, leaf_port_tDn string, logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string, description string, l3extIpattr models.L3outPathAttachmentSecondaryIpAttributes) (*models.L3outPathAttachmentSecondaryIp, error) {

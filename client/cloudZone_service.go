@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateCloudAvailabilityZone(name string, cloud_providers_region string, cloud_provider_profile_vendor string, description string, cloudZoneattr models.CloudAvailabilityZoneAttributes) (*models.CloudAvailabilityZone, error) {

@@ -2,7 +2,7 @@ package models
 
 import (
 	"fmt"
-	"github.com/ciscoecosystem/aci-go-client/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
 	"strconv"
 )
 

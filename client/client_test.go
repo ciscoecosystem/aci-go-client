@@ -3,7 +3,7 @@ package client
 import (
 	"testing"
 
-	"github.com/ciscoecosystem/aci-go-client/client"
+	"github.com/ciscoecosystem/aci-go-client/v2/client"
 )
 
 func TestClientAuthenticate(t *testing.T) {

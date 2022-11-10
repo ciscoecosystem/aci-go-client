@@ -2,8 +2,8 @@ package tests
 
 // import "testing"
 // import "fmt"
-// import "github.com/ciscoecosystem/aci-go-client/client"
-// import "github.com/ciscoecosystem/aci-go-client/models"
+// import "github.com/ciscoecosystem/aci-go-client/v2/client"
+// import "github.com/ciscoecosystem/aci-go-client/v2/models"
 
 // func createAp(c *client.Client, dn string, desc string, tenantName string) (*models.ApplicationProfile, error) {
 

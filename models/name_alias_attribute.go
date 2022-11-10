@@ -3,7 +3,7 @@ package models
 import (
 	"encoding/json"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
 )
 
 const naPayload = `

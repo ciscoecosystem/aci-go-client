@@ -3,7 +3,7 @@ package models
 import (
 	"strconv"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
 )
 
 const TopologyFabricNodeClassName = "fabricNode"

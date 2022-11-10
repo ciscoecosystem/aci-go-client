@@ -1,7 +1,7 @@
 package client
 
 import (
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 // This is a special operation which validations a target Switch (leaf/spine) config

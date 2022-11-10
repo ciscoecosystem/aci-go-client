@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateL3outHSRPSecondaryVIP(ip string, hsrp_group_profile string, logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string, description string, hsrpSecVipattr models.L3outHSRPSecondaryVIPAttributes) (*models.L3outHSRPSecondaryVIP, error) {

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateFunctionNode(name string, l4_l7_service_graph_template string, tenant string, description string, vnsAbsNodeattr models.FunctionNodeAttributes) (*models.FunctionNode, error) {

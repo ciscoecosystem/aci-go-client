@@ -24,7 +24,7 @@ There are no additional dependancies needed to be installed.
 
 import the client in your go application and retrive the client object by calling client.GetClient() method.
 ```golang
-import github.com/ciscoecosystem/aci-go-client/client
+import github.com/ciscoecosystem/aci-go-client/v2/client
 client.GetClient("URL", "Username", client.Password("Password"), client.Insecure(true/false))
 ```
 

@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreatePortSecurityPolicy(name string, description string, l2PortSecurityPolattr models.PortSecurityPolicyAttributes) (*models.PortSecurityPolicy, error) {

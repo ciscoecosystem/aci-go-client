@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateSPANSourcedestinationGroupMatchLabel(name string, span_source_group string, tenant string, description string, spanSpanLblattr models.SPANSourcedestinationGroupMatchLabelAttributes) (*models.SPANSourcedestinationGroupMatchLabel, error) {

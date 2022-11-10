@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateSubjectFilter(tnVzFilterName string, contract_subject string, contract string, tenant string, vzRsSubjFiltAttAttr models.SubjectFilterAttributes) (*models.SubjectFilter, error) {

@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateFabricPathEndpoint(name string, fabric_path_end_point_container_nodeId string, fabric_pod_id string, description string, fabricPathEpattr models.FabricPathEndpointAttributes) (*models.FabricPathEndpoint, error) {

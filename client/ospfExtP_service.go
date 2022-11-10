@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateL3outOspfExternalPolicy(l3_outside string, tenant string, description string, ospfExtPattr models.L3outOspfExternalPolicyAttributes) (*models.L3outOspfExternalPolicy, error) {

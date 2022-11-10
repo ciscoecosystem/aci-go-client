@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateISISLevel(isis_level_type string, isis_domain_policy string, description string, nameAlias string, isisLvlCompAttr models.ISISLevelAttributes) (*models.ISISLevel, error) {

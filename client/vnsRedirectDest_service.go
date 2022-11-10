@@ -3,8 +3,8 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateDestinationofredirectedtraffic(ip string, parentDn string, description string, nameAlias string, vnsRedirectDestAttr models.DestinationofredirectedtrafficAttributes) (*models.Destinationofredirectedtraffic, error) {

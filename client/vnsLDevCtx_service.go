@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateLogicalDeviceContext(nodeNameOrLbl string, graphNameOrLbl string, ctrctNameOrLbl string, tenant string, description string, vnsLDevCtxattr models.LogicalDeviceContextAttributes) (*models.LogicalDeviceContext, error) {

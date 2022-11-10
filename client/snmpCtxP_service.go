@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateSNMPContextProfile(vrf string, tenant string, nameAlias string, snmpCtxPAttr models.SNMPContextProfileAttributes) (*models.SNMPContextProfile, error) {

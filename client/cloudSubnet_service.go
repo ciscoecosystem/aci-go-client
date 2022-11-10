@@ -3,8 +3,8 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateCloudSubnet(ip string, cloud_cidr_pool_dn string, description string, cloudSubnetattr models.CloudSubnetAttributes, zoneDn string) (*models.CloudSubnet, error) {

@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateNodeBlock(name string, switch_association_type string, switch_association string, leaf_profile string, description string, infraNodeBlkattr models.NodeBlockAttributes) (*models.NodeBlock, error) {

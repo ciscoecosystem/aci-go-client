@@ -4,8 +4,8 @@ package tests
 // 	"fmt"
 // 	"testing"
 
-// 	"github.com/ciscoecosystem/aci-go-client/client"
-// 	"github.com/ciscoecosystem/aci-go-client/models"
+// 	"github.com/ciscoecosystem/aci-go-client/v2/client"
+// 	"github.com/ciscoecosystem/aci-go-client/v2/models"
 // )
 
 // func createFilter(c *client.Client, dn, desc, parentDn string) (*models.Filter, error) {

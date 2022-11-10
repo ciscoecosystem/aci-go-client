@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
 )
 
 const L3extrspathl3outattClassName = "l3extRsPathL3OutAtt"

@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateInterfaceFCPolicy(name string, description string, fcIfPolattr models.InterfaceFCPolicyAttributes) (*models.InterfaceFCPolicy, error) {
