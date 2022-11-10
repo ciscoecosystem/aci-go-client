@@ -2,7 +2,7 @@ package client
 
 import (
 	"fmt"
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateDownload(name string, description string, firmwareDownloadAttr models.DownloadAttributes) (*models.Download, error) {

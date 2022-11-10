@@ -3,8 +3,8 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateApplicationEPGLagPolicy(domain_dn string, application_epg string, application_profile string, tenant string, fvAEPgLagPolAttAttr models.ApplicationEPGLagPolicyAttributes) (*models.ApplicationEPGLagPolicy, error) {

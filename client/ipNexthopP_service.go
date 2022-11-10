@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateL3outStaticRouteNextHop(nhAddr string, static_route_ip string, fabric_node_tDn string, logical_node_profile string, l3_outside string, tenant string, description string, ipNexthopPattr models.L3outStaticRouteNextHopAttributes) (*models.L3outStaticRouteNextHop, error) {

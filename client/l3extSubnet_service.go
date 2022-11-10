@@ -3,8 +3,8 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateL3ExtSubnet(ip string, external_network_instance_profile string, l3_outside string, tenant string, description string, l3extSubnetattr models.L3ExtSubnetAttributes) (*models.L3ExtSubnet, error) {

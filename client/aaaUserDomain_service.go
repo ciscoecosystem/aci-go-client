@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateUserDomain(name string, local_user string, description string, nameAlias string, aaaUserDomainAttr models.UserDomainAttributes) (*models.UserDomain, error) {

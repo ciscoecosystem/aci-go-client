@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateRtctrlSetWeight(action_rule_profile string, tenant string, description string, nameAlias string, rtctrlSetWeightAttr models.RtctrlSetWeightAttributes) (*models.RtctrlSetWeight, error) {

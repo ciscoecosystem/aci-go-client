@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateNodeBlockFW(name string, firmware_group string, description string, fabricNodeBlkattr models.NodeBlockAttributesFW) (*models.NodeBlockFW, error) {

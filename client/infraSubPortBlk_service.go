@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateAccessSubPortBlock(name string, access_port_selector_type string, access_port_selector string, leaf_interface_profile string, description string, infraSubPortBlkattr models.AccessSubPortBlockAttributes) (*models.AccessSubPortBlock, error) {

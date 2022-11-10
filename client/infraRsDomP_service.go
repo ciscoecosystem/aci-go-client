@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateInfraRsDomP(tDn string, attachable_access_entity_profile string, infraRsDomPAttr models.InfraRsDomPAttributes) (*models.InfraRsDomP, error) {

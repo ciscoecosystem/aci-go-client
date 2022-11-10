@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateCloudActiveDirectory(active_directory_id string, tenant string, nameAlias string, cloudADAttr models.CloudActiveDirectoryAttributes) (*models.CloudActiveDirectory, error) {

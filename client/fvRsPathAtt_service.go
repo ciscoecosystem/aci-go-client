@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateStaticPath(tDn string, application_epg string, application_profile string, tenant string, description string, fvRsPathAttattr models.StaticPathAttributes) (*models.StaticPath, error) {

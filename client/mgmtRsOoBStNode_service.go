@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateOutofbandStaticNode(tDn string, out_of_band_management_epg string, management_profile string, tenant string, description string, mgmtRsOoBStNodeattr models.OutofbandStaticNodeAttributes) (*models.OutofbandStaticNode, error) {

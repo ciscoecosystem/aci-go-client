@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateMulticastAddressBlock(to string, from string, multicast_address_pool string, description string, fvnsMcastAddrBlkAttr models.MulticastAddressBlockAttributes) (*models.MulticastAddressBlock, error) {

@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateInbandStaticNode(tDn string, in_band_management_epg string, management_profile string, tenant string, description string, mgmtRsInBStNodeattr models.InbandStaticNodeAttributes) (*models.InbandStaticNode, error) {

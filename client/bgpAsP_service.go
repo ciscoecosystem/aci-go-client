@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateBgpAutonomousSystemProfile(peer_connectivity_profile_addr string, logical_node_profile string, l3_outside string, tenant string, description string, bgpAsPattr models.BgpAutonomousSystemProfileAttributes) (*models.BgpAutonomousSystemProfile, error) {

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateTACACSSource(name string, monitoring_target_scope string, monitoring_policy string, tenant string, description string, nameAlias string, tacacsSrcAttr models.TACACSSourceAttributes) (*models.TACACSSource, error) {

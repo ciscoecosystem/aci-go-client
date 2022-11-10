@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateVPCExplicitProtectionGroup(name string, switch1 string, switch2 string, vpcDomainPolicy string, fabricExplicitGEpattr models.VPCExplicitProtectionGroupAttributes) (*models.VPCExplicitProtectionGroup, error) {

@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateL3outPathAttachment(tDn string, logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string, description string, l3extRsPathL3OutAttattr models.L3outPathAttachmentAttributes) (*models.L3outPathAttachment, error) {

@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateProviderTerminalNode(name string, l4_l7_service_graph_template string, tenant string, description string, vnsAbsTermNodeProvattr models.ProviderTerminalNodeAttributes) (*models.ProviderTerminalNode, error) {

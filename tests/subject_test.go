@@ -4,8 +4,8 @@ package tests
 // 	"fmt"
 // 	"testing"
 
-// 	"github.com/ciscoecosystem/aci-go-client/client"
-// 	"github.com/ciscoecosystem/aci-go-client/models"
+// 	"github.com/ciscoecosystem/aci-go-client/v2/client"
+// 	"github.com/ciscoecosystem/aci-go-client/v2/models"
 // )
 
 // func createSubject(c *client.Client, dn string, desc string, tenantName, contractName string, subjectAttrs models.SubjectAttributes) (*models.Subject, error) {

@@ -3,8 +3,8 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateAccessPortSelector(access_port_selector_type string, name string, leaf_interface_profile string, description string, infraHPortSattr models.AccessPortSelectorAttributes) (*models.AccessPortSelector, error) {

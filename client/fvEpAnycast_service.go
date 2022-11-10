@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateAnycastEndpoint(mac string, parent_dn string, description string, nameAlias string, fvEpAnycastAttr models.AnycastEndpointAttributes) (*models.AnycastEndpoint, error) {

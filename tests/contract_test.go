@@ -4,8 +4,8 @@ package tests
 // 	"fmt"
 // 	"testing"
 
-// 	"github.com/ciscoecosystem/aci-go-client/client"
-// 	"github.com/ciscoecosystem/aci-go-client/models"
+// 	"github.com/ciscoecosystem/aci-go-client/v2/client"
+// 	"github.com/ciscoecosystem/aci-go-client/v2/models"
 // )
 
 // func createContract(c *client.Client, dn string, desc string, parentDn string, contractAttr models.ContractAttributes) (*models.Contract, error) {

@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateCloudEndpointSelectorforExternalEPgs(name string, cloud_external_epg string, cloud_application_container string, tenant string, description string, cloudExtEPSelectorattr models.CloudEndpointSelectorforExternalEPgsAttributes) (*models.CloudEndpointSelectorforExternalEPgs, error) {

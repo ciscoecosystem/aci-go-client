@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateLoopBackInterfaceProfile(addr string, fabric_node_tDn string, logical_node_profile string, l3_outside string, tenant string, description string, l3extLoopBackIfPattr models.LoopBackInterfaceProfileAttributes) (*models.LoopBackInterfaceProfile, error) {

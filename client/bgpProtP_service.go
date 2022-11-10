@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateL3outBGPProtocolProfile(logical_node_profile string, l3_outside string, tenant string, nameAlias string, bgpProtPattr models.L3outBGPProtocolProfileAttributes) (*models.L3outBGPProtocolProfile, error) {

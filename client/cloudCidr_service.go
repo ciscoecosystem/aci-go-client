@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateCloudCIDRPool(addr string, cloud_context_profile string, tenant string, description string, cloudCidrattr models.CloudCIDRPoolAttributes) (*models.CloudCIDRPool, error) {
