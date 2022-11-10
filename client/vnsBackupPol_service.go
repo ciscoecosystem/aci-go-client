@@ -3,7 +3,7 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreatePBRBackupPolicy(name string, tenant string, description string, nameAlias string, vnsBackupPolAttr models.PBRBackupPolicyAttributes) (*models.PBRBackupPolicy, error) {

@@ -3,8 +3,8 @@ package client
 import (
 	"fmt"
 
-	"github.com/ciscoecosystem/aci-go-client/container"
-	"github.com/ciscoecosystem/aci-go-client/models"
+	"github.com/ciscoecosystem/aci-go-client/v2/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
 func (sm *ServiceManager) CreateL1L2RedirectDestTraffic(destName string, parentDn string, description string, nameAlias string, vnsL1L2RedirectDestAttr models.L1L2RedirectDestTrafficAttributes) (*models.L1L2RedirectDestTraffic, error) {
