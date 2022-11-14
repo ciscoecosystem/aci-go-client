@@ -14,22 +14,22 @@ const (
 	CloudtemplatevpnnetworkClassName = "cloudtemplateVpnNetwork"
 )
 
-type TemplateforVPNNetwork struct {
+type CloudTemplateforVPNNetwork struct {
 	BaseAttributes
 	NameAliasAttribute
-	TemplateforVPNNetworkAttributes
+	CloudTemplateforVPNNetworkAttributes
 }
 
-type TemplateforVPNNetworkAttributes struct {
+type CloudTemplateforVPNNetworkAttributes struct {
 	Annotation     string `json:",omitempty"`
 	Name           string `json:",omitempty"`
 	RemoteSiteId   string `json:",omitempty"`
 	RemoteSiteName string `json:",omitempty"`
 }
 
-func NewTemplateforVPNNetwork(cloudtemplateVpnNetworkRn, parentDn, nameAlias string, cloudtemplateVpnNetworkAttr TemplateforVPNNetworkAttributes) *TemplateforVPNNetwork {
+func NewCloudTemplateforVPNNetwork(cloudtemplateVpnNetworkRn, parentDn, nameAlias string, cloudtemplateVpnNetworkAttr CloudTemplateforVPNNetworkAttributes) *CloudTemplateforVPNNetwork {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudtemplateVpnNetworkRn)
-	return &TemplateforVPNNetwork{
+	return &CloudTemplateforVPNNetwork{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Status:            "created, modified",
@@ -39,11 +39,11 @@ func NewTemplateforVPNNetwork(cloudtemplateVpnNetworkRn, parentDn, nameAlias str
 		NameAliasAttribute: NameAliasAttribute{
 			NameAlias: nameAlias,
 		},
-		TemplateforVPNNetworkAttributes: cloudtemplateVpnNetworkAttr,
+		CloudTemplateforVPNNetworkAttributes: cloudtemplateVpnNetworkAttr,
 	}
 }
 
-func (cloudtemplateVpnNetwork *TemplateforVPNNetwork) ToMap() (map[string]string, error) {
+func (cloudtemplateVpnNetwork *CloudTemplateforVPNNetwork) ToMap() (map[string]string, error) {
 	cloudtemplateVpnNetworkMap, err := cloudtemplateVpnNetwork.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -65,37 +65,37 @@ func (cloudtemplateVpnNetwork *TemplateforVPNNetwork) ToMap() (map[string]string
 	return cloudtemplateVpnNetworkMap, err
 }
 
-func TemplateforVPNNetworkFromContainerList(cont *container.Container, index int) *TemplateforVPNNetwork {
-	TemplateforVPNNetworkCont := cont.S("imdata").Index(index).S(CloudtemplatevpnnetworkClassName, "attributes")
-	return &TemplateforVPNNetwork{
+func CloudTemplateforVPNNetworkFromContainerList(cont *container.Container, index int) *CloudTemplateforVPNNetwork {
+	CloudTemplateforVPNNetworkCont := cont.S("imdata").Index(index).S(CloudtemplatevpnnetworkClassName, "attributes")
+	return &CloudTemplateforVPNNetwork{
 		BaseAttributes{
-			DistinguishedName: G(TemplateforVPNNetworkCont, "dn"),
-			Status:            G(TemplateforVPNNetworkCont, "status"),
+			DistinguishedName: G(CloudTemplateforVPNNetworkCont, "dn"),
+			Status:            G(CloudTemplateforVPNNetworkCont, "status"),
 			ClassName:         CloudtemplatevpnnetworkClassName,
-			Rn:                G(TemplateforVPNNetworkCont, "rn"),
+			Rn:                G(CloudTemplateforVPNNetworkCont, "rn"),
 		},
 		NameAliasAttribute{
-			NameAlias: G(TemplateforVPNNetworkCont, "nameAlias"),
+			NameAlias: G(CloudTemplateforVPNNetworkCont, "nameAlias"),
 		},
-		TemplateforVPNNetworkAttributes{
-			Annotation:     G(TemplateforVPNNetworkCont, "annotation"),
-			Name:           G(TemplateforVPNNetworkCont, "name"),
-			RemoteSiteId:   G(TemplateforVPNNetworkCont, "remoteSiteId"),
-			RemoteSiteName: G(TemplateforVPNNetworkCont, "remoteSiteName"),
+		CloudTemplateforVPNNetworkAttributes{
+			Annotation:     G(CloudTemplateforVPNNetworkCont, "annotation"),
+			Name:           G(CloudTemplateforVPNNetworkCont, "name"),
+			RemoteSiteId:   G(CloudTemplateforVPNNetworkCont, "remoteSiteId"),
+			RemoteSiteName: G(CloudTemplateforVPNNetworkCont, "remoteSiteName"),
 		},
 	}
 }
 
-func TemplateforVPNNetworkFromContainer(cont *container.Container) *TemplateforVPNNetwork {
-	return TemplateforVPNNetworkFromContainerList(cont, 0)
+func CloudTemplateforVPNNetworkFromContainer(cont *container.Container) *CloudTemplateforVPNNetwork {
+	return CloudTemplateforVPNNetworkFromContainerList(cont, 0)
 }
 
-func TemplateforVPNNetworkListFromContainer(cont *container.Container) []*TemplateforVPNNetwork {
+func CloudTemplateforVPNNetworkListFromContainer(cont *container.Container) []*CloudTemplateforVPNNetwork {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*TemplateforVPNNetwork, length)
+	arr := make([]*CloudTemplateforVPNNetwork, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = TemplateforVPNNetworkFromContainerList(cont, i)
+		arr[i] = CloudTemplateforVPNNetworkFromContainerList(cont, i)
 	}
 
 	return arr

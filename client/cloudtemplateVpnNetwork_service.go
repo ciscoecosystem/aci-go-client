@@ -6,15 +6,15 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
-func (sm *ServiceManager) CreateTemplateforVPNNetwork(name string, template_for_external_network string, infra_network_template string, tenant string, nameAlias string, cloudtemplateVpnNetworkAttr models.TemplateforVPNNetworkAttributes) (*models.TemplateforVPNNetwork, error) {
+func (sm *ServiceManager) CreateCloudTemplateforVPNNetwork(name string, template_for_external_network string, infra_network_template string, tenant string, nameAlias string, cloudtemplateVpnNetworkAttr models.CloudTemplateforVPNNetworkAttributes) (*models.CloudTemplateforVPNNetwork, error) {
 	rn := fmt.Sprintf(models.RncloudtemplateVpnNetwork, name)
 	parentDn := fmt.Sprintf(models.ParentDncloudtemplateVpnNetwork, tenant, infra_network_template, template_for_external_network)
-	cloudtemplateVpnNetwork := models.NewTemplateforVPNNetwork(rn, parentDn, nameAlias, cloudtemplateVpnNetworkAttr)
+	cloudtemplateVpnNetwork := models.NewCloudTemplateforVPNNetwork(rn, parentDn, nameAlias, cloudtemplateVpnNetworkAttr)
 	err := sm.Save(cloudtemplateVpnNetwork)
 	return cloudtemplateVpnNetwork, err
 }
 
-func (sm *ServiceManager) ReadTemplateforVPNNetwork(name string, template_for_external_network string, infra_network_template string, tenant string) (*models.TemplateforVPNNetwork, error) {
+func (sm *ServiceManager) ReadCloudTemplateforVPNNetwork(name string, template_for_external_network string, infra_network_template string, tenant string) (*models.CloudTemplateforVPNNetwork, error) {
 	dn := fmt.Sprintf(models.DncloudtemplateVpnNetwork, tenant, infra_network_template, template_for_external_network, name)
 
 	cont, err := sm.Get(dn)
@@ -22,27 +22,27 @@ func (sm *ServiceManager) ReadTemplateforVPNNetwork(name string, template_for_ex
 		return nil, err
 	}
 
-	cloudtemplateVpnNetwork := models.TemplateforVPNNetworkFromContainer(cont)
+	cloudtemplateVpnNetwork := models.CloudTemplateforVPNNetworkFromContainer(cont)
 	return cloudtemplateVpnNetwork, nil
 }
 
-func (sm *ServiceManager) DeleteTemplateforVPNNetwork(name string, template_for_external_network string, infra_network_template string, tenant string) error {
+func (sm *ServiceManager) DeleteCloudTemplateforVPNNetwork(name string, template_for_external_network string, infra_network_template string, tenant string) error {
 	dn := fmt.Sprintf(models.DncloudtemplateVpnNetwork, tenant, infra_network_template, template_for_external_network, name)
 	return sm.DeleteByDn(dn, models.CloudtemplatevpnnetworkClassName)
 }
 
-func (sm *ServiceManager) UpdateTemplateforVPNNetwork(name string, template_for_external_network string, infra_network_template string, tenant string, nameAlias string, cloudtemplateVpnNetworkAttr models.TemplateforVPNNetworkAttributes) (*models.TemplateforVPNNetwork, error) {
+func (sm *ServiceManager) UpdateCloudTemplateforVPNNetwork(name string, template_for_external_network string, infra_network_template string, tenant string, nameAlias string, cloudtemplateVpnNetworkAttr models.CloudTemplateforVPNNetworkAttributes) (*models.CloudTemplateforVPNNetwork, error) {
 	rn := fmt.Sprintf(models.RncloudtemplateVpnNetwork, name)
 	parentDn := fmt.Sprintf(models.ParentDncloudtemplateVpnNetwork, tenant, infra_network_template, template_for_external_network)
-	cloudtemplateVpnNetwork := models.NewTemplateforVPNNetwork(rn, parentDn, nameAlias, cloudtemplateVpnNetworkAttr)
+	cloudtemplateVpnNetwork := models.NewCloudTemplateforVPNNetwork(rn, parentDn, nameAlias, cloudtemplateVpnNetworkAttr)
 	cloudtemplateVpnNetwork.Status = "modified"
 	err := sm.Save(cloudtemplateVpnNetwork)
 	return cloudtemplateVpnNetwork, err
 }
 
-func (sm *ServiceManager) ListTemplateforVPNNetwork(template_for_external_network string, infra_network_template string, tenant string) ([]*models.TemplateforVPNNetwork, error) {
+func (sm *ServiceManager) ListCloudTemplateforVPNNetwork(template_for_external_network string, infra_network_template string, tenant string) ([]*models.CloudTemplateforVPNNetwork, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/infranetwork-%s/extnetwork-%s/cloudtemplateVpnNetwork.json", models.BaseurlStr, tenant, infra_network_template, template_for_external_network)
 	cont, err := sm.GetViaURL(dnUrl)
-	list := models.TemplateforVPNNetworkListFromContainer(cont)
+	list := models.CloudTemplateforVPNNetworkListFromContainer(cont)
 	return list, err
 }

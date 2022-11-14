@@ -16,7 +16,6 @@ const (
 
 type CloudTemplateforIpSectunnel struct {
 	BaseAttributes
-	NameAliasAttribute
 	CloudTemplateforIpSectunnelAttributes
 }
 
@@ -47,15 +46,6 @@ func (cloudtemplateIpSecTunnel *CloudTemplateforIpSectunnel) ToMap() (map[string
 		return nil, err
 	}
 
-	alias, err := cloudtemplateIpSecTunnel.NameAliasAttribute.ToMap()
-	if err != nil {
-		return nil, err
-	}
-
-	for key, value := range alias {
-		A(cloudtemplateIpSecTunnelMap, key, value)
-	}
-
 	A(cloudtemplateIpSecTunnelMap, "annotation", cloudtemplateIpSecTunnel.Annotation)
 	A(cloudtemplateIpSecTunnelMap, "ikeVersion", cloudtemplateIpSecTunnel.IkeVersion)
 	A(cloudtemplateIpSecTunnelMap, "peeraddr", cloudtemplateIpSecTunnel.Peeraddr)
@@ -72,9 +62,6 @@ func CloudTemplateforIpSectunnelFromContainerList(cont *container.Container, ind
 			Status:            G(CloudTemplateforIpSectunnelCont, "status"),
 			ClassName:         CloudtemplateipsectunnelClassName,
 			Rn:                G(CloudTemplateforIpSectunnelCont, "rn"),
-		},
-		NameAliasAttribute{
-			NameAlias: G(CloudTemplateforIpSectunnelCont, "nameAlias"),
 		},
 		CloudTemplateforIpSectunnelAttributes{
 			Annotation:   G(CloudTemplateforIpSectunnelCont, "annotation"),

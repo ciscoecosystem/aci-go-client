@@ -14,32 +14,32 @@ const (
 	Cloudtemplatebgpipv4ClassName = "cloudtemplateBgpIpv4"
 )
 
-type BGPIPv4Peer struct {
+type CloudTemplateBGPIPv4Peer struct {
 	BaseAttributes
-	NameAliasAttribute
-	BGPIPv4PeerAttributes
+	CloudTemplateBGPIPv4PeerAttributes
 }
 
-type BGPIPv4PeerAttributes struct {
+type CloudTemplateBGPIPv4PeerAttributes struct {
 	Annotation string `json:",omitempty"`
 	Peeraddr   string `json:",omitempty"`
 	Peerasn    string `json:",omitempty"`
+	Asn        string `json:",omitempty"`
 }
 
-func NewBGPIPv4Peer(cloudtemplateBgpIpv4Rn, parentDn string, cloudtemplateBgpIpv4Attr BGPIPv4PeerAttributes) *BGPIPv4Peer {
+func NewCloudTemplateBGPIPv4Peer(cloudtemplateBgpIpv4Rn, parentDn string, cloudtemplateBgpIpv4Attr CloudTemplateBGPIPv4PeerAttributes) *CloudTemplateBGPIPv4Peer {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudtemplateBgpIpv4Rn)
-	return &BGPIPv4Peer{
+	return &CloudTemplateBGPIPv4Peer{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Status:            "created, modified",
 			ClassName:         Cloudtemplatebgpipv4ClassName,
 			Rn:                cloudtemplateBgpIpv4Rn,
 		},
-		BGPIPv4PeerAttributes: cloudtemplateBgpIpv4Attr,
+		CloudTemplateBGPIPv4PeerAttributes: cloudtemplateBgpIpv4Attr,
 	}
 }
 
-func (cloudtemplateBgpIpv4 *BGPIPv4Peer) ToMap() (map[string]string, error) {
+func (cloudtemplateBgpIpv4 *CloudTemplateBGPIPv4Peer) ToMap() (map[string]string, error) {
 	cloudtemplateBgpIpv4Map, err := cloudtemplateBgpIpv4.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -48,39 +48,38 @@ func (cloudtemplateBgpIpv4 *BGPIPv4Peer) ToMap() (map[string]string, error) {
 	A(cloudtemplateBgpIpv4Map, "annotation", cloudtemplateBgpIpv4.Annotation)
 	A(cloudtemplateBgpIpv4Map, "peeraddr", cloudtemplateBgpIpv4.Peeraddr)
 	A(cloudtemplateBgpIpv4Map, "peerasn", cloudtemplateBgpIpv4.Peerasn)
+	A(cloudtemplateBgpIpv4Map, "asn", cloudtemplateBgpIpv4.Asn)
 	return cloudtemplateBgpIpv4Map, err
 }
 
-func BGPIPv4PeerFromContainerList(cont *container.Container, index int) *BGPIPv4Peer {
-	BGPIPv4PeerCont := cont.S("imdata").Index(index).S(Cloudtemplatebgpipv4ClassName, "attributes")
-	return &BGPIPv4Peer{
+func CloudTemplateBGPIPv4PeerFromContainerList(cont *container.Container, index int) *CloudTemplateBGPIPv4Peer {
+	CloudTemplateBGPIPv4PeerCont := cont.S("imdata").Index(index).S(Cloudtemplatebgpipv4ClassName, "attributes")
+	return &CloudTemplateBGPIPv4Peer{
 		BaseAttributes{
-			DistinguishedName: G(BGPIPv4PeerCont, "dn"),
-			Status:            G(BGPIPv4PeerCont, "status"),
+			DistinguishedName: G(CloudTemplateBGPIPv4PeerCont, "dn"),
+			Status:            G(CloudTemplateBGPIPv4PeerCont, "status"),
 			ClassName:         Cloudtemplatebgpipv4ClassName,
-			Rn:                G(BGPIPv4PeerCont, "rn"),
+			Rn:                G(CloudTemplateBGPIPv4PeerCont, "rn"),
 		},
-		NameAliasAttribute{
-			NameAlias: G(BGPIPv4PeerCont, "nameAlias"),
-		},
-		BGPIPv4PeerAttributes{
-			Annotation: G(BGPIPv4PeerCont, "annotation"),
-			Peeraddr:   G(BGPIPv4PeerCont, "peeraddr"),
-			Peerasn:    G(BGPIPv4PeerCont, "peerasn"),
+		CloudTemplateBGPIPv4PeerAttributes{
+			Annotation: G(CloudTemplateBGPIPv4PeerCont, "annotation"),
+			Peeraddr:   G(CloudTemplateBGPIPv4PeerCont, "peeraddr"),
+			Peerasn:    G(CloudTemplateBGPIPv4PeerCont, "peerasn"),
+			Asn:        G(CloudTemplateBGPIPv4PeerCont, "asn"),
 		},
 	}
 }
 
-func BGPIPv4PeerFromContainer(cont *container.Container) *BGPIPv4Peer {
-	return BGPIPv4PeerFromContainerList(cont, 0)
+func CloudTemplateBGPIPv4PeerFromContainer(cont *container.Container) *CloudTemplateBGPIPv4Peer {
+	return CloudTemplateBGPIPv4PeerFromContainerList(cont, 0)
 }
 
-func BGPIPv4PeerListFromContainer(cont *container.Container) []*BGPIPv4Peer {
+func CloudTemplateBGPIPv4PeerListFromContainer(cont *container.Container) []*CloudTemplateBGPIPv4Peer {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*BGPIPv4Peer, length)
+	arr := make([]*CloudTemplateBGPIPv4Peer, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = BGPIPv4PeerFromContainerList(cont, i)
+		arr[i] = CloudTemplateBGPIPv4PeerFromContainerList(cont, i)
 	}
 
 	return arr
