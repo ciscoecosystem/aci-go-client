@@ -29,6 +29,7 @@ type ExternalNetworkInstanceProfileAttributes struct {
 	PrefGrMemb   string `json:",omitempty"`
 	Prio         string `json:",omitempty"`
 	TargetDscp   string `json:",omitempty"`
+	PcEnfPref    string `json:",omitempty"`
 }
 
 func NewExternalNetworkInstanceProfile(l3extInstPRn, parentDn, description string, l3extInstPattr ExternalNetworkInstanceProfileAttributes) *ExternalNetworkInstanceProfile {
@@ -61,6 +62,7 @@ func (l3extInstP *ExternalNetworkInstanceProfile) ToMap() (map[string]string, er
 	A(l3extInstPMap, "prefGrMemb", l3extInstP.PrefGrMemb)
 	A(l3extInstPMap, "prio", l3extInstP.Prio)
 	A(l3extInstPMap, "targetDscp", l3extInstP.TargetDscp)
+	A(l3extInstPMap, "pcEnfPref", l3extInstP.PcEnfPref)
 
 	return l3extInstPMap, err
 }
@@ -87,6 +89,7 @@ func ExternalNetworkInstanceProfileFromContainerList(cont *container.Container, 
 			PrefGrMemb:   G(ExternalNetworkInstanceProfileCont, "prefGrMemb"),
 			Prio:         G(ExternalNetworkInstanceProfileCont, "prio"),
 			TargetDscp:   G(ExternalNetworkInstanceProfileCont, "targetDscp"),
+			PcEnfPref:    G(ExternalNetworkInstanceProfileCont, "pcEnfPref"),
 		},
 	}
 }
