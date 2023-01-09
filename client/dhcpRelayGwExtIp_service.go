@@ -7,15 +7,13 @@ import (
 )
 
 func (sm *ServiceManager) CreateUsetheexternalsecondaryaddressforDHCPrelaygateway(parentDn string, description string, dhcpRelayGwExtIpAttr models.UsetheexternalsecondaryaddressforDHCPrelaygatewayAttributes) (*models.UsetheexternalsecondaryaddressforDHCPrelaygateway, error) {
-	rn := fmt.Sprintf(models.RndhcpRelayGwExtIp)
-	dhcpRelayGwExtIp := models.NewUsetheexternalsecondaryaddressforDHCPrelaygateway(rn, parentDn, description, dhcpRelayGwExtIpAttr)
+	dhcpRelayGwExtIp := models.NewUsetheexternalsecondaryaddressforDHCPrelaygateway(models.RndhcpRelayGwExtIp, parentDn, description, dhcpRelayGwExtIpAttr)
 	err := sm.Save(dhcpRelayGwExtIp)
 	return dhcpRelayGwExtIp, err
 }
 
 func (sm *ServiceManager) ReadUsetheexternalsecondaryaddressforDHCPrelaygateway(parentDn string) (*models.UsetheexternalsecondaryaddressforDHCPrelaygateway, error) {
-	rn := fmt.Sprintf(models.RndhcpRelayGwExtIp)
-	dn := fmt.Sprintf("%s/%s", parentDn, rn)
+	dn := fmt.Sprintf("%s/%s", parentDn, models.RndhcpRelayGwExtIp)
 
 	cont, err := sm.Get(dn)
 	if err != nil {
@@ -27,14 +25,12 @@ func (sm *ServiceManager) ReadUsetheexternalsecondaryaddressforDHCPrelaygateway(
 }
 
 func (sm *ServiceManager) DeleteUsetheexternalsecondaryaddressforDHCPrelaygateway(parentDn string) error {
-	rn := fmt.Sprintf(models.RndhcpRelayGwExtIp)
-	dn := fmt.Sprintf("%s/%s", parentDn, rn)
+	dn := fmt.Sprintf("%s/%s", parentDn, models.RndhcpRelayGwExtIp)
 	return sm.DeleteByDn(dn, models.DhcprelaygwextipClassName)
 }
 
 func (sm *ServiceManager) UpdateUsetheexternalsecondaryaddressforDHCPrelaygateway(parentDn string, description string, dhcpRelayGwExtIpAttr models.UsetheexternalsecondaryaddressforDHCPrelaygatewayAttributes) (*models.UsetheexternalsecondaryaddressforDHCPrelaygateway, error) {
-	rn := fmt.Sprintf(models.RndhcpRelayGwExtIp)
-	dhcpRelayGwExtIp := models.NewUsetheexternalsecondaryaddressforDHCPrelaygateway(rn, parentDn, description, dhcpRelayGwExtIpAttr)
+	dhcpRelayGwExtIp := models.NewUsetheexternalsecondaryaddressforDHCPrelaygateway(models.RndhcpRelayGwExtIp, parentDn, description, dhcpRelayGwExtIpAttr)
 	dhcpRelayGwExtIp.Status = "modified"
 	err := sm.Save(dhcpRelayGwExtIp)
 	return dhcpRelayGwExtIp, err
