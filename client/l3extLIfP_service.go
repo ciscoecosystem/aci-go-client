@@ -95,7 +95,6 @@ func (sm *ServiceManager) ReadRelationl3extRsLIfPToNetflowMonitorPolFromLogicalI
 
 	for _, contItem := range contList {
 		paramMap := make(map[string]string)
-		paramMap["tnNetflowMonitorPolName"] = models.G(contItem, "tnNetflowMonitorPolName")
 		paramMap["tDn"] = models.G(contItem, "tDn")
 		paramMap["fltType"] = models.G(contItem, "fltType")
 
