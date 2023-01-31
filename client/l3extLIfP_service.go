@@ -139,7 +139,7 @@ func (sm *ServiceManager) DeleteRelationl3extRsPathL3OutAttFromLogicalInterfaceP
 }
 
 func (sm *ServiceManager) ReadRelationl3extRsPathL3OutAttFromLogicalInterfaceProfile(parentDn string) (interface{}, error) {
-	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "l3extRsPathL3OutAtt")
+	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.L3extrspathl3outattClassName)
 	cont, err := sm.GetViaURL(dnUrl)
 
 	contList := models.ListFromContainer(cont, "l3extRsPathL3OutAtt")
