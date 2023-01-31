@@ -44,7 +44,7 @@ func (sm *ServiceManager) UpdateLogicalInterfaceProfile(name string, logical_nod
 }
 
 func (sm *ServiceManager) ListLogicalInterfaceProfile(logical_node_profile string, l3_outside string, tenant string) ([]*models.LogicalInterfaceProfile, error) {
-	dnUrl := fmt.Sprintf("%s/%s/l3extLIfP.json", models.BaseurlStr, fmt.Sprintf(models.ParentDnl3extlifp, tenant, l3_outside, logical_node_profile))
+	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, fmt.Sprintf(models.ParentDnl3extlifp, tenant, l3_outside, logical_node_profile), models.L3extlifpClassName)
 
 	cont, err := sm.GetViaURL(dnUrl)
 	list := models.LogicalInterfaceProfileListFromContainer(cont)
