@@ -8,10 +8,10 @@ import (
 )
 
 const (
-	RnfabricPortConfig        = "portconfnode-%s-card-%s-port-%s-sub-%s"
-	DnfabricPortConfig        = "uni/fabric/portconfnode-%s-card-%s-port-%s-sub-%s"
-	ParentDnfabricPortConfig  = "uni/fabric"
-	FabricportconfigClassName = "fabricPortConfig"
+	RnFabricPortConfig        = "portconfnode-%s-card-%s-port-%s-sub-%s"
+	DnFabricPortConfig        = "uni/fabric/portconfnode-%s-card-%s-port-%s-sub-%s"
+	ParentDnFabricPortConfig  = "uni/fabric"
+	FabricPortConfigClassName = "fabricPortConfig"
 )
 
 type FabricPortConfiguration struct {
@@ -37,7 +37,7 @@ func NewFabricPortConfiguration(fabricPortConfigRn, parentDn, description string
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Status:            "created, modified",
-			ClassName:         FabricportconfigClassName,
+			ClassName:         FabricPortConfigClassName,
 			Rn:                fabricPortConfigRn,
 		},
 		FabricPortConfigurationAttributes: fabricPortConfigAttr,
@@ -63,12 +63,12 @@ func (fabricPortConfig *FabricPortConfiguration) ToMap() (map[string]string, err
 }
 
 func FabricPortConfigurationFromContainerList(cont *container.Container, index int) *FabricPortConfiguration {
-	FabricPortConfigurationCont := cont.S("imdata").Index(index).S(FabricportconfigClassName, "attributes")
+	FabricPortConfigurationCont := cont.S("imdata").Index(index).S(FabricPortConfigClassName, "attributes")
 	return &FabricPortConfiguration{
 		BaseAttributes{
 			DistinguishedName: G(FabricPortConfigurationCont, "dn"),
 			Status:            G(FabricPortConfigurationCont, "status"),
-			ClassName:         FabricportconfigClassName,
+			ClassName:         FabricPortConfigClassName,
 			Rn:                G(FabricPortConfigurationCont, "rn"),
 		},
 		FabricPortConfigurationAttributes{

@@ -8,10 +8,10 @@ import (
 )
 
 const (
-	RninfraPortConfig        = "portconfnode-%s-card-%s-port-%s-sub-%s"
-	DninfraPortConfig        = "uni/infra/portconfnode-%s-card-%s-port-%s-sub-%s"
-	ParentDninfraPortConfig  = "uni/infra"
-	InfraportconfigClassName = "infraPortConfig"
+	RnInfraPortConfig        = "portconfnode-%s-card-%s-port-%s-sub-%s"
+	DnInfraPortConfig        = "uni/infra/portconfnode-%s-card-%s-port-%s-sub-%s"
+	ParentDnInfraPortConfig  = "uni/infra"
+	InfraPortConfigClassName = "infraPortConfig"
 )
 
 type InfraPortConfiguration struct {
@@ -40,7 +40,7 @@ func NewInfraPortConfiguration(infraPortConfigRn, parentDn, description string, 
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Status:            "created, modified",
-			ClassName:         InfraportconfigClassName,
+			ClassName:         InfraPortConfigClassName,
 			Rn:                infraPortConfigRn,
 		},
 		InfraPortConfigurationAttributes: infraPortConfigAttr,
@@ -69,12 +69,12 @@ func (infraPortConfig *InfraPortConfiguration) ToMap() (map[string]string, error
 }
 
 func InfraPortConfigurationFromContainerList(cont *container.Container, index int) *InfraPortConfiguration {
-	InfraPortConfigurationCont := cont.S("imdata").Index(index).S(InfraportconfigClassName, "attributes")
+	InfraPortConfigurationCont := cont.S("imdata").Index(index).S(InfraPortConfigClassName, "attributes")
 	return &InfraPortConfiguration{
 		BaseAttributes{
 			DistinguishedName: G(InfraPortConfigurationCont, "dn"),
 			Status:            G(InfraPortConfigurationCont, "status"),
-			ClassName:         InfraportconfigClassName,
+			ClassName:         InfraPortConfigClassName,
 			Rn:                G(InfraPortConfigurationCont, "rn"),
 		},
 		InfraPortConfigurationAttributes{
