@@ -20,12 +20,11 @@ func (sm *ServiceManager) CreateCloudSubnet(ip string, cloud_cidr_pool_dn string
 			"cloudRsZoneAttach": {
 				"attributes": {
 					"annotation": "orchestrator:terraform",
-					"dn": "%s/%s/rszoneAttach",
 					"tDn": "%s"
 				}
 			}
 		}
-		`, parentDn, rn, zoneDn))
+		`, zoneDn))
 		zoneCon, err := container.ParseJSON(rsZoneAttachJSON)
 		if err != nil {
 			return nil, err
@@ -39,13 +38,12 @@ func (sm *ServiceManager) CreateCloudSubnet(ip string, cloud_cidr_pool_dn string
 		{
 			"cloudRsSubnetToCtx": {
 				"attributes": {
-					"annotation":"orchestrator:terraform",	
-					"dn": "%s/%s/rssubnetToCtx",
+					"annotation":"orchestrator:terraform",
 					"tnFvCtxName": "%s"	
 				}
 			}
 		}
-		`, parentDn, rn, cloudRsSubnetToCtx))
+		`, cloudRsSubnetToCtx))
 
 		cloudRsSubnetToCtxCon, err := container.ParseJSON(cloudRsSubnetToCtxJSON)
 		if err != nil {
@@ -97,12 +95,11 @@ func (sm *ServiceManager) UpdateCloudSubnet(ip string, cloud_cidr_pool_dn string
 			"cloudRsZoneAttach": {
 				"attributes": {
 					"annotation": "orchestrator:terraform",
-					"dn": "%s/%s/rszoneAttach",
 					"tDn": "%s"
 				}
 			}
 		}
-		`, parentDn, rn, zoneDn))
+		`, zoneDn))
 		zoneCon, err := container.ParseJSON(rsZoneAttachJSON)
 		if err != nil {
 			return nil, err
@@ -117,12 +114,11 @@ func (sm *ServiceManager) UpdateCloudSubnet(ip string, cloud_cidr_pool_dn string
 			"cloudRsSubnetToCtx": {
 				"attributes": {
 					"annotation":"orchestrator:terraform",	
-					"dn": "%s/%s/rssubnetToCtx",
 					"tnFvCtxName": "%s"	
 				}
 			}
 		}
-		`, parentDn, rn, cloudRsSubnetToCtx))
+		`, cloudRsSubnetToCtx))
 
 		cloudRsSubnetToCtxCon, err := container.ParseJSON(cloudRsSubnetToCtxJSON)
 		if err != nil {
