@@ -12,30 +12,30 @@ const (
 	CloudtemplateRegionDetailClassName = "cloudtemplateRegionDetail"
 )
 
-type Additionalconfigforregion struct {
+type CloudTemplateRegion struct {
 	BaseAttributes
-	AdditionalconfigforregionAttributes
+	CloudTemplateRegionAttributes
 }
 
-type AdditionalconfigforregionAttributes struct {
+type CloudTemplateRegionAttributes struct {
 	Annotation           string `json:",omitempty"`
 	HubNetworkingEnabled string `json:",omitempty"`
 }
 
-func NewAdditionalconfigforregion(cloudtemplateRegionDetailRn, parentDn string, cloudtemplateRegionDetailAttr AdditionalconfigforregionAttributes) *Additionalconfigforregion {
+func NewCloudTemplateRegion(cloudtemplateRegionDetailRn, parentDn string, cloudtemplateRegionDetailAttr CloudTemplateRegionAttributes) *CloudTemplateRegion {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudtemplateRegionDetailRn)
-	return &Additionalconfigforregion{
+	return &CloudTemplateRegion{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Status:            "modified",
 			ClassName:         CloudtemplateRegionDetailClassName,
 			Rn:                cloudtemplateRegionDetailRn,
 		},
-		AdditionalconfigforregionAttributes: cloudtemplateRegionDetailAttr,
+		CloudTemplateRegionAttributes: cloudtemplateRegionDetailAttr,
 	}
 }
 
-func (cloudtemplateRegionDetail *Additionalconfigforregion) ToMap() (map[string]string, error) {
+func (cloudtemplateRegionDetail *CloudTemplateRegion) ToMap() (map[string]string, error) {
 	cloudtemplateRegionDetailMap, err := cloudtemplateRegionDetail.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -46,32 +46,32 @@ func (cloudtemplateRegionDetail *Additionalconfigforregion) ToMap() (map[string]
 	return cloudtemplateRegionDetailMap, err
 }
 
-func AdditionalconfigforregionFromContainerList(cont *container.Container, index int) *Additionalconfigforregion {
-	AdditionalconfigforregionCont := cont.S("imdata").Index(index).S(CloudtemplateRegionDetailClassName, "attributes")
-	return &Additionalconfigforregion{
+func CloudTemplateRegionFromContainerList(cont *container.Container, index int) *CloudTemplateRegion {
+	CloudTemplateRegionCont := cont.S("imdata").Index(index).S(CloudtemplateRegionDetailClassName, "attributes")
+	return &CloudTemplateRegion{
 		BaseAttributes{
-			DistinguishedName: G(AdditionalconfigforregionCont, "dn"),
-			Status:            G(AdditionalconfigforregionCont, "status"),
+			DistinguishedName: G(CloudTemplateRegionCont, "dn"),
+			Status:            G(CloudTemplateRegionCont, "status"),
 			ClassName:         CloudtemplateRegionDetailClassName,
-			Rn:                G(AdditionalconfigforregionCont, "rn"),
+			Rn:                G(CloudTemplateRegionCont, "rn"),
 		},
-		AdditionalconfigforregionAttributes{
-			Annotation:           G(AdditionalconfigforregionCont, "annotation"),
-			HubNetworkingEnabled: G(AdditionalconfigforregionCont, "hubNetworkingEnabled"),
+		CloudTemplateRegionAttributes{
+			Annotation:           G(CloudTemplateRegionCont, "annotation"),
+			HubNetworkingEnabled: G(CloudTemplateRegionCont, "hubNetworkingEnabled"),
 		},
 	}
 }
 
-func AdditionalconfigforregionFromContainer(cont *container.Container) *Additionalconfigforregion {
-	return AdditionalconfigforregionFromContainerList(cont, 0)
+func CloudTemplateRegionFromContainer(cont *container.Container) *CloudTemplateRegion {
+	return CloudTemplateRegionFromContainerList(cont, 0)
 }
 
-func AdditionalconfigforregionListFromContainer(cont *container.Container) []*Additionalconfigforregion {
+func CloudTemplateRegionListFromContainer(cont *container.Container) []*CloudTemplateRegion {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*Additionalconfigforregion, length)
+	arr := make([]*CloudTemplateRegion, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = AdditionalconfigforregionFromContainerList(cont, i)
+		arr[i] = CloudTemplateRegionFromContainerList(cont, i)
 	}
 
 	return arr
