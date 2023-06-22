@@ -20,15 +20,11 @@ type L3ExtConsLbl struct {
 }
 
 type L3ExtConsLblAttributes struct {
-	Name string `json:",omitempty"`
-
+	Name       string `json:",omitempty"`
 	Annotation string `json:",omitempty"`
-
-	NameAlias string `json:",omitempty"`
-
-	Owner string `json:",omitempty"`
-
-	Tag string `json:",omitempty"`
+	NameAlias  string `json:",omitempty"`
+	Owner      string `json:",omitempty"`
+	Tag        string `json:",omitempty"`
 }
 
 func NewL3ExtConsLbl(consLblRn, parentDn, description string, consLblAttr L3ExtConsLblAttributes) *L3ExtConsLbl {
@@ -53,15 +49,10 @@ func (consLbl *L3ExtConsLbl) ToMap() (map[string]string, error) {
 	}
 
 	A(consLblMap, "name", consLbl.Name)
-
 	A(consLblMap, "annotation", consLbl.Annotation)
-
 	A(consLblMap, "nameAlias", consLbl.NameAlias)
-
 	A(consLblMap, "owner", consLbl.Owner)
-
 	A(consLblMap, "tag", consLbl.Tag)
-
 	return consLblMap, err
 }
 
@@ -77,15 +68,10 @@ func L3ExtConsLblFromContainerList(cont *container.Container, index int) *L3ExtC
 		},
 
 		L3ExtConsLblAttributes{
-
 			Name: G(L3ExtConsLblCont, "name"),
-
 			Annotation: G(L3ExtConsLblCont, "annotation"),
-
 			NameAlias: G(L3ExtConsLblCont, "nameAlias"),
-
 			Owner: G(L3ExtConsLblCont, "owner"),
-
 			Tag: G(L3ExtConsLblCont, "tag"),
 		},
 	}
@@ -99,9 +85,7 @@ func L3ExtConsLblListFromContainer(cont *container.Container) []*L3ExtConsLbl {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
 
 	arr := make([]*L3ExtConsLbl, length)
-
 	for i := 0; i < length; i++ {
-
 		arr[i] = L3ExtConsLblFromContainerList(cont, i)
 	}
 
