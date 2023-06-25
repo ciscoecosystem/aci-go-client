@@ -35,3 +35,10 @@ func (sm *ServiceManager) UpdatePowerSupplyRedundancyPolicy(name string, descrip
 	err := sm.Save(psuInstPol)
 	return psuInstPol, err
 }
+
+func (sm *ServiceManager) ListPowerSupplyRedundancyPolicy() ([]*models.PsuInstPol, error) {
+	dnUrl := fmt.Sprintf("%s/uni/fabric/psuInstPol.json", models.BaseurlStr)
+	cont, err := sm.GetViaURL(dnUrl)
+	list := models.PsuInstPolListFromContainer(cont)
+	return list, err
+}
