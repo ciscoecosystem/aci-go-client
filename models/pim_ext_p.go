@@ -14,21 +14,21 @@ const (
 	PimExtPClassName = "pimExtP"
 )
 
-type ExternalProfile struct {
+type PIMExternalProfile struct {
 	BaseAttributes
-	ExternalProfileAttributes
+	PIMExternalProfileAttributes
 }
 
-type ExternalProfileAttributes struct {
+type PIMExternalProfileAttributes struct {
 	Annotation string `json:",omitempty"`
 	EnabledAf  string `json:",omitempty"`
 	Name       string `json:",omitempty"`
 	NameAlias  string `json:",omitempty"`
 }
 
-func NewExternalProfile(pimExtPRn, parentDn, description string, pimExtPAttr ExternalProfileAttributes) *ExternalProfile {
+func NewPIMExternalProfile(pimExtPRn, parentDn, description string, pimExtPAttr PIMExternalProfileAttributes) *PIMExternalProfile {
 	dn := fmt.Sprintf("%s/%s", parentDn, pimExtPRn)
-	return &ExternalProfile{
+	return &PIMExternalProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -36,11 +36,11 @@ func NewExternalProfile(pimExtPRn, parentDn, description string, pimExtPAttr Ext
 			ClassName:         PimExtPClassName,
 			Rn:                pimExtPRn,
 		},
-		ExternalProfileAttributes: pimExtPAttr,
+		PIMExternalProfileAttributes: pimExtPAttr,
 	}
 }
 
-func (pimExtP *ExternalProfile) ToMap() (map[string]string, error) {
+func (pimExtP *PIMExternalProfile) ToMap() (map[string]string, error) {
 	pimExtPMap, err := pimExtP.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -53,9 +53,9 @@ func (pimExtP *ExternalProfile) ToMap() (map[string]string, error) {
 	return pimExtPMap, err
 }
 
-func ExternalProfileFromContainerList(cont *container.Container, index int) *ExternalProfile {
+func PIMExternalProfileFromContainerList(cont *container.Container, index int) *PIMExternalProfile {
 	ExternalProfileCont := cont.S("imdata").Index(index).S(PimExtPClassName, "attributes")
-	return &ExternalProfile{
+	return &PIMExternalProfile{
 		BaseAttributes{
 			DistinguishedName: G(ExternalProfileCont, "dn"),
 			Description:       G(ExternalProfileCont, "descr"),
@@ -63,7 +63,7 @@ func ExternalProfileFromContainerList(cont *container.Container, index int) *Ext
 			ClassName:         PimExtPClassName,
 			Rn:                G(ExternalProfileCont, "rn"),
 		},
-		ExternalProfileAttributes{
+		PIMExternalProfileAttributes{
 			Annotation: G(ExternalProfileCont, "annotation"),
 			EnabledAf:  G(ExternalProfileCont, "enabledAf"),
 			Name:       G(ExternalProfileCont, "name"),
@@ -72,16 +72,16 @@ func ExternalProfileFromContainerList(cont *container.Container, index int) *Ext
 	}
 }
 
-func ExternalProfileFromContainer(cont *container.Container) *ExternalProfile {
-	return ExternalProfileFromContainerList(cont, 0)
+func PIMExternalProfileFromContainer(cont *container.Container) *PIMExternalProfile {
+	return PIMExternalProfileFromContainerList(cont, 0)
 }
 
-func ExternalProfileListFromContainer(cont *container.Container) []*ExternalProfile {
+func PIMExternalProfileListFromContainer(cont *container.Container) []*PIMExternalProfile {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*ExternalProfile, length)
+	arr := make([]*PIMExternalProfile, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = ExternalProfileFromContainerList(cont, i)
+		arr[i] = PIMExternalProfileFromContainerList(cont, i)
 	}
 
 	return arr
