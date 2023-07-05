@@ -23,15 +23,15 @@ type IGMPInterfaceProfileAttributes struct {
 	NameAlias  string `json:",omitempty"`
 }
 
-func NewIGMPInterfaceProfile(igmpIfPRn, parentDn, description string, igmpIfPAttr IGMPInterfaceProfileAttributes) *IGMPInterfaceProfile {
-	dn := fmt.Sprintf("%s/%s", parentDn, igmpIfPRn)
+func NewIGMPInterfaceProfile(parentDn, description string, igmpIfPAttr IGMPInterfaceProfileAttributes) *IGMPInterfaceProfile {
+	dn := fmt.Sprintf("%s/%s", parentDn, RnIgmpIfP)
 	return &IGMPInterfaceProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
 			Status:            "created, modified",
 			ClassName:         IgmpIfPClassName,
-			Rn:                igmpIfPRn,
+			Rn:                RnIgmpIfP,
 		},
 		IGMPInterfaceProfileAttributes: igmpIfPAttr,
 	}

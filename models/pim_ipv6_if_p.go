@@ -25,15 +25,15 @@ type PIMIPv6InterfaceProfileAttributes struct {
 	NameAlias  string `json:",omitempty"`
 }
 
-func NewPIMIPv6InterfaceProfile(pimIPV6IfPRn, parentDn, description string, pimIPV6IfPAttr PIMIPv6InterfaceProfileAttributes) *PIMIPv6InterfaceProfile {
-	dn := fmt.Sprintf("%s/%s", parentDn, pimIPV6IfPRn)
+func NewPIMIPv6InterfaceProfile(parentDn, description string, pimIPV6IfPAttr PIMIPv6InterfaceProfileAttributes) *PIMIPv6InterfaceProfile {
+	dn := fmt.Sprintf("%s/%s", parentDn, RnPimIPV6IfP)
 	return &PIMIPv6InterfaceProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
 			Status:            "created, modified",
 			ClassName:         PimIPV6IfPClassName,
-			Rn:                pimIPV6IfPRn,
+			Rn:                RnPimIPV6IfP,
 		},
 		PIMIPv6InterfaceProfileAttributes: pimIPV6IfPAttr,
 	}

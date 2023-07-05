@@ -25,15 +25,15 @@ type PIMInterfaceProfileAttributes struct {
 	NameAlias  string `json:",omitempty"`
 }
 
-func NewPIMInterfaceProfile(pimIfPRn, parentDn, description string, pimIfPAttr PIMInterfaceProfileAttributes) *PIMInterfaceProfile {
-	dn := fmt.Sprintf("%s/%s", parentDn, pimIfPRn)
+func NewPIMInterfaceProfile(parentDn, description string, pimIfPAttr PIMInterfaceProfileAttributes) *PIMInterfaceProfile {
+	dn := fmt.Sprintf("%s/%s", parentDn, RnPimIfP)
 	return &PIMInterfaceProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
 			Status:            "created, modified",
 			ClassName:         PimIfPClassName,
-			Rn:                pimIfPRn,
+			Rn:                RnPimIfP,
 		},
 		PIMInterfaceProfileAttributes: pimIfPAttr,
 	}

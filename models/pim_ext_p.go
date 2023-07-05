@@ -26,15 +26,15 @@ type PIMExternalProfileAttributes struct {
 	NameAlias  string `json:",omitempty"`
 }
 
-func NewPIMExternalProfile(pimExtPRn, parentDn, description string, pimExtPAttr PIMExternalProfileAttributes) *PIMExternalProfile {
-	dn := fmt.Sprintf("%s/%s", parentDn, pimExtPRn)
+func NewPIMExternalProfile(parentDn, description string, pimExtPAttr PIMExternalProfileAttributes) *PIMExternalProfile {
+	dn := fmt.Sprintf("%s/%s", parentDn, RnPimExtP)
 	return &PIMExternalProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
 			Status:            "created, modified",
 			ClassName:         PimExtPClassName,
-			Rn:                pimExtPRn,
+			Rn:                RnPimExtP,
 		},
 		PIMExternalProfileAttributes: pimExtPAttr,
 	}
