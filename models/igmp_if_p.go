@@ -9,8 +9,6 @@ import (
 
 const (
 	RnIgmpIfP        = "igmpIfP"
-	DnIgmpIfP        = "uni/tn-%s/out-%s/lnodep-%s/lifp-%s/igmpIfP"
-	ParentDnIgmpIfP  = "uni/tn-%s/out-%s/lnodep-%s/lifp-%s"
 	IgmpIfPClassName = "igmpIfP"
 )
 
@@ -45,7 +43,9 @@ func (igmpIfP *IGMPInterfaceProfile) ToMap() (map[string]string, error) {
 		return nil, err
 	}
 
+	A(igmpIfPMap, "annotation", igmpIfP.Annotation)
 	A(igmpIfPMap, "name", igmpIfP.Name)
+	A(igmpIfPMap, "nameAlias", igmpIfP.NameAlias)
 	return igmpIfPMap, err
 }
 
@@ -60,7 +60,9 @@ func IGMPInterfaceProfileFromContainerList(cont *container.Container, index int)
 			Rn:                G(InterfaceProfileCont, "rn"),
 		},
 		IGMPInterfaceProfileAttributes{
-			Name: G(InterfaceProfileCont, "name"),
+			Annotation: G(InterfaceProfileCont, "annotation"),
+			Name:       G(InterfaceProfileCont, "name"),
+			NameAlias:  G(InterfaceProfileCont, "nameAlias"),
 		},
 	}
 }

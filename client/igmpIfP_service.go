@@ -7,53 +7,48 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
-func (sm *ServiceManager) CreateIGMPInterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string, description string, igmpIfPAttr models.IGMPInterfaceProfileAttributes) (*models.IGMPInterfaceProfile, error) {
+func (sm *ServiceManager) CreateIGMPInterfaceProfile(parentDn string, description string, igmpIfPAttr models.InterfaceProfileAttributes) (*models.InterfaceProfile, error) {
 
-	parentDn := fmt.Sprintf(models.ParentDnIgmpIfP, tenant, l3_outside, logical_node_profile, logical_interface_profile)
-	igmpIfP := models.NewIGMPInterfaceProfile(models.RnIgmpIfP, parentDn, description, igmpIfPAttr)
+	igmpIfP := models.NewInterfaceProfile(models.RnIgmpIfP, parentDn, description, igmpIfPAttr)
 
 	err := sm.Save(igmpIfP)
 	return igmpIfP, err
 }
 
-func (sm *ServiceManager) ReadIGMPInterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string) (*models.IGMPInterfaceProfile, error) {
+func (sm *ServiceManager) ReadIGMPInterfaceProfile(parentDn string) (*models.InterfaceProfile, error) {
 
-	parentDn := fmt.Sprintf(models.ParentDnIgmpIfP, tenant, l3_outside, logical_node_profile, logical_interface_profile)
 	dn := fmt.Sprintf("%s/%s", parentDn, models.RnIgmpIfP)
 
 	cont, err := sm.Get(dn)
 	if err != nil {
 		return nil, err
 	}
-	igmpIfP := models.IGMPInterfaceProfileFromContainer(cont)
+	igmpIfP := models.InterfaceProfileFromContainer(cont)
 	return igmpIfP, nil
 }
 
-func (sm *ServiceManager) DeleteIGMPInterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string) error {
+func (sm *ServiceManager) DeleteIGMPInterfaceProfile(parentDn string) error {
 
-	parentDn := fmt.Sprintf(models.ParentDnIgmpIfP, tenant, l3_outside, logical_node_profile, logical_interface_profile)
 	dn := fmt.Sprintf("%s/%s", parentDn, models.RnIgmpIfP)
 
 	return sm.DeleteByDn(dn, models.IgmpIfPClassName)
 }
 
-func (sm *ServiceManager) UpdateIGMPInterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string, description string, igmpIfPAttr models.IGMPInterfaceProfileAttributes) (*models.IGMPInterfaceProfile, error) {
+func (sm *ServiceManager) UpdateIGMPInterfaceProfile(parentDn string, description string, igmpIfPAttr models.InterfaceProfileAttributes) (*models.InterfaceProfile, error) {
 
-	parentDn := fmt.Sprintf(models.ParentDnIgmpIfP, tenant, l3_outside, logical_node_profile, logical_interface_profile)
-	igmpIfP := models.NewIGMPInterfaceProfile(models.RnIgmpIfP, parentDn, description, igmpIfPAttr)
+	igmpIfP := models.NewInterfaceProfile(models.RnIgmpIfP, parentDn, description, igmpIfPAttr)
 
 	igmpIfP.Status = "modified"
 	err := sm.Save(igmpIfP)
 	return igmpIfP, err
 }
 
-func (sm *ServiceManager) ListIGMPInterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string) ([]*models.IGMPInterfaceProfile, error) {
+func (sm *ServiceManager) ListIGMPInterfaceProfile(parentDn string) ([]*models.InterfaceProfile, error) {
 
-	parentDn := fmt.Sprintf(models.ParentDnIgmpIfP, tenant, l3_outside, logical_node_profile, logical_interface_profile)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.IgmpIfPClassName)
 
 	cont, err := sm.GetViaURL(dnUrl)
-	list := models.IGMPInterfaceProfileListFromContainer(cont)
+	list := models.InterfaceProfileListFromContainer(cont)
 	return list, err
 }
 
