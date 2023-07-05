@@ -9,7 +9,7 @@ import (
 func (sm *ServiceManager) CreatePIMExternalProfile(l3_outside string, tenant string, description string, pimExtPAttr models.PIMExternalProfileAttributes) (*models.PIMExternalProfile, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimExtP, tenant, l3_outside)
-	pimExtP := models.NewPIMExternalProfile(models.RnPimExtP, parentDn, description, pimExtPAttr)
+	pimExtP := models.NewPIMExternalProfile(parentDn, description, pimExtPAttr)
 
 	err := sm.Save(pimExtP)
 	return pimExtP, err
@@ -39,7 +39,7 @@ func (sm *ServiceManager) DeletePIMExternalProfile(l3_outside string, tenant str
 func (sm *ServiceManager) UpdatePIMExternalProfile(l3_outside string, tenant string, description string, pimExtPAttr models.PIMExternalProfileAttributes) (*models.PIMExternalProfile, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimExtP, tenant, l3_outside)
-	pimExtP := models.NewPIMExternalProfile(models.RnPimExtP, parentDn, description, pimExtPAttr)
+	pimExtP := models.NewPIMExternalProfile(parentDn, description, pimExtPAttr)
 
 	pimExtP.Status = "modified"
 	err := sm.Save(pimExtP)

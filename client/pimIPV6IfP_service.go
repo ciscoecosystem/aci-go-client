@@ -10,7 +10,7 @@ import (
 func (sm *ServiceManager) CreatePIMIPv6InterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string, description string, pimIPV6IfPAttr models.PIMIPv6InterfaceProfileAttributes) (*models.PIMIPv6InterfaceProfile, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimIPV6IfP, tenant, l3_outside, logical_node_profile, logical_interface_profile)
-	pimIPV6IfP := models.NewPIMIPv6InterfaceProfile(models.RnPimIPV6IfP, parentDn, description, pimIPV6IfPAttr)
+	pimIPV6IfP := models.NewPIMIPv6InterfaceProfile(parentDn, description, pimIPV6IfPAttr)
 
 	err := sm.Save(pimIPV6IfP)
 	return pimIPV6IfP, err
@@ -40,7 +40,7 @@ func (sm *ServiceManager) DeletePIMIPv6InterfaceProfile(logical_interface_profil
 func (sm *ServiceManager) UpdatePIMIPv6InterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string, description string, pimIPV6IfPAttr models.PIMIPv6InterfaceProfileAttributes) (*models.PIMIPv6InterfaceProfile, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimIPV6IfP, tenant, l3_outside, logical_node_profile, logical_interface_profile)
-	pimIPV6IfP := models.NewPIMIPv6InterfaceProfile(models.RnPimIPV6IfP, parentDn, description, pimIPV6IfPAttr)
+	pimIPV6IfP := models.NewPIMIPv6InterfaceProfile(parentDn, description, pimIPV6IfPAttr)
 
 	pimIPV6IfP.Status = "modified"
 	err := sm.Save(pimIPV6IfP)

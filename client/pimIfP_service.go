@@ -10,7 +10,7 @@ import (
 func (sm *ServiceManager) CreatePIMInterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string, description string, pimIfPAttr models.PIMInterfaceProfileAttributes) (*models.PIMInterfaceProfile, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimIfP, tenant, l3_outside, logical_node_profile, logical_interface_profile)
-	pimIfP := models.NewPIMInterfaceProfile(models.RnPimIfP, parentDn, description, pimIfPAttr)
+	pimIfP := models.NewPIMInterfaceProfile(parentDn, description, pimIfPAttr)
 
 	err := sm.Save(pimIfP)
 	return pimIfP, err
@@ -40,7 +40,7 @@ func (sm *ServiceManager) DeletePIMInterfaceProfile(logical_interface_profile st
 func (sm *ServiceManager) UpdatePIMInterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string, description string, pimIfPAttr models.PIMInterfaceProfileAttributes) (*models.PIMInterfaceProfile, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimIfP, tenant, l3_outside, logical_node_profile, logical_interface_profile)
-	pimIfP := models.NewPIMInterfaceProfile(models.RnPimIfP, parentDn, description, pimIfPAttr)
+	pimIfP := models.NewPIMInterfaceProfile(parentDn, description, pimIfPAttr)
 
 	pimIfP.Status = "modified"
 	err := sm.Save(pimIfP)

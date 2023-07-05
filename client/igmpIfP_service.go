@@ -7,9 +7,9 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
-func (sm *ServiceManager) CreateIGMPInterfaceProfile(parentDn string, description string, igmpIfPAttr models.InterfaceProfileAttributes) (*models.InterfaceProfile, error) {
+func (sm *ServiceManager) CreateIGMPInterfaceProfile(parentDn string, description string, igmpIfPAttr models.IGMPInterfaceProfileAttributes) (*models.IGMPInterfaceProfile, error) {
 
-	igmpIfP := models.NewInterfaceProfile(models.RnIgmpIfP, parentDn, description, igmpIfPAttr)
+	igmpIfP := models.NewIGMPInterfaceProfile(parentDn, description, igmpIfPAttr)
 
 	err := sm.Save(igmpIfP)
 	return igmpIfP, err
@@ -34,9 +34,9 @@ func (sm *ServiceManager) DeleteIGMPInterfaceProfile(parentDn string) error {
 	return sm.DeleteByDn(dn, models.IgmpIfPClassName)
 }
 
-func (sm *ServiceManager) UpdateIGMPInterfaceProfile(parentDn string, description string, igmpIfPAttr models.InterfaceProfileAttributes) (*models.InterfaceProfile, error) {
+func (sm *ServiceManager) UpdateIGMPInterfaceProfile(parentDn string, description string, igmpIfPAttr models.IGMPInterfaceProfileAttributes) (*models.IGMPInterfaceProfile, error) {
 
-	igmpIfP := models.NewInterfaceProfile(models.RnIgmpIfP, parentDn, description, igmpIfPAttr)
+	igmpIfP := models.NewIGMPInterfaceProfile(parentDn, description, igmpIfPAttr)
 
 	igmpIfP.Status = "modified"
 	err := sm.Save(igmpIfP)
