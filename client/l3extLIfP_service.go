@@ -370,7 +370,7 @@ func (sm *ServiceManager) ReadRelationl3extRsNdIfPolFromLogicalInterfaceProfile(
 
 }
 
-func (sm *ServiceManager) CreateRelationPIMRsIfPol(parentDn, tDn string) error {
+func (sm *ServiceManager) CreateRelationPIMRsIfPolFromLogicalInterfaceProfile(parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsIfPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -398,8 +398,8 @@ func (sm *ServiceManager) CreateRelationPIMRsIfPol(parentDn, tDn string) error {
 	return nil
 }
 
-func (sm *ServiceManager) ReadRelationPIMRsIfPol(parentDn string) (interface{}, error) {
-	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn+"/"+models.RnPimIfP, "pimRsIfPol")
+func (sm *ServiceManager) ReadRelationPIMRsIfPolFromLogicalInterfaceProfile(parentDn string) (interface{}, error) {
+	dnUrl := fmt.Sprintf("%s/%s/%s/%s.json", models.BaseurlStr, parentDn, models.RnPimIfP, "pimRsIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "pimRsIfPol")
 
@@ -411,12 +411,12 @@ func (sm *ServiceManager) ReadRelationPIMRsIfPol(parentDn string) (interface{}, 
 	}
 }
 
-func (sm *ServiceManager) DeleteRelationPIMRsIfPol(parentDn string) error {
+func (sm *ServiceManager) DeleteRelationPIMRsIfPolFromLogicalInterfaceProfile(parentDn string) error {
 	dn := fmt.Sprintf("%s/rsIfPol", parentDn)
 	return sm.DeleteByDn(dn, "pimRsIfPol")
 }
 
-func (sm *ServiceManager) CreateRelationPIMIPv6RsIfPol(parentDn, tDn string) error {
+func (sm *ServiceManager) CreateRelationPIMIPv6RsIfPolFromLogicalInterfaceProfile(parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsV6IfPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -444,8 +444,8 @@ func (sm *ServiceManager) CreateRelationPIMIPv6RsIfPol(parentDn, tDn string) err
 	return nil
 }
 
-func (sm *ServiceManager) ReadRelationPIMIPv6RsIfPol(parentDn string) (interface{}, error) {
-	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn+"/"+models.RnPimIPV6IfP, "pimRsV6IfPol")
+func (sm *ServiceManager) ReadRelationPIMIPv6RsIfPolFromLogicalInterfaceProfile(parentDn string) (interface{}, error) {
+	dnUrl := fmt.Sprintf("%s/%s/%s/%s.json", models.BaseurlStr, parentDn, models.RnPimIPV6IfP, "pimRsV6IfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "pimRsV6IfPol")
 
@@ -457,12 +457,12 @@ func (sm *ServiceManager) ReadRelationPIMIPv6RsIfPol(parentDn string) (interface
 	}
 }
 
-func (sm *ServiceManager) DeleteRelationPIMIPv6RsIfPol(parentDn string) error {
+func (sm *ServiceManager) DeleteRelationPIMIPv6RsIfPolFromLogicalInterfaceProfile(parentDn string) error {
 	dn := fmt.Sprintf("%s/rsV6IfPol", parentDn)
 	return sm.DeleteByDn(dn, "pimRsV6IfPol")
 }
 
-func (sm *ServiceManager) CreateRelationIGMPRsIfPol(parentDn, tDn string) error {
+func (sm *ServiceManager) CreateRelationIGMPRsIfPolFromLogicalInterfaceProfile(parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsIfPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -490,8 +490,8 @@ func (sm *ServiceManager) CreateRelationIGMPRsIfPol(parentDn, tDn string) error 
 	return nil
 }
 
-func (sm *ServiceManager) ReadRelationIGMPRsIfPol(parentDn string) (interface{}, error) {
-	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn+"/"+models.RnIgmpIfP, "igmpRsIfPol")
+func (sm *ServiceManager) ReadRelationIGMPRsIfPolFromLogicalInterfaceProfile(parentDn string) (interface{}, error) {
+	dnUrl := fmt.Sprintf("%s/%s/%s/%s.json", models.BaseurlStr, parentDn, models.RnIgmpIfP, "igmpRsIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "igmpRsIfPol")
 
@@ -503,7 +503,7 @@ func (sm *ServiceManager) ReadRelationIGMPRsIfPol(parentDn string) (interface{},
 	}
 }
 
-func (sm *ServiceManager) DeleteRelationIGMPRsIfPol(parentDn string) error {
+func (sm *ServiceManager) DeleteRelationIGMPRsIfPolFromLogicalInterfaceProfile(parentDn string) error {
 	dn := fmt.Sprintf("%s/rsIfPol", parentDn)
 	return sm.DeleteByDn(dn, "igmpRsIfPol")
 }

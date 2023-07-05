@@ -14,20 +14,20 @@ const (
 	PimIPV6IfPClassName = "pimIPV6IfP"
 )
 
-type PimIPv6InterfaceProfile struct {
+type PIMIPv6InterfaceProfile struct {
 	BaseAttributes
-	PimIPv6InterfaceProfileAttributes
+	PIMIPv6InterfaceProfileAttributes
 }
 
-type PimIPv6InterfaceProfileAttributes struct {
+type PIMIPv6InterfaceProfileAttributes struct {
 	Annotation string `json:",omitempty"`
 	Name       string `json:",omitempty"`
 	NameAlias  string `json:",omitempty"`
 }
 
-func NewPimIPv6InterfaceProfile(pimIPV6IfPRn, parentDn, description string, pimIPV6IfPAttr PimIPv6InterfaceProfileAttributes) *PimIPv6InterfaceProfile {
+func NewPIMIPv6InterfaceProfile(pimIPV6IfPRn, parentDn, description string, pimIPV6IfPAttr PIMIPv6InterfaceProfileAttributes) *PIMIPv6InterfaceProfile {
 	dn := fmt.Sprintf("%s/%s", parentDn, pimIPV6IfPRn)
-	return &PimIPv6InterfaceProfile{
+	return &PIMIPv6InterfaceProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -35,11 +35,11 @@ func NewPimIPv6InterfaceProfile(pimIPV6IfPRn, parentDn, description string, pimI
 			ClassName:         PimIPV6IfPClassName,
 			Rn:                pimIPV6IfPRn,
 		},
-		PimIPv6InterfaceProfileAttributes: pimIPV6IfPAttr,
+		PIMIPv6InterfaceProfileAttributes: pimIPV6IfPAttr,
 	}
 }
 
-func (pimIPV6IfP *PimIPv6InterfaceProfile) ToMap() (map[string]string, error) {
+func (pimIPV6IfP *PIMIPv6InterfaceProfile) ToMap() (map[string]string, error) {
 	pimIPV6IfPMap, err := pimIPV6IfP.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -51,9 +51,9 @@ func (pimIPV6IfP *PimIPv6InterfaceProfile) ToMap() (map[string]string, error) {
 	return pimIPV6IfPMap, err
 }
 
-func PimIPv6InterfaceProfileFromContainerList(cont *container.Container, index int) *PimIPv6InterfaceProfile {
+func PIMIPv6InterfaceProfileFromContainerList(cont *container.Container, index int) *PIMIPv6InterfaceProfile {
 	InterfaceProfileCont := cont.S("imdata").Index(index).S(PimIPV6IfPClassName, "attributes")
-	return &PimIPv6InterfaceProfile{
+	return &PIMIPv6InterfaceProfile{
 		BaseAttributes{
 			DistinguishedName: G(InterfaceProfileCont, "dn"),
 			Description:       G(InterfaceProfileCont, "descr"),
@@ -61,7 +61,7 @@ func PimIPv6InterfaceProfileFromContainerList(cont *container.Container, index i
 			ClassName:         PimIPV6IfPClassName,
 			Rn:                G(InterfaceProfileCont, "rn"),
 		},
-		PimIPv6InterfaceProfileAttributes{
+		PIMIPv6InterfaceProfileAttributes{
 			Annotation: G(InterfaceProfileCont, "annotation"),
 			Name:       G(InterfaceProfileCont, "name"),
 			NameAlias:  G(InterfaceProfileCont, "nameAlias"),
@@ -69,16 +69,16 @@ func PimIPv6InterfaceProfileFromContainerList(cont *container.Container, index i
 	}
 }
 
-func PimIPv6InterfaceProfileFromContainer(cont *container.Container) *PimIPv6InterfaceProfile {
-	return PimIPv6InterfaceProfileFromContainerList(cont, 0)
+func PIMIPv6InterfaceProfileFromContainer(cont *container.Container) *PIMIPv6InterfaceProfile {
+	return PIMIPv6InterfaceProfileFromContainerList(cont, 0)
 }
 
-func PimIPv6InterfaceProfileListFromContainer(cont *container.Container) []*PimIPv6InterfaceProfile {
+func PIMIPv6InterfaceProfileListFromContainer(cont *container.Container) []*PIMIPv6InterfaceProfile {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*PimIPv6InterfaceProfile, length)
+	arr := make([]*PIMIPv6InterfaceProfile, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = PimIPv6InterfaceProfileFromContainerList(cont, i)
+		arr[i] = PIMIPv6InterfaceProfileFromContainerList(cont, i)
 	}
 
 	return arr

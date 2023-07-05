@@ -57,7 +57,7 @@ func (sm *ServiceManager) ListIGMPInterfaceProfile(logical_interface_profile str
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationigmpRsIfPol(parentDn, annotation, tDn string) error {
+func (sm *ServiceManager) CreateRelationIGMPRsIfPol(parentDn, annotation, tDn string) error {
 	dn := fmt.Sprintf("%s/rsIfPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -85,12 +85,12 @@ func (sm *ServiceManager) CreateRelationigmpRsIfPol(parentDn, annotation, tDn st
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationigmpRsIfPol(parentDn string) error {
+func (sm *ServiceManager) DeleteRelationIGMPRsIfPol(parentDn string) error {
 	dn := fmt.Sprintf("%s/rsIfPol", parentDn)
 	return sm.DeleteByDn(dn, "igmpRsIfPol")
 }
 
-func (sm *ServiceManager) ReadRelationigmpRsIfPol(parentDn string) (interface{}, error) {
+func (sm *ServiceManager) ReadRelationIGMPRsIfPol(parentDn string) (interface{}, error) {
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "igmpRsIfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "igmpRsIfPol")

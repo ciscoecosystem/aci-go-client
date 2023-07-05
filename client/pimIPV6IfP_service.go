@@ -7,16 +7,16 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
-func (sm *ServiceManager) CreatePimIPv6InterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string, description string, pimIPV6IfPAttr models.PimIPv6InterfaceProfileAttributes) (*models.PimIPv6InterfaceProfile, error) {
+func (sm *ServiceManager) CreatePIMIPv6InterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string, description string, pimIPV6IfPAttr models.PIMIPv6InterfaceProfileAttributes) (*models.PIMIPv6InterfaceProfile, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimIPV6IfP, tenant, l3_outside, logical_node_profile, logical_interface_profile)
-	pimIPV6IfP := models.NewPimIPv6InterfaceProfile(models.RnPimIPV6IfP, parentDn, description, pimIPV6IfPAttr)
+	pimIPV6IfP := models.NewPIMIPv6InterfaceProfile(models.RnPimIPV6IfP, parentDn, description, pimIPV6IfPAttr)
 
 	err := sm.Save(pimIPV6IfP)
 	return pimIPV6IfP, err
 }
 
-func (sm *ServiceManager) ReadPimIPv6InterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string) (*models.PimIPv6InterfaceProfile, error) {
+func (sm *ServiceManager) ReadPIMIPv6InterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string) (*models.PIMIPv6InterfaceProfile, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimIPV6IfP, tenant, l3_outside, logical_node_profile, logical_interface_profile)
 	dn := fmt.Sprintf("%s/%s", parentDn, models.RnPimIPV6IfP)
@@ -25,11 +25,11 @@ func (sm *ServiceManager) ReadPimIPv6InterfaceProfile(logical_interface_profile 
 	if err != nil {
 		return nil, err
 	}
-	pimIPV6IfP := models.PimIPv6InterfaceProfileFromContainer(cont)
+	pimIPV6IfP := models.PIMIPv6InterfaceProfileFromContainer(cont)
 	return pimIPV6IfP, nil
 }
 
-func (sm *ServiceManager) DeletePimIPv6InterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string) error {
+func (sm *ServiceManager) DeletePIMIPv6InterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string) error {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimIPV6IfP, tenant, l3_outside, logical_node_profile, logical_interface_profile)
 	dn := fmt.Sprintf("%s/%s", parentDn, models.RnPimIPV6IfP)
@@ -37,27 +37,27 @@ func (sm *ServiceManager) DeletePimIPv6InterfaceProfile(logical_interface_profil
 	return sm.DeleteByDn(dn, models.PimIPV6IfPClassName)
 }
 
-func (sm *ServiceManager) UpdatePimIPv6InterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string, description string, pimIPV6IfPAttr models.PimIPv6InterfaceProfileAttributes) (*models.PimIPv6InterfaceProfile, error) {
+func (sm *ServiceManager) UpdatePIMIPv6InterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string, description string, pimIPV6IfPAttr models.PIMIPv6InterfaceProfileAttributes) (*models.PIMIPv6InterfaceProfile, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimIPV6IfP, tenant, l3_outside, logical_node_profile, logical_interface_profile)
-	pimIPV6IfP := models.NewPimIPv6InterfaceProfile(models.RnPimIPV6IfP, parentDn, description, pimIPV6IfPAttr)
+	pimIPV6IfP := models.NewPIMIPv6InterfaceProfile(models.RnPimIPV6IfP, parentDn, description, pimIPV6IfPAttr)
 
 	pimIPV6IfP.Status = "modified"
 	err := sm.Save(pimIPV6IfP)
 	return pimIPV6IfP, err
 }
 
-func (sm *ServiceManager) ListPimIPv6InterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string) ([]*models.PimIPv6InterfaceProfile, error) {
+func (sm *ServiceManager) ListPIMIPv6InterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string) ([]*models.PIMIPv6InterfaceProfile, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimIPV6IfP, tenant, l3_outside, logical_node_profile, logical_interface_profile)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.PimIPV6IfPClassName)
 
 	cont, err := sm.GetViaURL(dnUrl)
-	list := models.PimIPv6InterfaceProfileListFromContainer(cont)
+	list := models.PIMIPv6InterfaceProfileListFromContainer(cont)
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationPimIPv6RsIfPol(parentDn, annotation, tDn string) error {
+func (sm *ServiceManager) CreateRelationPIMIPv6RsIfPol(parentDn, annotation, tDn string) error {
 	dn := fmt.Sprintf("%s/rsV6IfPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -85,12 +85,12 @@ func (sm *ServiceManager) CreateRelationPimIPv6RsIfPol(parentDn, annotation, tDn
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationPimIPv6RsIfPol(parentDn string) error {
+func (sm *ServiceManager) DeleteRelationPIMIPv6RsIfPol(parentDn string) error {
 	dn := fmt.Sprintf("%s/rsV6IfPol", parentDn)
 	return sm.DeleteByDn(dn, "pimRsV6IfPol")
 }
 
-func (sm *ServiceManager) ReadRelationPimIPv6RsIfPol(parentDn string) (interface{}, error) {
+func (sm *ServiceManager) ReadRelationPIMIPv6RsIfPol(parentDn string) (interface{}, error) {
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "pimRsV6IfPol")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "pimRsV6IfPol")

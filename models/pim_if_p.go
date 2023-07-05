@@ -14,20 +14,20 @@ const (
 	PimIfPClassName = "pimIfP"
 )
 
-type PimInterfaceProfile struct {
+type PIMInterfaceProfile struct {
 	BaseAttributes
-	PimInterfaceProfileAttributes
+	PIMInterfaceProfileAttributes
 }
 
-type PimInterfaceProfileAttributes struct {
+type PIMInterfaceProfileAttributes struct {
 	Annotation string `json:",omitempty"`
 	Name       string `json:",omitempty"`
 	NameAlias  string `json:",omitempty"`
 }
 
-func NewPimInterfaceProfile(pimIfPRn, parentDn, description string, pimIfPAttr PimInterfaceProfileAttributes) *PimInterfaceProfile {
+func NewPIMInterfaceProfile(pimIfPRn, parentDn, description string, pimIfPAttr PIMInterfaceProfileAttributes) *PIMInterfaceProfile {
 	dn := fmt.Sprintf("%s/%s", parentDn, pimIfPRn)
-	return &PimInterfaceProfile{
+	return &PIMInterfaceProfile{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -35,11 +35,11 @@ func NewPimInterfaceProfile(pimIfPRn, parentDn, description string, pimIfPAttr P
 			ClassName:         PimIfPClassName,
 			Rn:                pimIfPRn,
 		},
-		PimInterfaceProfileAttributes: pimIfPAttr,
+		PIMInterfaceProfileAttributes: pimIfPAttr,
 	}
 }
 
-func (pimIfP *PimInterfaceProfile) ToMap() (map[string]string, error) {
+func (pimIfP *PIMInterfaceProfile) ToMap() (map[string]string, error) {
 	pimIfPMap, err := pimIfP.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -51,9 +51,9 @@ func (pimIfP *PimInterfaceProfile) ToMap() (map[string]string, error) {
 	return pimIfPMap, err
 }
 
-func PimInterfaceProfileFromContainerList(cont *container.Container, index int) *PimInterfaceProfile {
+func PIMInterfaceProfileFromContainerList(cont *container.Container, index int) *PIMInterfaceProfile {
 	InterfaceProfileCont := cont.S("imdata").Index(index).S(PimIfPClassName, "attributes")
-	return &PimInterfaceProfile{
+	return &PIMInterfaceProfile{
 		BaseAttributes{
 			DistinguishedName: G(InterfaceProfileCont, "dn"),
 			Description:       G(InterfaceProfileCont, "descr"),
@@ -61,7 +61,7 @@ func PimInterfaceProfileFromContainerList(cont *container.Container, index int) 
 			ClassName:         PimIfPClassName,
 			Rn:                G(InterfaceProfileCont, "rn"),
 		},
-		PimInterfaceProfileAttributes{
+		PIMInterfaceProfileAttributes{
 			Annotation: G(InterfaceProfileCont, "annotation"),
 			Name:       G(InterfaceProfileCont, "name"),
 			NameAlias:  G(InterfaceProfileCont, "nameAlias"),
@@ -69,16 +69,16 @@ func PimInterfaceProfileFromContainerList(cont *container.Container, index int) 
 	}
 }
 
-func PimInterfaceProfileFromContainer(cont *container.Container) *PimInterfaceProfile {
-	return PimInterfaceProfileFromContainerList(cont, 0)
+func PIMInterfaceProfileFromContainer(cont *container.Container) *PIMInterfaceProfile {
+	return PIMInterfaceProfileFromContainerList(cont, 0)
 }
 
-func PimInterfaceProfileListFromContainer(cont *container.Container) []*PimInterfaceProfile {
+func PIMInterfaceProfileListFromContainer(cont *container.Container) []*PIMInterfaceProfile {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*PimInterfaceProfile, length)
+	arr := make([]*PIMInterfaceProfile, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = PimInterfaceProfileFromContainerList(cont, i)
+		arr[i] = PIMInterfaceProfileFromContainerList(cont, i)
 	}
 
 	return arr

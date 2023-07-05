@@ -6,7 +6,7 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
-func (sm *ServiceManager) CreateExternalProfile(l3_outside string, tenant string, description string, pimExtPAttr models.PIMExternalProfileAttributes) (*models.PIMExternalProfile, error) {
+func (sm *ServiceManager) CreatePIMExternalProfile(l3_outside string, tenant string, description string, pimExtPAttr models.PIMExternalProfileAttributes) (*models.PIMExternalProfile, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimExtP, tenant, l3_outside)
 	pimExtP := models.NewPIMExternalProfile(models.RnPimExtP, parentDn, description, pimExtPAttr)
@@ -15,7 +15,7 @@ func (sm *ServiceManager) CreateExternalProfile(l3_outside string, tenant string
 	return pimExtP, err
 }
 
-func (sm *ServiceManager) ReadExternalProfile(l3_outside string, tenant string) (*models.PIMExternalProfile, error) {
+func (sm *ServiceManager) ReadPIMExternalProfile(l3_outside string, tenant string) (*models.PIMExternalProfile, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimExtP, tenant, l3_outside)
 	dn := fmt.Sprintf("%s/%s", parentDn, models.RnPimExtP)
@@ -28,7 +28,7 @@ func (sm *ServiceManager) ReadExternalProfile(l3_outside string, tenant string) 
 	return pimExtP, nil
 }
 
-func (sm *ServiceManager) DeleteExternalProfile(l3_outside string, tenant string) error {
+func (sm *ServiceManager) DeletePIMExternalProfile(l3_outside string, tenant string) error {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimExtP, tenant, l3_outside)
 	dn := fmt.Sprintf("%s/%s", parentDn, models.RnPimExtP)
@@ -36,7 +36,7 @@ func (sm *ServiceManager) DeleteExternalProfile(l3_outside string, tenant string
 	return sm.DeleteByDn(dn, models.PimExtPClassName)
 }
 
-func (sm *ServiceManager) UpdateExternalProfile(l3_outside string, tenant string, description string, pimExtPAttr models.PIMExternalProfileAttributes) (*models.PIMExternalProfile, error) {
+func (sm *ServiceManager) UpdatePIMExternalProfile(l3_outside string, tenant string, description string, pimExtPAttr models.PIMExternalProfileAttributes) (*models.PIMExternalProfile, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimExtP, tenant, l3_outside)
 	pimExtP := models.NewPIMExternalProfile(models.RnPimExtP, parentDn, description, pimExtPAttr)
@@ -46,7 +46,7 @@ func (sm *ServiceManager) UpdateExternalProfile(l3_outside string, tenant string
 	return pimExtP, err
 }
 
-func (sm *ServiceManager) ListExternalProfile(l3_outside string, tenant string) ([]*models.PIMExternalProfile, error) {
+func (sm *ServiceManager) ListPIMExternalProfile(l3_outside string, tenant string) ([]*models.PIMExternalProfile, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimExtP, tenant, l3_outside)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.PimExtPClassName)
