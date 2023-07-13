@@ -7,7 +7,7 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
-func (sm *ServiceManager) CreateJPOutboundFilterPolicy(pim_interface_policy string, tenant string, description string, pimJPOutbFilterPolAttr models.PIMJPOutboundFilterPolicyAttributes) (*models.PIMJPOutboundFilterPolicy, error) {
+func (sm *ServiceManager) CreatePIMJPOutboundFilterPolicy(pim_interface_policy string, tenant string, description string, pimJPOutbFilterPolAttr models.PIMJPOutboundFilterPolicyAttributes) (*models.PIMJPOutboundFilterPolicy, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimJPOutbFilterPol, tenant, pim_interface_policy)
 	pimJPOutbFilterPol := models.NewPIMJPOutboundFilterPolicy(parentDn, description, pimJPOutbFilterPolAttr)
@@ -16,7 +16,7 @@ func (sm *ServiceManager) CreateJPOutboundFilterPolicy(pim_interface_policy stri
 	return pimJPOutbFilterPol, err
 }
 
-func (sm *ServiceManager) ReadJPOutboundFilterPolicy(pim_interface_policy string, tenant string) (*models.PIMJPOutboundFilterPolicy, error) {
+func (sm *ServiceManager) ReadPIMJPOutboundFilterPolicy(pim_interface_policy string, tenant string) (*models.PIMJPOutboundFilterPolicy, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimJPOutbFilterPol, tenant, pim_interface_policy)
 	dn := fmt.Sprintf("%s/%s", parentDn, models.RnPimJPOutbFilterPol)
@@ -29,7 +29,7 @@ func (sm *ServiceManager) ReadJPOutboundFilterPolicy(pim_interface_policy string
 	return pimJPOutbFilterPol, nil
 }
 
-func (sm *ServiceManager) DeleteJPOutboundFilterPolicy(pim_interface_policy string, tenant string) error {
+func (sm *ServiceManager) DeletePIMJPOutboundFilterPolicy(pim_interface_policy string, tenant string) error {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimJPOutbFilterPol, tenant, pim_interface_policy)
 	dn := fmt.Sprintf("%s/%s", parentDn, models.RnPimJPOutbFilterPol)
@@ -37,7 +37,7 @@ func (sm *ServiceManager) DeleteJPOutboundFilterPolicy(pim_interface_policy stri
 	return sm.DeleteByDn(dn, models.PimJPOutbFilterPolClassName)
 }
 
-func (sm *ServiceManager) UpdateJPOutboundFilterPolicy(pim_interface_policy string, tenant string, description string, pimJPOutbFilterPolAttr models.PIMJPOutboundFilterPolicyAttributes) (*models.PIMJPOutboundFilterPolicy, error) {
+func (sm *ServiceManager) UpdatePIMJPOutboundFilterPolicy(pim_interface_policy string, tenant string, description string, pimJPOutbFilterPolAttr models.PIMJPOutboundFilterPolicyAttributes) (*models.PIMJPOutboundFilterPolicy, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimJPOutbFilterPol, tenant, pim_interface_policy)
 	pimJPOutbFilterPol := models.NewPIMJPOutboundFilterPolicy(parentDn, description, pimJPOutbFilterPolAttr)
@@ -47,7 +47,7 @@ func (sm *ServiceManager) UpdateJPOutboundFilterPolicy(pim_interface_policy stri
 	return pimJPOutbFilterPol, err
 }
 
-func (sm *ServiceManager) ListJPOutboundFilterPolicy(pim_interface_policy string, tenant string) ([]*models.PIMJPOutboundFilterPolicy, error) {
+func (sm *ServiceManager) ListPIMJPOutboundFilterPolicy(pim_interface_policy string, tenant string) ([]*models.PIMJPOutboundFilterPolicy, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimJPOutbFilterPol, tenant, pim_interface_policy)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.PimJPOutbFilterPolClassName)

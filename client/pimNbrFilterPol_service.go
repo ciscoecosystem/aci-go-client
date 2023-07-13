@@ -7,7 +7,7 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
-func (sm *ServiceManager) CreateNeighborFiterPolicy(pim_interface_policy string, tenant string, description string, pimNbrFilterPolAttr models.PIMNeighborFiterPolicyAttributes) (*models.PIMNeighborFiterPolicy, error) {
+func (sm *ServiceManager) CreatePIMNeighborFiterPolicy(pim_interface_policy string, tenant string, description string, pimNbrFilterPolAttr models.PIMNeighborFiterPolicyAttributes) (*models.PIMNeighborFiterPolicy, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimNbrFilterPol, tenant, pim_interface_policy)
 	pimNbrFilterPol := models.NewPIMNeighborFiterPolicy(parentDn, description, pimNbrFilterPolAttr)
@@ -16,7 +16,7 @@ func (sm *ServiceManager) CreateNeighborFiterPolicy(pim_interface_policy string,
 	return pimNbrFilterPol, err
 }
 
-func (sm *ServiceManager) ReadNeighborFiterPolicy(pim_interface_policy string, tenant string) (*models.PIMNeighborFiterPolicy, error) {
+func (sm *ServiceManager) ReadPIMNeighborFiterPolicy(pim_interface_policy string, tenant string) (*models.PIMNeighborFiterPolicy, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimNbrFilterPol, tenant, pim_interface_policy)
 	dn := fmt.Sprintf("%s/%s", parentDn, models.RnPimNbrFilterPol)
@@ -29,7 +29,7 @@ func (sm *ServiceManager) ReadNeighborFiterPolicy(pim_interface_policy string, t
 	return pimNbrFilterPol, nil
 }
 
-func (sm *ServiceManager) DeleteNeighborFiterPolicy(pim_interface_policy string, tenant string) error {
+func (sm *ServiceManager) DeletePIMNeighborFiterPolicy(pim_interface_policy string, tenant string) error {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimNbrFilterPol, tenant, pim_interface_policy)
 	dn := fmt.Sprintf("%s/%s", parentDn, models.RnPimNbrFilterPol)
@@ -37,7 +37,7 @@ func (sm *ServiceManager) DeleteNeighborFiterPolicy(pim_interface_policy string,
 	return sm.DeleteByDn(dn, models.PimNbrFilterPolClassName)
 }
 
-func (sm *ServiceManager) UpdateNeighborFiterPolicy(pim_interface_policy string, tenant string, description string, pimNbrFilterPolAttr models.PIMNeighborFiterPolicyAttributes) (*models.PIMNeighborFiterPolicy, error) {
+func (sm *ServiceManager) UpdatePIMNeighborFiterPolicy(pim_interface_policy string, tenant string, description string, pimNbrFilterPolAttr models.PIMNeighborFiterPolicyAttributes) (*models.PIMNeighborFiterPolicy, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimNbrFilterPol, tenant, pim_interface_policy)
 	pimNbrFilterPol := models.NewPIMNeighborFiterPolicy(parentDn, description, pimNbrFilterPolAttr)
@@ -47,7 +47,7 @@ func (sm *ServiceManager) UpdateNeighborFiterPolicy(pim_interface_policy string,
 	return pimNbrFilterPol, err
 }
 
-func (sm *ServiceManager) ListNeighborFiterPolicy(pim_interface_policy string, tenant string) ([]*models.PIMNeighborFiterPolicy, error) {
+func (sm *ServiceManager) ListPIMNeighborFiterPolicy(pim_interface_policy string, tenant string) ([]*models.PIMNeighborFiterPolicy, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimNbrFilterPol, tenant, pim_interface_policy)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.PimNbrFilterPolClassName)
