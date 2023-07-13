@@ -7,7 +7,7 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
-func (sm *ServiceManager) CreateJPInboundFilterPolicy(pim_interface_policy string, tenant string, description string, pimJPInbFilterPolAttr models.PIMJPInboundFilterPolicyAttributes) (*models.PIMJPInboundFilterPolicy, error) {
+func (sm *ServiceManager) CreatePIMJPInboundFilterPolicy(pim_interface_policy string, tenant string, description string, pimJPInbFilterPolAttr models.PIMJPInboundFilterPolicyAttributes) (*models.PIMJPInboundFilterPolicy, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimJPInbFilterPol, tenant, pim_interface_policy)
 	pimJPInbFilterPol := models.NewPIMJPInboundFilterPolicy(parentDn, description, pimJPInbFilterPolAttr)
@@ -16,7 +16,7 @@ func (sm *ServiceManager) CreateJPInboundFilterPolicy(pim_interface_policy strin
 	return pimJPInbFilterPol, err
 }
 
-func (sm *ServiceManager) ReadJPInboundFilterPolicy(pim_interface_policy string, tenant string) (*models.PIMJPInboundFilterPolicy, error) {
+func (sm *ServiceManager) ReadPIMJPInboundFilterPolicy(pim_interface_policy string, tenant string) (*models.PIMJPInboundFilterPolicy, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimJPInbFilterPol, tenant, pim_interface_policy)
 	dn := fmt.Sprintf("%s/%s", parentDn, models.RnPimJPInbFilterPol)
@@ -29,7 +29,7 @@ func (sm *ServiceManager) ReadJPInboundFilterPolicy(pim_interface_policy string,
 	return pimJPInbFilterPol, nil
 }
 
-func (sm *ServiceManager) DeleteJPInboundFilterPolicy(pim_interface_policy string, tenant string) error {
+func (sm *ServiceManager) DeletePIMJPInboundFilterPolicy(pim_interface_policy string, tenant string) error {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimJPInbFilterPol, tenant, pim_interface_policy)
 	dn := fmt.Sprintf("%s/%s", parentDn, models.RnPimJPInbFilterPol)
@@ -37,7 +37,7 @@ func (sm *ServiceManager) DeleteJPInboundFilterPolicy(pim_interface_policy strin
 	return sm.DeleteByDn(dn, models.PimJPInbFilterPolClassName)
 }
 
-func (sm *ServiceManager) UpdateJPInboundFilterPolicy(pim_interface_policy string, tenant string, description string, pimJPInbFilterPolAttr models.PIMJPInboundFilterPolicyAttributes) (*models.PIMJPInboundFilterPolicy, error) {
+func (sm *ServiceManager) UpdatePIMJPInboundFilterPolicy(pim_interface_policy string, tenant string, description string, pimJPInbFilterPolAttr models.PIMJPInboundFilterPolicyAttributes) (*models.PIMJPInboundFilterPolicy, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimJPInbFilterPol, tenant, pim_interface_policy)
 	pimJPInbFilterPol := models.NewPIMJPInboundFilterPolicy(parentDn, description, pimJPInbFilterPolAttr)
@@ -47,7 +47,7 @@ func (sm *ServiceManager) UpdateJPInboundFilterPolicy(pim_interface_policy strin
 	return pimJPInbFilterPol, err
 }
 
-func (sm *ServiceManager) ListJPInboundFilterPolicy(pim_interface_policy string, tenant string) ([]*models.PIMJPInboundFilterPolicy, error) {
+func (sm *ServiceManager) ListPIMJPInboundFilterPolicy(pim_interface_policy string, tenant string) ([]*models.PIMJPInboundFilterPolicy, error) {
 
 	parentDn := fmt.Sprintf(models.ParentDnPimJPInbFilterPol, tenant, pim_interface_policy)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.PimJPInbFilterPolClassName)
