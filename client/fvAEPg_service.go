@@ -465,6 +465,39 @@ func (sm *ServiceManager) CreateRelationfvRsNodeAttFromApplicationEPG(parentDn, 
 	return nil
 }
 
+func (sm *ServiceManager) CreateRelationfvRsNodeAtt(parentDn, encap, mode, description, deploymentImmediacy, tDn string) error {
+	dn := fmt.Sprintf("%s/rsnodeAtt-[%s]", parentDn, tDn)
+	containerJSON := []byte(fmt.Sprintf(`{
+		"%s": {
+			"attributes": {
+				"dn": "%s",
+				"encap": "%s",
+				"mode": "%s", 
+				"descr": "%s",
+				"instrImedcy": "%s",
+				"tDn": "%s"
+			}
+		}
+	}`, "fvRsNodeAtt", dn, encap, mode, description, deploymentImmediacy, tDn))
+
+	jsonPayload, err := container.ParseJSON(containerJSON)
+	if err != nil {
+		return err
+	}
+
+	req, err := sm.client.MakeRestRequest("POST", fmt.Sprintf("%s.json", sm.MOURL), jsonPayload, true)
+	if err != nil {
+		return err
+	}
+
+	_, _, err = sm.client.Do(req)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (sm *ServiceManager) DeleteRelationfvRsNodeAttFromApplicationEPG(parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsnodeAtt-[%s]", parentDn, tDn)
 	return sm.DeleteByDn(dn, "fvRsNodeAtt")
@@ -483,6 +516,25 @@ func (sm *ServiceManager) ReadRelationfvRsNodeAttFromApplicationEPG(parentDn str
 	for _, contItem := range contList {
 		dat := models.G(contItem, "tDn")
 		st.Add(dat)
+	}
+	return st, err
+
+}
+func (sm *ServiceManager) ReadRelationfvRsNodeAtt(parentDn string) (interface{}, error) {
+	baseurlStr := "/api/node/class"
+	dnUrl := fmt.Sprintf("%s/%s/%s.json", baseurlStr, parentDn, "fvRsNodeAtt")
+	cont, err := sm.GetViaURL(dnUrl)
+
+	contList := models.ListFromContainer(cont, "fvRsNodeAtt")
+
+	st := make([]map[string]string, 0, 1)
+	for _, contItem := range contList {
+		paramMap := make(map[string]string)
+		paramMap["encap"] = models.G(contItem, "encap")
+		paramMap["instrImedcy"] = models.G(contItem, "instrImedcy")
+		paramMap["mode"] = models.G(contItem, "mode")
+		paramMap["descr"] = models.G(contItem, "descr")
+		st = append(st, paramMap)
 	}
 	return st, err
 
