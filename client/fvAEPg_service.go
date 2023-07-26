@@ -523,7 +523,6 @@ func (sm *ServiceManager) ReadRelationfvRsNodeAtt(parentDn string) (interface{},
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", baseurlStr, parentDn, "fvRsNodeAtt")
 	cont, err := sm.GetViaURL(dnUrl)
-
 	contList := models.ListFromContainer(cont, "fvRsNodeAtt")
 
 	st := make([]map[string]string, 0, 1)
