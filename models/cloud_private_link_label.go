@@ -12,20 +12,20 @@ const (
 	CloudPrivateLinkLabelClassName = "cloudPrivateLinkLabel"
 )
 
-type PrivateLinkLabelfortheserviceEPg struct {
+type PrivateLinkLabel struct {
 	BaseAttributes
-	PrivateLinkLabelfortheserviceEPgAttributes
+	PrivateLinkLabelAttributes
 }
 
-type PrivateLinkLabelfortheserviceEPgAttributes struct {
+type PrivateLinkLabelAttributes struct {
 	Annotation string `json:",omitempty"`
 	Name       string `json:",omitempty"`
 	NameAlias  string `json:",omitempty"`
 }
 
-func NewPrivateLinkLabelfortheserviceEPg(cloudPrivateLinkLabelRn, parentDn, description string, cloudPrivateLinkLabelAttr PrivateLinkLabelfortheserviceEPgAttributes) *PrivateLinkLabelfortheserviceEPg {
+func NewPrivateLinkLabel(cloudPrivateLinkLabelRn, parentDn, description string, cloudPrivateLinkLabelAttr PrivateLinkLabelAttributes) *PrivateLinkLabel {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudPrivateLinkLabelRn)
-	return &PrivateLinkLabelfortheserviceEPg{
+	return &PrivateLinkLabel{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -33,11 +33,11 @@ func NewPrivateLinkLabelfortheserviceEPg(cloudPrivateLinkLabelRn, parentDn, desc
 			ClassName:         CloudPrivateLinkLabelClassName,
 			Rn:                cloudPrivateLinkLabelRn,
 		},
-		PrivateLinkLabelfortheserviceEPgAttributes: cloudPrivateLinkLabelAttr,
+		PrivateLinkLabelAttributes: cloudPrivateLinkLabelAttr,
 	}
 }
 
-func (cloudPrivateLinkLabel *PrivateLinkLabelfortheserviceEPg) ToMap() (map[string]string, error) {
+func (cloudPrivateLinkLabel *PrivateLinkLabel) ToMap() (map[string]string, error) {
 	cloudPrivateLinkLabelMap, err := cloudPrivateLinkLabel.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -49,34 +49,34 @@ func (cloudPrivateLinkLabel *PrivateLinkLabelfortheserviceEPg) ToMap() (map[stri
 	return cloudPrivateLinkLabelMap, err
 }
 
-func PrivateLinkLabelfortheserviceEPgFromContainerList(cont *container.Container, index int) *PrivateLinkLabelfortheserviceEPg {
-	PrivateLinkLabelfortheserviceEPgCont := cont.S("imdata").Index(index).S(CloudPrivateLinkLabelClassName, "attributes")
-	return &PrivateLinkLabelfortheserviceEPg{
+func PrivateLinkLabelFromContainerList(cont *container.Container, index int) *PrivateLinkLabel {
+	PrivateLinkLabelCont := cont.S("imdata").Index(index).S(CloudPrivateLinkLabelClassName, "attributes")
+	return &PrivateLinkLabel{
 		BaseAttributes{
-			DistinguishedName: G(PrivateLinkLabelfortheserviceEPgCont, "dn"),
-			Description:       G(PrivateLinkLabelfortheserviceEPgCont, "descr"),
-			Status:            G(PrivateLinkLabelfortheserviceEPgCont, "status"),
+			DistinguishedName: G(PrivateLinkLabelCont, "dn"),
+			Description:       G(PrivateLinkLabelCont, "descr"),
+			Status:            G(PrivateLinkLabelCont, "status"),
 			ClassName:         CloudPrivateLinkLabelClassName,
-			Rn:                G(PrivateLinkLabelfortheserviceEPgCont, "rn"),
+			Rn:                G(PrivateLinkLabelCont, "rn"),
 		},
-		PrivateLinkLabelfortheserviceEPgAttributes{
-			Annotation: G(PrivateLinkLabelfortheserviceEPgCont, "annotation"),
-			Name:       G(PrivateLinkLabelfortheserviceEPgCont, "name"),
-			NameAlias:  G(PrivateLinkLabelfortheserviceEPgCont, "nameAlias"),
+		PrivateLinkLabelAttributes{
+			Annotation: G(PrivateLinkLabelCont, "annotation"),
+			Name:       G(PrivateLinkLabelCont, "name"),
+			NameAlias:  G(PrivateLinkLabelCont, "nameAlias"),
 		},
 	}
 }
 
-func PrivateLinkLabelfortheserviceEPgFromContainer(cont *container.Container) *PrivateLinkLabelfortheserviceEPg {
-	return PrivateLinkLabelfortheserviceEPgFromContainerList(cont, 0)
+func PrivateLinkLabelFromContainer(cont *container.Container) *PrivateLinkLabel {
+	return PrivateLinkLabelFromContainerList(cont, 0)
 }
 
-func PrivateLinkLabelfortheserviceEPgListFromContainer(cont *container.Container) []*PrivateLinkLabelfortheserviceEPg {
+func PrivateLinkLabelListFromContainer(cont *container.Container) []*PrivateLinkLabel {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*PrivateLinkLabelfortheserviceEPg, length)
+	arr := make([]*PrivateLinkLabel, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = PrivateLinkLabelfortheserviceEPgFromContainerList(cont, i)
+		arr[i] = PrivateLinkLabelFromContainerList(cont, i)
 	}
 
 	return arr
