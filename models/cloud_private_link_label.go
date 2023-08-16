@@ -8,24 +8,24 @@ import (
 )
 
 const (
-	RnCloudPrivateLinkLabel        = "privatelinklabel-%s"
+	RnCloudPrivateLinkLabel        = "Cloudprivatelinklabel-%s"
 	CloudPrivateLinkLabelClassName = "cloudPrivateLinkLabel"
 )
 
-type PrivateLinkLabel struct {
+type CloudPrivateLinkLabel struct {
 	BaseAttributes
-	PrivateLinkLabelAttributes
+	CloudPrivateLinkLabelAttributes
 }
 
-type PrivateLinkLabelAttributes struct {
+type CloudPrivateLinkLabelAttributes struct {
 	Annotation string `json:",omitempty"`
 	Name       string `json:",omitempty"`
 	NameAlias  string `json:",omitempty"`
 }
 
-func NewPrivateLinkLabel(cloudPrivateLinkLabelRn, parentDn, description string, cloudPrivateLinkLabelAttr PrivateLinkLabelAttributes) *PrivateLinkLabel {
+func NewCloudPrivateLinkLabel(cloudPrivateLinkLabelRn, parentDn, description string, cloudPrivateLinkLabelAttr CloudPrivateLinkLabelAttributes) *CloudPrivateLinkLabel {
 	dn := fmt.Sprintf("%s/%s", parentDn, cloudPrivateLinkLabelRn)
-	return &PrivateLinkLabel{
+	return &CloudPrivateLinkLabel{
 		BaseAttributes: BaseAttributes{
 			DistinguishedName: dn,
 			Description:       description,
@@ -33,11 +33,11 @@ func NewPrivateLinkLabel(cloudPrivateLinkLabelRn, parentDn, description string, 
 			ClassName:         CloudPrivateLinkLabelClassName,
 			Rn:                cloudPrivateLinkLabelRn,
 		},
-		PrivateLinkLabelAttributes: cloudPrivateLinkLabelAttr,
+		CloudPrivateLinkLabelAttributes: cloudPrivateLinkLabelAttr,
 	}
 }
 
-func (cloudPrivateLinkLabel *PrivateLinkLabel) ToMap() (map[string]string, error) {
+func (cloudPrivateLinkLabel *CloudPrivateLinkLabel) ToMap() (map[string]string, error) {
 	cloudPrivateLinkLabelMap, err := cloudPrivateLinkLabel.BaseAttributes.ToMap()
 	if err != nil {
 		return nil, err
@@ -49,34 +49,34 @@ func (cloudPrivateLinkLabel *PrivateLinkLabel) ToMap() (map[string]string, error
 	return cloudPrivateLinkLabelMap, err
 }
 
-func PrivateLinkLabelFromContainerList(cont *container.Container, index int) *PrivateLinkLabel {
-	PrivateLinkLabelCont := cont.S("imdata").Index(index).S(CloudPrivateLinkLabelClassName, "attributes")
-	return &PrivateLinkLabel{
+func CloudPrivateLinkLabelFromContainerList(cont *container.Container, index int) *CloudPrivateLinkLabel {
+	CloudPrivateLinkLabelCont := cont.S("imdata").Index(index).S(CloudPrivateLinkLabelClassName, "attributes")
+	return &CloudPrivateLinkLabel{
 		BaseAttributes{
-			DistinguishedName: G(PrivateLinkLabelCont, "dn"),
-			Description:       G(PrivateLinkLabelCont, "descr"),
-			Status:            G(PrivateLinkLabelCont, "status"),
+			DistinguishedName: G(CloudPrivateLinkLabelCont, "dn"),
+			Description:       G(CloudPrivateLinkLabelCont, "descr"),
+			Status:            G(CloudPrivateLinkLabelCont, "status"),
 			ClassName:         CloudPrivateLinkLabelClassName,
-			Rn:                G(PrivateLinkLabelCont, "rn"),
+			Rn:                G(CloudPrivateLinkLabelCont, "rn"),
 		},
-		PrivateLinkLabelAttributes{
-			Annotation: G(PrivateLinkLabelCont, "annotation"),
-			Name:       G(PrivateLinkLabelCont, "name"),
-			NameAlias:  G(PrivateLinkLabelCont, "nameAlias"),
+		CloudPrivateLinkLabelAttributes{
+			Annotation: G(CloudPrivateLinkLabelCont, "annotation"),
+			Name:       G(CloudPrivateLinkLabelCont, "name"),
+			NameAlias:  G(CloudPrivateLinkLabelCont, "nameAlias"),
 		},
 	}
 }
 
-func PrivateLinkLabelFromContainer(cont *container.Container) *PrivateLinkLabel {
-	return PrivateLinkLabelFromContainerList(cont, 0)
+func CloudPrivateLinkLabelFromContainer(cont *container.Container) *CloudPrivateLinkLabel {
+	return CloudPrivateLinkLabelFromContainerList(cont, 0)
 }
 
-func PrivateLinkLabelListFromContainer(cont *container.Container) []*PrivateLinkLabel {
+func CloudPrivateLinkLabelListFromContainer(cont *container.Container) []*CloudPrivateLinkLabel {
 	length, _ := strconv.Atoi(G(cont, "totalCount"))
-	arr := make([]*PrivateLinkLabel, length)
+	arr := make([]*CloudPrivateLinkLabel, length)
 
 	for i := 0; i < length; i++ {
-		arr[i] = PrivateLinkLabelFromContainerList(cont, i)
+		arr[i] = CloudPrivateLinkLabelFromContainerList(cont, i)
 	}
 
 	return arr
