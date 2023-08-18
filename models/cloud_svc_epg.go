@@ -25,6 +25,7 @@ type CloudServiceEPgAttributes struct {
 	AzPrivateEndpoint    string `json:",omitempty"`
 	CustomSvcType        string `json:",omitempty"`
 	DeploymentType       string `json:",omitempty"`
+	ExceptionTag         string `json:",omitempty"`
 	FloodOnEncap         string `json:",omitempty"`
 	MatchT               string `json:",omitempty"`
 	Name                 string `json:",omitempty"`
@@ -59,13 +60,14 @@ func (cloudSvcEPg *CloudServiceEPg) ToMap() (map[string]string, error) {
 	A(cloudSvcEPgMap, "azPrivateEndpoint", cloudSvcEPg.AzPrivateEndpoint)
 	A(cloudSvcEPgMap, "customSvcType", cloudSvcEPg.CustomSvcType)
 	A(cloudSvcEPgMap, "deploymentType", cloudSvcEPg.DeploymentType)
+	A(cloudSvcEPgMap, "exceptionTag", cloudSvcEPg.ExceptionTag)
 	A(cloudSvcEPgMap, "floodOnEncap", cloudSvcEPg.FloodOnEncap)
 	A(cloudSvcEPgMap, "matchT", cloudSvcEPg.MatchT)
 	A(cloudSvcEPgMap, "name", cloudSvcEPg.Name)
 	A(cloudSvcEPgMap, "nameAlias", cloudSvcEPg.NameAlias)
 	A(cloudSvcEPgMap, "prefGrMemb", cloudSvcEPg.PrefGrMemb)
 	A(cloudSvcEPgMap, "prio", cloudSvcEPg.Prio)
-	A(cloudSvcEPgMap, "CloudServiceEPg_type", cloudSvcEPg.CloudServiceEPg_type)
+	A(cloudSvcEPgMap, "type", cloudSvcEPg.CloudServiceEPg_type)
 	return cloudSvcEPgMap, err
 }
 
@@ -85,13 +87,14 @@ func CloudServiceEPgFromContainerList(cont *container.Container, index int) *Clo
 			AzPrivateEndpoint:    G(CloudServiceEPgCont, "azPrivateEndpoint"),
 			CustomSvcType:        G(CloudServiceEPgCont, "customSvcType"),
 			DeploymentType:       G(CloudServiceEPgCont, "deploymentType"),
+			ExceptionTag:         G(CloudServiceEPgCont, "exceptionTag"),
 			FloodOnEncap:         G(CloudServiceEPgCont, "floodOnEncap"),
 			MatchT:               G(CloudServiceEPgCont, "matchT"),
 			Name:                 G(CloudServiceEPgCont, "name"),
 			NameAlias:            G(CloudServiceEPgCont, "nameAlias"),
 			PrefGrMemb:           G(CloudServiceEPgCont, "prefGrMemb"),
 			Prio:                 G(CloudServiceEPgCont, "prio"),
-			CloudServiceEPg_type: G(CloudServiceEPgCont, "CloudServiceEPg_type"),
+			CloudServiceEPg_type: G(CloudServiceEPgCont, "type"),
 		},
 	}
 }

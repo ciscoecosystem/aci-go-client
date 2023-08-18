@@ -67,7 +67,7 @@ func (sm *ServiceManager) ListCloudServiceEPg(cloud_application_container string
 	return list, err
 }
 
-func (sm *ServiceManager) CreateRelationcloudRsCloudEPgCtx(parentDn, annotation, tnFvCtxName string) error {
+func (sm *ServiceManager) CreateRelationcloudRsCloudEPgCtxFromCloudServiceEpg(parentDn, annotation, tnFvCtxName string) error {
 	dn := fmt.Sprintf("%s/rsCloudEPgCtx", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -95,12 +95,12 @@ func (sm *ServiceManager) CreateRelationcloudRsCloudEPgCtx(parentDn, annotation,
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationcloudRsCloudEPgCtx(parentDn string) error {
+func (sm *ServiceManager) DeleteRelationcloudRsCloudEPgCtxFromCloudServiceEpg(parentDn string) error {
 	dn := fmt.Sprintf("%s/rsCloudEPgCtx", parentDn)
 	return sm.DeleteByDn(dn, "cloudRsCloudEPgCtx")
 }
 
-func (sm *ServiceManager) ReadRelationcloudRsCloudEPgCtx(parentDn string) (interface{}, error) {
+func (sm *ServiceManager) ReadRelationcloudRsCloudEPgCtxFromCloudServiceEpg(parentDn string) (interface{}, error) {
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "cloudRsCloudEPgCtx")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "cloudRsCloudEPgCtx")
@@ -115,7 +115,7 @@ func (sm *ServiceManager) ReadRelationcloudRsCloudEPgCtx(parentDn string) (inter
 	}
 }
 
-func (sm *ServiceManager) CreateRelationfvRsCons(parentDn, annotation, prio string, tnVzBrCPName string) error {
+func (sm *ServiceManager) CreateRelationfvRsConsFromCloudServiceEpg(parentDn, annotation, prio string, tnVzBrCPName string) error {
 	dn := fmt.Sprintf("%s/rscons-%s", parentDn, tnVzBrCPName)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -170,12 +170,12 @@ func (sm *ServiceManager) CreateRelationfvRsCons(parentDn, annotation, prio stri
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsCons(parentDn, tnVzBrCPName string) error {
+func (sm *ServiceManager) DeleteRelationfvRsConsFromCloudServiceEpg(parentDn, tnVzBrCPName string) error {
 	dn := fmt.Sprintf("%s/rscons-%s", parentDn, tnVzBrCPName)
 	return sm.DeleteByDn(dn, "fvRsCons")
 }
 
-func (sm *ServiceManager) ReadRelationfvRsCons(parentDn string) (interface{}, error) {
+func (sm *ServiceManager) ReadRelationfvRsConsFromCloudServiceEpg(parentDn string) (interface{}, error) {
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "fvRsCons")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "fvRsCons")
@@ -193,7 +193,7 @@ func (sm *ServiceManager) ReadRelationfvRsCons(parentDn string) (interface{}, er
 	return st, err
 }
 
-func (sm *ServiceManager) CreateRelationfvRsConsIf(parentDn, annotation, prio string, tnVzCPIfName string) error {
+func (sm *ServiceManager) CreateRelationfvRsConsIfFromCloudServiceEpg(parentDn, annotation, prio string, tnVzCPIfName string) error {
 	dn := fmt.Sprintf("%s/rsconsIf-%s", parentDn, tnVzCPIfName)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -248,12 +248,12 @@ func (sm *ServiceManager) CreateRelationfvRsConsIf(parentDn, annotation, prio st
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsConsIf(parentDn, tnVzCPIfName string) error {
+func (sm *ServiceManager) DeleteRelationfvRsConsIfFromCloudServiceEpg(parentDn, tnVzCPIfName string) error {
 	dn := fmt.Sprintf("%s/rsconsIf-%s", parentDn, tnVzCPIfName)
 	return sm.DeleteByDn(dn, "fvRsConsIf")
 }
 
-func (sm *ServiceManager) ReadRelationfvRsConsIf(parentDn string) (interface{}, error) {
+func (sm *ServiceManager) ReadRelationfvRsConsIfFromCloudServiceEpg(parentDn string) (interface{}, error) {
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "fvRsConsIf")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "fvRsConsIf")
@@ -271,7 +271,7 @@ func (sm *ServiceManager) ReadRelationfvRsConsIf(parentDn string) (interface{}, 
 	return st, err
 }
 
-func (sm *ServiceManager) CreateRelationfvRsCustQosPol(parentDn, annotation, tnQosCustomPolName string) error {
+func (sm *ServiceManager) CreateRelationfvRsCustQosPolFromCloudServiceEpg(parentDn, annotation, tnQosCustomPolName string) error {
 	dn := fmt.Sprintf("%s/rscustQosPol", parentDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -299,12 +299,12 @@ func (sm *ServiceManager) CreateRelationfvRsCustQosPol(parentDn, annotation, tnQ
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsCustQosPol(parentDn string) error {
+func (sm *ServiceManager) DeleteRelationfvRsCustQosPolFromCloudServiceEpg(parentDn string) error {
 	dn := fmt.Sprintf("%s/rscustQosPol", parentDn)
 	return sm.DeleteByDn(dn, "fvRsCustQosPol")
 }
 
-func (sm *ServiceManager) ReadRelationfvRsCustQosPol(parentDn string) (interface{}, error) {
+func (sm *ServiceManager) ReadRelationfvRsCustQosPolFromCloudServiceEpg(parentDn string) (interface{}, error) {
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "fvRsCustQosPol")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "fvRsCustQosPol")
@@ -319,7 +319,7 @@ func (sm *ServiceManager) ReadRelationfvRsCustQosPol(parentDn string) (interface
 	}
 }
 
-func (sm *ServiceManager) CreateRelationfvRsGraphDef(parentDn, annotation, tDn string) error {
+func (sm *ServiceManager) CreateRelationfvRsGraphDefFromCloudServiceEpg(parentDn, annotation, tDn string) error {
 	dn := fmt.Sprintf("%s/rsgraphDef-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -347,12 +347,12 @@ func (sm *ServiceManager) CreateRelationfvRsGraphDef(parentDn, annotation, tDn s
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsGraphDef(parentDn, tDn string) error {
+func (sm *ServiceManager) DeleteRelationfvRsGraphDefFromCloudServiceEpg(parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsgraphDef-[%s]", parentDn, tDn)
 	return sm.DeleteByDn(dn, "fvRsGraphDef")
 }
 
-func (sm *ServiceManager) ReadRelationfvRsGraphDef(parentDn string) (interface{}, error) {
+func (sm *ServiceManager) ReadRelationfvRsGraphDefFromCloudServiceEpg(parentDn string) (interface{}, error) {
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "fvRsGraphDef")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "fvRsGraphDef")
@@ -368,7 +368,7 @@ func (sm *ServiceManager) ReadRelationfvRsGraphDef(parentDn string) (interface{}
 	return st, err
 }
 
-func (sm *ServiceManager) CreateRelationfvRsIntraEpg(parentDn, annotation, tnVzBrCPName string) error {
+func (sm *ServiceManager) CreateRelationfvRsIntraEpgFromCloudServiceEpg(parentDn, annotation, tnVzBrCPName string) error {
 	dn := fmt.Sprintf("%s/rsintraEpg-%s", parentDn, tnVzBrCPName)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -396,12 +396,12 @@ func (sm *ServiceManager) CreateRelationfvRsIntraEpg(parentDn, annotation, tnVzB
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsIntraEpg(parentDn, tnVzBrCPName string) error {
+func (sm *ServiceManager) DeleteRelationfvRsIntraEpgFromCloudServiceEpg(parentDn, tnVzBrCPName string) error {
 	dn := fmt.Sprintf("%s/rsintraEpg-%s", parentDn, tnVzBrCPName)
 	return sm.DeleteByDn(dn, "fvRsIntraEpg")
 }
 
-func (sm *ServiceManager) ReadRelationfvRsIntraEpg(parentDn string) (interface{}, error) {
+func (sm *ServiceManager) ReadRelationfvRsIntraEpgFromCloudServiceEpg(parentDn string) (interface{}, error) {
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "fvRsIntraEpg")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "fvRsIntraEpg")
@@ -418,7 +418,7 @@ func (sm *ServiceManager) ReadRelationfvRsIntraEpg(parentDn string) (interface{}
 	return st, err
 }
 
-func (sm *ServiceManager) CreateRelationfvRsProtBy(parentDn, annotation, tnVzTabooName string) error {
+func (sm *ServiceManager) CreateRelationfvRsProtByFromCloudServiceEpg(parentDn, annotation, tnVzTabooName string) error {
 	dn := fmt.Sprintf("%s/rsprotBy-%s", parentDn, tnVzTabooName)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -446,12 +446,12 @@ func (sm *ServiceManager) CreateRelationfvRsProtBy(parentDn, annotation, tnVzTab
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsProtBy(parentDn, tnVzTabooName string) error {
+func (sm *ServiceManager) DeleteRelationfvRsProtByFromCloudServiceEpg(parentDn, tnVzTabooName string) error {
 	dn := fmt.Sprintf("%s/rsprotBy-%s", parentDn, tnVzTabooName)
 	return sm.DeleteByDn(dn, "fvRsProtBy")
 }
 
-func (sm *ServiceManager) ReadRelationfvRsProtBy(parentDn string) (interface{}, error) {
+func (sm *ServiceManager) ReadRelationfvRsProtByFromCloudServiceEpg(parentDn string) (interface{}, error) {
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "fvRsProtBy")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "fvRsProtBy")
@@ -468,7 +468,7 @@ func (sm *ServiceManager) ReadRelationfvRsProtBy(parentDn string) (interface{}, 
 	return st, err
 }
 
-func (sm *ServiceManager) CreateRelationfvRsProv(parentDn, annotation, matchT string, prio string, tnVzBrCPName string) error {
+func (sm *ServiceManager) CreateRelationfvRsProvFromCloudServiceEpg(parentDn, annotation, matchT string, prio string, tnVzBrCPName string) error {
 	dn := fmt.Sprintf("%s/rsprov-%s", parentDn, tnVzBrCPName)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -524,12 +524,12 @@ func (sm *ServiceManager) CreateRelationfvRsProv(parentDn, annotation, matchT st
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsProv(parentDn, tnVzBrCPName string) error {
+func (sm *ServiceManager) DeleteRelationfvRsProvFromCloudServiceEpg(parentDn, tnVzBrCPName string) error {
 	dn := fmt.Sprintf("%s/rsprov-%s", parentDn, tnVzBrCPName)
 	return sm.DeleteByDn(dn, "fvRsProv")
 }
 
-func (sm *ServiceManager) ReadRelationfvRsProv(parentDn string) (interface{}, error) {
+func (sm *ServiceManager) ReadRelationfvRsProvFromCloudServiceEpg(parentDn string) (interface{}, error) {
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "fvRsProv")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "fvRsProv")
@@ -548,7 +548,7 @@ func (sm *ServiceManager) ReadRelationfvRsProv(parentDn string) (interface{}, er
 	return st, err
 }
 
-func (sm *ServiceManager) CreateRelationfvRsProvDef(parentDn, annotation, tDn string) error {
+func (sm *ServiceManager) CreateRelationfvRsProvDefFromCloudServiceEpg(parentDn, annotation, tDn string) error {
 	dn := fmt.Sprintf("%s/rsprovDef-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -576,12 +576,12 @@ func (sm *ServiceManager) CreateRelationfvRsProvDef(parentDn, annotation, tDn st
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsProvDef(parentDn, tDn string) error {
+func (sm *ServiceManager) DeleteRelationfvRsProvDefFromCloudServiceEpg(parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rsprovDef-[%s]", parentDn, tDn)
 	return sm.DeleteByDn(dn, "fvRsProvDef")
 }
 
-func (sm *ServiceManager) ReadRelationfvRsProvDef(parentDn string) (interface{}, error) {
+func (sm *ServiceManager) ReadRelationfvRsProvDefFromCloudServiceEpg(parentDn string) (interface{}, error) {
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "fvRsProvDef")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "fvRsProvDef")
@@ -597,7 +597,7 @@ func (sm *ServiceManager) ReadRelationfvRsProvDef(parentDn string) (interface{},
 	return st, err
 }
 
-func (sm *ServiceManager) CreateRelationfvRsSecInherited(parentDn, annotation, tDn string) error {
+func (sm *ServiceManager) CreateRelationfvRsSecInheritedFromCloudServiceEpg(parentDn, annotation, tDn string) error {
 	dn := fmt.Sprintf("%s/rssecInherited-[%s]", parentDn, tDn)
 	containerJSON := []byte(fmt.Sprintf(`{
 		"%s": {
@@ -625,12 +625,12 @@ func (sm *ServiceManager) CreateRelationfvRsSecInherited(parentDn, annotation, t
 	return nil
 }
 
-func (sm *ServiceManager) DeleteRelationfvRsSecInherited(parentDn, tDn string) error {
+func (sm *ServiceManager) DeleteRelationfvRsSecInheritedFromCloudServiceEpg(parentDn, tDn string) error {
 	dn := fmt.Sprintf("%s/rssecInherited-[%s]", parentDn, tDn)
 	return sm.DeleteByDn(dn, "fvRsSecInherited")
 }
 
-func (sm *ServiceManager) ReadRelationfvRsSecInherited(parentDn string) (interface{}, error) {
+func (sm *ServiceManager) ReadRelationfvRsSecInheritedFromCloudServiceEpg(parentDn string) (interface{}, error) {
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, "fvRsSecInherited")
 	cont, err := sm.GetViaURL(dnUrl)
 	contList := models.ListFromContainer(cont, "fvRsSecInherited")
