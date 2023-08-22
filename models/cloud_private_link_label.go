@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	RnCloudPrivateLinkLabel        = "Cloudprivatelinklabel-%s"
+	RnCloudPrivateLinkLabel        = "privatelinklabel-%s"
 	CloudPrivateLinkLabelClassName = "cloudPrivateLinkLabel"
 )
 
