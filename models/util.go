@@ -94,3 +94,9 @@ func CurlyBraces(value string) string {
 		return value
 	}
 }
+
+func GetMORnPrefix(dn string) string {
+	dnParts := strings.Split(dn, "/")
+	hashedName := dnParts[len(dnParts)-1]
+	return strings.Split(hashedName, "-")[0]
+}
