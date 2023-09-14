@@ -1,7 +1,6 @@
 package models
 
 import (
-	"regexp"
 	"strconv"
 	"strings"
 
@@ -98,28 +97,29 @@ func CurlyBraces(value string) string {
 
 func GetMORnPrefix(DistinguishedName string) string {
 	if DistinguishedName != "" {
-		checkHasBracket := strings.HasSuffix(DistinguishedName, "]")
-		pattern := ""
-		if checkHasBracket {
-			checkHasBracket = strings.Contains(DistinguishedName, "]-[")
-			if checkHasBracket {
-				nestedBracket, _ := regexp.MatchString(`(.*)\[.*]-\[.*]\/([a-zA-Z-_]+)-\[.*]$`, DistinguishedName)
-				if nestedBracket {
-					pattern = `(.*)\[.*]-\[.*]\/([a-zA-Z-_]+)-\[.*]$`
-				} else {
-					pattern = `(.*)\/(.*)\[.*]-\[.*]$`
-				}
-			} else {
-				pattern = `(.*)\/(.*)\-\[(.*)]`
+		bracketIndex := 0
+		rnIndex := 0
+		reversedDistinguishedName := reverseString(DistinguishedName)
+		for i, v := range reversedDistinguishedName {
+			stringValue := string(v)
+			if stringValue == "]" {
+				bracketIndex = bracketIndex + 1
+			} else if stringValue == "[" {
+				bracketIndex = bracketIndex - 1
+			} else if stringValue == "/" && bracketIndex == 0 {
+				rnIndex = i
+				break
 			}
-		} else {
-			pattern = `(.+)\/(.*)`
 		}
-		regex := regexp.MustCompile(pattern)
-		submatches := regex.FindAllStringSubmatch(DistinguishedName, -1)
-		if len(submatches) >= 1 {
-			return regexp.MustCompile("-").Split(submatches[0][2], -1)[0]
-		}
+		return strings.Split(reverseString(reversedDistinguishedName[0:rnIndex]), "-")[0]
 	}
 	return DistinguishedName
+}
+
+func reverseString(s string) string {
+	reverse := ""
+	for i := len(s) - 1; i >= 0; i-- {
+		reverse += string(s[i])
+	}
+	return reverse
 }
