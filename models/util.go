@@ -101,7 +101,17 @@ func GetMORnPrefix(DistinguishedName string) string {
 		checkHasBracket := strings.HasSuffix(DistinguishedName, "]")
 		pattern := ""
 		if checkHasBracket {
-			pattern = `(.*)\/(.*)\-\[(.*)]`
+			checkHasBracket = strings.Contains(DistinguishedName, "]-[")
+			if checkHasBracket {
+				nestedBracket, _ := regexp.MatchString(`(.*)\[.*]-\[.*]\/([a-zA-Z-_]+)-\[.*]$`, DistinguishedName)
+				if nestedBracket {
+					pattern = `(.*)\[.*]-\[.*]\/([a-zA-Z-_]+)-\[.*]$`
+				} else {
+					pattern = `(.*)\/(.*)\[.*]-\[.*]$`
+				}
+			} else {
+				pattern = `(.*)\/(.*)\-\[(.*)]`
+			}
 		} else {
 			pattern = `(.+)\/(.*)`
 		}
