@@ -1,6 +1,7 @@
 package models
 
 import (
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -95,8 +96,20 @@ func CurlyBraces(value string) string {
 	}
 }
 
-func GetMORnPrefix(dn string) string {
-	dnParts := strings.Split(dn, "/")
-	hashedName := dnParts[len(dnParts)-1]
-	return strings.Split(hashedName, "-")[0]
+func GetMORnPrefix(DistinguishedName string) string {
+	if DistinguishedName != "" {
+		checkHasBracket := strings.HasSuffix(DistinguishedName, "]")
+		pattern := ""
+		if checkHasBracket {
+			pattern = `(.*)\/(.*)\-\[(.*)]`
+		} else {
+			pattern = `(.+)\/(.*)`
+		}
+		regex := regexp.MustCompile(pattern)
+		submatches := regex.FindAllStringSubmatch(DistinguishedName, -1)
+		if len(submatches) >= 1 {
+			return regexp.MustCompile("-").Split(submatches[0][2], -1)[0]
+		}
+	}
+	return DistinguishedName
 }
