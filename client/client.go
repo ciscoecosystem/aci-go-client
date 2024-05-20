@@ -428,10 +428,54 @@ func (c *Client) MakeRestRequest(method string, rpath string, body *container.Co
 	return req, nil
 }
 
+func (c *Client) makeRestRequestRaw(method string, rpath string, payload []byte, authenticated bool) (*http.Request, error) {
+	pathURL, err := url.Parse(rpath)
+	if err != nil {
+		return nil, err
+	}
+
+	fURL, err := url.Parse(c.BaseURL.String())
+	if err != nil {
+		return nil, err
+	}
+
+	if c.preserveBaseUrlRef {
+		// Default is false for preserveBaseUrlRef - matching original behavior to strip out BaseURL
+		fURLStr := fURL.String() + pathURL.String()
+		fURL, err = url.Parse(fURLStr)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		// Original behavior to strip down BaseURL
+		fURL = fURL.ResolveReference(pathURL)
+	}
+
+	var req *http.Request
+	log.Printf("[DEBUG] BaseURL: %s, pathURL: %s, fURL: %s", c.BaseURL.String(), pathURL.String(), fURL.String())
+	if method == "GET" {
+		req, err = http.NewRequest(method, fURL.String(), nil)
+	} else {
+		req, err = http.NewRequest(method, fURL.String(), bytes.NewBuffer(payload))
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	log.Printf("HTTP request %s %s", method, rpath)
+
+	if authenticated {
+		req, err = c.InjectAuthenticationHeader(req, rpath)
+		if err != nil {
+			return req, err
+		}
+	}
+
+	return req, nil
+}
+
 // Authenticate is used to
 func (c *Client) Authenticate() error {
-	// Setting skipLoggingPayloadState to preserve state during call of the method
-	skipLoggingPayloadState := c.skipLoggingPayload
 
 	log.Printf("[DEBUG] Begining Authentication method")
 
@@ -451,17 +495,12 @@ func (c *Client) Authenticate() error {
 		authenticated = true
 	}
 
-	// Setting skipLoggingPayload true so authentication details are not shown in logs
-	c.skipLoggingPayload = true
-
-	req, err := c.MakeRestRequestRaw(method, path, body, authenticated)
+	req, err := c.makeRestRequestRaw(method, path, body, authenticated)
 	if err != nil {
 		return err
 	}
 
 	obj, _, err := c.Do(req)
-
-	c.skipLoggingPayload = skipLoggingPayloadState
 
 	if err != nil {
 		log.Printf("[DEBUG] Authentication ERROR: %s", err)
