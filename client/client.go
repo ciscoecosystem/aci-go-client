@@ -354,7 +354,6 @@ func (c *Client) MakeRestRequestRaw(method string, rpath string, payload []byte,
 	if err != nil {
 		return nil, err
 	}
-
 	if c.skipLoggingPayload {
 		log.Printf("HTTP request %s %s", method, rpath)
 	} else {
@@ -366,7 +365,6 @@ func (c *Client) MakeRestRequestRaw(method string, rpath string, payload []byte,
 			return req, err
 		}
 	}
-
 	if !c.skipLoggingPayload {
 		log.Printf("HTTP request after injection %s %s %v", method, rpath, req)
 	}
@@ -408,12 +406,13 @@ func (c *Client) MakeRestRequest(method string, rpath string, body *container.Co
 	if err != nil {
 		return nil, err
 	}
-
+	c.l.Lock()
 	if c.skipLoggingPayload {
 		log.Printf("HTTP request %s %s", method, rpath)
 	} else {
 		log.Printf("HTTP request %s %s %v", method, rpath, req)
 	}
+	c.l.Unlock()
 	if authenticated {
 		req, err = c.InjectAuthenticationHeader(req, rpath)
 		if err != nil {
@@ -421,61 +420,19 @@ func (c *Client) MakeRestRequest(method string, rpath string, body *container.Co
 		}
 	}
 
+	c.l.Lock()
 	if !c.skipLoggingPayload {
 		log.Printf("HTTP request after injection %s %s %v", method, rpath, req)
 	}
-
-	return req, nil
-}
-
-func (c *Client) makeRestRequestRaw(method string, rpath string, payload []byte, authenticated bool) (*http.Request, error) {
-	pathURL, err := url.Parse(rpath)
-	if err != nil {
-		return nil, err
-	}
-
-	fURL, err := url.Parse(c.BaseURL.String())
-	if err != nil {
-		return nil, err
-	}
-
-	if c.preserveBaseUrlRef {
-		// Default is false for preserveBaseUrlRef - matching original behavior to strip out BaseURL
-		fURLStr := fURL.String() + pathURL.String()
-		fURL, err = url.Parse(fURLStr)
-		if err != nil {
-			return nil, err
-		}
-	} else {
-		// Original behavior to strip down BaseURL
-		fURL = fURL.ResolveReference(pathURL)
-	}
-
-	var req *http.Request
-	log.Printf("[DEBUG] BaseURL: %s, pathURL: %s, fURL: %s", c.BaseURL.String(), pathURL.String(), fURL.String())
-	if method == "GET" {
-		req, err = http.NewRequest(method, fURL.String(), nil)
-	} else {
-		req, err = http.NewRequest(method, fURL.String(), bytes.NewBuffer(payload))
-	}
-	if err != nil {
-		return nil, err
-	}
-
-	log.Printf("HTTP request %s %s", method, rpath)
-
-	if authenticated {
-		req, err = c.InjectAuthenticationHeader(req, rpath)
-		if err != nil {
-			return req, err
-		}
-	}
+	c.l.Unlock()
 
 	return req, nil
 }
 
 // Authenticate is used to
 func (c *Client) Authenticate() error {
+	// Setting skipLoggingPayloadState to preserve state during call of the method
+	skipLoggingPayloadState := c.skipLoggingPayload
 
 	log.Printf("[DEBUG] Begining Authentication method")
 
@@ -495,12 +452,17 @@ func (c *Client) Authenticate() error {
 		authenticated = true
 	}
 
-	req, err := c.makeRestRequestRaw(method, path, body, authenticated)
+	// Setting skipLoggingPayload true so authentication details are not shown in logs
+	SkipLoggingPayload(true)(c)
+
+	req, err := c.MakeRestRequestRaw(method, path, body, authenticated)
 	if err != nil {
 		return err
 	}
 
 	obj, _, err := c.Do(req)
+
+	SkipLoggingPayload(skipLoggingPayloadState)(c)
 
 	if err != nil {
 		log.Printf("[DEBUG] Authentication ERROR: %s", err)
