@@ -558,6 +558,7 @@ func (c *Client) do(req *http.Request, skipLoggingPayload bool) (*container.Cont
 		}
 
 		// Handle session timeout for login based requests
+		reAuthError := false
 		if (resp.StatusCode == 403) {
 			obj, err := container.ParseJSON(bodyBytes)
 			if err != nil {
@@ -579,13 +580,14 @@ func (c *Client) do(req *http.Request, skipLoggingPayload bool) (*container.Cont
 					continue
 				} else {
 					log.Printf("[ERROR] Error when retrying authentication after 403 error: %v", err)
+					reAuthError = true
 				}
 			} else {
 				log.Printf("[ERROR] Not retrying authentication after 403 error due to maximum re-authentication retries reached")
 			}
 		}
 
-		if (resp.StatusCode < 500 || resp.StatusCode > 504) && resp.StatusCode != 405 && !isApicNotFound(resp.StatusCode, bodyStr, resp.Header) {
+		if (resp.StatusCode < 500 || resp.StatusCode > 504) && resp.StatusCode != 405 && !isApicNotFound(resp.StatusCode, bodyStr, resp.Header) && !reAuthError{
 			obj, err := container.ParseJSON(bodyBytes)
 			if err != nil {
 				log.Printf("[ERROR] Error occured while json parsing: %+v", err)
@@ -604,8 +606,9 @@ func (c *Client) do(req *http.Request, skipLoggingPayload bool) (*container.Cont
 			if ok := c.backoff(attempts); !ok {
 				obj, err := container.ParseJSON(bodyBytes)
 				if err != nil {
-					log.Printf("[ERROR] Error occured while json parsing: %+v with HTTP StatusCode 405, 500-504", err)
-
+					if !reAuthError {
+						log.Printf("[ERROR] Error occured while json parsing: %+v with HTTP StatusCode 405, 500-504", err)
+					}
 					// If nginx is too busy or the page is not found, APIC's nginx will response with an HTML doc instead of a JSON Response.
 					// In those cases, parse the HTML response for the message and return that to the user
 					htmlErr := c.checkHtmlResp(bodyStr)
@@ -666,6 +669,7 @@ func (c *Client) doRaw(req *http.Request, skipLoggingPayload bool) (*http.Respon
 		}
 
 		// Handle session timeout for login based requests
+		reAuthError := false
 		if (resp.StatusCode == 403) {
 			log.Printf("[DEBUG] Authorization error with status code 403")
 			log.Printf("[DEBUG] Checking max re-authentication retries: %v on %v", reAuthCounter, c.maxReAuthRetries)
@@ -681,13 +685,14 @@ func (c *Client) doRaw(req *http.Request, skipLoggingPayload bool) (*http.Respon
 					continue
 				} else {
 					log.Printf("[ERROR] Error when retrying authentication after 403 error: %v", err)
+					reAuthError = true
 				}
 			} else {
 				log.Printf("[ERROR] Not retrying authentication after 403 error due to maximum re-authentication retries reached")
 			}
 		}
 
-		if (resp.StatusCode < 500 || resp.StatusCode > 504) && resp.StatusCode != 405 {
+		if (resp.StatusCode < 500 || resp.StatusCode > 504) && resp.StatusCode != 405 && !reAuthError {
 			log.Printf("[DEBUG] Exit from DoRaw method")
 			return resp, nil
 		} else {
