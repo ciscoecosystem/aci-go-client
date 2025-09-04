@@ -318,7 +318,7 @@ func (c *Client) useInsecureHTTPClient(insecure bool) *http.Transport {
 
 }
 
-func (c *Client) MakeFullUrl(rpath string) (string, string, error) {
+func (c *Client) makeFullUrl(rpath string) (string, string, error) {
 	rpath = strings.TrimLeft(rpath, "/")
 	rpath = fmt.Sprintf("/%v", rpath)
 	pathURL, err := url.Parse(rpath)
@@ -353,7 +353,7 @@ func (c *Client) MakeRestRequestRaw(method string, rpath string, payload []byte,
 }
 
 func (c *Client) makeRestRequestRaw(method string, rpath string, payload []byte, authenticated bool, skipLoggingPayload bool) (*http.Request, error) {
-	fURL, pathURL, err := c.MakeFullUrl(rpath)
+	fURL, pathURL, err := c.makeFullUrl(rpath)
 	if err != nil {
 		return nil, err
 	}
@@ -392,7 +392,7 @@ func (c *Client) MakeRestRequest(method string, rpath string, body *container.Co
 }
 
 func (c *Client) makeRestRequest(method string, rpath string, body *container.Container, authenticated bool, skipLoggingPayload bool) (*http.Request, error) {
-	fURL, pathURL, err := c.MakeFullUrl(rpath)
+	fURL, pathURL, err := c.makeFullUrl(rpath)
 	if err != nil {
 		return nil, err
 	}

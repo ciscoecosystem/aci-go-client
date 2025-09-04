@@ -25,7 +25,7 @@ func AssertFullUrl(t *testing.T, baseUrl string, path string, expected string, p
 		preserveBaseUrlRef: preserveBaseUrl,
 	}
 
-	actual, _, err := aciClient.MakeFullUrl(path)
+	actual, _, err := aciClient.makeFullUrl(path)
 	if actual != expected || err != nil {
 		t.Errorf(`MakeFullUrl("%s") = %q, %v, expected %#q`, path, actual, err, expected)
 	}
