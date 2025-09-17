@@ -7,10 +7,10 @@ import (
 	"github.com/ciscoecosystem/aci-go-client/v2/models"
 )
 
-func (sm *ServiceManager) CreateL3ExtSubnet(ip string, external_network_instance_profile string, l3_outside string, tenant string, description string, name string, l3extSubnetattr models.L3ExtSubnetAttributes) (*models.L3ExtSubnet, error) {
+func (sm *ServiceManager) CreateL3ExtSubnet(ip string, external_network_instance_profile string, l3_outside string, tenant string, description string, l3extSubnetattr models.L3ExtSubnetAttributes) (*models.L3ExtSubnet, error) {
 	rn := fmt.Sprintf("extsubnet-[%s]", ip)
 	parentDn := fmt.Sprintf("uni/tn-%s/out-%s/instP-%s", tenant, l3_outside, external_network_instance_profile)
-	l3extSubnet := models.NewL3ExtSubnet(rn, parentDn, description, name, l3extSubnetattr)
+	l3extSubnet := models.NewL3ExtSubnet(rn, parentDn, description, l3extSubnetattr)
 	err := sm.Save(l3extSubnet)
 	return l3extSubnet, err
 }
@@ -31,10 +31,10 @@ func (sm *ServiceManager) DeleteL3ExtSubnet(ip string, external_network_instance
 	return sm.DeleteByDn(dn, models.L3extsubnetClassName)
 }
 
-func (sm *ServiceManager) UpdateL3ExtSubnet(ip string, external_network_instance_profile string, l3_outside string, tenant string, description string, name string, l3extSubnetattr models.L3ExtSubnetAttributes) (*models.L3ExtSubnet, error) {
+func (sm *ServiceManager) UpdateL3ExtSubnet(ip string, external_network_instance_profile string, l3_outside string, tenant string, description string, l3extSubnetattr models.L3ExtSubnetAttributes) (*models.L3ExtSubnet, error) {
 	rn := fmt.Sprintf("extsubnet-[%s]", ip)
 	parentDn := fmt.Sprintf("uni/tn-%s/out-%s/instP-%s", tenant, l3_outside, external_network_instance_profile)
-	l3extSubnet := models.NewL3ExtSubnet(rn, parentDn, description, name, l3extSubnetattr)
+	l3extSubnet := models.NewL3ExtSubnet(rn, parentDn, description, l3extSubnetattr)
 
 	l3extSubnet.Status = "modified"
 	err := sm.Save(l3extSubnet)

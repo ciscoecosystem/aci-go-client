@@ -27,7 +27,7 @@ type L3ExtSubnetAttributes struct {
 	Scope string `json:",omitempty"`
 }
 
-func NewL3ExtSubnet(l3extSubnetRn, parentDn, description, name string, l3extSubnetattr L3ExtSubnetAttributes) *L3ExtSubnet {
+func NewL3ExtSubnet(l3extSubnetRn, parentDn, description string, l3extSubnetattr L3ExtSubnetAttributes) *L3ExtSubnet {
 	dn := fmt.Sprintf("%s/%s", parentDn, l3extSubnetRn)
 	return &L3ExtSubnet{
 		BaseAttributes: BaseAttributes{
