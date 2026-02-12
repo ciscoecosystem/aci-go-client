@@ -282,7 +282,7 @@ func (c *Client) configProxy(transport *http.Transport) *http.Transport {
 func (c *Client) useInsecureHTTPClient(insecure bool) *http.Transport {
 	// proxyUrl, _ := url.Parse("http://10.0.1.167:3128")
 
-	transport := http.DefaultTransport.(*http.Transport)
+	transport := http.DefaultTransport.(*http.Transport).Clone()
 
 	// transport := &http.Transport{
 	// 	TLSClientConfig: &tls.Config{
@@ -300,6 +300,7 @@ func (c *Client) useInsecureHTTPClient(insecure bool) *http.Transport {
 	// 	},
 	// }
 
+	transport.MaxIdleConnsPerHost = 32
 	transport.TLSClientConfig = &tls.Config{
 		CipherSuites: []uint16{
 			tls.TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,
