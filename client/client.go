@@ -311,6 +311,7 @@ func (c *Client) useInsecureHTTPClient(insecure bool) *http.Transport {
 		},
 		PreferServerCipherSuites: true,
 		InsecureSkipVerify:       insecure,
+		ClientSessionCache:       tls.NewLRUClientSessionCache(0),
 		MinVersion:               tls.VersionTLS11,
 		MaxVersion:               tls.VersionTLS13,
 	}
