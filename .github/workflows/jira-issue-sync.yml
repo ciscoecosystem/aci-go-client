@@ -1,0 +1,49 @@
+name: Sync GitHub Issues & Pull Requests to Jira
+
+on:
+  pull_request_target:
+    types:
+      - assigned
+      - unassigned
+      - labeled
+      - unlabeled
+      - opened
+      - edited
+      - closed
+      - reopened
+      - synchronize
+      - converted_to_draft
+      - ready_for_review
+      - locked
+      - unlocked
+      - review_requested
+      - review_request_removed
+      - auto_merge_enabled
+      - auto_merge_disabled
+  workflow_run:
+    workflows: [jira-issue-sync-pr-review]
+    types:
+      - completed
+  issues:
+  issue_comment:
+concurrency: jira_issues
+
+jobs:
+  sync_issues_to_jira:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync GitHub Issues & Pull Requests to Jira
+        uses: ciscoecosystem/sync-jira-actions@v1
+        with:
+          sync_label: jira-sync
+          status_field_id: 10740
+          find_jira_retries: 0
+          link_closing_issues: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JIRA_PASS: ${{ secrets.JIRA_PASS }}
+          JIRA_USER: ${{ secrets.JIRA_USER }}
+          JIRA_URL: ${{ secrets.JIRA_URL }}
+          JIRA_PROJECT: DCNE
+          JIRA_COMPONENT: aci-go-client
+          JIRA_ISSUE_TYPE: GitHub Issue
