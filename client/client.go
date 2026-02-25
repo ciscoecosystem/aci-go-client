@@ -588,7 +588,7 @@ func (c *Client) do(req *http.Request, skipLoggingPayload bool) (*container.Cont
 				return nil, resp, errors.New(fmt.Sprintf("Failed to parse JSON response from: %s. Verify that you are connecting to an APIC.\nHTTP response status: %s\nMessage: %s", req.URL.String(), resp.Status, htmlErr))
 			} else if resp.StatusCode == 400 {
 				errorCode := stripQuotes(obj.S("imdata").Index(0).S("error", "attributes", "code").String())
-				// Ignore Status code 400 and Error Code 103 object already exists error for POST requests since APIC does not allow for updates with POST and will return this error if the object already exists.
+				// Ignore Status code 400 and Error Code 103 object already exists error.
 				if errorCode == "107" {
 					errorMessage := stripQuotes(obj.S("imdata").Index(0).S("error", "attributes", "text").String())
 					log.Printf("[ERROR] HTTP Request failed: StatusCode %v, Method: %s, URL: %s, Error Code: %s, Error Message: %s", resp.StatusCode, req.Method, req.URL.String(), errorCode, errorMessage)
