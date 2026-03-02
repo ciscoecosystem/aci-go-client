@@ -586,14 +586,24 @@ func (c *Client) do(req *http.Request, skipLoggingPayload bool) (*container.Cont
 				log.Printf("[ERROR] Error occured while json parsing: %s", htmlErr.Error())
 				log.Printf("[DEBUG] Exit from Do method")
 				return nil, resp, errors.New(fmt.Sprintf("Failed to parse JSON response from: %s. Verify that you are connecting to an APIC.\nHTTP response status: %s\nMessage: %s", req.URL.String(), resp.Status, htmlErr))
-			} else if resp.StatusCode == 400 {
-				errorCode := stripQuotes(obj.S("imdata").Index(0).S("error", "attributes", "code").String())
-				// Ignore Status code 400 and Error Code 103 object already exists error.
-				if errorCode == "107" {
-					errorMessage := stripQuotes(obj.S("imdata").Index(0).S("error", "attributes", "text").String())
-					log.Printf("[ERROR] HTTP Request failed: StatusCode %v, Method: %s, URL: %s, Error Code: %s, Error Message: %s", resp.StatusCode, req.Method, req.URL.String(), errorCode, errorMessage)
-					log.Printf("[DEBUG] Exit from Do method")
-					return nil, resp, fmt.Errorf("HTTP Request failed: StatusCode %v, Method: %s, URL: %s, Error Code: %s, Error Message: %s", resp.StatusCode, req.Method, req.URL.String(), errorCode, errorMessage)
+			} else if resp != nil && obj.Data() != nil && resp.StatusCode != 200 {
+				errCode := StripQuotes(StripSquareBrackets(obj.Search("imdata", "error", "attributes", "code").String()))
+				errText := StripQuotes(StripSquareBrackets(obj.Search("imdata", "error", "attributes", "text").String()))
+
+				if errCode == "107" && strings.HasSuffix(errText, "make sure it's not used before deleting it") {
+					return nil, resp, fmt.Errorf("HTTP Request failed: StatusCode %v, Method: %s, URL: %s, Error Code: %s, Error Message: %s", resp.StatusCode, req.Method, req.URL.String(), errCode, errText)
+				} else if errCode == "103" || errCode == "107" || errCode == "202" || (errCode == "120" && strings.HasSuffix(errText, "can not be deleted.")) || (errCode == "1" && strings.HasSuffix(errText, "cannot be deleted.")) {
+					// Ignore errors of type "Cannot create object", "Cannot delete object", "Request in progress", error text containing "can not be deleted." when the error code is 120 and error text containing "cannot be deleted." when the error code is 1
+					log.Printf("[ERROR] Exiting from error: Code: %s, Message: %s", errCode, errText)
+					return obj, resp, nil
+				} else if errCode == "401" {
+					log.Printf("[ERROR] Unable to authenticate. Please check your credentials")
+					log.Printf("[ERROR] Response Status Code: %d, Error Code: %s, Error Message: %s.", resp.StatusCode, errCode, errText)
+					return obj, resp, nil
+				} else {
+					log.Printf("[ERROR] The %s rest request failed", strings.ToLower(req.Method))
+					log.Printf("[ERROR] Response Status Code: %d, Error Code: %s, Error Message: %s.", resp.StatusCode, errCode, errText)
+					return obj, resp, nil
 				}
 			}
 
