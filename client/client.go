@@ -586,7 +586,7 @@ func (c *Client) do(req *http.Request, skipLoggingPayload bool) (*container.Cont
 				log.Printf("[ERROR] Error occured while json parsing: %s", htmlErr.Error())
 				log.Printf("[DEBUG] Exit from Do method")
 				return nil, resp, errors.New(fmt.Sprintf("Failed to parse JSON response from: %s. Verify that you are connecting to an APIC.\nHTTP response status: %s\nMessage: %s", req.URL.String(), resp.Status, htmlErr))
-			} else if resp != nil && obj.Data() != nil && resp.StatusCode != 200 {
+			} else if resp != nil && obj.Data() != nil && resp.StatusCode >= 400 {
 				errCode := StripQuotes(StripSquareBrackets(obj.Search("imdata", "error", "attributes", "code").String()))
 				errText := StripQuotes(StripSquareBrackets(obj.Search("imdata", "error", "attributes", "text").String()))
 
