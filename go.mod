@@ -1,7 +1,8 @@
 module github.com/ciscoecosystem/aci-go-client/v2
 
-go 1.21
-toolchain go1.24.1
+go 1.25.0
+
+toolchain go1.25.8
 
 require (
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.33.0
