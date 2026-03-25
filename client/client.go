@@ -19,6 +19,7 @@ import (
 	"time"
 
 	"github.com/ciscoecosystem/aci-go-client/v2/container"
+	"github.com/ciscoecosystem/aci-go-client/v2/models"
 	"golang.org/x/net/html"
 )
 
@@ -597,8 +598,8 @@ func (c *Client) do(req *http.Request, skipLoggingPayload bool) (*container.Cont
 				log.Printf("[DEBUG] Exit from Do method")
 				return nil, resp, errors.New(fmt.Sprintf("Failed to parse JSON response from: %s. Verify that you are connecting to an APIC.\nHTTP response status: %s\nMessage: %s", req.URL.String(), resp.Status, htmlErr))
 			} else if resp != nil && obj.Data() != nil && resp.StatusCode >= 400 {
-				errCode := StripQuotes(StripSquareBrackets(obj.Search("imdata", "error", "attributes", "code").String()))
-				errText := StripQuotes(StripSquareBrackets(obj.Search("imdata", "error", "attributes", "text").String()))
+				errCode := models.StripQuotes(models.StripSquareBrackets(obj.Search("imdata", "error", "attributes", "code").String()))
+				errText := models.StripQuotes(models.StripSquareBrackets(obj.Search("imdata", "error", "attributes", "text").String()))
 
 				if errCode == "107" && strings.HasSuffix(errText, "make sure it's not used before deleting it") {
 					return nil, resp, fmt.Errorf("HTTP Request failed: StatusCode %v, Method: %s, URL: %s, Error Code: %s, Error Message: %s", resp.StatusCode, req.Method, req.URL.String(), errCode, errText)
