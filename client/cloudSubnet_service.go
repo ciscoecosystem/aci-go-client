@@ -144,7 +144,7 @@ func (sm *ServiceManager) ListCloudSubnet(cloud_cidr_pool_addr string, cloud_con
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ctxprofile-%s/cidr-[%s]/cloudSubnet.json", baseurlStr, tenant, cloud_context_profile, cloud_cidr_pool_addr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudSubnetListFromContainer(cont)
 
 	return list, err

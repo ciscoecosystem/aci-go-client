@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateAuthenticationMethodfortheDomain(login_domain st
 
 func (sm *ServiceManager) ListAuthenticationMethodfortheDomain(login_domain string) ([]*models.AuthenticationMethodfortheDomain, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/logindomain-%s/aaaDomainAuth.json", models.BaseurlStr, login_domain)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AuthenticationMethodfortheDomainListFromContainer(cont)
 	return list, err
 }

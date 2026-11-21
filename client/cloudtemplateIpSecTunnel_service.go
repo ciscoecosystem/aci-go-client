@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateCloudTemplateforIpSectunnel(peeraddr string, tem
 
 func (sm *ServiceManager) ListCloudTemplateforIpSectunnel(parentDn string) ([]*models.CloudTemplateforIpSectunnel, error) {
 	dnUrl := fmt.Sprintf("%s/%s/cloudtemplateIpSecTunnel.json", models.BaseurlStr, parentDn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudTemplateforIpSectunnelListFromContainer(cont)
 	return list, err
 }

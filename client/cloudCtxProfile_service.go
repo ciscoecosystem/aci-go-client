@@ -250,7 +250,7 @@ func (sm *ServiceManager) ListCloudContextProfile(tenant string) ([]*models.Clou
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/cloudCtxProfile.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudContextProfileListFromContainer(cont)
 
 	return list, err

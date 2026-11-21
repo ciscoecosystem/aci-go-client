@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListDHCPOptionPolicy(tenant string) ([]*models.DHCPOpt
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/dhcpOptionPol.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.DHCPOptionPolicyListFromContainer(cont)
 
 	return list, err

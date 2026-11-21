@@ -47,7 +47,7 @@ func (sm *ServiceManager) ListSPANSourceGroup(tenant string) ([]*models.SPANSour
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/spanSrcGrp.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SPANSourceGroupListFromContainer(cont)
 
 	return list, err

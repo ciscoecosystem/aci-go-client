@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListCloudProviderProfile() ([]*models.CloudProviderPro
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/cloudProvP.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudProviderProfileListFromContainer(cont)
 
 	return list, err

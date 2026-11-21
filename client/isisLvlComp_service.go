@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateISISLevel(isis_level_type string, isis_domain_po
 
 func (sm *ServiceManager) ListISISLevel(isis_domain_policy string) ([]*models.ISISLevel, error) {
 	dnUrl := fmt.Sprintf("%s/uni/fabric/isisDomP-%s/isisLvlComp.json", models.BaseurlStr, isis_domain_policy)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ISISLevelListFromContainer(cont)
 	return list, err
 }

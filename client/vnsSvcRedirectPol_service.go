@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListServiceRedirectPolicy(tenant string) ([]*models.Se
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/vnsSvcRedirectPol.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ServiceRedirectPolicyListFromContainer(cont)
 
 	return list, err

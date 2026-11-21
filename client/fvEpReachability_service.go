@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateEpReachability(parent_dn string, fvEpReachabilit
 
 func (sm *ServiceManager) ListEpReachability(parent_dn string) ([]*models.EpReachability, error) {
 	dnUrl := fmt.Sprintf("%s/%s/fvEpReachability.json", models.BaseurlStr, parent_dn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.EpReachabilityListFromContainer(cont)
 	return list, err
 }

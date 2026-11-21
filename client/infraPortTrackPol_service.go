@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdatePortTracking(name string, description string, na
 
 func (sm *ServiceManager) ListPortTracking() ([]*models.PortTracking, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/infraPortTrackPol.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.PortTrackingListFromContainer(cont)
 	return list, err
 }

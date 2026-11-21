@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateInfraPortConfiguration(subPort string, port stri
 
 func (sm *ServiceManager) ListInfraPortConfiguration() ([]*models.InfraPortConfiguration, error) {
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, models.ParentDnInfraPortConfig, models.InfraPortConfigClassName)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.InfraPortConfigurationListFromContainer(cont)
 	return list, err
 }

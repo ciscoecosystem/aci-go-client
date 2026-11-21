@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListL3outHSRPSecondaryVIP(hsrp_group_profile string, l
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/lifp-%s/hsrpIfP/hsrpGroupP-%s/hsrpSecVip.json", baseurlStr, tenant, l3_outside, logical_node_profile, logical_interface_profile, hsrp_group_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3outHSRPSecondaryVIPListFromContainer(cont)
 
 	return list, err

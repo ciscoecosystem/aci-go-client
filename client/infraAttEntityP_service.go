@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListAttachableAccessEntityProfile() ([]*models.Attacha
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infraAttEntityP.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AttachableAccessEntityProfileListFromContainer(cont)
 
 	return list, err

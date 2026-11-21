@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateMatchRule(name string, tenant string, descriptio
 
 func (sm *ServiceManager) ListMatchRule(tenant string) ([]*models.MatchRule, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/rtctrlSubjP.json", models.BaseurlStr, tenant)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.MatchRuleListFromContainer(cont)
 	return list, err
 }

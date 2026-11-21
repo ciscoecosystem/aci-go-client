@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateCloudTemplateforIpSectunnelSourceInterface(sourc
 
 func (sm *ServiceManager) ListCloudTemplateforIpSectunnelSourceInterface(parentDn string) ([]*models.CloudTemplateforIpSectunnelSourceInterface, error) {
 	dnUrl := fmt.Sprintf("%s/%s/cloudtemplateIpSecTunnelSourceInterface.json", models.BaseurlStr, parentDn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudTemplateIpSecTunnelSourceInterfaceListFromContainer(cont)
 	return list, err
 }

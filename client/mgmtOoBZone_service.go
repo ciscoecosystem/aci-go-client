@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateOOBManagedNodesZone(managed_node_connectivity_gr
 
 func (sm *ServiceManager) ListOOBManagedNodesZone(managed_node_connectivity_group string) ([]*models.OOBManagedNodesZone, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/funcprof/grp-%s/mgmtOoBZone.json", models.BaseurlStr, managed_node_connectivity_group)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.OOBManagedNodesZoneListFromContainer(cont)
 	return list, err
 }

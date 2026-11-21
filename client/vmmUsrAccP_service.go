@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateVMMCredential(name string, vmm_domain string, pr
 
 func (sm *ServiceManager) ListVMMCredential(vmm_domain string, provider_profile_vendor string) ([]*models.VMMCredential, error) {
 	dnUrl := fmt.Sprintf("%s/uni/vmmp-%s/dom-%s/vmmUsrAccP.json", models.BaseurlStr, provider_profile_vendor, vmm_domain)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.VMMCredentialListFromContainer(cont)
 	return list, err
 }

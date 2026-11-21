@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListFVDomain(application_epg string, application_profi
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ap-%s/epg-%s/fvRsDomAtt.json", baseurlStr, tenant, application_profile, application_epg)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FVDomainListFromContainer(cont)
 
 	return list, err

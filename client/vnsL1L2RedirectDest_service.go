@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateL1L2RedirectDestTraffic(destName string, parentD
 
 func (sm *ServiceManager) ListL1L2RedirectDestTraffic(parentDn string) ([]*models.L1L2RedirectDestTraffic, error) {
 	dnUrl := fmt.Sprintf("%s/%s/vnsL1L2RedirectDest.json", models.BaseurlStr, parentDn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L1L2RedirectDestTrafficListFromContainer(cont)
 	return list, err
 }

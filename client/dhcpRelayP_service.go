@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListDHCPRelayPolicy(tenant string) ([]*models.DHCPRela
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/dhcpRelayP.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.DHCPRelayPolicyListFromContainer(cont)
 
 	return list, err

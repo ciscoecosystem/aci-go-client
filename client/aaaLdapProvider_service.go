@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateLDAPProvider(name string, description string, na
 
 func (sm *ServiceManager) ListLDAPProvider() ([]*models.LDAPProvider, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/duoext/aaaLdapProvider.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LDAPProviderListFromContainer(cont)
 	return list, err
 }

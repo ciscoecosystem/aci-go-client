@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateRtctrlSetPref(action_rule_profile string, tenant
 
 func (sm *ServiceManager) ListRtctrlSetPref(action_rule_profile string, tenant string) ([]*models.RtctrlSetPref, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/attr-%s/rtctrlSetPref.json", models.BaseurlStr, tenant, action_rule_profile)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.RtctrlSetPrefListFromContainer(cont)
 	return list, err
 }

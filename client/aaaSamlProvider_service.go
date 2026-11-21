@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateSAMLProvider(name string, description string, na
 
 func (sm *ServiceManager) ListSAMLProvider() ([]*models.SAMLProvider, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/samlext/aaaSamlProvider.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SAMLProviderListFromContainer(cont)
 	return list, err
 }

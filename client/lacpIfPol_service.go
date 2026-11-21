@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateLACPMemberPolicy(name string, description string
 
 func (sm *ServiceManager) ListLACPMemberPolicy() ([]*models.LACPMemberPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/lacpIfPol.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LACPMemberPolicyListFromContainer(cont)
 	return list, err
 }

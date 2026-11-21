@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListLLDPInterfacePolicy() ([]*models.LLDPInterfacePoli
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/lldpIfPol.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LLDPInterfacePolicyListFromContainer(cont)
 
 	return list, err

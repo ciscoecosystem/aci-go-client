@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateSNMPContextProfile(vrf string, tenant string, na
 
 func (sm *ServiceManager) ListSNMPContextProfile(vrf string, tenant string) ([]*models.SNMPContextProfile, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ctx-%s/snmpCtxP.json", models.BaseurlStr, tenant, vrf)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SNMPContextProfileListFromContainer(cont)
 	return list, err
 }

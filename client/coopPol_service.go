@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateCOOPGroupPolicy(name string, description string,
 
 func (sm *ServiceManager) ListCOOPGroupPolicy() ([]*models.COOPGroupPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/fabric/coopPol.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.COOPGroupPolicyListFromContainer(cont)
 	return list, err
 }

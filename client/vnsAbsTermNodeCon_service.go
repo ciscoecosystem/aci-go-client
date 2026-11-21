@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListConsumerTerminalNode(l4_l7_service_graph_template 
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/AbsGraph-%s/vnsAbsTermNodeCon.json", baseurlStr, tenant, l4_l7_service_graph_template)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ConsumerTerminalNodeListFromContainer(cont)
 
 	return list, err

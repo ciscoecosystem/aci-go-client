@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListMonitoringPolicy(tenant string) ([]*models.Monitor
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/monEPGPol.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.MonitoringPolicyListFromContainer(cont)
 
 	return list, err

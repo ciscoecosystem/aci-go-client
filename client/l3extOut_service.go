@@ -49,7 +49,7 @@ func (sm *ServiceManager) ListL3Outside(tenant string) ([]*models.L3Outside, err
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/l3extOut.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3OutsideListFromContainer(cont)
 
 	return list, err

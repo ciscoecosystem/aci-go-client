@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListCloudEPg(cloud_application_container string, tenan
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/cloudapp-%s/cloudEPg.json", baseurlStr, tenant, cloud_application_container)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudEPgListFromContainer(cont)
 
 	return list, err

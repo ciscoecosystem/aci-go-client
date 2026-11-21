@@ -49,7 +49,7 @@ func (sm *ServiceManager) ListInBandManagementEPg(management_profile string, ten
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/mgmtp-%s/mgmtInB.json", baseurlStr, tenant, management_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.InBandManagementEPgListFromContainer(cont)
 
 	return list, err

@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateAnycastEndpoint(mac string, parent_dn string, de
 
 func (sm *ServiceManager) ListAnycastEndpoint(parent_dn string) ([]*models.AnycastEndpoint, error) {
 	dnUrl := fmt.Sprintf("%s/%s/fvEpAnycast.json", models.BaseurlStr, parent_dn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AnycastEndpointListFromContainer(cont)
 	return list, err
 }

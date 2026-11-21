@@ -43,7 +43,7 @@ func (sm *ServiceManager) UpdateAciBfdMultihopInterfaceProfile(logical_interface
 
 func (sm *ServiceManager) ListAciBfdMultihopInterfaceProfile(logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string) ([]*models.AciBfdMultihopInterfaceProfile, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/lifp-%s/bfdMhIfP.json", models.BaseurlStr, tenant, l3_outside, logical_node_profile, logical_interface_profile)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AciBfdMultihopInterfaceProfileListFromContainer(cont)
 	return list, err
 }

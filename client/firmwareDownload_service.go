@@ -41,7 +41,7 @@ func (sm *ServiceManager) UpdateDownload(name string, description string, firmwa
 func (sm *ServiceManager) ListDownload() ([]*models.Download, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/firmwareDownload.json", baseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.DownloadListFromContainer(cont)
 	return list, err
 }

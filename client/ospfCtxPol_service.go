@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListOSPFTimersPolicy(tenant string) ([]*models.OSPFTim
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ospfCtxPol.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.OSPFTimersPolicyListFromContainer(cont)
 
 	return list, err

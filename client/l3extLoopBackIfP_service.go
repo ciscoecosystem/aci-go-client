@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListLoopBackInterfaceProfile(fabric_node_tDn string, l
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/rsnodeL3OutAtt-[%s]/l3extLoopBackIfP.json", baseurlStr, tenant, l3_outside, logical_node_profile, fabric_node_tDn)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LoopBackInterfaceProfileListFromContainer(cont)
 
 	return list, err

@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateMulticastAddressBlock(to string, from string, mu
 
 func (sm *ServiceManager) ListMulticastAddressBlock(multicast_address_pool string) ([]*models.MulticastAddressBlock, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/maddrns-%s/fvnsMcastAddrBlk.json", models.BaseurlStr, multicast_address_pool)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.MulticastAddressBlockListFromContainer(cont)
 	return list, err
 }

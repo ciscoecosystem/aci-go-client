@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateLDAPGroupMap(name string, description string, na
 
 func (sm *ServiceManager) ListLDAPGroupMap() ([]*models.LDAPGroupMap, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/ldapext/aaaLdapGroupMap.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LDAPGroupMapListFromContainer(cont)
 	return list, err
 }

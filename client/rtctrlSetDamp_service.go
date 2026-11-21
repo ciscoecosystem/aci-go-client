@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateRtctrlSetDamp(action_rule_profile string, tenant
 
 func (sm *ServiceManager) ListRtctrlSetDamp(action_rule_profile string, tenant string) ([]*models.RtctrlSetDamp, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/attr-%s/rtctrlSetDamp.json", models.BaseurlStr, tenant, action_rule_profile)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.RtctrlSetDampListFromContainer(cont)
 	return list, err
 }

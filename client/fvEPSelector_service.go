@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateEndpointSecurityGroupSelector(matchExpression st
 
 func (sm *ServiceManager) ListEndpointSecurityGroupSelector(endpoint_security_group string, application_profile string, tenant string) ([]*models.EndpointSecurityGroupSelector, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ap-%s/esg-%s/fvEPSelector.json", models.BaseurlStr, tenant, application_profile, endpoint_security_group)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.EndpointSecurityGroupSelectorListFromContainer(cont)
 	return list, err
 }

@@ -51,7 +51,7 @@ func (sm *ServiceManager) ListPIMExternalProfile(l3_outside string, tenant strin
 	parentDn := fmt.Sprintf(models.ParentDnPimExtP, tenant, l3_outside)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.PimExtPClassName)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.PIMExternalProfileListFromContainer(cont)
 	return list, err
 }

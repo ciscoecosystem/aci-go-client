@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListL3outRouteTagPolicy(tenant string) ([]*models.L3ou
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/l3extRouteTagPol.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3outRouteTagPolicyListFromContainer(cont)
 
 	return list, err

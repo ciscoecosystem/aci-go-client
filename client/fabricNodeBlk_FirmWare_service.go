@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListNodeBlockFW(firmware_group string) ([]*models.Node
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/fabric/fwgrp-%s/fabricNodeBlk.json", baseurlStr, firmware_group)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.NodeBlockListFromContainer(cont)
 
 	return list, err

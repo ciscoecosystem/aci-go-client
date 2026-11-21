@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateTACACSSource(name string, monitoring_target_scop
 
 func (sm *ServiceManager) ListTACACSSource(monitoring_target_scope string, monitoring_policy string, tenant string) ([]*models.TACACSSource, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/monepg-%s/tarepg-%s/tacacsSrc.json", models.BaseurlStr, tenant, monitoring_policy, monitoring_target_scope, monitoring_policy)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.TACACSSourceListFromContainer(cont)
 	return list, err
 }

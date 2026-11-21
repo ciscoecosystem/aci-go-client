@@ -27,7 +27,7 @@ func (sm *ServiceManager) ReadCtrlrMaintP(name string) (*models.CtrlrMaintP, err
 func (sm *ServiceManager) ListCtrlrMaintP() ([]*models.CtrlrMaintP, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/maintCtrlrMaintP.json", baseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CtrlrMaintPListFromContainer(cont)
 	return list, err
 }

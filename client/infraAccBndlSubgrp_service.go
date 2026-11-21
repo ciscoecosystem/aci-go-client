@@ -43,7 +43,7 @@ func (sm *ServiceManager) UpdateOverridePCVPCPolicyGroup(name string, leaf_acces
 
 func (sm *ServiceManager) ListOverridePCVPCPolicyGroup(leaf_access_bundle_policy_group string) ([]*models.OverridePCVPCPolicyGroup, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/funcprof/accbundle-%s/infraAccBndlSubgrp.json", models.BaseurlStr, leaf_access_bundle_policy_group)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.OverridePCVPCPolicyGroupListFromContainer(cont)
 	return list, err
 }

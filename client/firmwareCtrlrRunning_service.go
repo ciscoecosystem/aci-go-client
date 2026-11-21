@@ -18,7 +18,7 @@ func (sm *ServiceManager) ReadFirmwareCtrlrRunning(podId uint32, nodeId uint32) 
 func (sm *ServiceManager) ListFirmwareCtrlrRunning() ([]*models.FirmwareCtrlrRunning, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/firmwareCtrlrRunning.json", baseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FirmwareCtrlrRunningListFromContainer(cont)
 	return list, err
 }

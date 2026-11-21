@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListCloudApplicationcontainer(tenant string) ([]*model
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/cloudApp.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudApplicationcontainerListFromContainer(cont)
 
 	return list, err

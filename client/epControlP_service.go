@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateEndpointControlPolicy(name string, description s
 
 func (sm *ServiceManager) ListEndpointControlPolicy() ([]*models.EndpointControlPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/epControlP.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.EndpointControlPolicyListFromContainer(cont)
 	return list, err
 }

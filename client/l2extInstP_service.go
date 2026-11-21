@@ -49,7 +49,7 @@ func (sm *ServiceManager) ListL2outExternalEpg(l2_outside string, tenant string)
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/l2out-%s/l2extInstP.json", baseurlStr, tenant, l2_outside)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L2outExternalEpgListFromContainer(cont)
 
 	return list, err

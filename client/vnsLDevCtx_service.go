@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListLogicalDeviceContext(tenant string) ([]*models.Log
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/vnsLDevCtx.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LogicalDeviceContextListFromContainer(cont)
 
 	return list, err

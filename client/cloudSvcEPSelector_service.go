@@ -59,7 +59,7 @@ func (sm *ServiceManager) ListCloudServiceEndpointSelector(cloud_service_epg str
 	parentDn := fmt.Sprintf(models.ParentDnCloudSvcEPSelector, tenant, cloud_application_container, cloud_service_epg)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.CloudSvcEPSelectorClassName)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudServiceEndpointSelectorListFromContainer(cont)
 	return list, err
 }

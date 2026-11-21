@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListBgpBestPathPolicy(tenant string) ([]*models.BgpBes
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/bgpBestPathCtrlPol.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.BgpBestPathPolicyListFromContainer(cont)
 
 	return list, err

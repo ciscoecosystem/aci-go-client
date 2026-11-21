@@ -59,7 +59,7 @@ func (sm *ServiceManager) ListBgpRouteSummarization(tenant string) ([]*models.Bg
 	parentDn := fmt.Sprintf(models.ParentDnBgpRtSummPol, tenant)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.BgprtsummpolClassName)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.BgpRouteSummarizationListFromContainer(cont)
 	return list, err
 }

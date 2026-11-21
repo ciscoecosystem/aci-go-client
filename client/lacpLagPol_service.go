@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListLACPPolicy() ([]*models.LACPPolicy, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/lacpLagPol.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LACPPolicyListFromContainer(cont)
 
 	return list, err

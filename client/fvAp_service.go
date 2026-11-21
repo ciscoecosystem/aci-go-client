@@ -47,7 +47,7 @@ func (sm *ServiceManager) ListApplicationProfile(tenant string) ([]*models.Appli
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/fvAp.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ApplicationProfileListFromContainer(cont)
 
 	return list, err

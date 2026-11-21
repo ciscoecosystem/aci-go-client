@@ -47,7 +47,7 @@ func (sm *ServiceManager) ListConfigurationExportPolicy() ([]*models.Configurati
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/configExportP.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ConfigurationExportPolicyListFromContainer(cont)
 
 	return list, err

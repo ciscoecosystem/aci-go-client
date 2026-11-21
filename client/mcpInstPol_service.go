@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateMiscablingProtocolInstancePolicy(name string, de
 
 func (sm *ServiceManager) ListMiscablingProtocolInstancePolicy() ([]*models.MiscablingProtocolInstancePolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/mcpInstPol.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.MiscablingProtocolInstancePolicyListFromContainer(cont)
 	return list, err
 }

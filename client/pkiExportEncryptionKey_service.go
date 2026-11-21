@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateAESEncryptionPassphraseandKeysforConfigExportImp
 
 func (sm *ServiceManager) ListAESEncryptionPassphraseandKeysforConfigExportImport() ([]*models.AESEncryptionPassphraseandKeysforConfigExportImport, error) {
 	dnUrl := fmt.Sprintf("%s/uni/pkiExportEncryptionKey.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AESEncryptionPassphraseandKeysforConfigExportImportListFromContainer(cont)
 	return list, err
 }

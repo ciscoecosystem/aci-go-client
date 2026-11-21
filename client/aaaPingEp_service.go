@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateDefaultRadiusAuthenticationSettings(description 
 
 func (sm *ServiceManager) ListDefaultRadiusAuthenticationSettings() ([]*models.DefaultRadiusAuthenticationSettings, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/aaaPingEp.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.DefaultRadiusAuthenticationSettingsListFromContainer(cont)
 	return list, err
 }

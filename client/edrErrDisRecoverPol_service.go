@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateErrorDisabledRecoveryPolicy(name string, descrip
 
 func (sm *ServiceManager) ListErrorDisabledRecoveryPolicy() ([]*models.ErrorDisabledRecoveryPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/edrErrDisRecoverPol.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ErrorDisabledRecoveryPolicyListFromContainer(cont)
 	return list, err
 }

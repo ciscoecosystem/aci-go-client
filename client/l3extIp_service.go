@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListL3outPathAttachmentSecondaryIp(leaf_port_tDn strin
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/lifp-%s/rspathL3OutAtt-[%s]/l3extIp.json", baseurlStr, tenant, l3_outside, logical_node_profile, logical_interface_profile, leaf_port_tDn)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3outPathAttachmentSecondaryIpListFromContainer(cont)
 
 	return list, err

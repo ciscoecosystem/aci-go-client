@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateAciBfdMultihopInterfacePolicy(name string, tenan
 
 func (sm *ServiceManager) ListAciBfdMultihopInterfacePolicy(tenant string) ([]*models.AciBfdMultihopInterfacePolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/bfdMhIfPol.json", models.BaseurlStr, tenant)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AciBfdMultihopInterfacePolicyListFromContainer(cont)
 	return list, err
 }

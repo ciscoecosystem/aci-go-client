@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListBFDInterfacePolicy(tenant string) ([]*models.BFDIn
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/bfdIfPol.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.BFDInterfacePolicyListFromContainer(cont)
 
 	return list, err

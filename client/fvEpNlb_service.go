@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateNlbEndpoint(parent_dn string, description string
 
 func (sm *ServiceManager) ListNlbEndpoint(parent_dn string) ([]*models.NlbEndpoint, error) {
 	dnUrl := fmt.Sprintf("%s/%s/fvEpNlb.json", models.BaseurlStr, parent_dn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.NlbEndpointListFromContainer(cont)
 	return list, err
 }

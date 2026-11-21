@@ -47,7 +47,7 @@ func (sm *ServiceManager) ListFCDomain() ([]*models.FCDomain, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/fcDomP.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FCDomainListFromContainer(cont)
 
 	return list, err

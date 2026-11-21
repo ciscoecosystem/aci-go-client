@@ -41,7 +41,7 @@ func (sm *ServiceManager) UpdateCtrlrFwP(description string, firmwareCtrlrFwPAtt
 func (sm *ServiceManager) ListCtrlrFwP() ([]*models.CtrlrFwP, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/firmwareCtrlrFwP.json", baseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CtrlrFwPListFromContainer(cont)
 	return list, err
 }

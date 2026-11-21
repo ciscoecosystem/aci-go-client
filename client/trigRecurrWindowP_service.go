@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateRecurringWindow(name string, scheduler string, n
 
 func (sm *ServiceManager) ListRecurringWindow(scheduler string) ([]*models.RecurringWindow, error) {
 	dnUrl := fmt.Sprintf("%s/uni/fabric/schedp-%s/trigRecurrWindowP.json", models.BaseurlStr, scheduler)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.RecurringWindowListFromContainer(cont)
 	return list, err
 }

@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListSwitchSpineAssociation(spine_profile string) ([]*m
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infra/spprof-%s/infraSpineS.json", baseurlStr, spine_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SwitchSpineAssociationListFromContainer(cont)
 
 	return list, err

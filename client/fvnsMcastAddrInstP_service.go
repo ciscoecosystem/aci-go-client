@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateMulticastAddressPool(name string, description st
 
 func (sm *ServiceManager) ListMulticastAddressPool() ([]*models.MulticastAddressPool, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/fvnsMcastAddrInstP.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.MulticastAddressPoolListFromContainer(cont)
 	return list, err
 }

@@ -41,7 +41,7 @@ func (sm *ServiceManager) UpdateTenantandVRFdestinationforInterVRFLeakedRoutes(d
 func (sm *ServiceManager) ListTenantandVRFdestinationforInterVRFLeakedRoutes(parentDn string) ([]*models.TenantandVRFdestinationforInterVRFLeakedRoutes, error) {
 	dnUrl := fmt.Sprintf("%s/%s/leakTo.json", models.BaseurlStr, parentDn)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.TenantandVRFdestinationforInterVRFLeakedRoutesListFromContainer(cont)
 	return list, err
 }

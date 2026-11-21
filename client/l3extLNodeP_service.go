@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListLogicalNodeProfile(l3_outside string, tenant strin
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/l3extLNodeP.json", baseurlStr, tenant, l3_outside)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LogicalNodeProfileListFromContainer(cont)
 
 	return list, err

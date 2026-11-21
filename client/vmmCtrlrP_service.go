@@ -44,7 +44,7 @@ func (sm *ServiceManager) UpdateVMMController(name string, vmm_domain string, pr
 
 func (sm *ServiceManager) ListVMMController(vmm_domain string, provider_profile_vendor string) ([]*models.VMMController, error) {
 	dnUrl := fmt.Sprintf("%s/uni/vmmp-%s/dom-%s/vmmCtrlrP.json", models.BaseurlStr, provider_profile_vendor, vmm_domain)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.VMMControllerListFromContainer(cont)
 	return list, err
 }

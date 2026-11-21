@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateVPCDomainPolicy(name string, description string,
 
 func (sm *ServiceManager) ListVPCDomainPolicy() ([]*models.VPCDomainPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/fabric/vpcInstPol.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.VPCDomainPolicyListFromContainer(cont)
 	return list, err
 }

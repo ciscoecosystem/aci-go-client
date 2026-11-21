@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListSPANSourcedestinationGroupMatchLabel(span_source_g
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/srcgrp-%s/spanSpanLbl.json", baseurlStr, tenant, span_source_group)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SPANSourcedestinationGroupMatchLabelListFromContainer(cont)
 
 	return list, err

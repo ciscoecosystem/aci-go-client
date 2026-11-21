@@ -41,7 +41,7 @@ func (sm *ServiceManager) UpdateDestinationofredirectedtraffic(ip string, parent
 
 func (sm *ServiceManager) ListDestinationofredirectedtraffic(parentDn string) ([]*models.Destinationofredirectedtraffic, error) {
 	dnUrl := fmt.Sprintf("%s/%s/vnsRedirectDest.json", models.BaseurlStr, parentDn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.DestinationofredirectedtrafficListFromContainer(cont)
 	return list, err
 }

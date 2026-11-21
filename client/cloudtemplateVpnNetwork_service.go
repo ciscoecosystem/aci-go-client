@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateCloudTemplateforVPNNetwork(name string, template
 
 func (sm *ServiceManager) ListCloudTemplateforVPNNetwork(template_for_external_network string, infra_network_template string, tenant string) ([]*models.CloudTemplateforVPNNetwork, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/infranetwork-%s/extnetwork-%s/cloudtemplateVpnNetwork.json", models.BaseurlStr, tenant, infra_network_template, template_for_external_network)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudTemplateforVPNNetworkListFromContainer(cont)
 	return list, err
 }

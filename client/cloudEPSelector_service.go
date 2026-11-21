@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListCloudEndpointSelector(cloud_epg string, cloud_appl
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/cloudapp-%s/cloudepg-%s/cloudEPSelector.json", baseurlStr, tenant, cloud_application_container, cloud_epg)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudEndpointSelectorListFromContainer(cont)
 
 	return list, err

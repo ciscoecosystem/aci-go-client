@@ -41,7 +41,7 @@ func (sm *ServiceManager) UpdateSpineAccessPortSelector(spine_access_port_select
 
 func (sm *ServiceManager) ListSpineAccessPortSelector(spine_interface_profile string) ([]*models.SpineAccessPortSelector, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/spaccportprof-%s/infraSHPortS.json", models.BaseurlStr, spine_interface_profile)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SpineAccessPortSelectorListFromContainer(cont)
 	return list, err
 }

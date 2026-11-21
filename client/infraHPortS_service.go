@@ -47,7 +47,7 @@ func (sm *ServiceManager) ListAccessPortSelector(leaf_interface_profile string) 
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infra/accportprof-%s/infraHPortS.json", baseurlStr, leaf_interface_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AccessPortSelectorListFromContainer(cont)
 
 	return list, err

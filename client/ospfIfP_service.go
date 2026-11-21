@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListOSPFInterfaceProfile(logical_interface_profile str
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/lifp-%s/ospfIfP.json", baseurlStr, tenant, l3_outside, logical_node_profile, logical_interface_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.OSPFInterfaceProfileListFromContainer(cont)
 
 	return list, err

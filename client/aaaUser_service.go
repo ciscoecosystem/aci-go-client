@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListLocalUser() ([]*models.LocalUser, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/aaaUser.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LocalUserListFromContainer(cont)
 
 	return list, err

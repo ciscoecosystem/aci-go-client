@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListOspfRouteSummarization(tenant string) ([]*models.O
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ospfRtSummPol.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.OspfRouteSummarizationListFromContainer(cont)
 
 	return list, err

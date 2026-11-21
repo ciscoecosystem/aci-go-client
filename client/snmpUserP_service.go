@@ -59,7 +59,7 @@ func (sm *ServiceManager) ListSnmpUserProfile(snmp_policy string) ([]*models.Snm
 	parentDn := fmt.Sprintf(models.ParentDnSnmpUserP, snmp_policy)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.SnmpUserPClassName)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SnmpUserProfileListFromContainer(cont)
 	return list, err
 }

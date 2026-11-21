@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListOutofbandStaticNode(out_of_band_management_epg str
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/mgmtp-%s/oob-%s/mgmtRsOoBStNode.json", baseurlStr, tenant, management_profile, out_of_band_management_epg)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.OutofbandStaticNodeListFromContainer(cont)
 
 	return list, err

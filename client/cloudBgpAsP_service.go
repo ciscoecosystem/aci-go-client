@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListAutonomousSystemProfile() ([]*models.AutonomousSys
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/cloudBgpAsP.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AutonomousSystemProfileListFromContainer(cont)
 
 	return list, err

@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateNexthopEpPReachability(nhAddr string, parent_dn 
 
 func (sm *ServiceManager) ListNexthopEpPReachability(parent_dn string) ([]*models.NexthopEpPReachability, error) {
 	dnUrl := fmt.Sprintf("%s/%s/ipNexthopEpP.json", models.BaseurlStr, parent_dn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.NexthopEpPReachabilityListFromContainer(cont)
 	return list, err
 }

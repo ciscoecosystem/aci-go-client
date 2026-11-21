@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateUserDomain(name string, local_user string, descr
 
 func (sm *ServiceManager) ListUserDomain(local_user string) ([]*models.UserDomain, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/user-%s/aaaUserDomain.json", models.BaseurlStr, local_user)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.UserDomainListFromContainer(cont)
 	return list, err
 }

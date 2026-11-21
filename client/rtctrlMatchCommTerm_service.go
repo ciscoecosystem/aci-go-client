@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateMatchCommunityTerm(name string, match_rule strin
 
 func (sm *ServiceManager) ListMatchCommunityTerm(match_rule string, tenant string) ([]*models.MatchCommunityTerm, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/subj-%s/rtctrlMatchCommTerm.json", models.BaseurlStr, tenant, match_rule)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.MatchCommunityTermListFromContainer(cont)
 	return list, err
 }

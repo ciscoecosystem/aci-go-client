@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateLeakInternalSubnet(ip string, vrf string, tenant
 
 func (sm *ServiceManager) ListLeakInternalSubnet(vrf string, tenant string) ([]*models.LeakInternalSubnet, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ctx-%s/leakroutes/leakInternalSubnet.json", models.BaseurlStr, tenant, vrf)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LeakInternalSubnetListFromContainer(cont)
 	return list, err
 }

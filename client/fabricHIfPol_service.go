@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListLinkLevelPolicy() ([]*models.LinkLevelPolicy, erro
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/fabricHIfPol.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LinkLevelPolicyListFromContainer(cont)
 
 	return list, err

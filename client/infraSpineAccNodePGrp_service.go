@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateSpineSwitchPolicyGroup(name string, description 
 
 func (sm *ServiceManager) ListSpineSwitchPolicyGroup() ([]*models.SpineSwitchPolicyGroup, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/funcprof/infraSpineAccNodePGrp.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SpineSwitchPolicyGroupListFromContainer(cont)
 	return list, err
 }

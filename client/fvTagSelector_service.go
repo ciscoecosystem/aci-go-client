@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateEndpointSecurityGroupTagSelector(matchValue stri
 
 func (sm *ServiceManager) ListEndpointSecurityGroupTagSelector(endpoint_security_group string, application_profile string, tenant string) ([]*models.EndpointSecurityGroupTagSelector, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ap-%s/esg-%s/fvTagSelector.json", models.BaseurlStr, tenant, application_profile, endpoint_security_group)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.EndpointSecurityGroupTagSelectorListFromContainer(cont)
 	return list, err
 }

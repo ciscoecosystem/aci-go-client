@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListInterfaceFCPolicy() ([]*models.InterfaceFCPolicy, 
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/fcIfPol.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.InterfaceFCPolicyListFromContainer(cont)
 
 	return list, err

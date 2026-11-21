@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateRtctrlSetComm(action_rule_profile string, tenant
 
 func (sm *ServiceManager) ListRtctrlSetComm(action_rule_profile string, tenant string) ([]*models.RtctrlSetComm, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/attr-%s/rtctrlSetComm.json", models.BaseurlStr, tenant, action_rule_profile)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.RtctrlSetCommListFromContainer(cont)
 	return list, err
 }

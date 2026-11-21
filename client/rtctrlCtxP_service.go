@@ -68,7 +68,7 @@ func (sm *ServiceManager) ListRouteControlContext(route_control_profile string, 
 	} else {
 		dnUrl = fmt.Sprintf("%s/uni/tn-%s/out-%s/prof-%s/rtctrlCtxP.json", models.BaseurlStr, tenant, l3_outside, route_control_profile)
 	}
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.RouteControlContextListFromContainer(cont)
 	return list, err
 }

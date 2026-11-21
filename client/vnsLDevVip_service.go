@@ -44,7 +44,7 @@ func (sm *ServiceManager) UpdateL4ToL7Devices(name string, tenant string, nameAl
 
 func (sm *ServiceManager) ListL4ToL7Devices(tenant string) ([]*models.L4ToL7Devices, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/vnsLDevVip.json", models.BaseurlStr, tenant)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L4ToL7DevicesListFromContainer(cont)
 	return list, err
 }

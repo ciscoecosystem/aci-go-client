@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateTACACSDestination(port string, host string, taca
 
 func (sm *ServiceManager) ListTACACSDestination(tacacs_monitoring_destination_group string) ([]*models.TACACSDestination, error) {
 	dnUrl := fmt.Sprintf("%s/uni/fabric/tacacsgroup-%s/tacacsTacacsDest.json", models.BaseurlStr, tacacs_monitoring_destination_group)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.TACACSDestinationListFromContainer(cont)
 	return list, err
 }

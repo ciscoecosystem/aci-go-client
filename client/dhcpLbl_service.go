@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListBDDHCPLabel(bridge_domain string, tenant string) (
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/BD-%s/dhcpLbl.json", baseurlStr, tenant, bridge_domain)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.BDDHCPLabelListFromContainer(cont)
 
 	return list, err

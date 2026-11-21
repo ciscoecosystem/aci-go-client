@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListL3outPathAttachment(logical_interface_profile stri
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/lifp-%s/l3extRsPathL3OutAtt.json", baseurlStr, tenant, l3_outside, logical_node_profile, logical_interface_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3outPathAttachmentListFromContainer(cont)
 
 	return list, err

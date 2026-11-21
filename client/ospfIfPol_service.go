@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListOSPFInterfacePolicy(tenant string) ([]*models.OSPF
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ospfIfPol.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.OSPFInterfacePolicyListFromContainer(cont)
 
 	return list, err

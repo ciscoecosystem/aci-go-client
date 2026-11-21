@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateBlockUserLoginsPolicy(description string, nameAl
 
 func (sm *ServiceManager) ListBlockUserLoginsPolicy() ([]*models.BlockUserLoginsPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/aaaBlockLoginProfile.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.BlockUserLoginsPolicyListFromContainer(cont)
 	return list, err
 }

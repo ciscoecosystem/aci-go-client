@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListLocalAutonomousSystemProfile(peer_connectivity_pro
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/peerP-[%s]/bgpLocalAsnP.json", baseurlStr, tenant, l3_outside, logical_node_profile, peer_connectivity_profile_addr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LocalAutonomousSystemProfileListFromContainer(cont)
 
 	return list, err

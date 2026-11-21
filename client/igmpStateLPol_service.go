@@ -52,7 +52,7 @@ func (sm *ServiceManager) ListIGMPStateLimitPolicy(igmp_interface_policy string,
 	parentDn := fmt.Sprintf(models.ParentDnIgmpStateLPol, tenant, igmp_interface_policy)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.IgmpStateLPolClassName)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.IGMPStateLimitPolicyListFromContainer(cont)
 	return list, err
 }

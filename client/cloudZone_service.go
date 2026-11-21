@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListCloudAvailabilityZone(cloud_providers_region strin
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/clouddomp/provp-%s/region-%s/cloudZone.json", baseurlStr, cloud_provider_profile_vendor, cloud_providers_region)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudAvailabilityZoneListFromContainer(cont)
 
 	return list, err

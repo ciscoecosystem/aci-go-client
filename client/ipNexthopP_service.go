@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListL3outStaticRouteNextHop(static_route_ip string, fa
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/rsnodeL3OutAtt-[%s]/rt-[%s]/ipNexthopP.json", baseurlStr, tenant, l3_outside, logical_node_profile, fabric_node_tDn, static_route_ip)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3outStaticRouteNextHopListFromContainer(cont)
 
 	return list, err

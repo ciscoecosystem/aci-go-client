@@ -59,7 +59,7 @@ func (sm *ServiceManager) ListBFDMultihopNodePolicy(tenant string) ([]*models.BF
 	parentDn := fmt.Sprintf(models.ParentDnBfdMhNodePol, tenant)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.BfdMhNodePolClassName)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.BFDMultihopNodePolicyListFromContainer(cont)
 	return list, err
 }

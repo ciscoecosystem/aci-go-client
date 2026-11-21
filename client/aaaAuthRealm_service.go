@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateAAAAuthentication(description string, nameAlias 
 
 func (sm *ServiceManager) ListAAAAuthentication() ([]*models.AAAAuthentication, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/aaaAuthRealm.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AAAAuthenticationListFromContainer(cont)
 	return list, err
 }

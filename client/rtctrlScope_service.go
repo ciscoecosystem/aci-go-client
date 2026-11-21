@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateRouteContextScope(route_control_context string, 
 
 func (sm *ServiceManager) ListRouteContextScope(route_control_context string, route_control_profile string, tenant string) ([]*models.RouteContextScope, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/prof-%s/ctx-%s/rtctrlScope.json", models.BaseurlStr, tenant, route_control_profile, route_control_context)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.RouteContextScopeListFromContainer(cont)
 	return list, err
 }

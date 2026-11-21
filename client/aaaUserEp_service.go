@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateUserManagement(description string, nameAlias str
 
 func (sm *ServiceManager) ListUserManagement() ([]*models.UserManagement, error) {
 	dnUrl := fmt.Sprintf("%s/uni/aaaUserEp.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.UserManagementListFromContainer(cont)
 	return list, err
 }

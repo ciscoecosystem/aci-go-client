@@ -45,7 +45,7 @@ func (sm *ServiceManager) ListActionRuleProfile(tenant string) ([]*models.Action
 
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/rtctrlAttrP.json", models.BaseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ActionRuleProfileListFromContainer(cont)
 
 	return list, err

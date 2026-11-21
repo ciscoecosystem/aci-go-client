@@ -49,7 +49,7 @@ func (sm *ServiceManager) ListL2Domain() ([]*models.L2Domain, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/l2extDomP.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L2DomainListFromContainer(cont)
 
 	return list, err

@@ -52,7 +52,7 @@ func (sm *ServiceManager) ListPIMInterfaceProfile(logical_interface_profile stri
 	parentDn := fmt.Sprintf(models.ParentDnPimIfP, tenant, l3_outside, logical_node_profile, logical_interface_profile)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.PimIfPClassName)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.PIMInterfaceProfileListFromContainer(cont)
 	return list, err
 }

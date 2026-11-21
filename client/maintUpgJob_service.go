@@ -18,7 +18,7 @@ func (sm *ServiceManager) ReadUpgJob(pod int, node int) (*models.UpgJob, error) 
 func (sm *ServiceManager) ListUpgJob() ([]*models.UpgJob, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/maintUpgJob.json", baseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.UpgJobListFromContainer(cont)
 	return list, err
 }

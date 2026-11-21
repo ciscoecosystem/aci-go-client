@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateConcreteInterface(name string, parent_dn string,
 
 func (sm *ServiceManager) ListConcreteInterface(parent_dn string) ([]*models.ConcreteInterface, error) {
 	dnUrl := fmt.Sprintf("%s/%s/vnsCIf.json", models.BaseurlStr, parent_dn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ConcreteInterfaceListFromContainer(cont)
 	return list, err
 }

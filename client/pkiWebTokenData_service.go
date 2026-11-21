@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateWebTokenData(description string, nameAlias strin
 
 func (sm *ServiceManager) ListWebTokenData() ([]*models.WebTokenData, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/pkiext/pkiWebTokenData.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.WebTokenDataListFromContainer(cont)
 	return list, err
 }

@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListCloudTemplateRegion(parentDn string) ([]*models.Cl
 
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.CloudtemplateRegionDetailClassName)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudTemplateRegionListFromContainer(cont)
 	return list, err
 }

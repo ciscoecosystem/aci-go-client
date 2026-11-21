@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateSpanningTreeInterfacePolicy(name string, descrip
 
 func (sm *ServiceManager) ListSpanningTreeInterfacePolicy() ([]*models.SpanningTreeInterfacePolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/stpIfPol.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SpanningTreeInterfacePolicyListFromContainer(cont)
 	return list, err
 }

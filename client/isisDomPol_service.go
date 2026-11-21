@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateISISDomainPolicy(name string, description string
 
 func (sm *ServiceManager) ListISISDomainPolicy() ([]*models.ISISDomainPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/fabric/isisDomPol.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ISISDomainPolicyListFromContainer(cont)
 	return list, err
 }

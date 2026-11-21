@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListSpineAccessPortPolicyGroup() ([]*models.SpineAcces
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infraSpAccPortGrp.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SpineAccessPortPolicyGroupListFromContainer(cont)
 
 	return list, err

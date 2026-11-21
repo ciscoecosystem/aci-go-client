@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateDefaultAuthenticationMethodforallLogins(descript
 
 func (sm *ServiceManager) ListDefaultAuthenticationMethodforallLogins() ([]*models.DefaultAuthenticationMethodforallLogins, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/authrealm/aaaDefaultAuth.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.DefaultAuthenticationMethodforallLoginsListFromContainer(cont)
 	return list, err
 }

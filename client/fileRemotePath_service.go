@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateRemotePathofaFile(name string, description strin
 
 func (sm *ServiceManager) ListRemotePathofaFile() ([]*models.RemotePathofaFile, error) {
 	dnUrl := fmt.Sprintf("%s/uni/fabric/fileRemotePath.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.RemotePathofaFileListFromContainer(cont)
 	return list, err
 }

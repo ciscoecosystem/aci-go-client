@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListVlanEncapsulationforVxlanTraffic(attachable_access
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infra/attentp-%s/infraProvAcc.json", baseurlStr, attachable_access_entity_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.VlanEncapsulationforVxlanTrafficListFromContainer(cont)
 
 	return list, err

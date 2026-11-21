@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListL3outBGPProtocolProfile(logical_node_profile strin
 
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/bgpProtP.json", models.BaseurlStr, tenant, l3_outside, logical_node_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3outBGPProtocolProfileListFromContainer(cont)
 
 	return list, err

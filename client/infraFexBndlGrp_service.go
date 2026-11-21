@@ -49,7 +49,7 @@ func (sm *ServiceManager) ListFexBundleGroup(fex_profile string) ([]*models.FexB
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infra/fexprof-%s/infraFexBndlGrp.json", baseurlStr, fex_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FexBundleGroupListFromContainer(cont)
 
 	return list, err

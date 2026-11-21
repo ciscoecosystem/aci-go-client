@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateLeakInternalPrefix(ip string, vrf string, tenant
 
 func (sm *ServiceManager) ListLeakInternalPrefix(vrf string, tenant string) ([]*models.LeakInternalPrefix, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ctx-%s/leakroutes/leakInternalPrefix.json", models.BaseurlStr, tenant, vrf)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LeakInternalPrefixListFromContainer(cont)
 	return list, err
 }

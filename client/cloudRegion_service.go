@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListCloudProvidersRegion(cloud_provider_profile_vendor
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/clouddomp/provp-%s/cloudRegion.json", baseurlStr, cloud_provider_profile_vendor)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudProvidersRegionListFromContainer(cont)
 
 	return list, err

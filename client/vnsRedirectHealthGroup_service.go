@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateL4L7RedirectHealthGroup(name string, tenant stri
 
 func (sm *ServiceManager) ListL4L7RedirectHealthGroup(tenant string) ([]*models.L4L7RedirectHealthGroup, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/svcCont/vnsRedirectHealthGroup.json", models.BaseurlStr, tenant)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L4L7RedirectHealthGroupListFromContainer(cont)
 	return list, err
 }

@@ -44,7 +44,7 @@ func (sm *ServiceManager) UpdateEndpointSecurityGroup(name string, application_p
 
 func (sm *ServiceManager) ListEndpointSecurityGroup(application_profile string, tenant string) ([]*models.EndpointSecurityGroup, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ap-%s/fvESg.json", models.BaseurlStr, tenant, application_profile)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.EndpointSecurityGroupListFromContainer(cont)
 	return list, err
 }

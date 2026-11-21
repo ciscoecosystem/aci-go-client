@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateRedistributeMultipathAction(action_rule_profile 
 
 func (sm *ServiceManager) ListRedistributeMultipathAction(action_rule_profile string, tenant string) ([]*models.RedistributeMultipathAction, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/attr-%s/rtctrlSetRedistMultipath.json", models.BaseurlStr, tenant, action_rule_profile)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.RedistributeMultipathActionListFromContainer(cont)
 	return list, err
 }

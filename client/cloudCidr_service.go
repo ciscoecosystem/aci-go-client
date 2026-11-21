@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListCloudCIDRPool(cloud_context_profile string, tenant
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ctxprofile-%s/cloudCidr.json", baseurlStr, tenant, cloud_context_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudCIDRPoolListFromContainer(cont)
 
 	return list, err

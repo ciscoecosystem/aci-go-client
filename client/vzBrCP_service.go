@@ -47,7 +47,7 @@ func (sm *ServiceManager) ListContract(tenant string) ([]*models.Contract, error
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/vzBrCP.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ContractListFromContainer(cont)
 
 	return list, err

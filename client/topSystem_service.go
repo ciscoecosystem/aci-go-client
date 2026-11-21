@@ -18,7 +18,7 @@ func (sm *ServiceManager) ReadSystem(pod int, node int) (*models.System, error) 
 func (sm *ServiceManager) ListSystem() ([]*models.System, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/topSystem.json", baseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SystemListFromContainer(cont)
 	return list, err
 }

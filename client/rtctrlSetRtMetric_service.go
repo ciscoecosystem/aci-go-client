@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateRtctrlSetRtMetric(action_rule_profile string, te
 
 func (sm *ServiceManager) ListRtctrlSetRtMetric(action_rule_profile string, tenant string) ([]*models.RtctrlSetRtMetric, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/attr-%s/rtctrlSetRtMetric.json", models.BaseurlStr, tenant, action_rule_profile)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.RtctrlSetRtMetricListFromContainer(cont)
 	return list, err
 }

@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateOutofServiceFabricPath(tDn string, fabricRsOosPa
 
 func (sm *ServiceManager) ListOutofServiceFabricPath() ([]*models.OutofServiceFabricPath, error) {
 	dnUrl := fmt.Sprintf("%s/uni/fabric/outofsvc/fabricRsOosPath.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.OutofServiceFabricPathListFromContainer(cont)
 	return list, err
 }

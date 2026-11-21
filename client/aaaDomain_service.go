@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListSecurityDomain() ([]*models.SecurityDomain, error)
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/aaaDomain.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SecurityDomainListFromContainer(cont)
 
 	return list, err

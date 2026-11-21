@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListBGPAddressFamilyContextPolicy(tenant string) ([]*m
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/bgpCtxAfPol.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.BGPAddressFamilyContextPolicyListFromContainer(cont)
 
 	return list, err

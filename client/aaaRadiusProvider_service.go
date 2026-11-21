@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateRADIUSProvider(name string, description string, 
 
 func (sm *ServiceManager) ListRADIUSProvider() ([]*models.RADIUSProvider, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/duoext/aaaRadiusProvider.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.RADIUSProviderListFromContainer(cont)
 	return list, err
 }
