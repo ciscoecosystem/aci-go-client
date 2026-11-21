@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListEPGsUsingFunction(access_generic string, attachabl
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infra/attentp-%s/gen-%s/infraRsFuncToEpg.json", baseurlStr, attachable_access_entity_profile, access_generic)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.EPGsUsingFunctionListFromContainer(cont)
 
 	return list, err

@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateBGPAddressFamilyContextPolicyRelationship(af str
 
 func (sm *ServiceManager) ListBGPAddressFamilyContextPolicyRelationship(vrf string, tenant string) ([]*models.BGPAddressFamilyContextPolicyRelationship, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ctx-%s/fvRsCtxToBgpCtxAfPol.json", models.BaseurlStr, tenant, vrf)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.BGPAddressFamilyContextPolicyRelationshipListFromContainer(cont)
 	return list, err
 }

@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateASNumber(order string, set_as_path_criteria stri
 
 func (sm *ServiceManager) ListASNumber(set_as_path_criteria string, action_rule_profile string, tenant string) ([]*models.ASNumber, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/attr-%s/saspath-%s/rtctrlSetASPathASN.json", models.BaseurlStr, tenant, action_rule_profile, set_as_path_criteria)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ASNumberListFromContainer(cont)
 	return list, err
 }
@@ -50,7 +50,7 @@ func (sm *ServiceManager) ListASNumber(set_as_path_criteria string, action_rule_
 func (sm *ServiceManager) ListSetAsPathASNs(parentDn string) ([]*models.ASNumber, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", baseurlStr, parentDn, "rtctrlSetASPathASN")
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	if err != nil {
 		return nil, err
 	} else {

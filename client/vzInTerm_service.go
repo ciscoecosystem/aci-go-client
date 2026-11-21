@@ -43,7 +43,7 @@ func (sm *ServiceManager) UpdateInTermSubject(contract_subject string, contract 
 
 func (sm *ServiceManager) ListInTermSubject(contract_subject string, contract string, tenant string) ([]*models.InTermSubject, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/brc-%s/subj-%s/vzInTerm.json", models.BaseurlStr, tenant, contract, contract_subject)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.InTermSubjectListFromContainer(cont)
 	return list, err
 }

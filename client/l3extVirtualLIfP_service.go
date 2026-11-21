@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListVirtualLogicalInterfaceProfile(logical_interface_p
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/lifp-%s/l3extVirtualLIfP.json", baseurlStr, tenant, l3_outside, logical_node_profile, logical_interface_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.VirtualLogicalInterfaceProfileListFromContainer(cont)
 
 	return list, err

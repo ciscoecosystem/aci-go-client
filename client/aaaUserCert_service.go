@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListX509Certificate(local_user string) ([]*models.X509
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/userext/user-%s/aaaUserCert.json", baseurlStr, local_user)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.X509CertificateListFromContainer(cont)
 
 	return list, err

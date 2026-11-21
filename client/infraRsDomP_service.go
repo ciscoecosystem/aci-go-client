@@ -34,7 +34,7 @@ func (sm *ServiceManager) DeleteInfraRsDomP(tDn string, attachable_access_entity
 func (sm *ServiceManager) ListInfraRsDomP(attachable_access_entity_profile string) ([]*models.InfraRsDomP, error) {
 	parentDn := fmt.Sprintf(models.ParentDninfraRsDomP, attachable_access_entity_profile)
 	dnUrl := fmt.Sprintf("%s/%s/infraRsDomP.json", models.BaseurlStr, parentDn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.InfraRsDomPListFromContainer(cont)
 	return list, err
 }

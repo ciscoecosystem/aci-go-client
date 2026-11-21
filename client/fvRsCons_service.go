@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListContractConsumer(application_epg string, applicati
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ap-%s/epg-%s/fvRsCons.json", baseurlStr, tenant, application_profile, application_epg)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ContractConsumerListFromContainer(cont)
 
 	return list, err

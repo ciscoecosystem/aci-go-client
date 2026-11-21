@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListSPANDestinationGroup(tenant string) ([]*models.SPA
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/spanDestGrp.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SPANDestinationGroupListFromContainer(cont)
 
 	return list, err

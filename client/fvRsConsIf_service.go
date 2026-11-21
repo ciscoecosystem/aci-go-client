@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateContractInterfaceRelationship(tnVzCPIfName strin
 
 func (sm *ServiceManager) ListContractInterfaceRelationship(application_epg string, application_profile string, tenant string) ([]*models.ContractInterfaceRelationship, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ap-%s/epg-%s/fvRsConsIf.json", models.BaseurlStr, tenant, application_profile, application_epg)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ContractInterfaceRelationshipListFromContainer(cont)
 	return list, err
 }

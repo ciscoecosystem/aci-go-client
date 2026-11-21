@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListSubnet(bridge_domain string, tenant string) ([]*mo
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/BD-%s/fvSubnet.json", baseurlStr, tenant, bridge_domain)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SubnetListFromContainer(cont)
 
 	return list, err

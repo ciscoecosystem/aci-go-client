@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateFabricWideSettingsPolicy(description string, nam
 
 func (sm *ServiceManager) ListFabricWideSettingsPolicy() ([]*models.FabricWideSettingsPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/infraSetPol.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FabricWideSettingsPolicyListFromContainer(cont)
 	return list, err
 }

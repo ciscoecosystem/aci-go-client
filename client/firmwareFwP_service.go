@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListFirmwarePolicy() ([]*models.FirmwarePolicy, error)
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/firmwareFwP.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FirmwarePolicyListFromContainer(cont)
 
 	return list, err

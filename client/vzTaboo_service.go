@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListTabooContract(tenant string) ([]*models.TabooContr
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/vzTaboo.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.TabooContractListFromContainer(cont)
 
 	return list, err

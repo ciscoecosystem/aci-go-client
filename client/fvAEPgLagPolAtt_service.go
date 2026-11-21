@@ -43,7 +43,7 @@ func (sm *ServiceManager) UpdateApplicationEPGLagPolicy(domain_dn string, applic
 
 func (sm *ServiceManager) ListApplicationEPGLagPolicy(domain_dn string, application_epg string, application_profile string, tenant string) ([]*models.ApplicationEPGLagPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ap-%s/epg-%s/rsdomAtt-[%s]/fvAEPgLagPolAtt.json", models.BaseurlStr, tenant, application_profile, application_epg, domain_dn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ApplicationEPGLagPolicyListFromContainer(cont)
 	return list, err
 }

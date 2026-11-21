@@ -38,7 +38,7 @@ func (sm *ServiceManager) UpdateAnnotation(key string, parentDn string, tagAnnot
 
 func (sm *ServiceManager) ListAnnotation() ([]*models.Annotation, error) {
 	dnUrl := fmt.Sprintf("%s/tagAnnotation.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AnnotationListFromContainer(cont)
 	return list, err
 }

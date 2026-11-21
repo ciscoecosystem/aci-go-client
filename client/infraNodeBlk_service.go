@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListNodeBlock(switch_association_type string, switch_a
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infra/nprof-%s/leaves-%s-typ-%s/infraNodeBlk.json", baseurlStr, leaf_profile, switch_association, switch_association_type)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.NodeBlockListFromContainerBLK(cont)
 
 	return list, err

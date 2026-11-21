@@ -45,7 +45,7 @@ func (sm *ServiceManager) UpdateExternalNetworkInstanceProfile(name string, l3_o
 
 func (sm *ServiceManager) ListExternalNetworkInstanceProfile(l3_outside string, tenant string) ([]*models.ExternalNetworkInstanceProfile, error) {
 	dnUrl := fmt.Sprintf("%s/%s/l3extInstP.json", models.BaseurlStr, fmt.Sprintf(models.ParentDnl3extinstp, tenant, l3_outside))
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ExternalNetworkInstanceProfileListFromContainer(cont)
 
 	return list, err

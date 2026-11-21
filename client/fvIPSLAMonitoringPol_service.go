@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateIPSLAMonitoringPolicy(name string, tenant string
 
 func (sm *ServiceManager) ListIPSLAMonitoringPolicy(tenant string) ([]*models.IPSLAMonitoringPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/fvIPSLAMonitoringPol.json", models.BaseurlStr, tenant)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.IPSLAMonitoringPolicyListFromContainer(cont)
 	return list, err
 }

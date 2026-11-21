@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListFabricNode(logical_node_profile string, l3_outside
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/l3extRsNodeL3OutAtt.json", baseurlStr, tenant, l3_outside, logical_node_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FabricNodeListFromContainer(cont)
 
 	return list, err

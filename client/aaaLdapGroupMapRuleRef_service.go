@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateLDAPGroupMapruleref(name string, ldap_group_map 
 
 func (sm *ServiceManager) ListLDAPGroupMapruleref(ldap_group_map string) ([]*models.LDAPGroupMapruleref, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/ldapext/ldapgroupmap-%s/aaaLdapGroupMapRuleRef.json", models.BaseurlStr, ldap_group_map)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LDAPGroupMaprulerefListFromContainer(cont)
 	return list, err
 }

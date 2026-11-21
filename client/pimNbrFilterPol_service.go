@@ -52,7 +52,7 @@ func (sm *ServiceManager) ListPIMNeighborFiterPolicy(pim_interface_policy string
 	parentDn := fmt.Sprintf(models.ParentDnPimNbrFilterPol, tenant, pim_interface_policy)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.PimNbrFilterPolClassName)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.PIMNeighborFiterPolicyListFromContainer(cont)
 	return list, err
 }

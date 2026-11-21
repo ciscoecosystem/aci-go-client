@@ -59,7 +59,7 @@ func (sm *ServiceManager) ListPIMInterfacePolicy(tenant string) ([]*models.PIMIn
 	parentDn := fmt.Sprintf(models.ParentDnPimIfPol, tenant)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.PimIfPolClassName)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.PIMInterfacePolicyListFromContainer(cont)
 	return list, err
 }

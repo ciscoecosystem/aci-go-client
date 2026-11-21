@@ -43,7 +43,7 @@ func (sm *ServiceManager) UpdateVSwitchPolicyGroup(vmm_domain string, provider_p
 
 func (sm *ServiceManager) ListVSwitchPolicyGroup(vmm_domain string, provider_profile_vendor string) ([]*models.VSwitchPolicyGroup, error) {
 	dnUrl := fmt.Sprintf("%s/uni/vmmp-%s/dom-%s/vmmVSwitchPolicyCont.json", models.BaseurlStr, provider_profile_vendor, vmm_domain)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.VSwitchPolicyGroupListFromContainer(cont)
 	return list, err
 }

@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListManagedNodeConnectivityGroup() ([]*models.ManagedN
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/mgmtGrp.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ManagedNodeConnectivityGroupListFromContainer(cont)
 
 	return list, err

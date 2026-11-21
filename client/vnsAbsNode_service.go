@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListFunctionNode(l4_l7_service_graph_template string, 
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/AbsGraph-%s/vnsAbsNode.json", baseurlStr, tenant, l4_l7_service_graph_template)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FunctionNodeListFromContainer(cont)
 
 	return list, err

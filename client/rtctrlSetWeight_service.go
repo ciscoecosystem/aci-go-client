@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateRtctrlSetWeight(action_rule_profile string, tena
 
 func (sm *ServiceManager) ListRtctrlSetWeight(action_rule_profile string, tenant string) ([]*models.RtctrlSetWeight, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/attr-%s/rtctrlSetWeight.json", models.BaseurlStr, tenant, action_rule_profile)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.RtctrlSetWeightListFromContainer(cont)
 	return list, err
 }

@@ -49,7 +49,7 @@ func (sm *ServiceManager) ListOutOfBandManagementEPg(management_profile string, 
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/mgmtp-%s/mgmtOoB.json", baseurlStr, tenant, management_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.OutOfBandManagementEPgListFromContainer(cont)
 
 	return list, err

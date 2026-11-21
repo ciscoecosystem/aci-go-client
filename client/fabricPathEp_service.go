@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListFabricPathEndpoint(fabric_path_end_point_container
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/topology/pod-%s/paths-%s/fabricPathEp.json", baseurlStr, fabric_pod_id, fabric_path_end_point_container_nodeId)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FabricPathEndpointListFromContainer(cont)
 
 	return list, err

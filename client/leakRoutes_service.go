@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateInterVRFLeakedRoutesContainer(vrf string, tenant
 
 func (sm *ServiceManager) ListInterVRFLeakedRoutesContainer(vrf string, tenant string) ([]*models.InterVRFLeakedRoutesContainer, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ctx-%s/leakRoutes.json", models.BaseurlStr, tenant, vrf)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.InterVRFLeakedRoutesContainerListFromContainer(cont)
 	return list, err
 }

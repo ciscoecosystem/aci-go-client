@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateSetASPath(criteria string, action_rule_profile s
 
 func (sm *ServiceManager) ListSetASPath(action_rule_profile string, tenant string) ([]*models.SetASPath, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/attr-%s/rtctrlSetASPath.json", models.BaseurlStr, tenant, action_rule_profile)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SetASPathListFromContainer(cont)
 	return list, err
 }

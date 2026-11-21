@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListL3DomainProfile() ([]*models.L3DomainProfile, erro
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/l3extDomP.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3DomainProfileListFromContainer(cont)
 
 	return list, err

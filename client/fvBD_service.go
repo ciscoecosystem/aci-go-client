@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListBridgeDomain(tenant string) ([]*models.BridgeDomai
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/fvBD.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.BridgeDomainListFromContainer(cont)
 
 	return list, err

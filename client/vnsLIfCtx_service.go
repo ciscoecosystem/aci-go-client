@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListLogicalInterfaceContext(logicalDeviceContextNodeNa
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ldevCtx-c-%s-g-%s-n-%s/vnsLIfCtx.json", baseurlStr, tenant, logical_device_context_ctrctNameOrLbl, logicalDeviceContextGraphNameOrLbl, logicalDeviceContextNodeNameOrLbl)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LogicalInterfaceContextListFromContainer(cont)
 
 	return list, err

@@ -41,7 +41,7 @@ func (sm *ServiceManager) UpdateFirmware(name string, description string, firmwa
 func (sm *ServiceManager) ListFirmware() ([]*models.Firmware, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/firmwareFirmware.json", baseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FirmwareListFromContainer(cont)
 	return list, err
 }

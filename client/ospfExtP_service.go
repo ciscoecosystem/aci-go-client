@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListL3outOspfExternalPolicy(l3_outside string, tenant 
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/ospfExtP.json", baseurlStr, tenant, l3_outside)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3outOspfExternalPolicyListFromContainer(cont)
 
 	return list, err

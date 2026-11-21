@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateMgmtconnectivitypreference(description string, n
 
 func (sm *ServiceManager) ListMgmtconnectivitypreference() ([]*models.Mgmtconnectivitypreference, error) {
 	dnUrl := fmt.Sprintf("%s/uni/fabric/mgmtConnectivityPrefs.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.MgmtconnectivitypreferenceListFromContainer(cont)
 	return list, err
 }

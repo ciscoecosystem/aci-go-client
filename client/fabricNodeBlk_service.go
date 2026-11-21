@@ -77,7 +77,7 @@ func (sm *ServiceManager) UpdateNodeBlk(parentMOType string, parentMOName string
 func (sm *ServiceManager) ListNodeBlk() ([]*models.NodeBlk, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/fabricNodeBlk.json", baseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.NodeBlkListFromContainer(cont)
 	return list, err
 }

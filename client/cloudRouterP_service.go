@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListCloudVpnGateway(cloudContextProfile string, tenant
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ctxprofile-%s/cloudRouterP.json", baseurlStr, tenant, cloudContextProfile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudVpnGatewayListFromContainer(cont)
 
 	return list, err

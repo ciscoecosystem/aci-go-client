@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListFirmwareDownloadTask() ([]*models.FirmwareDownload
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/firmwareOSource.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FirmwareDownloadTaskListFromContainer(cont)
 
 	return list, err
@@ -88,7 +88,7 @@ func (sm *ServiceManager) UpdateOSource(name string, description string, firmwar
 func (sm *ServiceManager) ListOSource() ([]*models.OSource, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/firmwareOSource.json", baseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.OSourceListFromContainer(cont)
 	return list, err
 }

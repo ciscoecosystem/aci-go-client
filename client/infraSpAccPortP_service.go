@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListSpineInterfaceProfile() ([]*models.SpineInterfaceP
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infraSpAccPortP.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SpineInterfaceProfileListFromContainer(cont)
 
 	return list, err

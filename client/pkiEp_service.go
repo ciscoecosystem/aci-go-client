@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdatePublicKeyManagement(description string, nameAlia
 
 func (sm *ServiceManager) ListPublicKeyManagement() ([]*models.PublicKeyManagement, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/pkiEp.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.PublicKeyManagementListFromContainer(cont)
 	return list, err
 }

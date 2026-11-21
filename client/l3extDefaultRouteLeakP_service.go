@@ -36,7 +36,7 @@ func (sm *ServiceManager) UpdateDefaultRouteLeakPolicy(parentDn string, l3extDef
 
 func (sm *ServiceManager) ListDefaultRouteLeakPolicy(parentDn string) ([]*models.DefaultRouteLeakPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.L3extDefaultRouteLeakPClassName)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.DefaultRouteLeakPolicyListFromContainer(cont)
 	return list, err
 }

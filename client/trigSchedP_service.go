@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListTriggerScheduler() ([]*models.TriggerScheduler, er
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/trigSchedP.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.TriggerSchedulerListFromContainer(cont)
 
 	return list, err
@@ -89,7 +89,7 @@ func (sm *ServiceManager) UpdateSchedP(name string, description string, trigSche
 func (sm *ServiceManager) ListSchedP() ([]*models.SchedP, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/trigSchedP.json", baseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SchedPListFromContainer(cont)
 	return list, err
 }

@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListL3outBgpExternalPolicy(l3_outside string, tenant s
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/bgpExtP.json", baseurlStr, tenant, l3_outside)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3outBgpExternalPolicyListFromContainer(cont)
 
 	return list, err

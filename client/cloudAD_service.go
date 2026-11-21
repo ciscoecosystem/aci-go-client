@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateCloudActiveDirectory(active_directory_id string,
 
 func (sm *ServiceManager) ListCloudActiveDirectory(tenant string) ([]*models.CloudActiveDirectory, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/cloudAD.json", models.BaseurlStr, tenant)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudActiveDirectoryListFromContainer(cont)
 	return list, err
 }

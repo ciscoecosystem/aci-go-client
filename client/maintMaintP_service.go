@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListMaintenancePolicy() ([]*models.MaintenancePolicy, 
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/maintMaintP.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.MaintenancePolicyListFromContainer(cont)
 
 	return list, err
@@ -229,7 +229,7 @@ func (sm *ServiceManager) UpdateMaintP(name string, description string, maintMai
 func (sm *ServiceManager) ListMaintP() ([]*models.MaintP, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/maintMaintP.json", baseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.MaintPListFromContainer(cont)
 	return list, err
 }

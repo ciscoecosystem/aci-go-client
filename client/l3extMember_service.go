@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListL3outVPCMember(leaf_port_tDn string, logical_inter
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/lifp-%s/rspathL3OutAtt-[%s]/l3extMember.json", baseurlStr, tenant, l3_outside, logical_node_profile, logical_interface_profile, leaf_port_tDn)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3outVPCMemberListFromContainer(cont)
 
 	return list, err

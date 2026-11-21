@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListTenant() ([]*models.Tenant, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/fvTenant.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.TenantListFromContainer(cont)
 
 	return list, err

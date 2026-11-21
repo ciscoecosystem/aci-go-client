@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListCloudAWSProvider(tenant string) ([]*models.CloudAW
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/cloudAwsProvider.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudAWSProviderListFromContainer(cont)
 
 	return list, err

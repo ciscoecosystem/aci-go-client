@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListPCVPCInterfacePolicyGroup() ([]*models.PCVPCInterf
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infraAccBndlGrp.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.PCVPCInterfacePolicyGroupListFromContainer(cont)
 
 	return list, err

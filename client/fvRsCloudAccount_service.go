@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateTenantToCloudAccountAssociation(tenant string, n
 
 func (sm *ServiceManager) ListTenantToCloudAccountAssociation(tenant string) ([]*models.TenantToCloudAccountAssociation, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/fvRsCloudAccount.json", models.BaseurlStr, tenant)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.TenantToCloudAccountAssociationListFromContainer(cont)
 	return list, err
 }

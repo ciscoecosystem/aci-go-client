@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateConsoleAuthenticationMethod(description string, 
 
 func (sm *ServiceManager) ListConsoleAuthenticationMethod() ([]*models.ConsoleAuthenticationMethod, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/authrealm/aaaConsoleAuth.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ConsoleAuthenticationMethodListFromContainer(cont)
 	return list, err
 }

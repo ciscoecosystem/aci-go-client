@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateTACACSPlusProviderGroup(name string, description
 
 func (sm *ServiceManager) ListTACACSPlusProviderGroup() ([]*models.TACACSPlusProviderGroup, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/tacacsext/aaaTacacsPlusProviderGroup.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.TACACSPlusProviderGroupListFromContainer(cont)
 	return list, err
 }

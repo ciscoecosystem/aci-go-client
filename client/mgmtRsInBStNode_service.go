@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListInbandStaticNode(in_band_management_epg string, ma
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/mgmtp-%s/inb-%s/mgmtRsInBStNode.json", baseurlStr, tenant, management_profile, in_band_management_epg)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.InbandStaticNodeListFromContainer(cont)
 
 	return list, err

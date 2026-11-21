@@ -47,7 +47,7 @@ func (sm *ServiceManager) ListFirmwareGroup() ([]*models.FirmwareGroup, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/firmwareFwGrp.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FirmwareGroupListFromContainer(cont)
 
 	return list, err

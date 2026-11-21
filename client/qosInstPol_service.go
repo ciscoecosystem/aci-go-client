@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateQOSInstancePolicy(name string, description strin
 
 func (sm *ServiceManager) ListQOSInstancePolicy() ([]*models.QOSInstancePolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/qosInstPol.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.QOSInstancePolicyListFromContainer(cont)
 	return list, err
 }

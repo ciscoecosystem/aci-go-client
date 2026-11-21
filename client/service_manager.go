@@ -78,6 +78,13 @@ func (sm *ServiceManager) Save(obj models.Model) error {
 
 // CheckForErrors parses the response and checks of there is an error attribute in the response
 func CheckForErrors(cont *container.Container, method string, skipLoggingPayload bool) error {
+	return checkForErrors(cont, method, skipLoggingPayload, false)
+}
+
+// checkForErrors parses the response and checks if there is an error attribute
+// in the response. When allowEmpty is set, an empty result set is not treated
+// as an error, which is what class queries (lists) need.
+func checkForErrors(cont *container.Container, method string, skipLoggingPayload bool, allowEmpty bool) error {
 	number, err := strconv.Atoi(models.G(cont, "totalCount"))
 	if err != nil {
 		if !skipLoggingPayload {
@@ -126,6 +133,9 @@ func CheckForErrors(cont *container.Container, method string, skipLoggingPayload
 	}
 
 	if imdata.String() == "{}" && method == "GET" {
+		if allowEmpty {
+			return nil
+		}
 		if !skipLoggingPayload {
 			log.Printf("[DEBUG] Exit from error (Empty response) %v", cont)
 		}
@@ -190,6 +200,19 @@ func (sm *ServiceManager) PostViaURL(url string, obj models.Model) (*container.C
 }
 
 func (sm *ServiceManager) GetViaURL(url string) (*container.Container, error) {
+	return sm.getViaURL(url, false)
+}
+
+// GetViaURLAllowEmpty behaves like GetViaURL, except that an empty result set
+// is returned as a valid response instead of an error.
+//
+// Use it for class queries (e.g. ".../l3extSubnet.json"), where "no objects"
+// is a normal answer, and keep GetViaURL for point reads of a single MO.
+func (sm *ServiceManager) GetViaURLAllowEmpty(url string) (*container.Container, error) {
+	return sm.getViaURL(url, true)
+}
+
+func (sm *ServiceManager) getViaURL(url string, allowEmpty bool) (*container.Container, error) {
 	req, err := sm.client.MakeRestRequest("GET", url, nil, true)
 
 	if err != nil {
@@ -207,7 +230,7 @@ func (sm *ServiceManager) GetViaURL(url string) (*container.Container, error) {
 	if obj == nil {
 		return nil, errors.New("Empty response body")
 	}
-	return obj, CheckForErrors(obj, "GET", sm.client.skipLoggingPayload)
+	return obj, checkForErrors(obj, "GET", sm.client.skipLoggingPayload, allowEmpty)
 
 }
 

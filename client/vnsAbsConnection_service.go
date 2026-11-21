@@ -49,7 +49,7 @@ func (sm *ServiceManager) ListConnection(l4_l7_service_graph_template string, te
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/AbsGraph-%s/vnsAbsConnection.json", baseurlStr, tenant, l4_l7_service_graph_template)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ConnectionListFromContainer(cont)
 
 	return list, err

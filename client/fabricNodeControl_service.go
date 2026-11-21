@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateFabricNodeControl(name string, description strin
 
 func (sm *ServiceManager) ListFabricNodeControl() ([]*models.FabricNodeControl, error) {
 	dnUrl := fmt.Sprintf("%s/uni/fabric/fabricNodeControl.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FabricNodeControlListFromContainer(cont)
 	return list, err
 }

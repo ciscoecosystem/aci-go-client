@@ -43,7 +43,7 @@ func (sm *ServiceManager) UpdateCloudCredentials(name string, tenant string, nam
 
 func (sm *ServiceManager) ListCloudCredentials(tenant string) ([]*models.CloudCredentials, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/cloudCredentials.json", models.BaseurlStr, tenant)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudCredentialsListFromContainer(cont)
 	return list, err
 }

@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateSubnetPoolforIpSecTunnels(subnetpool string, inf
 
 func (sm *ServiceManager) ListSubnetPoolforIpSecTunnels(infra_network_template string, tenant string) ([]*models.SubnetPoolforIpSecTunnels, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/infranetwork-%s/cloudtemplateIpSecTunnelSubnetPool.json", models.BaseurlStr, tenant, infra_network_template)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SubnetPoolforIpSecTunnelsListFromContainer(cont)
 	return list, err
 }

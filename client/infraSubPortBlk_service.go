@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListAccessSubPortBlock(access_port_selector_type strin
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infra/accportprof-%s/hports-%s-typ-%s/infraSubPortBlk.json", baseurlStr, leaf_interface_profile, access_port_selector, access_port_selector_type)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AccessSubPortBlockListFromContainer(cont)
 
 	return list, err

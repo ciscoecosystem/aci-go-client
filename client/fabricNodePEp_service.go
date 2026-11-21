@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListNodePolicyEndPoint(vpc_explicit_protection_group s
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/fabric/protpol/expgep-%s/fabricNodePEp.json", baseurlStr, vpc_explicit_protection_group)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.NodePolicyEndPointListFromContainer(cont)
 
 	return list, err

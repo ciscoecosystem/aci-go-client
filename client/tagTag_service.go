@@ -38,7 +38,7 @@ func (sm *ServiceManager) UpdateTag(key string, parentDn string, tagTagAttr mode
 
 func (sm *ServiceManager) ListTag() ([]*models.Tag, error) {
 	dnUrl := fmt.Sprintf("%s/tagTag.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.TagListFromContainer(cont)
 	return list, err
 }

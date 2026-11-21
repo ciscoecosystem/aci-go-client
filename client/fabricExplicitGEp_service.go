@@ -159,7 +159,7 @@ func (sm *ServiceManager) ListVPCExplicitProtectionGroup() ([]*models.VPCExplici
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/fabricExplicitGEp.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.VPCExplicitProtectionGroupListFromContainer(cont)
 
 	return list, err

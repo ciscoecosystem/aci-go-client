@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateUserRole(name string, user_domain string, local_
 
 func (sm *ServiceManager) ListUserRole(user_domain string, local_user string) ([]*models.UserRole, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/user-%s/userdomain-%s/aaaUserRole.json", models.BaseurlStr, local_user, user_domain)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.UserRoleListFromContainer(cont)
 	return list, err
 }

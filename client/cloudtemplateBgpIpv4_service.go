@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateCloudTemplateBGPIPv4Peer(peeraddr string, templa
 
 func (sm *ServiceManager) ListCloudTemplateBGPIPv4Peer(parentDn string) ([]*models.CloudTemplateBGPIPv4Peer, error) {
 	dnUrl := fmt.Sprintf("%s/%s/cloudtemplateBgpIpv4.json", models.BaseurlStr, parentDn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudTemplateBGPIPv4PeerListFromContainer(cont)
 	return list, err
 }

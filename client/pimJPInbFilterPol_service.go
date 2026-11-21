@@ -52,7 +52,7 @@ func (sm *ServiceManager) ListPIMJPInboundFilterPolicy(pim_interface_policy stri
 	parentDn := fmt.Sprintf(models.ParentDnPimJPInbFilterPol, tenant, pim_interface_policy)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.PimJPInbFilterPolClassName)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.PIMJPInboundFilterPolicyListFromContainer(cont)
 	return list, err
 }

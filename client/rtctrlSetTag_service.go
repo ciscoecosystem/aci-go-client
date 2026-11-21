@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateRtctrlSetTag(action_rule_profile string, tenant 
 
 func (sm *ServiceManager) ListRtctrlSetTag(action_rule_profile string, tenant string) ([]*models.RtctrlSetTag, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/attr-%s/rtctrlSetTag.json", models.BaseurlStr, tenant, action_rule_profile)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.RtctrlSetTagListFromContainer(cont)
 	return list, err
 }

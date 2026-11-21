@@ -43,7 +43,7 @@ func (sm *ServiceManager) UpdateCloudAccount(vendor string, account_id string, t
 
 func (sm *ServiceManager) ListCloudAccount(tenant string) ([]*models.CloudAccount, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/cloudAccount.json", models.BaseurlStr, tenant)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudAccountListFromContainer(cont)
 	return list, err
 }

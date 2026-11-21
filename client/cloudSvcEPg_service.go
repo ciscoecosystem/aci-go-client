@@ -62,7 +62,7 @@ func (sm *ServiceManager) ListCloudServiceEPg(cloud_application_container string
 	parentDn := fmt.Sprintf(models.ParentDnCloudSvcEPg, tenant, cloud_application_container)
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, parentDn, models.CloudSvcEPgClassName)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudServiceEPgListFromContainer(cont)
 	return list, err
 }

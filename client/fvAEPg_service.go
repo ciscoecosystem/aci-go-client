@@ -47,7 +47,7 @@ func (sm *ServiceManager) ListApplicationEPG(application_profile string, tenant 
 
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ap-%s/fvAEPg.json", baseurlStr, tenant, application_profile)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ApplicationEPGListFromContainer(cont)
 
 	return list, err

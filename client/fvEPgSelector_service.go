@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateEndpointSecurityGroupEPgSelector(matchEpgDn stri
 
 func (sm *ServiceManager) ListEndpointSecurityGroupEPgSelector(endpoint_security_group string, application_profile string, tenant string) ([]*models.EndpointSecurityGroupEPgSelector, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ap-%s/esg-%s/fvEPgSelector.json", models.BaseurlStr, tenant, application_profile, endpoint_security_group)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.EndpointSecurityGroupEPgSelectorListFromContainer(cont)
 	return list, err
 }

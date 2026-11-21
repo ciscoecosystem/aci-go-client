@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListPODMaintenanceGroup() ([]*models.PODMaintenanceGro
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/maintMaintGrp.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.PODMaintenanceGroupListFromContainer(cont)
 
 	return list, err
@@ -136,7 +136,7 @@ func (sm *ServiceManager) UpdateMaintGrp(name string, description string, maintM
 func (sm *ServiceManager) ListMaintGrp() ([]*models.MaintGrp, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/maintMaintGrp.json", baseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.MaintGrpListFromContainer(cont)
 	return list, err
 }

@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListRanges(vlan_pool_allocMode string, vlan_pool strin
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infra/vlanns-[%s]-%s/fvnsEncapBlk.json", baseurlStr, vlan_pool, vlan_pool_allocMode)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.RangesListFromContainer(cont)
 
 	return list, err

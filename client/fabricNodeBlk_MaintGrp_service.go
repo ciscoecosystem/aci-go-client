@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListNodeBlockMG(pod_maintenance_group string) ([]*mode
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/fabric/maintgrp-%s/fabricNodeBlk.json", baseurlStr, pod_maintenance_group)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.NodeBlockListFromContainerMG(cont)
 
 	return list, err

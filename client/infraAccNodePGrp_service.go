@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateAccessSwitchPolicyGroup(name string, description
 
 func (sm *ServiceManager) ListAccessSwitchPolicyGroup() ([]*models.AccessSwitchPolicyGroup, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/funcprof/infraAccNodePGrp.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AccessSwitchPolicyGroupListFromContainer(cont)
 	return list, err
 }

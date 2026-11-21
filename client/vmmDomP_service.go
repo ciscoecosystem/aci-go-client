@@ -47,7 +47,7 @@ func (sm *ServiceManager) ListVMMDomain(provider_profile_vendor string) ([]*mode
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/vmmp-%s/vmmDomP.json", baseurlStr, provider_profile_vendor)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.VMMDomainListFromContainer(cont)
 
 	return list, err

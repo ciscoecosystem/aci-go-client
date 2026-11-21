@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListPortSecurityPolicy() ([]*models.PortSecurityPolicy
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/l2PortSecurityPol.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.PortSecurityPolicyListFromContainer(cont)
 
 	return list, err

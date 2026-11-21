@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateMatchRouteDestinationRule(ip string, match_rule 
 
 func (sm *ServiceManager) ListMatchRouteDestinationRule(match_rule string, tenant string) ([]*models.MatchRouteDestinationRule, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/subj-%s/rtctrlMatchRtDest.json", models.BaseurlStr, tenant, match_rule)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.MatchRouteDestinationRuleListFromContainer(cont)
 	return list, err
 }

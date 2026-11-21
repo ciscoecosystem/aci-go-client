@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListStaticPath(application_epg string, application_pro
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ap-%s/epg-%s/fvRsPathAtt.json", baseurlStr, tenant, application_profile, application_epg)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.StaticPathListFromContainer(cont)
 
 	return list, err

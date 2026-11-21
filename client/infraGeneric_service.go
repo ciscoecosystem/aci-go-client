@@ -49,7 +49,7 @@ func (sm *ServiceManager) ListAccessGeneric(attachable_access_entity_profile str
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infra/attentp-%s/infraGeneric.json", baseurlStr, attachable_access_entity_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AccessGenericListFromContainer(cont)
 
 	return list, err

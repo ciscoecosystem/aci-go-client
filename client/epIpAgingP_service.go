@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateIPAgingPolicy(name string, description string, n
 
 func (sm *ServiceManager) ListIPAgingPolicy() ([]*models.IPAgingPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/epIpAgingP.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.IPAgingPolicyListFromContainer(cont)
 	return list, err
 }

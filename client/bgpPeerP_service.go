@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListBgpPeerConnectivityProfile(logical_node_profile st
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/bgpPeerP.json", baseurlStr, tenant, l3_outside, logical_node_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.BgpPeerConnectivityProfileListFromContainer(cont)
 
 	return list, err

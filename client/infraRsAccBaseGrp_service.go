@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListAccessAccessGroup(access_port_selector_type string
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infra/accportprof-%s/hports-%s-typ-%s/infraRsAccBaseGrp.json", baseurlStr, leaf_interface_profile, access_port_selector, access_port_selector_type)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AccessAccessGroupListFromContainer(cont)
 
 	return list, err

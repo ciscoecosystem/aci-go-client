@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListL2InterfacePolicy() ([]*models.L2InterfacePolicy, 
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/l2IfPol.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L2InterfacePolicyListFromContainer(cont)
 
 	return list, err

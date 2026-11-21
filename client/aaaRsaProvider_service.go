@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateRSAProvider(name string, description string, nam
 
 func (sm *ServiceManager) ListRSAProvider() ([]*models.RSAProvider, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/rsaext/aaaRsaProvider.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.RSAProviderListFromContainer(cont)
 	return list, err
 }

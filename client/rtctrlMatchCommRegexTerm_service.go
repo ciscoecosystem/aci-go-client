@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateMatchRuleBasedonCommunityRegularExpression(commT
 
 func (sm *ServiceManager) ListMatchRuleBasedonCommunityRegularExpression(match_rule string, tenant string) ([]*models.MatchRuleBasedonCommunityRegularExpression, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/subj-%s/rtctrlMatchCommRegexTerm.json", models.BaseurlStr, tenant, match_rule)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.MatchRuleBasedonCommunityRegularExpressionListFromContainer(cont)
 	return list, err
 }

@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListL2Outside(tenant string) ([]*models.L2Outside, err
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/l2extOut.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L2OutsideListFromContainer(cont)
 
 	return list, err

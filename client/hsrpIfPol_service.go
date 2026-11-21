@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListHSRPInterfacePolicy(tenant string) ([]*models.HSRP
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/hsrpIfPol.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.HSRPInterfacePolicyListFromContainer(cont)
 
 	return list, err

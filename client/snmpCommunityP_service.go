@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateSNMPCommunity(name string, parent_dn string, des
 
 func (sm *ServiceManager) ListSNMPCommunity(parent_dn string) ([]*models.SNMPCommunity, error) {
 	dnUrl := fmt.Sprintf("%s/%s/snmpCommunityP.json", models.BaseurlStr, parent_dn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SNMPCommunityListFromContainer(cont)
 	return list, err
 }

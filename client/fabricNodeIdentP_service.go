@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListFabricNodeMember() ([]*models.FabricNodeMember, er
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/fabricNodeIdentP.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FabricNodeMemberListFromContainer(cont)
 
 	return list, err

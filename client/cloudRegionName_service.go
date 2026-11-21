@@ -41,7 +41,7 @@ func (sm *ServiceManager) UpdateCloudProviderandRegionNames(region string, provi
 
 func (sm *ServiceManager) ListCloudProviderandRegionNames(parentDn string) ([]*models.CloudProviderandRegionNames, error) {
 	dnUrl := fmt.Sprintf("%s/%s/cloudRegionName.json", models.BaseurlStr, parentDn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudProviderandRegionNamesListFromContainer(cont)
 	return list, err
 }

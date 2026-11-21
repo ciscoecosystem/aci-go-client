@@ -18,7 +18,7 @@ func (sm *ServiceManager) ReadTopologyFabricNode(pod int, node int) (*models.Top
 func (sm *ServiceManager) ListTopologyFabricNode() ([]*models.TopologyFabricNode, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/fabricNode.json", baseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.TopologyFabricNodeListFromContainer(cont)
 	return list, err
 }

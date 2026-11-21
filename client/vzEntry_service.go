@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListFilterEntry(filter string, tenant string) ([]*mode
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/flt-%s/vzEntry.json", baseurlStr, tenant, filter)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FilterEntryListFromContainer(cont)
 
 	return list, err

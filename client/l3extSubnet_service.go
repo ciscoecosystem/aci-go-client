@@ -45,7 +45,7 @@ func (sm *ServiceManager) UpdateL3ExtSubnet(ip string, external_network_instance
 func (sm *ServiceManager) ListL3L3ExtSubnet(external_network_instance_profile string, l3_outside string, tenant string) ([]*models.L3ExtSubnet, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/instP-%s/l3extSubnet.json", models.BaseurlStr, tenant, l3_outside, external_network_instance_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3ExtSubnetListFromContainer(cont)
 
 	return list, err

@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListVRF(tenant string) ([]*models.VRF, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/fvCtx.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.VRFListFromContainer(cont)
 
 	return list, err

@@ -47,7 +47,7 @@ func (sm *ServiceManager) ListSwitchAssociation(leaf_profile string) ([]*models.
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infra/nprof-%s/infraLeafS.json", baseurlStr, leaf_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SwitchAssociationListFromContainer(cont)
 
 	return list, err

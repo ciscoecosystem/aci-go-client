@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListL3InterfacePolicy() ([]*models.L3InterfacePolicy, 
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/l3IfPol.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3InterfacePolicyListFromContainer(cont)
 
 	return list, err

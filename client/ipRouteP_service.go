@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListL3outStaticRoute(fabric_node_tDn string, logical_n
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/rsnodeL3OutAtt-[%s]/ipRouteP.json", baseurlStr, tenant, l3_outside, logical_node_profile, fabric_node_tDn)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3outStaticRouteListFromContainer(cont)
 
 	return list, err

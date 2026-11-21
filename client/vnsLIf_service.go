@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateLogicalInterface(name string, parent_dn string, 
 
 func (sm *ServiceManager) ListLogicalInterface(parent_dn string) ([]*models.LogicalInterface, error) {
 	dnUrl := fmt.Sprintf(models.BaseurlStr + "/" + parent_dn + "/vnsLIf.json")
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.LogicalInterfaceListFromContainer(cont)
 	return list, err
 }

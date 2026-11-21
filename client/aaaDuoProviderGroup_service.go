@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateDuoProviderGroup(name string, description string
 
 func (sm *ServiceManager) ListDuoProviderGroup() ([]*models.DuoProviderGroup, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/duoext/aaaDuoProviderGroup.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.DuoProviderGroupListFromContainer(cont)
 	return list, err
 }

@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateConcreteDevice(name string, parent_dn string, na
 
 func (sm *ServiceManager) ListConcreteDevice(parent_dn string) ([]*models.ConcreteDevice, error) {
 	dnUrl := fmt.Sprintf(models.BaseurlStr + "/" + parent_dn + "/vnsCDev.json")
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.ConcreteDeviceListFromContainer(cont)
 	return list, err
 }

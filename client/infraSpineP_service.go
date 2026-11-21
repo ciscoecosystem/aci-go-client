@@ -49,7 +49,7 @@ func (sm *ServiceManager) ListSpineProfile() ([]*models.SpineProfile, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/infraSpineP.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SpineProfileListFromContainer(cont)
 
 	return list, err

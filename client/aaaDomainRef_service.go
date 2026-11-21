@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateAaaDomainRef(name string, parentDn string, nameA
 
 func (sm *ServiceManager) ListAaaDomainRef(parentDn string) ([]*models.AaaDomainRef, error) {
 	dnUrl := fmt.Sprintf("%s/%s/aaaDomainRef.json", models.BaseurlStr, parentDn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AaaDomainRefListFromContainer(cont)
 	return list, err
 }

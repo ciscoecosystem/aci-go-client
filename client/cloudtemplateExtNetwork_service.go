@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateCloudTemplateforExternalNetwork(name string, inf
 
 func (sm *ServiceManager) ListCloudTemplateforExternalNetwork(infra_network_template string, tenant string) ([]*models.CloudTemplateforExternalNetwork, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/infranetwork-%s/cloudtemplateExtNetwork.json", models.BaseurlStr, tenant, infra_network_template)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CloudTemplateforExternalNetworkListFromContainer(cont)
 	return list, err
 }

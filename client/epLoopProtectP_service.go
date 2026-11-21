@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateEPLoopProtectionPolicy(name string, description 
 
 func (sm *ServiceManager) ListEPLoopProtectionPolicy() ([]*models.EPLoopProtectionPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/infra/epLoopProtectP.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.EPLoopProtectionPolicyListFromContainer(cont)
 	return list, err
 }

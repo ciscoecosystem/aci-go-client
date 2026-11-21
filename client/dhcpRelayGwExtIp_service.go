@@ -38,7 +38,7 @@ func (sm *ServiceManager) UpdateDhcpRelayGwExtIp(parentDn string, description st
 
 func (sm *ServiceManager) ListDhcpRelayGwExtIp(parentDn string) ([]*models.DhcpRelayGwExtIp, error) {
 	dnUrl := fmt.Sprintf("%s/%s/dhcpRelayGwExtIp.json", models.BaseurlStr, parentDn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.DhcpRelayGwExtIpListFromContainer(cont)
 	return list, err
 }

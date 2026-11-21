@@ -43,7 +43,7 @@ func (sm *ServiceManager) UpdateL3extVirtualLIfPLagPolicy(floating_path_attribut
 
 func (sm *ServiceManager) ListL3extVirtualLIfPLagPolicy(floating_path_attributes_tDn string, logical_interface_profile_encap string, logical_interface_profile_nodeDn string, logical_interface_profile string, logical_node_profile string, l3_outside string, tenant string) ([]*models.L3extVirtualLIfPLagPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/lifp-%s/vlifp-[%s]-[%s]/rsdynPathAtt-[%s]/l3extVirtualLIfPLagPolAtt.json", models.BaseurlStr, tenant, l3_outside, logical_node_profile, logical_interface_profile, logical_interface_profile_nodeDn, logical_interface_profile_encap, floating_path_attributes_tDn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3extVirtualLIfPLagPolicyListFromContainer(cont)
 	return list, err
 }

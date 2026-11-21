@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListL3outHSRPInterfaceProfile(logical_interface_profil
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/out-%s/lnodep-%s/lifp-%s/hsrpIfP.json", baseurlStr, tenant, l3_outside, logical_node_profile, logical_interface_profile)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.L3outHSRPInterfaceProfileListFromContainer(cont)
 
 	return list, err

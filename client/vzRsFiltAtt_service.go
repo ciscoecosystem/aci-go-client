@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateFilterRelationship(tnVzFilterName string, parent
 
 func (sm *ServiceManager) ListFilterRelationship(parentDn string) ([]*models.FilterRelationship, error) {
 	dnUrl := fmt.Sprintf("%s/%s/vzRsFiltAtt.json", models.BaseurlStr, parentDn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FilterRelationshipListFromContainer(cont)
 	return list, err
 }

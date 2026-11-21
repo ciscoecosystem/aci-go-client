@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdatePBRBackupPolicy(name string, tenant string, desc
 
 func (sm *ServiceManager) ListPBRBackupPolicy(tenant string) ([]*models.PBRBackupPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/svcCont/vnsBackupPol.json", models.BaseurlStr, tenant)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.PBRBackupPolicyListFromContainer(cont)
 	return list, err
 }

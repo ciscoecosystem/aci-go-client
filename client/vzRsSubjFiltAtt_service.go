@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateSubjectFilter(tnVzFilterName string, contract_su
 
 func (sm *ServiceManager) ListSubjectFilter(contract_subject string, contract string, tenant string) ([]*models.SubjectFilter, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/brc-%s/subj-%s/vzRsSubjFiltAtt.json", models.BaseurlStr, tenant, contract, contract_subject)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.SubjectFilterListFromContainer(cont)
 	return list, err
 }

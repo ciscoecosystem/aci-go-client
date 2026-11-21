@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateFabricPortConfiguration(subPort string, port str
 
 func (sm *ServiceManager) ListFabricPortConfiguration() ([]*models.FabricPortConfiguration, error) {
 	dnUrl := fmt.Sprintf("%s/%s/%s.json", models.BaseurlStr, models.ParentDnFabricPortConfig, models.FabricPortConfigClassName)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.FabricPortConfigurationListFromContainer(cont)
 	return list, err
 }

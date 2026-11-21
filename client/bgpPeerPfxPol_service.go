@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListBGPPeerPrefixPolicy(tenant string) ([]*models.BGPP
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/bgpPeerPfxPol.json", baseurlStr, tenant)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.BGPPeerPrefixPolicyListFromContainer(cont)
 
 	return list, err

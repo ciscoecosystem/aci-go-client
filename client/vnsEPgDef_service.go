@@ -41,7 +41,7 @@ func (sm *ServiceManager) UpdateEPgDef(name string, parent_dn string, descriptio
 
 func (sm *ServiceManager) ListEPgDef(parent_dn string) ([]*models.EPgDef, error) {
 	dnUrl := fmt.Sprintf("%s/%s/vnsEPgDef.json", models.BaseurlStr, parent_dn)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.EPgDefListFromContainer(cont)
 	return list, err
 }

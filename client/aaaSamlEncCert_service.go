@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdateKeypairforSAMLEncryption(name string, descriptio
 
 func (sm *ServiceManager) ListKeypairforSAMLEncryption() ([]*models.KeypairforSAMLEncryption, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/samlext/aaaSamlEncCert.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.KeypairforSAMLEncryptionListFromContainer(cont)
 	return list, err
 }

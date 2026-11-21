@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateNexthopUnchangedAction(action_rule_profile strin
 
 func (sm *ServiceManager) ListNexthopUnchangedAction(action_rule_profile string, tenant string) ([]*models.NexthopUnchangedAction, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/attr-%s/rtctrlSetNhUnchanged.json", models.BaseurlStr, tenant, action_rule_profile)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.NexthopUnchangedActionListFromContainer(cont)
 	return list, err
 }

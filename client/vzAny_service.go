@@ -48,7 +48,7 @@ func (sm *ServiceManager) ListAny(vrf string, tenant string) ([]*models.Any, err
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ctx-%s/vzAny.json", baseurlStr, tenant, vrf)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.AnyListFromContainer(cont)
 
 	return list, err

@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListVMMSecurityPolicy(domain_tDn string, application_e
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/ap-%s/epg-%s/rsdomAtt-[%s]/vmmSecP.json", baseurlStr, tenant, application_profile, application_epg, domain_tDn)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.VMMSecurityPolicyListFromContainer(cont)
 
 	return list, err

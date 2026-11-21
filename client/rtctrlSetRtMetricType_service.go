@@ -42,7 +42,7 @@ func (sm *ServiceManager) UpdateRtctrlSetRtMetricType(action_rule_profile string
 
 func (sm *ServiceManager) ListRtctrlSetRtMetricType(action_rule_profile string, tenant string) ([]*models.RtctrlSetRtMetricType, error) {
 	dnUrl := fmt.Sprintf("%s/uni/tn-%s/attr-%s/rtctrlSetRtMetricType.json", models.BaseurlStr, tenant, action_rule_profile)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.RtctrlSetRtMetricTypeListFromContainer(cont)
 	return list, err
 }

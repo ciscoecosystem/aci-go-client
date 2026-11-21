@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListVXLANPool() ([]*models.VXLANPool, error) {
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/fvnsVxlanInstP.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.VXLANPoolListFromContainer(cont)
 
 	return list, err

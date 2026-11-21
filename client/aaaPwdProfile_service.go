@@ -40,7 +40,7 @@ func (sm *ServiceManager) UpdatePasswordChangeExpirationPolicy(description strin
 
 func (sm *ServiceManager) ListPasswordChangeExpirationPolicy() ([]*models.PasswordChangeExpirationPolicy, error) {
 	dnUrl := fmt.Sprintf("%s/uni/userext/aaaPwdProfile.json", models.BaseurlStr)
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.PasswordChangeExpirationPolicyListFromContainer(cont)
 	return list, err
 }

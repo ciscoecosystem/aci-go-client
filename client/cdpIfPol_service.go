@@ -46,7 +46,7 @@ func (sm *ServiceManager) ListCDPInterfacePolicy() ([]*models.CDPInterfacePolicy
 	baseurlStr := "/api/node/class"
 	dnUrl := fmt.Sprintf("%s/uni/cdpIfPol.json", baseurlStr)
 
-	cont, err := sm.GetViaURL(dnUrl)
+	cont, err := sm.GetViaURLAllowEmpty(dnUrl)
 	list := models.CDPInterfacePolicyListFromContainer(cont)
 
 	return list, err
